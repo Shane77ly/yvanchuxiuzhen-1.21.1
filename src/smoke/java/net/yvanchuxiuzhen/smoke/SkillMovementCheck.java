@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
+import net.yvanchuxiuzhen.system.skill.data.SkillMovementState;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -31,11 +32,10 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 /** 身法输入到服务端和本人位移的主路径，以及飞行扣费、严格资源门槛与禁空；不重复旧神通。 */
 final class SkillMovementCheck extends SystemCheck {
     private static final String FLIGHT_DEATH_CONTRIBUTION = "smoke:skillmovement_flight_death";
-    private static final String[] TIMERS = {"shenfaanjianW", "shenfaanjianS", "shenfaanjianA", "shenfaanjianD", "shenfatiaoyve", "shenfatick"};
     private static final String[] TIZHI = {"flyxiaohaotick", "lvekongspeed", "superjet", "LevelNumberCorrect"};
     private final double[] oldTizhi = new double[TIZHI.length];
     private SkillState original;
-    private CompoundTag originalPersistent;
+    private SkillMovementState originalMovement;
     private ItemStack chest;
     private GameType gameMode;
     private double power;
@@ -54,7 +54,7 @@ final class SkillMovementCheck extends SystemCheck {
                 script(
                 new Action(4, p -> {
                     original = Skills.state(p);
-                    originalPersistent = p.getPersistentData().copy();
+                    originalMovement = p.getData(SkillData.MOVEMENT);
                     chest = p.getItemBySlot(EquipmentSlot.CHEST).copy();
                     gameMode = p.gameMode.getGameModeForPlayer();
                     power = Cultivation.get(p, CultivationValue.POWER);
@@ -64,7 +64,7 @@ final class SkillMovementCheck extends SystemCheck {
                     mayFly = p.getAbilities().mayfly;
                     abilityFlying = p.getAbilities().flying;
                     for (int i = 0; i < TIZHI.length; i++) oldTizhi[i] = Cultivation.tizhiDouble(p, TIZHI[i]);
-                    for (String key : TIMERS) p.getPersistentData().remove(key);
+                    p.setData(SkillData.MOVEMENT, SkillMovementState.EMPTY);
                     Arena.level(p);
                     p.connection.teleport(p.getX(), p.getY(), p.getZ(), 0, 0);
                     startZ = p.getZ();
@@ -74,13 +74,13 @@ final class SkillMovementCheck extends SystemCheck {
                 }),
                 new Action(7, p -> tap("anjian_w")),
                 new Action(8, p -> {
-                    expectTrue("双击按键经网络使本人实际前移并累加身法冷却", p.getZ() > startZ + .3 && p.getPersistentData().getDouble("shenfatick") > 0 && p.hasEffect(MobEffects.MOVEMENT_SPEED));
+                    expectTrue("双击按键经网络使本人实际前移并累加身法冷却", p.getZ() > startZ + .3 && p.getData(SkillData.MOVEMENT).cooldownTicks() > 0 && p.hasEffect(MobEffects.MOVEMENT_SPEED));
                     ItemStack armor = new ItemStack(Items.IRON_CHESTPLATE);
                     armor.enchant(p.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key("flyingskill")), 10);
                     p.setItemSlot(EquipmentSlot.CHEST, armor);
-                    p.getPersistentData().putDouble("shenfatick", 5);
+                    p.setData(SkillData.MOVEMENT, p.getData(SkillData.MOVEMENT).withCooldownTicks(5));
                     SkillMovement.tick(p);
-                    expect("身法附魔十级让每刻冷却减少一点三", 3.7, p.getPersistentData().getDouble("shenfatick"));
+                    expect("身法附魔十级让每刻冷却减少一点三", 3.7, p.getData(SkillData.MOVEMENT).cooldownTicks());
                     p.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
                     p.setGameMode(GameType.SURVIVAL);
                     Skills.setFlight(p, ItemStack.EMPTY);
@@ -186,10 +186,7 @@ final class SkillMovementCheck extends SystemCheck {
         for (int i = 0; i < TIZHI.length; i++) Cultivation.setTizhiDouble(player, TIZHI[i], oldTizhi[i]);
         Cultivation.set(player, CultivationValue.POWER, power);
         Cultivation.set(player, CultivationValue.LEVEL_NUMBER, rank);
-        for (String key : TIMERS) {
-            if (originalPersistent.contains(key)) player.getPersistentData().put(key, originalPersistent.get(key).copy());
-            else player.getPersistentData().remove(key);
-        }
+        player.setData(SkillData.MOVEMENT, originalMovement);
         player.setItemSlot(EquipmentSlot.CHEST, chest);
         player.setGameMode(gameMode);
         player.getAbilities().mayfly = mayFly;

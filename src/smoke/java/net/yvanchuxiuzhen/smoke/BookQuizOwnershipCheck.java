@@ -13,6 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.book.BookQuizQuestions;
+import net.yvanchuxiuzhen.system.book.api.BookTexts;
+import net.yvanchuxiuzhen.system.book.api.QuizOwner;
 import net.yvanchuxiuzhen.system.book.client.BookQuizScreen;
 import net.yvanchuxiuzhen.system.book.content.BookMenus;
 import net.yvanchuxiuzhen.system.book.content.BookQuizMenu;
@@ -30,7 +32,6 @@ final class BookQuizOwnershipCheck extends SystemCheck {
     private ItemStack openingStack;
     private int selected;
     private int originalQuestion;
-    private boolean hadProgress;
     private double originalProgress;
 
     BookQuizOwnershipCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -73,7 +74,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
                             ItemStack.matches(saved, minecraft.player.getInventory().getItem(9 + option)));
                     verifyOwner(player, saved, "选项" + (option + 1) + "重进");
                 }
-                expect("重进后答题计数仍为零", 0, player.getPersistentData().getDouble("daduishuliang"));
+                expect("重进后答题计数仍为零", 0, BookQuizData.answerCount(player));
                 cleanup(player);
                 finish();
             });
@@ -94,8 +95,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         }
         selected = player.getInventory().selected;
         originalQuestion = player.getData(BookQuizData.QUESTION);
-        hadProgress = player.getPersistentData().contains("daduishuliang");
-        originalProgress = player.getPersistentData().getDouble("daduishuliang");
+        originalProgress = BookQuizData.answerCount(player);
         player.getInventory().clearContent();
         player.getInventory().selected = 0;
     }
@@ -107,7 +107,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, openingStack.copy());
         player.getInventory().setItem(9 + option, candidate.copy());
         player.setData(BookQuizData.QUESTION, QUESTIONS[option]);
-        player.getPersistentData().putDouble("daduishuliang", 10);
+        BookQuizData.setAnswerCount(player, 10);
         player.inventoryMenu.broadcastChanges();
         BookMenus.openQuiz(player);
     }
@@ -136,15 +136,9 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         String label = "选项" + (option + 1);
         ItemStack actual = player.getMainHandItem();
         verifyOwner(player, actual, label);
-        CompoundTag originalData = data(candidate);
-        CompoundTag remainingData = data(actual);
-        for (String key : List.of("belongToMasterUUID", "belongToName")) {
-            originalData.remove(key);
-            remainingData.remove(key);
-        }
-        expect(label + "保留原自定义数据与嵌套字段", originalData, remainingData);
+        expect(label + "保留原自定义数据与嵌套字段", data(candidate), data(actual));
         ItemStack originalComponents = candidate.copy();
-        originalComponents.set(DataComponents.CUSTOM_DATA, actual.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY));
+        originalComponents.set(BookQuizData.QUIZ_OWNER.get(), BookTexts.quizOwner(actual));
         expectTrue(label + "保留物品身份数量名称耐久及其他组件", ItemStack.matches(originalComponents, actual));
         expectTrue(label + "普通物品没有新增功法或技能实例", Techniques.book(actual).isEmpty() && Skills.book(actual).isEmpty());
         expectTrue(label + "开窗时原主手未被绑定", ItemStack.matches(openingStack, player.getInventory().getItem(9 + option)));
@@ -152,7 +146,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
                 == option + 2);
         expectTrue(label + "普通栈归属与其他组件双端一致", ItemStack.matches(actual, minecraft.player.getMainHandItem()));
         expectTrue(label + "完成后关闭菜单并同步清零", !(player.containerMenu instanceof BookQuizMenu)
-                && player.getPersistentData().getDouble("daduishuliang") == 0
+                && BookQuizData.answerCount(player) == 0
                 && BookQuizData.state(minecraft.player).progress() == 0);
         completed.add(actual.copy());
         player.getInventory().setItem(9 + option, actual.copy());
@@ -161,9 +155,9 @@ final class BookQuizOwnershipCheck extends SystemCheck {
     }
 
     private void verifyOwner(ServerPlayer player, ItemStack stack, String label) {
-        CompoundTag data = data(stack);
-        expect(label + "通用UUID属于答题玩家", player.getStringUUID(), data.getString("belongToMasterUUID"));
-        expect(label + "通用显示名属于答题玩家", player.getDisplayName().getString(), data.getString("belongToName"));
+        QuizOwner owner = BookTexts.quizOwner(stack);
+        expect(label + "通用UUID属于答题玩家", player.getStringUUID(), owner.ownerUuid());
+        expect(label + "通用显示名属于答题玩家", player.getDisplayName().getString(), owner.ownerName());
     }
 
     private static ItemStack sample(int option) {
@@ -182,11 +176,10 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         CompoundTag nested = new CompoundTag();
         nested.putInt("marker", option);
         data.put("unrelated_nested", nested);
-        if (option >= 2) {
-            data.putString("belongToMasterUUID", "11111111-2222-3333-4444-555555555555");
-            data.putString("belongToName", "既有归属");
-        }
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        if (option >= 2) {
+            BookTexts.setQuizOwner(stack, new QuizOwner("11111111-2222-3333-4444-555555555555", "既有归属"));
+        }
         return stack;
     }
 
@@ -200,8 +193,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot));
         player.getInventory().selected = selected;
         player.setData(BookQuizData.QUESTION, originalQuestion);
-        if (hadProgress) player.getPersistentData().putDouble("daduishuliang", originalProgress);
-        else player.getPersistentData().remove("daduishuliang");
+        BookQuizData.setAnswerCount(player, originalProgress);
         BookQuizData.publish(player);
         player.inventoryMenu.broadcastChanges();
     }

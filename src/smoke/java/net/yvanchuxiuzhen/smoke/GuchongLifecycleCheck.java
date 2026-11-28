@@ -36,10 +36,14 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongRuntimeState;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlock;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -171,7 +175,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
             specimens.add(wild);
             anchor(wild);
             expectTrue(id + "野生分支消耗物品并执行自然初始化", player.getMainHandItem().isEmpty()
-                    && !wild.getPersistentData().getString("LEVELname").isEmpty() && !wild.isTame());
+                    && !EntityAttributes.realmName(wild).isEmpty() && !wild.isTame());
             String team = Relations.entityTeam(wild);
             GuchongCapture.captureWild(player.serverLevel(), wild, player.getStringUUID());
             ItemStack captured = player.getInventory().items.stream().filter(value -> value.is(item(id + "item").getItem())).findFirst().orElseThrow();
@@ -192,14 +196,13 @@ final class GuchongLifecycleCheck extends SystemCheck {
             expectTrue(id + "认主分支恢复资质生命并认当前使用者为原生主人", player.getMainHandItem().isEmpty()
                     && tamed.isOwnedBy(player) && tamed.getHealth() == 7
                     && Relations.entityTeam(tamed).equals(Relations.team(player))
-                    && tamed.getPersistentData().getString("attack_Num_LEVEL").equals(data.getString("attack_Num_LEVEL")));
+                    && EntityAttributes.rating(tamed, Stat.ATTACK).equals(data.getString("attack_Num_LEVEL")));
             expectTrue(id + "认主单虫恢复原生属性且不写当前生命字段",
                     tamed.getAttributeBaseValue(Attributes.MAX_HEALTH) == data.getDouble("health_Max")
                             && tamed.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == data.getDouble("attack_Num")
-                            && tamed.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == data.getDouble("speed_number")
-                            && !tamed.getPersistentData().contains("health_Num"));
-            expectTrue(id + "保留来源遗漏经验与自定义主人UUID", !tamed.getPersistentData().contains("experience")
-                    && !tamed.getPersistentData().contains("belongToMasterUUID"));
+                            && tamed.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == data.getDouble("speed_number"));
+            expectTrue(id + "保留来源遗漏经验与自定义主人UUID", EntityAttributes.experience(tamed) == 0
+                    && tamed.getData(GuchongData.RUNTIME).ownerUuid().isEmpty());
             tamed.discard();
         }
     }
@@ -218,7 +221,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         TaoguanBlockEntity placed = jar(player);
         expectTrue("手持大罐实际放置并把第九槽移交地上罐", player.getMainHandItem().isEmpty()
                 && placed.insectSlots() == 9 && placed.getItem(8).is(specimen.getItem()) && placed.getItem(0).isEmpty()
-                && placed.jarData().getString("guguanuuid").equals(JAR_UUID));
+                && placed.jarData().uuid.equals(JAR_UUID));
     }
 
     private void recognizeAndSave(ServerPlayer player) {
@@ -242,7 +245,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         TaoguanBlockEntity restored = (TaoguanBlockEntity) BlockEntity.loadStatic(home, jar(player).getBlockState(),
                 jar(player).saveWithFullMetadata(player.registryAccess()), player.registryAccess());
         expectTrue("地上罐保存重读保留第九槽完整个体与罐UUID", ItemStack.isSameItemSameComponents(ownedSpecimen, restored.getItem(8))
-                && restored.jarData().getString("guguanuuid").equals(JAR_UUID));
+                && restored.jarData().uuid.equals(JAR_UUID));
     }
 
     private void spawnTarget(ServerPlayer player) {
@@ -256,7 +259,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private boolean released(int local) {
         boolean[] found = {false};
         onServer(player -> {
-            if (!jar(player).jarData().getBoolean("shifangguchong")) return;
+            if (!jar(player).jarData().released) return;
             active = onlyInsect(player);
             specimens.add(active);
             anchor(active);
@@ -267,10 +270,10 @@ final class GuchongLifecycleCheck extends SystemCheck {
             expectTrue("地上放虫恢复整数生命/攻击与双精度速度且不写当前生命字段",
                     active.getAttributeBaseValue(Attributes.MAX_HEALTH) == slotData.getInt("health_Max")
                             && active.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == slotData.getInt("attack_Num")
-                            && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number")
-                            && !active.getPersistentData().contains("health_Num"));
-            expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().getDouble("shifangnum") == 1
-                    && active.getPersistentData().getBoolean("kanjia") && active.getPersistentData().getDouble("guguanweizhi") == 8
+                            && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number"));
+            GuchongRuntimeState groundRuntime = active.getData(GuchongData.RUNTIME);
+            expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().releasedCount == 1
+                    && groundRuntime.guarding() && groundRuntime.jarSlot() == 8
                     && active.getOwnerUUID().equals(player.getUUID()) && active.getHealth() == 7F);
             found[0] = true;
         });
@@ -293,8 +296,8 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private boolean returned(int local) {
         boolean[] done = {false};
         onServer(player -> {
-            done[0] = active.isRemoved() && jar(player).jarData().getDouble("shifangnum") == 0;
-            if (done[0]) expectTrue("失去目标后自然回罐清计数并保留来源不回写生命的槽", !jar(player).jarData().getBoolean("shifangguchong")
+            done[0] = active.isRemoved() && jar(player).jarData().releasedCount == 0;
+            if (done[0]) expectTrue("失去目标后自然回罐清计数并保留来源不回写生命的槽", !jar(player).jarData().released
                     && GuchongJarData.read(jar(player).getItem(8)).getDouble("health_Num") == 7.75);
         });
         if (!done[0] && local > 200) throw new IllegalStateException("地上罐自然回收超时");
@@ -304,7 +307,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private void groundDeathAndPickup(ServerPlayer player) {
         active.hurt(player.damageSources().generic(), 10000);
         expectTrue("地上蛊虫自然死亡清第九槽和释放计数", jar(player).getItem(8).isEmpty()
-                && jar(player).jarData().getDouble("shifangnum") == 0 && !jar(player).jarData().getBoolean("shifangguchong"));
+                && jar(player).jarData().releasedCount == 0 && !jar(player).jarData().released);
         active.discard();
         target.discard();
         ModifierKeys.update(player, true, false);
@@ -332,16 +335,16 @@ final class GuchongLifecycleCheck extends SystemCheck {
                 active.getHealth() == (float) slotData.getDouble("health_Num8")
                         && active.getAttributeBaseValue(Attributes.MAX_HEALTH) == slotData.getDouble("health_Max8")
                         && active.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == slotData.getDouble("attack_Num8")
-                        && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number8")
-                        && !active.getPersistentData().contains("health_Num"));
+                        && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number8"));
+        GuchongRuntimeState runtime = active.getData(GuchongData.RUNTIME);
         expectTrue("手持罐释放真实认主个体并冻结罐UUID和槽号", GuchongJarData.read(player.getMainHandItem()).getDouble("shifangnum") == 1
-                && active.getPersistentData().getString("guguanuuid").equals(JAR_UUID)
-                && active.getPersistentData().getDouble("guguanweizhi") == 8 && active.isOwnedBy(player));
+                && runtime.jarUuid().equals(JAR_UUID)
+                && runtime.jarSlot() == 8 && active.isOwnedBy(player));
     }
 
     private void handheldRecall(ServerPlayer player) {
         active.setHealth(6.5F);
-        active.getPersistentData().putDouble("experience", 23.5);
+        EntityAttributes.setExperience(active, 23.5);
         useJar(player);
         CompoundTag data = GuchongJarData.read(player.getMainHandItem());
         expectTrue("手持罐自然收回保存当前生命经验且清释放计数", active.isRemoved() && data.getDouble("health_Num8") == 6.5
@@ -358,9 +361,10 @@ final class GuchongLifecycleCheck extends SystemCheck {
         GuchongJarData.write(jar, slots);
         useJar(player);
         active = onlyInsect(player);
+        GuchongRuntimeState runtime = active.getData(GuchongData.RUNTIME);
         expectTrue("空槽和他主槽不计数，第九槽按主人放出并认主", GuchongJarData.read(player.getMainHandItem()).getDouble("shifangnum") == 1
-                && active.getPersistentData().getDouble("guguanweizhi") == 8 && active.getPersistentData().getBoolean("guchongxvnfu")
-                && active.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID()) && active.isOwnedBy(player));
+                && runtime.jarSlot() == 8 && runtime.tamed()
+                && runtime.ownerUuid().equals(player.getStringUUID()) && active.isOwnedBy(player));
         specimens.add(active);
         anchor(active);
         active.moveTo(player.position());
@@ -381,7 +385,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         specimens.add(active);
         ItemStack saved = player.getInventory().getItem(9);
         expectTrue("真实退出重进保留活动虫与背包罐及归属", active.isOwnedBy(player) && active.getHealth() == 6.5F
-                && active.getPersistentData().getDouble("experience") == 23.5 && active.getPersistentData().getString("guguanuuid").equals(JAR_UUID)
+                && EntityAttributes.experience(active) == 23.5 && active.getData(GuchongData.RUNTIME).jarUuid().equals(JAR_UUID)
                 && GuchongJarData.read(saved).getBoolean("shifangguchong") && GuchongJarData.read(saved).getDouble("shifangnum") == 1);
         CompoundTag beforeDeath = GuchongJarData.read(saved);
         ItemStack otherBeforeDeath = player.getInventory().getItem(10).copy();
@@ -450,16 +454,17 @@ final class GuchongLifecycleCheck extends SystemCheck {
             diagnostics.add("INFO 蛊虫生命周期 友方伤害：原生免疫=" + immuneBefore + " 无敌刻=" + cooldownBefore
                     + " hurt=" + friendlyHurt + " 生命=" + healthBefore + "->" + active.getHealth()
                     + " 死亡=" + active.isDeadOrDying() + " 移除=" + active.isRemoved() + " 事件=" + damageEvents);
-            boolean friendlyBlocked = !friendlyHurt && active.getHealth() == healthBefore && !active.isDeadOrDying()
-                    && damageEvents.stream().anyMatch(value -> value.startsWith("incoming canceled=true"));
-            expectTrue("原关系下玩家攻击被伤害事件取消", friendlyBlocked);
+            boolean friendlyBlocked = active.getHealth() == healthBefore && !active.isDeadOrDying()
+                    && damageEvents.stream().noneMatch(value -> value.startsWith("damagePre") || value.startsWith("death"));
+            expectTrue("原关系下玩家攻击被盾后免伤拦截", friendlyBlocked);
             if (!friendlyBlocked) {
                 stopExperienceObservation(player);
                 return;
             }
             damageEvents.clear();
-            // 受控改变虫的团队，保留主人与罐关联，使玩家伤害能进入正常结算。
+            // 受控改变虫的团队并清零同刻无敌帧，保留主人与罐关联，使玩家伤害能进入正常结算。
             Relations.setTeam(active, "");
+            active.invulnerableTime = 0;
             healthBefore = active.getHealth();
             immuneBefore = active.isInvulnerableTo(source);
             cooldownBefore = active.invulnerableTime;

@@ -129,7 +129,8 @@ class Converter:
                 namespace, _, rest = file.relative_to(data).as_posix().partition('/tags/')
                 kind, _, path = rest.partition('/')
                 if kind == 'worldgen':
-                    self.skipped.append(('tag', f'{mod}/{file.relative_to(root).as_posix()}', '群系标签引用本 Mod 的群系，随 world 迁移'))
+                    if not path.startswith('biome/has_structure/'):
+                        self.skipped.append(('tag', f'{mod}/{file.relative_to(root).as_posix()}', '世界生成标签随所属世界内容迁移'))
                     continue
                 if kind not in TAG_DIRS:
                     raise ValueError(f'未知标签种类 {file}')

@@ -5,13 +5,11 @@ import java.util.List;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -33,15 +31,13 @@ public final class TreasureCaskets {
 
     public static void use(Level world, BlockPos pos) {
         if (!(world instanceof ServerLevel level) || !(level.getBlockEntity(pos) instanceof TreasureCasketBlockEntity casket)) return;
-        CompoundTag data = casket.getPersistentData();
-        String command = data.getString("zhiling");
-        if (command.isEmpty() || data.getBoolean("yikaiqi")) return;
+        String command = casket.command();
+        if (command.isEmpty() || casket.opened()) return;
         level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, Vec3.atLowerCornerOf(pos),
                 Vec2.ZERO, level, 4, "", Component.empty(), level.getServer(), null).withSuppressedOutput(), command);
         PENDING.add(new Pending(level, pos.immutable()));
-        BlockEntity current = level.getBlockEntity(pos);
-        if (current != null) {
-            current.getPersistentData().putBoolean("yikaiqi", true);
+        if (level.getBlockEntity(pos) instanceof TreasureCasketBlockEntity current) {
+            current.setOpened(true);
             current.setChanged();
         }
         level.sendBlockUpdated(pos, level.getBlockState(pos), level.getBlockState(pos), Block.UPDATE_ALL);

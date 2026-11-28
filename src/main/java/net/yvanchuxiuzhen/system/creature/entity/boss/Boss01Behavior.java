@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -18,8 +17,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.fulu.api.NpcTalismans;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -38,15 +42,15 @@ final class Boss01Behavior {
 
     static void hurt(Boss01Entity boss) {
         if (boss.level().isClientSide || !boss.isAlive()) return;
-        CompoundTag data = boss.getPersistentData();
+        CreatureState state = CreatureData.state(boss);
         if (!StatusEffects.has(boss, "skilleffect_08")) {
-            if (!data.getString("jineng").isEmpty()) {
+            if (!state.skill().isEmpty()) {
                 boss.setAnimation("empty");
-                data.putDouble("entitytick", 0);
-                data.putString("jineng", "");
-                data.putString("jinengjinxing", "");
-                data.putDouble("entitytick2", 0);
-                data.putBoolean("donghua", false);
+                state.setTick(0);
+                state.setSkill("");
+                state.setPhase("");
+                state.setTick2(0);
+                state.setAnimated(false);
             }
             boss.setAnimation("animation.ycxzboss_01.attacked");
         }
@@ -54,30 +58,30 @@ final class Boss01Behavior {
 
     static void update(Boss01Entity boss) {
         if (boss.level().isClientSide || !boss.isAlive()) return;
-        CompoundTag data = boss.getPersistentData();
-        data.putDouble("entitytick", data.getDouble("entitytick") + 1);
+        CreatureState state = CreatureData.state(boss);
+        state.setTick(state.tick() + 1);
         LivingEntity target = boss.getTarget();
         if (target == null) {
-            if (data.getDouble("entitytick") >= 20) data.putDouble("entitytick", 0);
+            if (state.tick() >= 20) state.setTick(0);
             return;
         }
 
-        data.putDouble("entitytick2", data.getDouble("entitytick2") + 1);
-        if (data.getDouble("entitytick2") >= 60) {
+        state.setTick2(state.tick2() + 1);
+        if (state.tick2() >= 60) {
             repelNearby(boss);
-            data.putDouble("entitytick2", 0);
+            state.setTick2(0);
         }
-        if (data.getString("jineng").isEmpty()) {
-            if (data.getDouble("entitytick") >= 60) {
+        if (state.skill().isEmpty()) {
+            if (state.tick() >= 60) {
                 int roll = boss.getRandom().nextInt(1, 121);
-                data.putString("jineng", roll <= 20 ? FIREBALL : roll <= 40 ? FLAME_TORRENT :
+                state.setSkill(roll <= 20 ? FIREBALL : roll <= 40 ? FLAME_TORRENT :
                         roll <= 60 ? TELEPORT : roll <= 70 ? FLYING_THUNDER : roll <= 90 ? THUNDER_ARRAY : roll <= 100 ? HEAL : THUNDER_ROAR);
-                data.putDouble("entitytick", 0);
+                state.setTick(0);
             }
             return;
         }
 
-        switch (data.getString("jineng")) {
+        switch (state.skill()) {
             case FIREBALL -> fireball(boss);
             case FLAME_TORRENT -> flameTorrent(boss, target);
             case TELEPORT -> teleport(boss, target);
@@ -138,7 +142,7 @@ final class Boss01Behavior {
                 if (!Relations.isFriendly(boss, entity)) {
                     level.sendParticles(ParticleTypes.FLAME, entity.getX(), entity.getY() + 1, entity.getZ(), 5, .2, .5, .2, .1);
                     if (entity instanceof LivingEntity living) {
-                        SpellDamage.command(level, living, "shanghai 火 " + boss.getStringUUID() + " false 2 1");
+                        SpellDamage.deal(level, living, DamageCategory.FIRE, boss, false, 2, 1);
                     }
                 }
             }
@@ -157,24 +161,24 @@ final class Boss01Behavior {
 
     private static void flyingThunder(Boss01Entity boss) {
         if (!animationStarted(boss, "animation.ycxzboss_01.skill05", 40)) return;
-        CompoundTag data = boss.getPersistentData();
-        if (tick(boss) >= 40 && data.getString("jinengjinxing").equals("第五发")) {
+        CreatureState state = CreatureData.state(boss);
+        if (tick(boss) >= 40 && state.phase().equals("第五发")) {
             finish(boss, true);
-        } else if (tick(boss) >= 32 && data.getString("jinengjinxing").equals("第四发")) {
+        } else if (tick(boss) >= 32 && state.phase().equals("第四发")) {
             shoot(boss);
-            data.putString("jinengjinxing", "第五发");
-        } else if (tick(boss) >= 23 && data.getString("jinengjinxing").equals("第三发")) {
+            state.setPhase("第五发");
+        } else if (tick(boss) >= 23 && state.phase().equals("第三发")) {
             shoot(boss);
-            data.putString("jinengjinxing", "第四发");
-        } else if (tick(boss) >= 19 && data.getString("jinengjinxing").equals("第二发")) {
+            state.setPhase("第四发");
+        } else if (tick(boss) >= 19 && state.phase().equals("第二发")) {
             shoot(boss);
-            data.putString("jinengjinxing", "第三发");
-        } else if (tick(boss) >= 13 && data.getString("jinengjinxing").equals("第一发")) {
+            state.setPhase("第三发");
+        } else if (tick(boss) >= 13 && state.phase().equals("第一发")) {
             shoot(boss);
-            data.putString("jinengjinxing", "第二发");
-        } else if (tick(boss) >= 6 && data.getString("jinengjinxing").isEmpty()) {
+            state.setPhase("第二发");
+        } else if (tick(boss) >= 6 && state.phase().isEmpty()) {
             shoot(boss);
-            data.putString("jinengjinxing", "第一发");
+            state.setPhase("第一发");
         }
     }
 
@@ -184,28 +188,28 @@ final class Boss01Behavior {
     }
 
     private static void thunderArray(Boss01Entity boss) {
-        CompoundTag data = boss.getPersistentData();
-        if (!data.getBoolean("donghua")) {
+        CreatureState state = CreatureData.state(boss);
+        if (!state.animated()) {
             boss.setAnimation("animation.ycxzboss_01.skill06");
             boss.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 20, false, false));
             boss.addEffect(new MobEffectInstance(MobEffects.GLOWING, 80, 0, false, false));
             boss.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 80, 10, false, false));
-            data.putBoolean("donghua", true);
+            state.setAnimated(true);
         }
-        if (tick(boss) >= 80 && data.getString("jinengjinxing").equals("第三组")) {
+        if (tick(boss) >= 80 && state.phase().equals("第三组")) {
             finish(boss, true);
-        } else if (tick(boss) >= 48 && data.getString("jinengjinxing").equals("第二组")) {
+        } else if (tick(boss) >= 48 && state.phase().equals("第二组")) {
             for (int i = 0; i < 14; i++) {
                 Vec3 at = new Vec3(boss.getX() + boss.getRandom().nextInt(-8, 9), boss.getY(), boss.getZ() + boss.getRandom().nextInt(-8, 9));
-                Skills.showDamageArea(boss, at, "animation.shanghaifanwei.idle", "控雷阵", 20, boss.getPersistentData().getDouble("mana_Att") * 1.5);
+                Skills.showDamageArea(boss, at, "animation.shanghaifanwei.idle", "控雷阵", 20, EntityAttributes.stat(boss, Stat.MANA_ATT) * 1.5);
             }
-            data.putString("jinengjinxing", "第三组");
-        } else if (tick(boss) >= 32 && data.getString("jinengjinxing").equals("第一组")) {
+            state.setPhase("第三组");
+        } else if (tick(boss) >= 32 && state.phase().equals("第一组")) {
             spawnRayAreas(boss, 1, 1.2);
-            data.putString("jinengjinxing", "第二组");
-        } else if (tick(boss) >= 16 && data.getString("jinengjinxing").isEmpty()) {
+            state.setPhase("第二组");
+        } else if (tick(boss) >= 16 && state.phase().isEmpty()) {
             spawnRayAreas(boss, 1, 1);
-            data.putString("jinengjinxing", "第一组");
+            state.setPhase("第一组");
         }
     }
 
@@ -215,7 +219,7 @@ final class Boss01Behavior {
             BlockPos hit = boss.level().clip(new ClipContext(boss.getEyePosition(), boss.getEyePosition().add(boss.getViewVector(1).scale(ray)),
                     ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, boss)).getBlockPos();
             Skills.showDamageArea(boss, new Vec3(hit.getX(), boss.getY(), hit.getZ()), "animation.shanghaifanwei.idle", "控雷阵", 20,
-                    boss.getPersistentData().getDouble("mana_Att") * multiplier);
+                    EntityAttributes.stat(boss, Stat.MANA_ATT) * multiplier);
         }
     }
 
@@ -229,13 +233,14 @@ final class Boss01Behavior {
     }
 
     private static void thunderRoar(Boss01Entity boss) {
-        if (!boss.getPersistentData().getBoolean("donghua")) {
+        CreatureState state = CreatureData.state(boss);
+        if (!state.animated()) {
             Skills.showDamageArea(boss, boss.position(), "animation.shanghaifanwei.bage2", "惊蛰闻雷", 40, 0);
             boss.setAnimation("animation.ycxzboss_01.skill08");
             boss.addEffect(new MobEffectInstance(MobEffects.GLOWING, 56, 0, false, false));
             boss.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 56, 0, false, false));
             boss.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 56, 20, false, false));
-            boss.getPersistentData().putBoolean("donghua", true);
+            state.setAnimated(true);
         }
         if (tick(boss) < 45) return;
         ServerLevel level = (ServerLevel) boss.level();
@@ -249,13 +254,13 @@ final class Boss01Behavior {
         Vec3 center = boss.position();
         List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(4), entity -> !Relations.isFriendly(boss, entity))
                 .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
-        for (LivingEntity enemy : enemies) SpellDamage.command(level, enemy, "shanghai 火 " + boss.getStringUUID() + " false 10 1.2");
+        for (LivingEntity enemy : enemies) SpellDamage.deal(level, enemy, DamageCategory.FIRE, boss, false, 10, 1.2);
         finish(boss, false);
     }
 
     private static boolean animationStarted(Boss01Entity boss, String animation, int duration) {
-        CompoundTag data = boss.getPersistentData();
-        if (!data.getBoolean("donghua")) {
+        CreatureState state = CreatureData.state(boss);
+        if (!state.animated()) {
             boss.setAnimation(animation);
             if (animation.equals("animation.ycxzboss_01.skill01") || animation.equals("animation.ycxzboss_01.skill07")) {
                 boss.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, 20, false, false));
@@ -267,20 +272,20 @@ final class Boss01Behavior {
             } else if (animation.equals("animation.ycxzboss_01.skill04")) {
                 boss.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, 20, false, false));
             }
-            data.putBoolean("donghua", true);
+            state.setAnimated(true);
         }
         return true;
     }
 
     private static double tick(Boss01Entity boss) {
-        return boss.getPersistentData().getDouble("entitytick");
+        return CreatureData.state(boss).tick();
     }
 
     private static void finish(Boss01Entity boss, boolean clearPhase) {
-        CompoundTag data = boss.getPersistentData();
-        data.putBoolean("donghua", false);
-        data.putString("jineng", "");
-        data.putDouble("entitytick", 0);
-        if (clearPhase) data.putString("jinengjinxing", "");
+        CreatureState state = CreatureData.state(boss);
+        state.setAnimated(false);
+        state.setSkill("");
+        state.setTick(0);
+        if (clearPhase) state.setPhase("");
     }
 }

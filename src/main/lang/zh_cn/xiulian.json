@@ -379,5 +379,13 @@
   "levelname38": "元婴八重",
   "levelname39": "元婴九重",
   "levelname40": "元婴十重",
-  "levelname41": "化神"
+  "levelname41": "化神",
+  "gamerule.linggenlevel": "灵根等级上限",
+  "gamerule.linggenlevel.description": "随机灵根时，灵根等级的上限。比如初始选择灵根界面时，随机到的最高等级的灵根。",
+  "gamerule.jinruyouxichushenxvanze": "jinruyouxichushenxvanze",
+  "gamerule.jinruyouxichushenxvanze.description": "jinruyouxihouchushenxvanzejiemian",
+  "gamerule.shopsell": "是否开启商店收购",
+  "gamerule.shopsell.description": "true代表商店可以收购玩家资源",
+  "gamerule.weaponlevelup": "炼器鼎是否可以升级武器法宝护甲",
+  "gamerule.weaponlevelup.description": "开启时为可以升级，关闭时就禁止升级"
 }

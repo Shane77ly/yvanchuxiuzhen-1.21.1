@@ -28,8 +28,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.equipment.api.BloodEssenceData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -73,7 +76,7 @@ final class EquipmentConsumersCheck extends ActionCheck {
                     List<ToolMachineEntity> machines = machines(player);
                     expectTrue("Hoe弹体十六刻只生成gongjvchu且换手后等级仍为一", machines.size() == 1
                             && entityId(machines.getFirst()).equals("gongjvchu")
-                            && machines.getFirst().getPersistentData().getDouble("fumodengji") == 1);
+                            && machines.getFirst().enchantLevel() == 1);
                     created.addAll(machines);
                     soil(player, machines.getFirst(), true);
                     clearMachines(player);
@@ -115,7 +118,7 @@ final class EquipmentConsumersCheck extends ActionCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, blood);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.STONE));
         use(player);
-        expectTrue("副手非武器法宝拒绝认主并保留精血", blood.getCount() == 1 && data(player.getOffhandItem()).getString("belongToMasterUUID").isEmpty());
+        expectTrue("副手非武器法宝拒绝认主并保留精血", blood.getCount() == 1 && Equipment.ownerId(player.getOffhandItem()).isEmpty());
         ItemStack instrument = item("weaponsword_01");
         CompoundTag original = new CompoundTag();
         original.putInt("smoke_marker", 27);
@@ -123,40 +126,40 @@ final class EquipmentConsumersCheck extends ActionCheck {
         player.setItemInHand(InteractionHand.OFF_HAND, instrument);
         Cultivation.set(player, CultivationValue.LEVEL_NUMBER, 10);
         use(player);
-        expectTrue("境界十拒绝认主", blood.getCount() == 1 && data(instrument).getString("belongToMasterUUID").isEmpty());
+        expectTrue("境界十拒绝认主", blood.getCount() == 1 && Equipment.ownerId(instrument).isEmpty());
         Cultivation.set(player, CultivationValue.LEVEL_NUMBER, 11);
         player.setItemInHand(InteractionHand.MAIN_HAND, blood("other-owner"));
         use(player);
-        expectTrue("他人精血拒绝认主且不扣件", player.getMainHandItem().getCount() == 1 && data(instrument).getString("belongToMasterUUID").isEmpty());
+        expectTrue("他人精血拒绝认主且不扣件", player.getMainHandItem().getCount() == 1 && Equipment.ownerId(instrument).isEmpty());
         player.setItemInHand(InteractionHand.MAIN_HAND, blood);
         InteractionResult result = use(player);
         expectTrue("生存原生使用本人精血写副手主人并扣一件且返回PASS", result == InteractionResult.PASS
-                && player.getMainHandItem().isEmpty() && data(instrument).getString("belongToMasterUUID").equals(player.getStringUUID())
+                && player.getMainHandItem().isEmpty() && Equipment.ownerId(instrument).equals(player.getStringUUID())
                 && data(instrument).getInt("smoke_marker") == 27);
         ItemStack restored = ItemStack.parse(player.registryAccess(), instrument.save(player.registryAccess())).orElseThrow();
-        expectTrue("认主物品实际保存重读保留主人及原有字段", data(restored).equals(data(instrument)));
+        expectTrue("认主物品实际保存重读保留主人及原有字段", ItemStack.matches(restored, instrument));
         player.setItemInHand(InteractionHand.MAIN_HAND, blood(player.getStringUUID()));
         use(player);
         expectTrue("重复认主不重复扣血", player.getMainHandItem().getCount() == 1);
-        original.putString("belongToMasterUUID", "another-instrument-owner");
-        instrument.set(DataComponents.CUSTOM_DATA, CustomData.of(original));
+        Equipment.bindOwner(instrument, "another-instrument-owner");
         use(player);
-        expectTrue("他人已认主法宝保留原主人和精血", data(instrument).getString("belongToMasterUUID").equals("another-instrument-owner")
+        expectTrue("他人已认主法宝保留原主人和精血", Equipment.ownerId(instrument).equals("another-instrument-owner")
                 && player.getMainHandItem().getCount() == 1);
         upgradedBinding(player, instrument);
         player.setGameMode(GameType.CREATIVE);
         player.setItemInHand(InteractionHand.OFF_HAND, item("fabao_001"));
         use(player);
         expectTrue("创造原生使用精血保留数量且fabao标签同样认主", player.getMainHandItem().getCount() == 1
-                && data(player.getOffhandItem()).getString("belongToMasterUUID").equals(player.getStringUUID()));
+                && Equipment.ownerId(player.getOffhandItem()).equals(player.getStringUUID()));
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
     }
 
     private void upgradedBinding(ServerPlayer player, ItemStack foreign) {
-        CompoundTag recipe = new CompoundTag();
-        recipe.putString("fabaoid", "yvanchuxiuzhen:weaponsword_01");
-        recipe.putString("fabaotype", "武器");
-        CompoundTag materials = new CompoundTag();
+        EquipmentRefinement.Mutable recipeBuilder = EquipmentRefinement.mutable();
+        recipeBuilder.putString("fabaoid", "yvanchuxiuzhen:weaponsword_01");
+        recipeBuilder.putString("fabaotype", "武器");
+        EquipmentRefinement recipe = recipeBuilder.toImmutable();
+        EquipmentRefinement materials = EquipmentRefinement.EMPTY;
         ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), recipe, materials, foreign);
         player.setItemInHand(InteractionHand.OFF_HAND, upgraded);
         use(player);
@@ -197,12 +200,9 @@ final class EquipmentConsumersCheck extends ActionCheck {
     private void soil(ServerPlayer player, ToolMachineEntity machine, boolean farming) {
         setBlock(player, site, Blocks.DIRT.defaultBlockState());
         setBlock(player, site.above(), Blocks.AIR.defaultBlockState());
-        CompoundTag state = machine.getPersistentData();
-        state.putString("jinxing", "mining");
-        state.putDouble("xiaoshitick2", 4);
-        state.putDouble("mubiaoX", site.getX());
-        state.putDouble("mubiaoY", site.getY());
-        state.putDouble("mubiaoZ", site.getZ());
+        machine.setPhase("mining");
+        machine.setActionTicks(4);
+        machine.setTarget(site.getX(), site.getY(), site.getZ());
         machine.tick();
         BlockState result = player.serverLevel().getBlockState(site);
         if (farming) {
@@ -251,9 +251,7 @@ final class EquipmentConsumersCheck extends ActionCheck {
 
     private static ItemStack blood(String owner) {
         ItemStack blood = item("jingxve");
-        CompoundTag data = new CompoundTag();
-        data.putString("belongToMasterUUID", owner);
-        blood.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        blood.set(EquipmentData.BLOOD_ESSENCE.get(), new BloodEssenceData(owner, "", 0, ""));
         return blood;
     }
 

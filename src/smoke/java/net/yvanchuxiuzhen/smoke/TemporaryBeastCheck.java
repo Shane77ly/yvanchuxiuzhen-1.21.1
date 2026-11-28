@@ -9,7 +9,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou020Entity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -52,29 +54,29 @@ final class TemporaryBeastCheck extends ActionCheck {
         parent.moveTo(p.getX()+2, p.getY(), p.getZ(), 0, 0);
         parent.finalizeSpawn(level, level.getCurrentDifficultyAt(center), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(parent);
-        var data = parent.getPersistentData();
-        data.putString("jineng", "分身");
-        data.putString("jinengjinxing", "准备");
-        data.putDouble("entitytick", 39);
-        data.putString("gongjizhe", p.getStringUUID().replace("-", ""));
+        var data = CreatureData.state(parent);
+        data.setSkill("分身");
+        data.setPhase("准备");
+        data.setTick(39);
+        data.setAttackerUuid(p.getStringUUID().replace("-", ""));
         NeoForge.EVENT_BUS.addListener(listener);
     }
 
     private void compare(ServerPlayer p) {
         children = p.serverLevel().getEntitiesOfClass(Yaoshou020Entity.class, new AABB(parent.blockPosition()).inflate(32),
-                child -> child != parent && child.getPersistentData().getDouble("daojishi") > 0);
+                child -> child != parent && CreatureData.state(child).countdown() > 0);
         expect("无连字符目标驱动正式技能生成两只分身", 2, children.size());
         if (children.size() != 2) return;
         Relations.addFriendlyTeam(parent, "smoke:after_split");
         for (var child : children) {
             expectTrue("分身可见出生后增加的好友", Relations.friendlyTeams(child).contains("smoke:after_split"));
-            expect("分身等级", 3, child.getPersistentData().getDouble("LEVELnumber"));
+            expect("分身等级", 3, EntityAttributes.level(child));
         }
         double before = Cultivation.get(p, CultivationValue.EXPERIENCE_STAND);
         var killed = children.getFirst();
         killed.hurt(p.damageSources().playerAttack(p), Float.MAX_VALUE);
         expectTrue("玩家击杀立即移除分身并增加待吸收修为", killed.isRemoved() && Cultivation.get(p, CultivationValue.EXPERIENCE_STAND) > before);
-        children.get(1).getPersistentData().putDouble("daojishi", 1);
+        CreatureData.state(children.get(1)).setCountdown(1);
     }
 
     @Override protected void cleanup(ServerPlayer p) {

@@ -2,10 +2,18 @@
 topic: combat
 role: entry
 status: current
-updated: 2026-11-18
+updated: 2026-11-28
 ---
 
 # 战斗
+
+阶段 4 续批（子批 4）已完成并验证 Q32/Q33/Q34（毒药与锯齿时长取消误乘 20、`lingtikiller`/`liuqing` 读自身等级、`chaos` 使用世界 Z 坐标、火/冰/雷甲反伤豁免自身、毒药 09/13/20/21 修复、`effect_010`/`017` 描述对齐以及 `linglidamage`/`jinglidamage` 死亡消息键修正），见[本月记录](logs/2026-11.md#2026-11-28-阶段-4q32q33q34-附魔毒药与死亡消息修复)。
+
+阶段 4 已按裁定修复 Q18/Q29/Q30（受击同属性功法减伤与负伤保护、`Shanghai.defence` 玩家体质防御及法防/神识防御倍率、`ArmorStatEvent` 法防改读 `mana_Def`、物理 `breakArmor=1`/攻击者 `AttackAttCorrectPercentage`/暴击倍率、`Shanghai.deal` 闪避 `1–100`、`AttackStage` 移除重复吸血、`Shanghai.friendly` 空团队不免伤）；见[本月记录](logs/2026-11.md#2026-11-27-阶段-4q18q29q30-战斗与防御修复)。
+
+落雷：已知施法实体使用 `Lightning.cast`。玩家命令与直接入口保留 Q55 队伍占位语义，伤害不再逐目标拼命令。[本批验证](../project/logs/2026-11.md#2026-11-25-阶段-3-实体施法者落雷)。
+
+盾挡后的受伤、两段吸血和替死符已修正时序，已备原生盾牌回归夹具，尚未实跑。见[规则与源码位置](architecture.md#盾挡后的受伤阶段与复活符2026-11-23)。
 
 人间界死亡的复活标记只由有致因实体的伤害设置，详见[规则正文](architecture.md#人间界死亡标记)。
 
@@ -34,9 +42,9 @@ updated: 2026-11-18
 | 统一击杀归因 | `CombatAttribution.player(DamageSource)`：按致因实体、直接实体及投射物主人、技能实体施放者、驯服主人解析服务端玩家 | `LivingDeathEvent` 的玩家收益结算；`Shanghai` 五行击杀统计复用同一归因 |
 | 五行统计管理命令 | `ElementStatistics.command(目标玩家, action, subject, operation, value, feedback)`：只接受`experienceup`和十个来源统计键；set赋值，其他操作累加 | flow的唯一`/yvanchu`入口；载体读写经xiulian公开操作 |
 | 战斗状态 | `FightingState.mark(生物)` 写开关1及受击时间；`clear(生物)` 将两项同时清0 | 受伤、技能施放、元婴出窍每二十刻推进与耗神不足归窍 |
-| 共享范围落雷 | `Lightning.command(level, 原坐标, 完整命令文本)`；命令 `/lightninglanding <攻击量> <攻击者UUID> <倍率> <队伍占位> <范围直径> <颜色> [独立]`；同步颜色的原生闪电负责显示，范围内的 Mob/Player 经 `/shanghai` 结算雷伤 | skill 的天雷术、五雷轰顶、控雷阵与 xiulian 的雷劫；队伍词只占位，缺失时按来源空白分词前移 |
-| 造成灵力或神识伤害 | 其他系统经 `SpellDamage.deal(level, 受击者, 类别, 攻击者, 是否固定, 基础量, 倍率)`（`dealRounded` 先把基础量与倍率取整，对应来源用 `DecimalFormat("0")` 格式化的调用）；本系统内 `Shanghai.deal(ServerLevel, 受击者, Request(类别, 攻击者UUID或空, 是否固定, 基础量, 倍率))`；命令 `/shanghai <类别> <攻击者UUID或无> <true或false> <基础量> <倍率>`（无权限要求，对命令执行者生效） | 技能、符箓、妖兽、法宝、蛊虫、异火、装备等的 209 处命令调用；本系统的护甲与武器附魔、毒药 |
-| 雷劫伤害请求监听 | 监听 xiulian 的 `TribulationLightningEvent` 与 `TribulationDamageEvent`，分别交给 `Lightning.command` 与 `SpellDamage.command` | 劫云七种天雷及地滚雷、雷柱、雷龙；请求保留原坐标、命令格式与小数倍率，xiulian 不导入 combat |
+| 共享范围落雷 | `Lightning.cast`（实体）、`castSaved`（存档主人）、`tribulation`（无来源劫云）；命令 `/lightninglanding <攻击量> <攻击者UUID> <倍率> <队伍占位> <范围直径> <颜色> [独立]`；同步颜色的原生闪电负责显示，范围内的 Mob/Player 经 `Shanghai.deal` 结算雷伤 | skill 的天雷术、五雷轰顶、控雷阵与 xiulian 的雷劫；队伍词只占位，缺失时按来源空白分词前移 |
+| 造成灵力或神识伤害 | 其他系统经 `SpellDamage.deal(level, 受击者, 类别, 攻击者, 是否固定, 基础量, 倍率)`；存档攻击者文本走 `SpellDamage.dealSaved`，区分空字段、无来源标志和无效 UUID（`dealRounded` 先把基础量与倍率取整，对应来源用 `DecimalFormat("0")` 格式化的调用）；范围命中可用不带 `level` 的重载，按目标所在维度只结算服务端生物；本系统内 `Shanghai.deal(ServerLevel, 受击者, Request(类别, 攻击者UUID或空, 是否固定, 基础量, 倍率))`；命令 `/shanghai <类别> <攻击者UUID或无> <true或false> <基础量> <倍率>`（无权限要求，对命令执行者生效） | 技能、符箓、妖兽、法宝、蛊虫、异火、装备等的 209 处命令调用；本系统的护甲与武器附魔、毒药 |
+| 雷劫伤害请求监听 | 监听 xiulian 的 `TribulationLightningEvent` 与 `TribulationDamageEvent`，分别交给 `Lightning.tribulation` 与 `SpellDamage.deal` | 劫云七种天雷及地滚雷、雷柱、雷龙；请求保留原坐标、已格式化的攻击量与小数倍率，xiulian 不导入 combat |
 | 附魔等级 | `Enchants.level / mainHand / slot / armorSum / armorSquares`，附魔按路径名取键 `Enchants.key("dodge")` | 本系统的伤害过程；attribute 的显示值按等级线性折入（自行读取物品） |
 | 状态效果查询与施加 | `StatusEffects.amplifier / has / remove / add / holder`，效果按路径名（如 `effect_036`）指定 | 全部读取或施加状态效果的系统（creature 约 280 处、skill、fulu、equipment、liandan 等） |
 | 实体禁空标记 | `StatusEffects.markEntityFlightBlocked(entity)`写入来源`jinkong`标记；`consumeEntityFlightBlock(entity)`读取并清除一次 | zhenfa写入；skill与equipment的飞行逻辑分别消费 |

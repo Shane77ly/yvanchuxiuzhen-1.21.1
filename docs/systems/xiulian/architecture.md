@@ -2,7 +2,7 @@
 topic: xiulian
 role: architecture
 status: partial
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 
 # 修炼、身份与生命周期：规则与实现状态
@@ -96,6 +96,7 @@ updated: 2026-11-18
 
 - 加点（`SkillPoints`，来源 `HealthMaxUp` 等六个过程，面板第 2 页按钮）：见类注释；成长作为 attribute 基础层贡献，原版属性随之重算。
 - 灵根重置（来源 `Rebirthinxiuxianfalse`、`Rebirthinxiuxiantrue`，管理命令 `/yvanchu` 的子命令，命令归 flow）：随机 0–9 或全为 9。
+- 升仙令与传承灵物的跨系统自然任务脚本入口由任务系统监听原生物品交互承接；修炼物品实现仍只保留本系统的效果与领取职责，来源与验证边界见[任务正文](../quest/architecture.md#升仙令与传承灵物自然任务入口2026-11-23)。
 - 升仙令（`AscensionTokenItem`）与家族令牌（`ClanTokenItem`）：见类注释。传承灵物与家族百宝袋已接分次奖励，见[下文](#出身分次补给2026-11-15)；远古石盘坐标API已存在，自然消费已接入并通过首次客户端use。
 - 读后改变归属：元婴出窍（`Yvanyingchuqiao` 等 6 个元素）是技能界面施展的技能，归 skill；被闪电击中时按主修功法给效果的 `EntityThunder` 归 gongfa；境界提升粒子留在本系统，随 particle 接入。
 - 完成核对（2026-11-03）：`gradlew check`、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian 共 175 项全部符合（其中 xiulian 131 项），日志 ERROR 0 条。
@@ -114,11 +115,11 @@ Q187（待裁定，保持来源）：`A:PlayerGui02jieshaoProcedure` 第二条�
 
 ### 来源问题
 
-- Q22（轻微，记录后继续）：境界名来源以服务端语言翻译语言键 `levelnameNN` 后存入，单人游戏随客户端语言、专用服务器为英文；目标统一存中文名（与初值“凡人”一致）。升级文字第 9 行法术防御增加时写的是“旧值 − 新值”，第 10 行神识攻防沿用“物理攻击”“物理防御”标签，按来源保留。
+- Q22（已在阶段 4 续批修正并验证）：境界名来源以服务端语言翻译语言键 `levelnameNN` 后存入；目标统一存中文名（与初值“凡人”一致）。`LevelUp` 已修正第 9 行法术防御增加符号为正向 `§a+` 与第 10 行“神识攻击”“神识防御”标签，经 `XiulianProgressCheck` 烟测验证。
 - Q23（轻微，保持来源）：孕育元婴时来源把体质数加在空物品上，体质数不变。
 - Q24（轻微）：丹田体质排序在打开的体质少于体质数时来源无限循环，目标扫描到 `tizhiopen_999` 为止；最后一页恰好 9 个体质时第 9 行不显示，保持来源。
-- Q25（轻微，保持来源，待裁定）：本命槽上限 64，放入多个妖丹后关闭再打开只剩 1 个。
-- Q21（轻微，保持来源）：随机体质只取 1–10，来源列出的第 11 种“风动玉髓体”、第 12 种“纯阳合剑体”随机取不到；关闭界面时不是前 11 种的体质（含空体质）都按第 12 种生效。体质锁定键 `tizhilock` 只被读取，没有写入者，体质总会随灵根一起重随。
+- Q25（已在阶段 4 续批修正并验证）：`DantianMenu` 槽 0 覆写 `getMaxStackSize` 返回 `1`，放入多颗妖丹或 Shift 移入仅置入 1 颗并保留其余数量，不再关界面后被吞，经 `DantianCheck` 烟测验证。
+- Q21（已在阶段 4 续批修正并验证）：`BirthSelection` 的登录随机与出身重置均改取 `1–12`，第 11 种“风动玉髓体”与第 12 种“纯阳合剑体”均可随机获取并经 `XiulianCheck` 烟测验证；体质锁定键 `tizhilock` 无写入者保持来源。
 
 ### 验证
 
@@ -145,7 +146,7 @@ Q187（待裁定，保持来源）：`A:PlayerGui02jieshaoProcedure` 第二条�
 | 紫金神雷 | `qianyao ≤ 160` 时累加 | 每 20 刻一次，共 9 次，倍率 1、直径 4，粒子延迟 1/6/11/16 刻 |
 | 化灵雷龙 | 累计至 200 刻 | 在云下 36 格生成雷龙并重置前摇，再计 100 刻推进下一组 |
 
-范围落雷以 `TribulationLightningEvent` 把原始落点及完整命令交给 combat；攻击格式保留 `DecimalFormat("")`，攻击者“无”、队伍占位“天劫”。实体范围先按来源 AABB、距离排序与 `Relations.isFriendly` 筛选，再发 `TribulationDamageEvent`；攻击量用 `DecimalFormat("0")`，倍率保留小数。xiulian 不导入 combat。粒子使用原 ID、数量、坐标与延迟；延迟回调现读实体位置，移除实体不取消已安排的回调。
+范围落雷以 `TribulationLightningEvent` 把原始落点、攻击量、倍率、范围和颜色交给 combat；攻击格式保留 `DecimalFormat("")`，攻击者“无”、队伍占位“天劫”。实体范围先按来源 AABB、距离排序与 `Relations.isFriendly` 筛选，再发 `TribulationDamageEvent`；攻击量用 `DecimalFormat("0")`，倍率保留小数。xiulian 不导入 combat。粒子使用原 ID、数量、坐标与延迟；延迟回调现读实体位置，移除实体不取消已安排的回调。
 
 实体模型由 `extract_entity_models.py --owner xiulian` 提取为 `content/xiulian/entity_models.json`。`EntityModelRow`、`AnimatedLook` 与 `AnimatedEntityRenderer` 因 skill 和 xiulian 的实际共享需求移到 platform；技能实体只改 import。云保留飞行控制、无重力、35×5 注册尺寸再放大 3 倍、生命 800、动画过渡 4 刻与死亡 20 刻移除；雷柱保留水生导航、生命 500、动画过渡 4 刻与死亡 2 刻移除。云与雷柱不被推挤、流体不推并可水下呼吸。
 
@@ -212,7 +213,7 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 来源为`A:Ling18Item:33–41`、`A:JiazubaibaodaiItem:32–40`及其同名右键过程（完整范围与SHA256见[来源证据](ledger/source-evidence.csv)）。两件物品沿用父类use结果，不消耗、不替换载体。目标`BirthSupplyItem`只在服务端核条件并把double计数写入物品`CUSTOM_DATA`，随后同步发出`BirthSupplyEvent`；`flow.BirthSupplyFlow`按新次数精确命中来源整数分支。非整数次数继续自增但不截断成有效奖励。修炼系统不反向依赖技能、装备或符箓；业务实例分别通过Materials、Fulu、Liandan、Skills、Caskets公开操作构造，普通材料不附加实例等级。发奖使用原生`ItemHandlerHelper.giveItemToPlayer`，保持入包与满包掉落路径。
 
-传承灵物`ling_18`使用`yikaiqi`：旧次数小于30且当前境界层数严格大于旧次数时先自增，再按1–29次奖励。无冷却；境界不足提示“§4当前境界没有能取出的宝物了，请努力修炼！”，耗尽提示“§4传承灵物已空。”。完整固定表见`BirthSupplyFlow.inheritance`：来源显式写过的材料等级/品阶由Materials保留；第4次46号符、第19次材料保持默认实例；第10次09号符只写品阶2、不生成品阶文字；第14/20次玄阶、第24次地阶文字保留。第2次十张杜康酒配方纸保持自定义名，第23次以领取玩家为权限4执行者进入真实`/shenfa`命令，保留原文参数，不另造书定义。
+传承灵物`ling_18`使用`yikaiqi`：旧次数小于30且当前境界层数严格大于旧次数时先自增，再按1–29次奖励。无冷却；境界不足提示“§4当前境界没有能取出的宝物了，请努力修炼！”，耗尽提示“§4传承灵物已空。”。完整固定表见`BirthSupplyFlow.inheritance`：来源显式写过的材料等级/品阶由Materials保留；第4次46号符、第19次材料保持默认实例；第10次09号符只写品阶2、不生成品阶文字；第14/20次玄阶、第24次地阶文字保留。第2次十张杜康酒配方纸保持自定义名，第23次用 `Skills.createBook` 将《分形捉影》直接发给领取玩家；保存与手动 `/shenfa` 一致的九个身法数值、原简介和未研习状态。
 
 家族百宝袋`jiazubaibaodai`使用`geiyvcishu`：仅出身“世家纨绔”通过，先提示“认证成功，是家族子弟。”；旧次数小于20时先自增，按1–20次发奖，随后原生冷却20刻。不设境界或日期门槛；耗尽仍先认证成功再提示“§4已全部领完。”，不追加冷却；非家族出身提示“§4认证失败，非家族子弟。”。20个来源分支共有101次普通栈发放，加上2瓶丹药、5个配置宝匣与2本技能书共110次发放。普通材料均为默认实例。第2次回春养元丹10份、2效果（再生2级120来源单位，016效果1级30）；第6次固本培元丹8份、015效果1级60；第4次飓风扇与第8次四山甲装备保持宝匣及完整lianqi命令，不预先变成成品。第10次踏风步、第12次激流波保留各字段和第14次飞行法器额外奖励，完整普通材料/食物顺序见`BirthSupplyFlow.FAMILY`。
 
@@ -240,7 +241,7 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 ### Q200 出身传送使用无实体最近玩家选择器
 
-来源`PlayerJoin02:437–444`对五种出身以无实体命令源执行函数，函数原文为`execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`。它在切换至人间道的执行上下文中用`@p`选最近玩家，没有明确绑定关闭菜单的玩家；在多人或跨维度场景可能命中人间道内其他最近玩家。这是静态推断，两个版本实机均未执行。状态为待裁定、目标保持来源；本批不把选择器改成本人，未声称传送已验证。
+来源`PlayerJoin02:437–444`对五种出身以无实体命令源执行函数，函数原文为`execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`。它在切换至人间道的执行上下文中用`@p`选最近玩家，没有明确绑定关闭菜单的玩家；在多人或跨维度场景可能命中人间道内其他最近玩家。1.21.1 版本在奖励时从服务器函数管理器查找当前数据包的函数，不缓存函数体，沿用原版函数执行上下文。单人落魄家族到达人间道已验证；多人选人结果和 1.18.2 版本实机仍未验，Q200 保持待裁定。
 
 当前集成基线已注册`BirthInitialRewardsFlow.register()`和`birthinitialrewards`选择器。既有夹具检查落魄家族服务端菜单关闭、同调用未提前发奖、四栈顺序/实例/中文、两书服务端use及空出身/体质边界；八出身扩展已通过`compileJava`与`compileSmokeJava`。2026-11-17单项客户端运行到八分支断言后，在公共停服阶段卡于`ChunkMap.processUnloads`，报告停在`WAITING_FOR_WORLD_EXIT`，线程/堆证据见`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，因此该次不产生出生奖励行为通过结论；后续修订夹具的有效单项结果见下文和系统月志。未精确采样第一/第二个服务端结束刻；真实保存重进、满包、完整自然消费、多人、专服与两个版本实机仍未验。
 
@@ -293,3 +294,20 @@ NeoForge 21.1.265同名Helper和包装器保留上述路径；目标`BirthInitia
 ## 战斗击杀收益接入（2026-11-20）
 
 战斗系统通过 `PlayerDeathRules` 按 `DamageSource.getEntity()` 识别服务端玩家攻击者，并调用 `Cultivation` 公开操作写入 `EXPERIENCE_STAND`、`VIGOROUS`、`MERITS` 及人间界 `REVIVE` 标记；`CultivationTick`、`LevelUp` 和修炼附件保存仍由本系统既有入口负责。未新增六个 `synchronous*` 镜像字段的消费者。
+
+### Q249 创造模式对空气使用物品的扣件差异
+
+Forge 40.1.0 `ServerPlayerGameMode.useItem:291–306` 在物品回调后恢复创造玩家原栈数量；NeoForge 21.1.265 同方法 `306–338` 不再恢复。两者对方块的 `useItemOn` 不能据此类推。以下均为对空气使用的成功分支，1.18.2 版本直接扣件由外层恢复，1.21.1 版本仍无条件扣件。
+
+| 入口 | 来源 A 过程 | 目标生产位置 |
+| --- | --- | --- |
+| 血精 `xvejing` | `XvejingDangYouJianDianJiKongQiShiShiTiDeWeiZhi:15–18` | `BloodEssenceItem.use:21–28` |
+| 已配置的 01/02 物品宝箱 | `TreasureChest01DangYouJianDianJiKongQiShiShiTiDeWeiZhi:18–24` | `TreasureRewardItem.use:27–36` |
+| 书架奖励载体（功法书/技能书） | `BookRightClick:91–97` | `StudyBookItem:80–89` |
+| 即时符 01/04、持续符 02 首次激活 | `Itemfulu01…:79`、`Itemfulu04…:333`、`Itemfulu02…:104` | `FuluInstant:105`、`FuluUse:117` |
+
+复核须走真实右键或游戏模式的 `useItem`，而不是直接调用物品方法。创造主手拿 2 个血精，空副手，对空气使用一次，对比服务端槽位 2→2 与 2→1；对宝箱须先配置有效奖励。生存应正常扣件，红包与财神服礼包已有创造保护，不属于缺陷。荧光蛊仍沿用 Q180。本轮静态已核，未实机。
+
+### Q258 四项游戏规则的名称与说明未合入语言表
+
+A `ModGameRules` 注册 `linggenlevel`、`jinruyouxichushenxvanze`，B 注册 `shopsell`、`weaponlevelup`；两版本的规则名、类型、默认值和分类相同。来源简中 `gamerule.<id>` 与 `.description` 共八键，其中三项有实际中文说明（出身选择规则的原文为拼音）。1.21.1 版本 `XiulianRules`、`CommerceTrading.SHOP_SELL` 和 `LianqiRules` 均注册有效，但合并后的简中没有这八个键。目标原版 `GameRules.Key.getDescriptionId:492–493` 动态拼接键，`EditGameRulesScreen:302–310` 通过该键显示名称，仅在 description 存在时显示说明；检查 Java 中的字面量翻译调用不能发现这个遗漏。复核：创建世界→游戏规则，在简中下逐项查看标签和悬停说明，与 A/B 同语言对比。只确认资源和原生读取路径，未截图、未改玩法。

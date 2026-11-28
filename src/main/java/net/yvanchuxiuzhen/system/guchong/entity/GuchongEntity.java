@@ -52,6 +52,8 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final EntityModelRow model;
     private String procedureAnimation = "empty";
+    private double guchongTick;
+    private double guchongTick2;
 
     protected GuchongEntity(EntityType<? extends GuchongEntity> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -67,6 +69,10 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
     }
 
     protected final EntityModelRow model() { return model; }
+    public double guchongTick() { return guchongTick; }
+    void setGuchongTick(double tick) { guchongTick = tick; }
+    double guchongTick2() { return guchongTick2; }
+    void setGuchongTick2(double tick) { guchongTick2 = tick; }
 
     @Override protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);

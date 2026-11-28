@@ -2,14 +2,19 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.yvanchuxiuzhen.system.quest.DialogueRuntime;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.client.QuestJournalScreen;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
@@ -23,9 +28,9 @@ final class QuestJournalCheck extends SystemCheck {
     private static final String FINISHED = "已完成任务";
     private static final String DESCRIPTION = "任务说明每行十八个字符逐项切分并同步给玩家用于检查来源文字转换和选择结果";
     private final Screenshots screenshots;
-    private CompoundTag originalSession;
-    private CompoundTag originalJournal;
-    private CompoundTag fixture;
+    private QuestDialogueSession originalSession;
+    private QuestJournalState originalJournal;
+    private QuestJournalState fixture;
     private boolean prepared;
 
     QuestJournalCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -72,7 +77,7 @@ final class QuestJournalCheck extends SystemCheck {
                 expect("原生中文菜单标题", "任务列表", minecraft.screen.getTitle().getString());
                 expect("原生13个按钮", 13, buttons().size());
                 expect("未完成八行同步", 8, IntStream.rangeClosed(1, 8)
-                        .filter(row -> DialogueActions.snapshot(minecraft.player).getString("renwuxianshi" + row + "UUID").equals(id(row))).count());
+                        .filter(row -> DialogueActions.snapshot(minecraft.player).row(row).uuid().equals(id(row))).count());
                 onServer(player -> expectTrue("服务端任务菜单身份", player.containerMenu instanceof QuestJournalMenu));
                 screenshots.take("quest-journal-eight-rows.png");
             }
@@ -108,7 +113,7 @@ final class QuestJournalCheck extends SystemCheck {
             case 25 -> {
                 if (!journalOpen(local)) return false;
                 checkPage(0, FINISHED, id(9));
-                expect("失败任务也在已完成类", id(10), DialogueActions.snapshot(minecraft.player).getString("renwuxianshi2UUID"));
+                expect("失败任务也在已完成类", id(10), DialogueActions.snapshot(minecraft.player).row(2).uuid());
                 category(1).onPress();
             }
             case 26 -> {
@@ -139,7 +144,7 @@ final class QuestJournalCheck extends SystemCheck {
             case 32 -> {
                 if (!dialogueOpen(local, 2)) return false;
                 minecraft.player.closeContainer();
-                onServer(player -> player.setData(QuestData.SESSION, new CompoundTag()));
+                onServer(player -> player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY));
             }
             case 33 -> leaveWorld();
             case 34 -> { return reopened(local); }
@@ -154,8 +159,12 @@ final class QuestJournalCheck extends SystemCheck {
             case 36 -> {
                 if (!journalOpen(local)) return false;
                 checkPage(0, UNFINISHED, id(1));
-                expect("重进八行目录及中文保持", "烟测任务8（进行中）", DialogueActions.snapshot(minecraft.player).getString("renwuxianshi8name"));
-                onServer(this::restore);
+                expect("重进八行目录及中文保持", "烟测任务8（进行中）", DialogueActions.snapshot(minecraft.player).row(8).name());
+                onServer(player -> {
+                    verifyDimensionCheck(player, "minecraft:overworld", "匹配当前维度");
+                    verifyDimensionCheck(player, "minecraft:the_nether", "不匹配其他维度");
+                    restore(player);
+                });
                 finish();
             }
             default -> throw new IllegalStateException("未知任务目录步骤 " + step);
@@ -168,52 +177,51 @@ final class QuestJournalCheck extends SystemCheck {
         originalJournal = DialogueActions.journal(player);
         prepared = true;
         player.closeContainer();
-        fixture = new CompoundTag();
-        fixture.putString("renwulist", String.join("%", IntStream.rangeClosed(1, 18).mapToObj(QuestJournalCheck::id).toList()));
+        fixture = QuestJournalState.EMPTY;
         for (int row = 1; row <= 18; row++) {
             String id = id(row);
-            fixture.putString(id + "name", "烟测任务" + row);
-            fixture.putString(id + "UUID", id);
-            fixture.putString(id + "shuoming", DESCRIPTION);
-            fixture.putString(id + "xvqiu", "需求" + row);
-            fixture.putString(id + "jiangli", "奖励" + row);
-            fixture.putBoolean(id + "gaojirenwu", row % 2 == 1);
-            fixture.putString(id + "zhuangtai", row <= 8 || row == 11 ? "未完成" : row == 9 ? "失败" : "完成");
-            fixture.putInt(id + "jindu", 2);
-            fixture.putString(id + "zhengti", "烟测任务" + row + "/" + id + "/说明/无/无/需求/奖励%文字/错误初始位置%文字/继续任务" + row + "成功%结束");
+            String status = row <= 8 || row == 11 ? "未完成" : row == 9 ? "失败" : "完成";
+            QuestTemplateDefinition template = new QuestTemplateDefinition(id, id, "烟测任务" + row, "说明",
+                    0, status, "需求" + row, "奖励" + row, List.of(
+                    new DialogueNodeDefinition.TextNode(false, "错误初始位置"),
+                    new DialogueNodeDefinition.TextNode(false, "继续任务" + row + "成功"),
+                    DialogueNodeDefinition.EndNode.INSTANCE));
+            fixture = fixture.withEntry(id, new QuestJournalState.QuestJournalEntry(
+                    "烟测任务" + row, id, DESCRIPTION, 2, status, "需求" + row, "奖励" + row, id,
+                    Optional.of(template), row % 2 == 1));
         }
-        player.setData(QuestData.JOURNAL, fixture.copy());
-        player.setData(QuestData.SESSION, new CompoundTag());
+        player.setData(QuestData.JOURNAL, fixture);
+        player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
     }
 
     private void checkSelection(String label, Player player, int row) {
-        CompoundTag state = DialogueActions.snapshot(player);
-        expectTrue(label + " 任务/需求/奖励/高级标志对应", state.getString("TXTUUID").equals(id(row))
-                && state.getString("renwuname").equals("烟测任务" + row + "（进行中）")
-                && state.getString("renwuxvqiu").equals("需求" + row) && state.getString("renwujiangli").equals("奖励" + row)
-                && state.getBoolean("gaojirenwu") == (row % 2 == 1));
-        expectTrue(label + " 原说明及18字符分行对应", state.getString("TXTxianshi").equals(DESCRIPTION)
-                && state.getString("text01").equals(DESCRIPTION.substring(0, 18)) && state.getString("text02").equals(DESCRIPTION.substring(18, 36)));
+        QuestDialogueSession state = DialogueActions.snapshot(player);
+        expectTrue(label + " 任务/需求/奖励/高级标志对应", state.journal().selectedUuid().equals(id(row))
+                && state.journal().selectedTitle().equals("烟测任务" + row + "（进行中）")
+                && state.journal().selectedRequirement().equals("需求" + row) && state.journal().selectedReward().equals("奖励" + row)
+                && state.journal().selectedHigh() == (row % 2 == 1));
+        expectTrue(label + " 原说明及18字符分行对应", state.displayText().equals(DESCRIPTION)
+                && state.detailLine(1).equals(DESCRIPTION.substring(0, 18)) && state.detailLine(2).equals(DESCRIPTION.substring(18, 36)));
     }
 
     private void checkPage(int page, String category, String first) {
-        CompoundTag state = DialogueActions.snapshot(minecraft.player);
-        expectTrue("分类与原始目录页码同步 " + category + page, state.getString("rendeleibie").equals(category)
-                && state.getInt("renwuyenum") == page && state.getInt("renwuzongye") == 2
-                && state.getString("renwuxianshi1UUID").equals(first) && state.getString("TXTUUID").isEmpty());
+        QuestDialogueSession state = DialogueActions.snapshot(minecraft.player);
+        expectTrue("分类与原始目录页码同步 " + category + page, state.journal().category().equals(category)
+                && state.journal().page() == page && state.journal().totalPages() == 2
+                && state.row(1).uuid().equals(first) && state.journal().selectedUuid().isEmpty());
         onServer(player -> expectTrue("服务端同页码 " + page, DialogueActions.snapshot(player).equals(state)));
     }
 
     private boolean dialogueOpen(int local, int row) {
-        if (!(minecraft.screen instanceof DialogueScreen) || !DialogueActions.snapshot(minecraft.player).getString("TXTxianshi").equals("继续任务" + row + "成功")) {
+        if (!(minecraft.screen instanceof DialogueScreen) || !DialogueActions.snapshot(minecraft.player).displayText().equals("继续任务" + row + "成功")) {
             if (local > 200) throw new IllegalStateException("继续任务没有进入已保存进度 " + row);
             return false;
         }
         onServer(player -> {
-            CompoundTag state = DialogueActions.snapshot(player);
+            QuestDialogueSession state = DialogueActions.snapshot(player);
             expectTrue((row == 1 ? "高级renwubegin" : "普通taskbegin") + " 经共享启动tick消费并恢复进度", player.containerMenu instanceof DialogueMenu
-                    && state.getInt("renwuweizhi") == 2 && !state.getBoolean("renwubegin") && !state.getBoolean("taskbegin")
-                    && state.getString("TXTxianshi").equals("继续任务" + row + "成功"));
+                    && state.cursor() == 2 && !state.dialogueBegin() && !state.taskBegin()
+                    && state.displayText().equals("继续任务" + row + "成功"));
         });
         return true;
     }
@@ -261,10 +269,22 @@ final class QuestJournalCheck extends SystemCheck {
         return "smoke_quest_journal_" + row;
     }
 
+    private void verifyDimensionCheck(ServerPlayer player, String dimensionId, String expected) {
+        QuestTemplateDefinition template = new QuestTemplateDefinition("smoke_dim", "smoke_dim", "维度校验", "",
+                0, "未完成", "", "", List.of(
+                new DialogueNodeDefinition.CheckDimensionNode(dimensionId, 2, 3),
+                new DialogueNodeDefinition.TextNode(false, "匹配当前维度"),
+                new DialogueNodeDefinition.TextNode(false, "不匹配其他维度")));
+        QuestDialogueSession state = QuestDialogueSession.EMPTY.toBuilder().template(Optional.of(template)).cursor(1).build();
+        player.setData(QuestData.SESSION, state);
+        DialogueRuntime.run(player, player.blockPosition());
+        expect("Q84 维度条件分支 " + dimensionId, expected, DialogueActions.snapshot(player).displayText());
+    }
+
     private void restore(ServerPlayer player) {
         player.closeContainer();
-        player.setData(QuestData.JOURNAL, originalJournal.copy());
-        player.setData(QuestData.SESSION, originalSession.copy());
+        player.setData(QuestData.JOURNAL, originalJournal);
+        player.setData(QuestData.SESSION, originalSession);
         prepared = false;
     }
 }

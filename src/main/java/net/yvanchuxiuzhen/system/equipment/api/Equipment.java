@@ -6,19 +6,18 @@ import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.equipment.Accessories;
 import net.yvanchuxiuzhen.system.equipment.EquipmentAttributes;
 import net.yvanchuxiuzhen.system.equipment.EquipmentProducts;
 import net.yvanchuxiuzhen.system.equipment.EquipmentRefining;
-import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.data.AccessoryData;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
 /** 装备实例的公开构造与查询；调用方只负责给予、容器或奖励流程。 */
 public final class Equipment {
@@ -30,37 +29,46 @@ public final class Equipment {
     }
 
     /** 由自然炼器累计量重建单件器物；旧实例仅用于复制来源的四个本命字段。 */
-    public static ItemStack createRefinedProduct(HolderLookup.Provider registries, CompoundTag recipe,
-                                                CompoundTag raw, ItemStack previous) {
+    public static ItemStack createRefinedProduct(HolderLookup.Provider registries, EquipmentRefinement recipe,
+                                                EquipmentRefinement raw, ItemStack previous) {
         return EquipmentRefining.create(registries, recipe, raw, previous);
     }
 
     /** 返回供下一炉升级使用的原始累计量副本，不修改输入物品。 */
-    public static CompoundTag refiningMaterials(ItemStack stack) {
+    public static EquipmentRefinement refiningMaterials(ItemStack stack) {
         return EquipmentRefining.materials(stack);
     }
 
     /** 修理读取炼器实例的嵌套等级；宝箱成品从等价投影读取，不采用顶层等级或升级反推值。 */
     public static int refiningLevel(ItemStack stack) {
-        CustomData refinement = stack.get(EquipmentData.REFINEMENT.get());
-        if (refinement != null) return refinement.copyTag().getInt("item_level_num");
+        EquipmentRefinement refinement = stack.get(EquipmentData.REFINEMENT.get());
+        if (refinement != null) return refinement.integer("item_level_num");
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
         return product == null ? 0 : product.level();
     }
 
-    /** 飞行法器修理资格按来源根字段的整数读取比较，不触发首次使用初始化。 */
-    public static boolean flyingInstrumentNeedsRepair(ItemStack stack) {
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return data.getInt("health_Max") > data.getInt("health");
+    public static int weight(ItemStack stack) {
+        EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
+        if (product != null) return product.weight();
+        EquipmentRefinement refinement = stack.get(EquipmentData.REFINEMENT.get());
+        return refinement == null ? 0 : refinement.integer("weightnum");
     }
 
-    /** 修理按根字段的 double 加血并以上限截取，其他飞行实例字段保持原值。 */
+    public static FlyingInstrumentData flyingInstrument(ItemStack stack) {
+        return stack.getOrDefault(EquipmentData.FLYING_INSTRUMENT.get(), FlyingInstrumentData.EMPTY);
+    }
+
+    /** 飞行法器修理资格按整数比较，不触发首次使用初始化。 */
+    public static boolean flyingInstrumentNeedsRepair(ItemStack stack) {
+        FlyingInstrumentData data = flyingInstrument(stack);
+        return (int) data.healthMax() > (int) data.health();
+    }
+
+    /** 修理按 double 加血并以上限截取，其他飞行实例字段保持原值。 */
     public static void repairFlyingInstrument(ItemStack stack, double amount) {
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> {
-            double health = data.getDouble("health") + amount;
-            if (health > data.getDouble("health_Max")) health = data.getDouble("health_Max");
-            data.putDouble("health", health);
-        });
+        FlyingInstrumentData data = flyingInstrument(stack);
+        double health = Math.min(data.health() + amount, data.healthMax());
+        stack.set(EquipmentData.FLYING_INSTRUMENT.get(), data.withHealth(health));
     }
 
     /** 记录来源淬毒附魔的动态原料条目；原生附魔由调用方的工艺流程写入。 */
@@ -76,11 +84,22 @@ public final class Equipment {
         return stack.getOrDefault(EquipmentData.PROPERTIES.get(), EquipmentProperties.EMPTY);
     }
 
-    /** 炉次保留的非空主人优先；未认主的升级件仍可在出炉后通过精血写入主人。 */
     public static String ownerId(ItemStack stack) {
-        String retained = properties(stack).text("belongToMasterUUID");
-        return retained.isEmpty() ? stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                .copyTag().getString("belongToMasterUUID") : retained;
+        return properties(stack).text("belongToMasterUUID");
+    }
+
+    public static void bindOwner(ItemStack stack, String uuid) {
+        updateRootField(stack, "belongToMasterUUID", StringTag.valueOf(uuid));
+    }
+
+    public static BloodEssenceData bloodEssence(ItemStack stack) {
+        return stack.getOrDefault(EquipmentData.BLOOD_ESSENCE.get(), BloodEssenceData.EMPTY);
+    }
+
+    public static String consumeGeckoAnimation(ItemStack stack) {
+        String animation = stack.getOrDefault(EquipmentData.GECKO_ANIM.get(), "");
+        if (!animation.isEmpty()) stack.remove(EquipmentData.GECKO_ANIM.get());
+        return animation;
     }
 
     /** 通用编辑器修改来源根字段时，由装备所有者同步根字段投影与两项本命经验组件。 */

@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -30,15 +29,17 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.npc.content.QiankundaorenBlockEntity;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
-/** 在人间道存档副本中检查初见任务的两个选项、断点恢复与客户端收到的原生传送。 */
+/** 在新建烟测世界的人间道维度自举放置乾坤道人，检查初见任务的两个选项、断点恢复与客户端收到的原生传送。 */
 final class QiankunDialogueCheck extends SystemCheck {
-    static final String SAVE_ID = "renjian-q119";
     private static final String QUEST_ID = "chujianqiankun";
     private static final ResourceKey<Level> RENJIAN = ResourceKey.create(Registries.DIMENSION, id("dimensionrenjian"));
-    private static final BlockPos FLOOR = new BlockPos(4, 179, -24);
+    private static final BlockPos FLOOR = new BlockPos(4, 220, -24);
     private static final BlockPos DAO = FLOOR.offset(0, 1, 2);
     private static final Vec3 STAND = Vec3.atBottomCenterOf(FLOOR.above());
     private static final Vec3 LANDING = new Vec3(20, 65, 13);
@@ -51,8 +52,8 @@ final class QiankunDialogueCheck extends SystemCheck {
     private ChannelPipeline pipeline;
     private BlockState oldFloor;
     private BlockState oldDao;
-    private CompoundTag oldSession;
-    private CompoundTag oldJournal;
+    private QuestDialogueSession oldSession;
+    private QuestJournalState oldJournal;
     private ResourceKey<Level> originalDimension;
     private GameType gameType;
     private Vec3 position;
@@ -81,9 +82,9 @@ final class QiankunDialogueCheck extends SystemCheck {
                 boolean[] ready = {false};
                 onServer(player -> {
                     String stage = daoStage(player);
-                    CompoundTag session = DialogueActions.snapshot(player);
+                    QuestDialogueSession session = DialogueActions.snapshot(player);
                     expect("首次普通右键只写入准备态", "准备", stage);
-                    boolean noDialogue = session.getString("renwulist").isEmpty() && !session.getBoolean("renwubegin");
+                    boolean noDialogue = DialogueActions.activeTemplate(player).isEmpty() && !session.dialogueBegin();
                     expectTrue("首次右键未启动服务端对话会话", noDialogue);
                     ready[0] = "准备".equals(stage) && noDialogue;
                 });
@@ -114,7 +115,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                 if (minecraft.screen != null) return await(local, 200, "「一会儿再说」未结束会话");
                 onServer(player -> expectTrue("稍后分支不传送，并保留未完成检查点43与一枚寻灵盘",
                         player.serverLevel().dimension().equals(RENJIAN) && player.position().distanceToSqr(STAND) < 0.01
-                                && DialogueActions.snapshot(player).getString("renwulist").isEmpty()
+                                && DialogueActions.activeTemplate(player).isEmpty()
                                 && checkpoint(player, "未完成", 43) && compassCount(player) == 1));
                 leaveWorld();
             }
@@ -125,7 +126,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                 boolean[] persisted = {false};
                 onServer(player -> persisted[0] = "准备".equals(daoStage(player))
                         && checkpoint(player, "未完成", 43) && compassCount(player) == 1
-                        && DialogueActions.snapshot(player).getString("renwulist").isEmpty());
+                        && DialogueActions.activeTemplate(player).isEmpty());
                 if (!persisted[0]) return abort("原生保存重进后准备态、未完成检查点43、寻灵盘或清空的会话不符");
                 expectTrue("原生保存重进保留准备态、未完成检查点43及一枚寻灵盘，临时会话清空", true);
                 submittedMenuId = -1;
@@ -156,7 +157,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                 onServer(player -> {
                     expect("传送后服务端维度", RENJIAN.location(), player.serverLevel().dimension().location());
                     expectTrue("出发分支结束并把任务标为完成、存53", checkpoint(player, "完成", 53)
-                            && DialogueActions.snapshot(player).getString("renwulist").isEmpty());
+                            && DialogueActions.activeTemplate(player).isEmpty());
                     expect("完成任务后寻灵盘数量恰好一枚", 1, compassCount(player));
                 });
                 end();
@@ -190,10 +191,10 @@ final class QiankunDialogueCheck extends SystemCheck {
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             inventory.add(player.getInventory().getItem(slot).copy());
         }
-        oldSession = player.getData(QuestData.SESSION).copy();
-        oldJournal = player.getData(QuestData.JOURNAL).copy();
-        player.setData(QuestData.SESSION, new CompoundTag());
-        player.setData(QuestData.JOURNAL, new CompoundTag());
+        oldSession = player.getData(QuestData.SESSION);
+        oldJournal = player.getData(QuestData.JOURNAL);
+        player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
+        player.setData(QuestData.JOURNAL, QuestJournalState.EMPTY);
         player.getInventory().clearContent();
         player.setGameMode(GameType.SURVIVAL);
         level.setBlockAndUpdate(FLOOR, Blocks.STONE.defaultBlockState());
@@ -253,8 +254,8 @@ final class QiankunDialogueCheck extends SystemCheck {
 
     private void cleanup(ServerPlayer player) {
         player.closeContainer();
-        player.setData(QuestData.SESSION, oldSession.copy());
-        player.setData(QuestData.JOURNAL, oldJournal.copy());
+        player.setData(QuestData.SESSION, oldSession);
+        player.setData(QuestData.JOURNAL, oldJournal);
         player.getInventory().clearContent();
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot));
         player.getInventory().selected = selected;
@@ -284,21 +285,25 @@ final class QiankunDialogueCheck extends SystemCheck {
 
     private static String daoStage(ServerPlayer player) {
         if (RENJIAN.equals(player.serverLevel().dimension()) && player.level().getBlockEntity(DAO) instanceof QiankundaorenBlockEntity dao) {
-            return dao.getPersistentData().getString(player.getUUID() + "zhuangtai");
+            return dao.playerStage(player.getUUID());
         }
         return "未找到人间道道人";
     }
 
     private static boolean isTaskAt(ServerPlayer player, int cursor) {
-        CompoundTag session = DialogueActions.snapshot(player);
-        return session.getString("renwulist").startsWith("初见乾坤道人/" + QUEST_ID + "/")
-                && session.getInt("renwuweizhi") == cursor;
+        QuestDialogueSession session = DialogueActions.snapshot(player);
+        return DialogueActions.activeTemplate(player)
+                .map(QuestTemplateDefinition::questId)
+                .filter(QUEST_ID::equals)
+                .isPresent()
+                && session.cursor() == cursor;
     }
 
     private static boolean checkpoint(ServerPlayer player, String state, int cursor) {
-        CompoundTag journal = DialogueActions.journal(player);
-        return QUEST_ID.equals(journal.getString(QUEST_ID + "UUID"))
-                && state.equals(journal.getString(QUEST_ID + "zhuangtai")) && journal.getInt(QUEST_ID + "jindu") == cursor;
+        QuestJournalState journal = DialogueActions.journal(player);
+        QuestJournalState.QuestJournalEntry entry = journal.entry(QUEST_ID);
+        return entry != null && QUEST_ID.equals(entry.uuid())
+                && state.equals(entry.status()) && entry.progress() == cursor;
     }
 
     private static int compassCount(ServerPlayer player) {

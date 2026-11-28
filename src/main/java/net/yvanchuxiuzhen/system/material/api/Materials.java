@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.system.material.MaterialLibrary;
 import net.yvanchuxiuzhen.system.material.MaterialUnlockCommand;
+import net.yvanchuxiuzhen.system.material.data.MaterialData;
 
 /** 材料系统供其他系统调用的公开入口。 */
 public final class Materials {
@@ -23,6 +24,14 @@ public final class Materials {
 
     public static void setInstance(ItemStack stack, int level, int quality) {
         MaterialLibrary.setInstance(stack, level, quality);
+    }
+
+    public static double fortuneIndex(ItemStack stack) {
+        return stack.getOrDefault(MaterialData.FORTUNE_INDEX.get(), 0.0);
+    }
+
+    public static void setFortuneIndex(ItemStack stack, double index) {
+        stack.set(MaterialData.FORTUNE_INDEX.get(), index);
     }
 
     /** 来源筛选只读取已揭示且 open 为假的名称，保留原辨识顺序。 */

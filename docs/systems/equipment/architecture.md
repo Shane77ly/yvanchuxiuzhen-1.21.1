@@ -83,7 +83,7 @@ attribute 的归属阅读把下列元素归入本系统，实现时按 [attribut
 
 18 把弓为 `Weaponspeedbow01–09Item` 和 `Weaponlongbow01–09Item`，实际均继承 `SwordItem`，选中更新共用 `A:Weaponspeedbow01DangGongJuChuXianZaiShouZhongShiProcedure`。九把拂尘为 `Weaponhossu01–09Item`，共用选中与挥动过程 `Weaponhossu01DangGongJuChuXianZaiShouZhongShi`、`Weaponhossu01DangShiTiHuiDongWuPinShi`；第一把为剑，其余八把为多用途 `TieredItem`。隐藏物品、实体与飞行过程分别是 `FuchenItem`、`FuchenEntity`、`FuchenTouZhiWuFeiXingTick`。本批接回这些入口及其消费者，其他装备尚未实现。验证结果见本节末尾及项目月度记录。
 
-Q57：弓读取实体 `synchronizedata.rightclicking`，绑定的右键过程为空。两个来源的 `src` 与 `elements` 全检只找到弓过程读取与 B 的 `Zxc` 游离实验块（另含 `rifhtclicking` 拼写），未找到有效写入。目标保留来源条件流程与剑类型，不新增鼠标同步；自然右键不能开始蓄力。该断链的修复取舍待负责人裁定，人工注入标记的检查只证明条件分支运行。
+Q57（已在阶段 4 子批 5 修复并验证，2026-11-28）：18 把弓通过 `content/equipment/items.json` 的专属工厂 `equipment:weaponspeedbow_*` / `equipment:weaponlongbow_*` 绑定至 `BowWeaponItem`（继承 `ContentSword` 保留全部剑属性与词条兼容），主手选中有效箭矢后右键按下调用 `startUsingItem` 并开启 `EquipmentData.RIGHT_CLICKING` 开始蓄力、松手 `releaseUsing` 立即调用 `EquipmentWeapons.releaseBow` 发射、中断使用 `onStopUsing` 调用 `cancelBow` 清空蓄力计数；`EquipmentWeaponCheck` 已通过自然右键蓄力、满蓄及松手发射实机检验。
 
 ### 弓的条件流程
 
@@ -298,7 +298,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 ## 穿界古镜（`fabao_013`，2026-11-12）
 
-来源入口是 `Fabao013Item.use` 与 `Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`。主世界右键把当前 `x/y/z` 写入物品 `chuansongX/Y/Z`，读取物品 `mubiaoX/Y/Z`；三项全为 0 时用缺省 `0,120,0`，然后 `execute in yvanchuxiuzhen:dimensionrenjian run teleport @p`。人间道右键把当前坐标写入 `mubiaoX/Y/Z`，读取 `chuansongX/Y/Z`；三项全为 0 时用缺省 `0,32,0`，然后 `execute in overworld run teleport @p`。两个方向都写体质键 `kaqiangpanding=true` 并给物品 12000 刻冷却；`effect_002` 沉默时整个入口不执行。来源用命令执行传送，目标用同义的 `ServerPlayer.teleportTo(ServerLevel, …)`，保留坐标、维度与朝向。
+来源入口是 `Fabao013Item.use` 与 `Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`。主世界右键把当前 `x/y/z` 写入物品 `chuansongX/Y/Z`，读取物品 `mubiaoX/Y/Z`；三项全为 0 时用缺省 `0,120,0`，然后 `execute in yvanchuxiuzhen:dimensionrenjian run teleport @p`。人间道右键把当前坐标写入 `mubiaoX/Y/Z`，读取 `chuansongX/Y/Z`；三项全为 0 时用缺省 `0,32,0`，然后 `execute in overworld run teleport @p`。两个方向都写体质键 `kaqiangpanding=true` 并给物品 12000 刻冷却；`effect_002` 沉默时整个入口不执行。来源用命令执行传送，目标直接传送持镜人，单人常见路径相同，多人选人边界见 Q252；目标使用 `ServerPlayer.teleportTo(ServerLevel, …)`，保留坐标、维度与朝向。
 
 `kaqiangpanding` 的消费在来源 `PlayerTick`：世界时间距 `jishiqi` 达到 20 且玩家身体格非空气时调用 `Xiangshang`（从当前Y向上最多60格找空气后传送），随后清标记；空位保留标记。目标在 `Fabao013Unstuck.onCultivationSecond` 按同一节拍和条件执行，键经 xiulian 的体质公开操作读写。
 
@@ -708,3 +708,27 @@ A `Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi:21–72`在有霉运时
 注册`gongjvchan`为开灵铲，对应内部`Kind.HOE`；`gongjvchu`为开灵锄，对应`Kind.SHOVEL`。`KailingProjectile`的锄/铲物品分派与此对应，不按枚举英文名交换行为。镐/铲保持前四采掘刻不动、第五刻采集，主人非空但不在当前维度保留方块；空主人在目标落物。锄只转换三种来源土壤，并按精确植物集合清上格；斧只检测/清理来源树叶集合。
 
 `kailingmaterial`是受控状态机单项，验证材质、时序和主人分支；它不替代自然寻路、完整发射回收、真实保存重进、完整视觉、多人或来源版本实机。实际运行结果统一见[本月记录](logs/2026-11.md#2026-11-16-开灵材质修正)。
+
+### Q244 主手长枪缺少两格攻击距离
+
+1.18.2 版本 B `AttributexianshiProcedure.java:38–42` 订阅装备属性事件，仅给主手 `forge:yispear` 增加 `forge:attack_range` 的加法修饰符 `+2`；不需要炼器数据。1.21.1 版本 `data/yvanchuxiuzhen/tags/item/yispear.json` 仍列九柄枪，`content/equipment/items.json` 将其建为普通剑类工具；`EquipmentAttributes.modifiers:116` 在无 STATS 时返回，有 STATS 时也只处理妖化防具。生产代码及资源未发现对应 `player.entity_interaction_range` 加成，技能的长兵标签判断不能补足普通近战距离。静态确认遗漏，未改实现。最小验证：同一玩家空手、主手持未炼制长枪、改为副手，分别读取距离属性并在普通攻击边缘实测；不以范围技能命中代替。
+
+### Q251 飓风扇两种施放缺云粒子
+
+A `Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:49–65,94` 在潜行时先发 20 个云粒子、再循环 40 次向外发射；普通右键沿视线发射 20 次。目标 `Fabao011Item.use/cast:33` 处理两种范围、击退及冷却，没有这两条云粒子路径。空场、粒子设为全部，待冷却分别普通/潜行使用，才不会把命中粒子误认作施法反馈。本轮未实机。
+
+### Q252 穿界古镜传送对象待多人对照
+
+A `Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:43` 等两方向都以无实体命令源执行 `execute in <目标维度> run teleport @p …`，冷却则施于持镜者；目标 `Fabao013Item.use/travel:47–68` 显式传送持镜玩家。不能从单人样本推定多人等价。两人重叠、交换入服顺序，在主世界和人间道分别记录实际传送者、冷却持有者；另测目标维度有玩家的情况。未运行双人，不宣称已复现错传。
+
+### Q253 饰品命令自定义字段不被收购与任务读取
+
+B `ShipinGoProcedure:39–51` 把自定义值写在物品根 NBT；`ShougouselljisuanProcedure:44–56` 读 `money`，`DuihuashijiantwoProcedure:283–310` 的高级物品判断读同一根。目标 `AccessoryCommand:50–66` 只写装备属性组件，而 `CommerceValuation:30–40` 和 `DialogueRuntime:393–417` 从 `CUSTOM_DATA` 读取。复核：`/shipin minecraft:stick 验收棒 无 测试 一级 1 money int 7`；对照灵石收购估价 7、任务条件 `money/int/7` 是否计入。不是钱币价表，也不据此推断全部装备属性失效。未实机。
+
+### Q260 自定义护甲缺少附魔适用标签
+
+1.18.2 版本的 `EnchantmentCategory.ARMOR` 按 `ArmorItem` 类判断，`BREAKABLE` 按物品耐久判断。两源 85 个附魔中，28 个用 ARMOR，3 个用 BREAKABLE。1.21.1 版本把适用条件改成 `enchantable/armor` 和 `enchantable/breakable`。逐件核对项目内容表的 133 个护甲记录，两份标签各漏相同的 65 件有耐久的护甲（equipment 61 件，财神服 4 件）。正式包中的标签相同。标签引用原版装备分类，包中也没有为这些物品补入对应原版分类。`convert_enchantments.mod_items_by_tag` 用 `factory == 'armor'` 识别护甲，跳过使用专有工厂的护甲。复核时取一件财神服和普通护甲，用同一本 `basalt` 附魔书比较铁砧接受条件，再核对物品所属标签。实机验收待做。
+
+### Q261 重转附魔会丢失现有标签成员
+
+以 `convert_enchantments.generate` 在内存中输出数据，逐项与当前生产文件做双向集合比较。`enchantable/weapon` 重转少 `flagmotheritem`、`flagsonitem` 两项，`armor` 和 `breakable` 各少相同的 29 件衣物。现有资源仍含这些成员。85 个附魔定义、挖掘工具分类以及 5 张附魔来源标签与转换结果一致。复核使用只收集数据的 `write`，或在隔离目录重转后比较集合。Q260 记录的是当前正式包已经缺失的另一组物品。

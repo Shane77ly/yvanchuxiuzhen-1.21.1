@@ -25,6 +25,7 @@ public final class OffsetBlockEntity extends RandomizableContainerBlockEntity im
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[6];
+    private String displayDirection = "";
 
     public OffsetBlockEntity(BlockPos pos, BlockState state) {
         super(OffsetBlockContent.TYPE.get(), pos, state);
@@ -38,17 +39,18 @@ public final class OffsetBlockEntity extends RandomizableContainerBlockEntity im
     }
 
     public String displayDirection() {
-        return getPersistentData().getString("fangxiang");
+        return displayDirection;
     }
 
     public void updateDirection(Direction direction) {
-        getPersistentData().putString("fangxiang", switch (direction) {
+        displayDirection = switch (direction) {
             case NORTH -> "北";
             case SOUTH -> "南";
             case WEST -> "西";
             case EAST -> "东";
             default -> "北";
-        });
+        };
+        setChanged();
     }
 
     @Override
@@ -56,12 +58,14 @@ public final class OffsetBlockEntity extends RandomizableContainerBlockEntity im
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        displayDirection = tag.getString("fangxiang");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!displayDirection.isEmpty()) tag.putString("fangxiang", displayDirection);
     }
 
     @Override

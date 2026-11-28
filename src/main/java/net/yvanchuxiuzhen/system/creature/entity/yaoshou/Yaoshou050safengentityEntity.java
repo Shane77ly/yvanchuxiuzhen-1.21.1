@@ -31,7 +31,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -104,15 +107,16 @@ public final class Yaoshou050safengentityEntity extends PathfinderMob implements
     }
 
     private void tickWind() {
-        getPersistentData().putDouble("entitytick", getPersistentData().getDouble("entitytick") + 1);
-        if (getPersistentData().getDouble("entitytick") >= 20) {
+        CreatureState state = CreatureData.state(this);
+        state.setTick(state.tick() + 1);
+        if (state.tick() >= 20) {
             if (level() instanceof ServerLevel level)
                 level.sendParticles(Particles.type("brokenlightgray"), getX(), getY(), getZ(), 16, 2, 2, 2, 0);
-            getPersistentData().putDouble("entitytick", 0);
+            state.setTick(0);
             if (!level().isClientSide()) discard();
         }
-        getPersistentData().putDouble("entitytick2", getPersistentData().getDouble("entitytick2") + 1);
-        if (getPersistentData().getDouble("entitytick2") >= 5) {
+        state.setTick2(state.tick2() + 1);
+        if (state.tick2() >= 5) {
             if (level() instanceof ServerLevel level)
                 level.sendParticles(ParticleTypes.CLOUD, getX(), getY(), getZ(), 16, 0.2, 3, 0.2, 0);
             Vec3 center = position();
@@ -123,13 +127,13 @@ public final class Yaoshou050safengentityEntity extends PathfinderMob implements
                     level.sendParticles(Particles.type("smallexplosionlightgray"), target.getX(), target.getY() + target.getBbHeight() / 2,
                             target.getZ(), 16, 2, 2, 2, 0);
                     if (target instanceof LivingEntity living)
-                        SpellDamage.command(level, living, "shanghai 风 " + getStringUUID() + " false 2 1");
+                        SpellDamage.deal(level, living, DamageCategory.WIND, this, false, 2, 1);
                 }
             }
-            setDeltaMovement(new Vec3(-Math.sin(getPersistentData().getDouble("jiaodu") * (Math.PI / 180)),
-                    -Math.sin(getPersistentData().getDouble("headjiaodu") * (Math.PI / 180)),
-                    Math.cos(getPersistentData().getDouble("jiaodu") * (Math.PI / 180))));
-            getPersistentData().putDouble("entitytick2", 0);
+            setDeltaMovement(new Vec3(-Math.sin(state.angle() * (Math.PI / 180)),
+                    -Math.sin(state.headAngle() * (Math.PI / 180)),
+                    Math.cos(state.angle() * (Math.PI / 180))));
+            state.setTick2(0);
         }
     }
 

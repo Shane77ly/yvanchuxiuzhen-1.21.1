@@ -49,7 +49,7 @@ public final class BirthSelection {
             rollRoot(player, root);
         }
         updateYinyang(player);
-        Cultivation.set(player, CultivationText.CONSTITUTION, Constitution.rolled(Mth.nextInt(player.getRandom(), 1, 10)).title());
+        Cultivation.set(player, CultivationText.CONSTITUTION, Constitution.rolled(Mth.nextInt(player.getRandom(), 1, 12)).title());
         open(player);
     }
 
@@ -103,7 +103,7 @@ public final class BirthSelection {
 
     /**
      * 消耗一次随机次数（来源 {@code randomlift}）：未锁定的灵根重随，重算阴阳；体质未锁定（{@code tizhilock}，来源中没有写入者）时
-     * 把 1–10 的随机数写入记分项 {@code suijishu} 再读出作为体质。
+     * 把 1–12 的随机数写入记分项 {@code suijishu} 再读出作为体质（Q21）。
      */
     private static void reroll(ServerPlayer player) {
         if (Cultivation.get(player, CultivationValue.RANDOMLIFT) <= 0) {
@@ -123,7 +123,7 @@ public final class BirthSelection {
                 objective = scoreboard.addObjective(ROLL_OBJECTIVE, ObjectiveCriteria.DUMMY, Component.literal(ROLL_OBJECTIVE),
                         ObjectiveCriteria.RenderType.INTEGER, false, null);
             }
-            scoreboard.getOrCreatePlayerScore(player, objective).set(Mth.nextInt(player.getRandom(), 1, 10));
+            scoreboard.getOrCreatePlayerScore(player, objective).set(Mth.nextInt(player.getRandom(), 1, 12));
             Cultivation.set(player, CultivationText.CONSTITUTION, Constitution.rolled(scoreboard.getOrCreatePlayerScore(player, objective).get()).title());
         }
         Cultivation.add(player, CultivationValue.RANDOMLIFT, -1);

@@ -1,11 +1,8 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.text.DecimalFormat;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,12 +21,13 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.yvanchuxiuzhen.platform.content.CommandAmount;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -39,7 +37,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
  * 伤害范围提示（来源 {@code Shanghaifanwei}）：动画显示判定范围，普通提示按倒计时移除，惊蛰闻雷存续 40 刻。
- * 控雷阵在第 20 刻以该实体的位置和持久数据调用落雷命令；其余技能的伤害由各自的生成者结算。
+ * 控雷阵在第 20 刻以该实体的位置和持久数据发起落雷；其余技能的伤害由各自的生成者结算。
  */
 public final class DamageArea extends PathfinderMob implements GeoEntity, AnimatedLook {
     public static final String ID = "shanghaifanwei";
@@ -47,6 +45,11 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final SkillAnimations animationState;
+    private String skillName = "";
+    private double remaining;
+    private double attackDamage;
+    private String attackerUuid = "";
+    private double timer;
 
     public DamageArea(EntityType<DamageArea> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -57,6 +60,14 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
     }
+
+    public String skillName() { return skillName; }
+    public void setSkillName(String skillName) { this.skillName = skillName; }
+    public double remaining() { return remaining; }
+    public void setRemaining(double remaining) { this.remaining = remaining; }
+    public double attackDamage() { return attackDamage; }
+    public double timer() { return timer; }
+    public void setTimer(double timer) { this.timer = timer; }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {
         return model.attributes().add(Attributes.FLYING_SPEED, 0.3).add(NeoForgeMod.SWIM_SPEED, 0.3);
@@ -78,7 +89,6 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         DamageArea area = SkillSetup.<DamageArea>entityType(ID).get().create(level);
         area.moveTo(at.x, at.y, at.z, level.getRandom().nextFloat() * 360, 0);
         area.setAnimation(animation);
-        CompoundTag state = area.getPersistentData();
         if (sharedEntityFriends) {
             Relations.shareEntityAllegiance(owner, area);
         } else if (skillName.isEmpty()) {
@@ -86,11 +96,11 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         } else {
             Relations.setTeam(area, Relations.team(owner));
         }
-        state.putString("jinengname", skillName);
-        state.putDouble("daojishi", duration);
+        area.skillName = skillName;
+        area.remaining = duration;
         if (skillName.equals("控雷阵")) {
-            state.putDouble("AttackDamage", attackDamage);
-            state.putString("AttackUUID", owner.getStringUUID());
+            area.attackDamage = attackDamage;
+            area.attackerUuid = owner.getStringUUID();
         }
         area.finalizeSpawn(level, level.getCurrentDifficultyAt(area.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(area);
@@ -122,29 +132,42 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     }
 
     private void tickSkill(ServerLevel level) {
-        CompoundTag state = getPersistentData();
-        String skill = state.getString("jinengname");
-        if (skill.equals("控雷阵") || skill.equals("惊蛰闻雷")) {
-            double age = state.getDouble("jishiqi") + 1;
-            state.putDouble("jishiqi", age);
-            if (age >= (skill.equals("控雷阵") ? 20 : 40)) {
-                if (skill.equals("控雷阵")) {
-                    CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, position(), Vec2.ZERO, level,
-                            4, "", Component.empty(), level.getServer(), null).withSuppressedOutput();
-                    String command = "lightninglanding " + new DecimalFormat("0").format(state.getDouble("AttackDamage"))
-                            + " " + state.getString("AttackUUID") + " 1 " + Relations.team(this) + " 2 白色";
-                    level.getServer().getCommands().performPrefixedCommand(source, command);
+        if (skillName.equals("控雷阵") || skillName.equals("惊蛰闻雷")) {
+            timer += 1;
+            if (timer >= (skillName.equals("控雷阵") ? 20 : 40)) {
+                if (skillName.equals("控雷阵")) {
+                    Lightning.castSaved(level, position(), attackerUuid, CommandAmount.formatted(new DecimalFormat("0"), attackDamage),
+                            1, Relations.team(this), 2, "白色", false);
                 }
-                state.putDouble("jishiqi", 0);
+                timer = 0;
                 discard();
             }
         } else {
-            double remaining = state.getDouble("daojishi") - 1;
-            state.putDouble("daojishi", remaining);
+            remaining -= 1;
             if (remaining <= 0) {
                 discard();
             }
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("skillName", skillName);
+        tag.putDouble("remaining", remaining);
+        tag.putDouble("attackDamage", attackDamage);
+        tag.putString("attackerUuid", attackerUuid);
+        tag.putDouble("timer", timer);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        skillName = tag.getString("skillName");
+        remaining = tag.getDouble("remaining");
+        attackDamage = tag.getDouble("attackDamage");
+        attackerUuid = tag.getString("attackerUuid");
+        timer = tag.getDouble("timer");
     }
 
     @Override

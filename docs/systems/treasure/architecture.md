@@ -2,7 +2,7 @@
 topic: treasure
 role: architecture
 status: partial
-updated: 2026-11-14
+updated: 2026-11-26
 ---
 
 # 宝箱：奖励与开箱
@@ -17,17 +17,15 @@ updated: 2026-11-14
 
 宝箱定义（容器类型、类别、等级与奖励表）归本系统；奖励物品由所属系统的生成入口创建，本系统组合结果。
 
-`tools/porting/extract_treasure_rewards.py`从B的锁定来源递归提取30个纯奖励过程，生成`TreasureRewardTables`及[输入/输出指纹](../../reference/conversion/treasure_reward_tables.json)。保留原有条件顺序、随机上下界、重复项、空分支、不可达分支及`doube`字段拼写，只合并命名空间并将临时等级、随机源改为调用参数。书架6类、药架5类、武器架5类、宝箱8类共24个分派；完整类别见生成脚本的`CATEGORIES`，不另复制一份概率表。
+`tools/porting/extract_treasure_rewards.py`从B的锁定来源递归提取30个纯奖励过程，生成`src/main/resources/content/treasure/reward_tables.json`（29个奖励池、24项分派、976条加权条目）及[输入/输出指纹](../../reference/conversion/treasure_reward_tables.json)。相邻的独立抽签判断链按来源顺序读取；`check_treasure_reward_rolls.py` 已将六个变动池共 598 个签位与编译后的来源过程逐签对照。以强类型`TreasurePoolDefinition` `Codec`结构代替`%`/`/`拼接串与硬编码Java大表；完整类别映射见生成脚本的`CATEGORIES`与JSON的`dispatches`，不另复制概率表。
 
-`B:BaoxiangzongProcedure:41–68`先随机次数，再逐次随机奖励；`127–180`按百分号分段、斜线分字段，首段确定承载物品，第二段命名或“无”，余段按char/int/double/doube/logic解释，数值解析失败为0。普通物品在命令位置加`(0.5,1,0.5)`掉落、拾取延迟10刻；指令奖励以加`(0.5,0.5,0.5)`、权限4、隐藏输出的来源执行。装备分支执行`/lianqi`，保留其容器中转限制。
+`B:BaoxiangzongProcedure:41–68`先随机次数，再逐次从`TreasureRewardTables`抽样奖励。普通物品、材料、符箓、丹药、丹方、功法与技能书按强类型规约直接构造并在命令位置加`(0.5,1,0.5)`掉落、拾取延迟10刻；空分段与空奖励分支中止本次开箱循环。指令奖励以加`(0.5,0.5,0.5)`、权限4、隐藏输出的来源执行，作为可配置命令保留。
 
-宝箱只解析临时参数，不直接写功法、技能、丹药、丹方、符箓或材料的业务实例。六类由各所有者API构造，公共书既有阅读/研习链消费功法、技能与丹方实例。炼丹API保留有序药效和材料，来源重复键由后写覆盖；技能书使用现有类型化组件，不复制另一份根NBT。
+宝箱只读取规约中的强类型参数，不直接写功法、技能、丹药、丹方、符箓或材料的业务实例。六类由各所有者API构造，公共书既有阅读/研习链消费功法、技能与丹方实例。炼丹API保留有序药效和材料，技能书使用现有类型化组件。
 
-### R11 奖励分派静态核验（2026-11-15）
+### 奖励分派静态与数据驱动核验（2026-11-15 / 2026-11-25）
 
-`tools/porting/check_treasure_reward_dispatch.py`从`extract_treasure_rewards.py`读取唯一的`CATEGORIES`定义，逐项比较目标`TreasureRewardTables.select`的书架6项、药架5项、武器架5项和宝箱8项，共24项分派，并确认24个目标表方法均存在。检查同时按提取器的文本换行语义核对`docs/reference/conversion/treasure_reward_tables.json`登记的30个来源过程SHA-256和目标输出SHA-256；结果为24/24、30/30及输出一致。
-
-目标`TreasureRewards`静态保留六个业务所有者入口：`Techniques.createBook`、`Skills.createBook`、`Fulu.createReward`、`Liandan.createMedicineReward`、`Liandan.createRecipeReward`和`Materials.setInstance`。奖励串空首段或斜线字段不足三段时终止当次发放；指令分支使用权限4、无实体来源和隐藏输出；`double`/来源拼写`doube`、数值失败归零、未知字段忽略及普通`ItemStack`回退均存在。结果报告写入`build/diagnostics/r11-treasure-reward-dispatch/static-parity.json`。
+`tools/porting/check_treasure_reward_dispatch.py`从`extract_treasure_rewards.py`读取唯一的`CATEGORIES`定义，核对`reward_tables.json`中书架6项、药架5项、武器架5项和宝箱8项共24项分派与`docs/reference/conversion/treasure_reward_tables.json`登记的30个来源过程SHA-256及JSON输出SHA-256；并确认`TreasureRewardTables`的`ContentFiles`加载入口、`TreasureRewards`的六类所有者API及空分支/指令分支规则。结果报告写入`build/diagnostics/r11-treasure-reward-dispatch/static-parity.json`。
 
 ## 01至11宝箱载体
 
@@ -115,3 +113,7 @@ A十按钮及命中过程`25/35/45/55/65`均读操作当时主手，无物品类
 ### Q143 弹体空声音标识
 
 A `TiandaobaoxiangitemEntity`两种shoot查询空ResourceLocation声音，没有有效音效ID，弹体自身silent。目标不补造原版箭声；空ID在1.18.2版本的具体异常/日志未实机，当前差异与声音表现仍待核。
+
+### Q254 宝箱设置命令权限由零升为一
+
+B `BaoxiangsetCommand:24–26,43–45` 没有权限门槛，`BaoxiangsetGoProcedure:21–53` 对七格视线内的方块实体写五项配置。目标 `TreasureCommands.register:23–30` 给 `/baoxiangset` 和 `/baoxiangopen` 都加权限 1；前者与来源不同，后者不在差异内。在隔离世界用权限 0 的生存玩家正对箱子执行 `/baoxiangset A B 2 1 1`，再换权限 1 对照。降低权限会使普通玩家能改配置，登记不等于已授权放宽。未实机。

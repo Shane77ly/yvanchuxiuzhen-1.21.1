@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.DoubleTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -24,13 +25,18 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao01701Entity;
 import net.yvanchuxiuzhen.system.guchong.GuchongSetup;
 import net.yvanchuxiuzhen.system.guchong.client.TaoguanScreen;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanMenu;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 
 /** 摄虫网的自然入口、服务端刻、捕获组件保存和蛊罐菜单消费；夹具固定实体位置以隔离落点与追击。 */
@@ -47,7 +53,7 @@ final class Fabao017Check extends ActionCheck {
     private ItemStack captured;
     private GuchongEntity wild;
     private GuchongEntity owned;
-    private CompoundTag wildBefore;
+    private EntityStats wildBefore;
     private Fabao01701Entity net;
     private Spider spider;
     private Cow cow;
@@ -93,25 +99,25 @@ final class Fabao017Check extends ActionCheck {
         wild = insect(player.serverLevel(), "guchong_03", net.position());
         wild.setHealth(7);
         wild.setCustomName(Component.literal("[飞蝗样本]"));
-        wild.getPersistentData().putDouble("experience", 37.5);
-        wildBefore = wild.getPersistentData().copy();
+        EntityAttributes.update(wild, stats -> stats.withExperience(37.5));
+        wildBefore = EntityAttributes.get(wild);
         owned = insect(player.serverLevel(), "guchong_04", net.position());
-        owned.getPersistentData().putBoolean("guchongxvnfu", true);
-        expectTrue("普通右键生成摄虫网并进入50刻冷却", net.getPersistentData().getString("skill").equals("摄虫网")
+        owned.setData(GuchongData.RUNTIME, owned.getData(GuchongData.RUNTIME).withTamed(true));
+        expectTrue("普通右键生成摄虫网并进入50刻冷却", net.skill().equals("摄虫网")
                 && player.getCooldowns().isOnCooldown(tool.getItem()));
     }
 
     private void reloadActiveNet(ServerPlayer player) {
-        expectTrue("第36刻前尚未收纳蛊虫", wild.isAlive() && net.getPersistentData().getDouble("tick1") < 36);
+        expectTrue("第36刻前尚未收纳蛊虫", wild.isAlive() && net.timer1() < 36);
         CompoundTag saved = net.saveWithoutId(new CompoundTag());
-        double ticks = net.getPersistentData().getDouble("tick1");
+        double ticks = net.timer1();
         net.discard();
         net = EquipmentSetup.fabao017Type().get().create(player.serverLevel());
         net.load(saved);
         player.serverLevel().addFreshEntity(net);
-        expectTrue("活动实体序列化重读保留主人、技能与计时", net.getPersistentData().getDouble("tick1") == ticks
-                && net.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID())
-                && net.getPersistentData().getString("skill").equals("摄虫网"));
+        expectTrue("活动实体序列化重读保留主人、技能与计时", net.timer1() == ticks
+                && net.masterUuid().equals(player.getStringUUID())
+                && net.skill().equals("摄虫网"));
     }
 
     private void checkCaptureAndOpenJar(ServerPlayer player) {
@@ -120,13 +126,14 @@ final class Fabao017Check extends ActionCheck {
         captured = player.getInventory().items.stream().filter(stack -> stack.is(item("guchong_03item").getItem())).findFirst().orElseThrow();
         CompoundTag data = GuchongJarData.read(captured);
         expectTrue("捕获物品保存当前生命、等级、经验和清理后的名称", data.getDouble("health_Num") == 7
-                && data.getDouble("LEVELnumber") == wildBefore.getDouble("LEVELnumber")
+                && data.getDouble("LEVELnumber") == wildBefore.level()
                 && data.getDouble("experience") == 37.5 && data.getString("guchongid").equals("yvanchuxiuzhen:guchong_03")
                 && !data.getBoolean("guchongxvnfu") && captured.getHoverName().getString().equals("飞蝗样本"));
         boolean ratings = true;
-        for (String key : List.of("health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
-                "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed"))
-            ratings &= data.getString(key + "_LEVEL").equals(wildBefore.getString(key + "_LEVEL"));
+        List<String> legacyRatingKeys = List.of("health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+                "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed");
+        for (int i = 0; i < EntityAttributes.COMBAT_STATS.size(); i++)
+            ratings &= data.getString(legacyRatingKeys.get(i) + "_LEVEL").equals(wildBefore.rating(EntityAttributes.COMBAT_STATS.get(i)));
         ItemStack restored = ItemStack.parse(player.registryAccess(), captured.save(player.registryAccess())).orElseThrow();
         expectTrue("十三项资质和物品全部组件经过序列化重读保持", ratings && ItemStack.isSameItemSameComponents(captured, restored));
         player.getInventory().clearContent();
@@ -161,7 +168,7 @@ final class Fabao017Check extends ActionCheck {
     private void checkJarAndCastTrap(ServerPlayer player) {
         CompoundTag insect = GuchongJarData.read(player.containerMenu.getSlot(0).getItem());
         expectTrue("重开蛊罐恢复个体资质并保留来源不读当前生命的行为", insect.getDouble("experience") == 37.5
-                && insect.getString("attack_Num_LEVEL").equals(wildBefore.getString("attack_Num_LEVEL")) && !insect.contains("health_Num"));
+                && insect.getString("attack_Num_LEVEL").equals(wildBefore.rating(Stat.ATTACK)) && !insect.contains("health_Num"));
         player.closeContainer();
         player.setItemInHand(InteractionHand.MAIN_HAND, tool);
         player.getCooldowns().removeCooldown(tool.getItem());
@@ -173,9 +180,7 @@ final class Fabao017Check extends ActionCheck {
         tool.getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
         expectTrue("沉默拒绝普通施法且不计冷却", !player.getCooldowns().isOnCooldown(tool.getItem()) && nets(player) == 0);
         StatusEffects.remove(player, "effect_002");
-        CompoundTag item = new CompoundTag();
-        item.putDouble("item_level_num", 1);
-        tool.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
+        Equipment.updateRootField(tool, "item_level_num", DoubleTag.valueOf(1));
         player.setShiftKeyDown(true);
         tool.getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
         player.setShiftKeyDown(false);
@@ -189,7 +194,7 @@ final class Fabao017Check extends ActionCheck {
         cow.moveTo(net.position());
         anchor(cow);
         player.serverLevel().addFreshEntity(cow);
-        expectTrue("黄阶一级潜行生成困虫兜并进入400刻冷却", net.getPersistentData().getString("skill").equals("困虫兜")
+        expectTrue("黄阶一级潜行生成困虫兜并进入400刻冷却", net.skill().equals("困虫兜")
                 && player.getCooldowns().isOnCooldown(tool.getItem()));
     }
 

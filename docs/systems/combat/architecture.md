@@ -2,7 +2,7 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-18
+updated: 2026-11-27
 ---
 
 # 战斗：规则与实现状态
@@ -39,11 +39,11 @@ updated: 2026-11-18
 
 `B:LightningLandingCommand` 无权限限制、允许无参数并返回 0；`LightningLandingGo` 先生成彩色闪电，再以命令原坐标为中心、范围直径除二扩展 AABB，按距离排序，对 Mob/Player 执行 `shanghai 雷`。颜色支持灰、黄、金、红、血、绿、天蓝、海蓝、紫、黑，其余为白，均为不透明 ARGB。独立伤害只在第七个参数为“独立”时开启。队伍词只占位，空词前移结果见 Q55；不改写来源参数语义。
 
-`ColoredLightningBolt`、`LightningLanding` 与 `Lightning.command` 承担共享落雷，命令与彩色闪电归 combat。实体坐标取原坐标向下取整后的底部中心，设置 `visualOnly=true` 与原生 damage=0.1；雷伤另经 `/shanghai`。保留原生闪电生命周期、声音及避雷针/铜交互，注册为不保存、零尺寸、追踪范围 16、最大更新间隔。客户端复用精确目标 NeoForge 21.1.265 的 `LightningBoltRenderer` 几何，通过 `VertexConsumerWrapper` 替换同步颜色与 alpha；未另写客户端玩法。技能只提供落点与次数；xiulian 雷劫完整流程已在后续批次接回，规则与验证范围见[修炼架构](../xiulian/architecture.md)“完整雷劫”。
+`ColoredLightningBolt`、`LightningLanding` 与 `Lightning` 的实体、存档、劫云入口 承担共享落雷，命令与彩色闪电归 combat。实体坐标取原坐标向下取整后的底部中心，设置 `visualOnly=true` 与原生 damage=0.1；范围内每个生物或玩家按距离顺序使用同一份雷伤参数直接调用 `Shanghai.deal`；无效攻击者仍生成闪电但不造成伤害。保留原生闪电生命周期、声音及避雷针/铜交互，注册为不保存、零尺寸、追踪范围 16、最大更新间隔。客户端复用精确目标 NeoForge 21.1.265 的 `LightningBoltRenderer` 几何，通过 `VertexConsumerWrapper` 替换同步颜色与 alpha；未另写客户端玩法。技能只提供落点与次数；xiulian 雷劫完整流程已在后续批次接回，规则与验证范围见[修炼架构](../xiulian/architecture.md)“完整雷劫”。
 
 来源实体在自身 `Register` 嵌套类注册，`B:YvanchuxitongMod.java:61` 实际挂接事件总线；此前提取器仅扫 init 而漏记。已补齐注册、人工归属与类覆盖表，来源注册总数为 4939，来源文件指纹未变。`convert_content.py` 对该 ID 明确保留独立注册路径，不再套用 init 中的普通实体构建器，也不重复生成内容表条目。
 
-完整雷劫由 xiulian 保存与推进状态，combat 在 `CombatSetup` 监听其 `TribulationLightningEvent` 和 `TribulationDamageEvent`，分别调用共享落雷与伤害命令。这样保持 combat → xiulian，避免修炼反向依赖战斗。五项雷劫主路径专项均通过；这不覆盖先前落雷检查未通过的两个技能入口。
+完整雷劫由 xiulian 保存与推进状态，combat 在 `CombatSetup` 监听其 `TribulationLightningEvent` 和 `TribulationDamageEvent`，分别直接调用无来源范围落雷与有来源雷伤 API。这样保持 combat → xiulian，避免修炼反向依赖战斗。五项雷劫主路径专项均通过；这不覆盖先前落雷检查未通过的两个技能入口。
 
 敌友判定调用 relation 的查询。伤害入口明确攻击者、受击者、来源、类别、基础量及来源效果。把免伤/目标过滤、伤害变换、实际承伤后的效果分到目标事件对应阶段；禁止同时在入口和事件中重复计算同一份伤害。
 
@@ -87,7 +87,7 @@ updated: 2026-11-18
    - 结算量大于 0：受击者有 `effect_036`（免死）时结算量不超过当前生命 − 1；写回伤害量。结算量不大于 0 时伤害量不变。
    - 手持武器 `vampire` 等级 n：攻击者回复 结算量 × n × 5%（结算量为 0 时也执行，不受“结算量大于 0”限制）。
    - 暴击：手持 `critical` 等级 n 时以 n × 2% 概率生成暴击粒子并把结算量记为 伤害量 × (1.5 + criticalatt × 0.2)，但这个值随即被上一条的结算量覆盖，不影响伤害（Q30）。
-5. 受击者当前生命小于原伤害量且是持有 `itemfulu_16` 的玩家：播放图腾动画与音效、发光 40 tick、生命 + (符箓等级 + 1) × 10、消耗一张符箓、取消事件。三个分支（闪避未中后的特殊伤害来源、伤害量不大于 0、普通结算之后）各有一份相同的复活判定。
+5. 受击者当前生命小于原伤害量且是持有 `itemfulu_16` 的玩家：播放图腾动画与音效、发光 40 tick、生命 + (符箓等级 + 1) × 10、消耗一张符箓、取消事件。三个分支（跳过闪避的四种来源、未闪避但跳过物理公式的特殊来源、正伤害普通结算之后）各有一份相同的复活判定。
 
 ### `LivingAttackEvent`：命中附魔与战斗状态（`EntityHurt`）
 
@@ -97,7 +97,7 @@ updated: 2026-11-18
    - `phoenix`：概率 等级 × 1%，受击者生命减 等级²；
    - `longdignified` → `effect_007`（100 tick，等级 = 附魔等级）；`tigerdignified` → 虚弱（100 tick）；概率均为 等级 × 1%；
    - `sawtooth`（受击者非亡灵，概率 等级 × 10%）→ `effect_004`；`fluorescence`（概率 等级 × 10%）→ 发光；
-   - 毒药附魔（概率 等级 × 1%）：`beepoison` → `duyao_10`、`firepoison` → `duyao_16`、`redrefining` → `duyao_13`、`spore` → `duyao_17`、`sinomeninevine` → `duyao_11`、`coldtoxin` → `duyao_12`、`cautery` → `duyao_14`、`snakevenom` → `duyao_15`；效果时长 = 受击者已有同效果剩余 tick × 20 + 600，等级 = 附魔等级 − 1，并在受击者位置生成 `zhongdulizi` 粒子（Q32）；
+   - 毒药附魔（概率 等级 × 1%）：`beepoison` → `duyao_10`、`firepoison` → `duyao_16`、`redrefining` → `duyao_13`、`spore` → `duyao_17`、`sinomeninevine` → `duyao_11`、`coldtoxin` → `duyao_12`、`cautery` → `duyao_14`、`snakevenom` → `duyao_15`；效果时长已按阶段 4 Q32 修正为 受击者已有同效果剩余 tick + 600，等级 = 附魔等级 − 1，并在受击者位置生成 `zhongdulizi` 粒子；
    - `vampire`：攻击者回复 `amount × 等级 × 5%`（与 `LivingHurtEvent` 的吸血各自回复一次）；
    - 调用 `EntityHurt2`、`EntityHurt3`；
    - 攻击者是玩家且装备功法名为 `流星春水`（20% 在受击者上方 16 格生成陨石 `skill_rock_03`，倍率 1.2）、`星君诀`（同上，倍率 2.4）、`金廷落`（受击者生命减 功法层数 × 0.5）、`血魔祭魂秘法`（同样扣血并给攻击者 2 个 `xvejing`）；
@@ -133,7 +133,7 @@ updated: 2026-11-18
 ### 附魔与效果的实现范围
 
 - 原初修真的 84 个附魔类与原初系统的 `chain` 都是只有稀有度、类别、槽位和 `isTradeable`/`isTreasureOnly` 覆盖的空壳类，没有 `getMaxLevel` 等覆盖（1.18.2 默认最高 1 级）；效果全部由上述订阅过程读取手持物或四件护甲的等级。原初修真 84 个中武器类（`EnchantmentCategory.WEAPON`）51 个、护甲类 28 个、可损坏类 3 个、挖掘类 2 个；83 个普通稀有度、1 个 `sawtooth` 少见；`isTradeable` 返回否 45 个、`isTreasureOnly` 返回是 2 个（`kailing`、`sawtooth`）。
-- `EntityHurt2` 包含：防具附魔 `firearmor`、`icearmor`、`discharge`、`pool`（概率为四件护甲等级之和 %，命中后对以受击者为中心、边长 5 的方体内非友好目标发 `/shanghai`，固定伤害，基础量为等级之和 × 2）；武器附魔 `qishi`（召唤 `skillyin_01`）、`lingwen`、`liuyan`、`pojia`、`yvnxvan`、`chenmo`、`lingtikiller`、`jvtong`、`zhongshang`、`confine` 等；`EntityHurt3` 包含 `iceexplosion`、`liuqing`、`threaten`、`nofly`、`starsky` 等。其中 `lingtikiller` 取了 `zhongshang` 的等级、`lingwen` 的消耗取了 `qishi` 的等级、`liuqing` 的时长使用未赋值的 `fumolevel`（Q32）。
+- `EntityHurt2` 包含：防具附魔 `firearmor`、`icearmor`、`discharge`、`pool`（概率为四件护甲等级之和 %，命中后对以受击者为中心、边长 5 的方体内非友好目标且豁免自身发 `/shanghai`，固定伤害，基础量为等级之和 × 2）；武器附魔 `qishi`（召唤 `skillyin_01`）、`lingwen`、`liuyan`、`pojia`、`yvnxvan`、`chenmo`、`lingtikiller`、`jvtong`、`zhongshang`、`confine` 等；`EntityHurt3` 包含 `iceexplosion`、`liuqing`、`threaten`、`nofly`、`starsky` 等。已按阶段 4 Q32/Q45 修正 `lingtikiller`、`lingwen`、`liuqing` 改为各自读取自身附魔等级（`lingwen` 改扣攻击者灵力并用 `copyFrom` 复制好友团队）。
 - 这些过程调用的实体与粒子（`skill_rock_03`、`skillyin_01`、`lingwentexiao_2`、`zhongdulizi`、`miss` 等）属于 skill、particle，登记后随所属系统接入。
 
 ## 目标方案：附魔数据定义与等级查询（2026-11-04 已实现，会话决定）
@@ -180,7 +180,7 @@ updated: 2026-11-18
 | `effect_008/009/012/014/019/021` | 瞬时：把对应的已加点次数减 (等级 + 1)（可再加点的次数增加），提示后移除；对应血量上限、物理攻击、灵力上限、法术攻击、精力上限、精神攻击 |
 | `effect_010/017` | 每 20 刻在当前灵力（精力）低于最终上限时恢复 10 × (等级 + 1)（说明文本写“每两秒 5 × 等级”，实际与之不符，保持来源） |
 | `effect_011/018` | 瞬时：当前值低于最终上限时恢复 (等级 + 1)² × 100，移除 |
-| `effect_015/016` | 持续型每 40 刻、瞬时型一次增加待吸收修为 ((等级 + 1) × 5)² 与 ((等级 + 1) × 20)²，玩家直接加，妖兽发出 `EffectExperienceEvent`（creature 订阅） |
+| `effect_015/016` | 持续型每 40 刻、瞬时型一次增加待吸收修为 ((等级 + 1) × 5)² 与 ((等级 + 1) × 20)²，玩家直接加，妖兽发出 `EffectExperienceEvent`（截至 `cdcc561a` 缺少 creature 订阅，见 Q262） |
 | `effect_013/020/022/036` | 标记，等级由伤害结算读取 |
 
 留待其他系统：`EffectExperienceEvent` 随 creature 订阅；实体 `ycxzboss_04`、`taomujing`（无力的豁免）按路径名判断，随 creature 登记生效；说明文本与实现不符的 `effect_010/017` 按评估为轻微记录，不修改。
@@ -199,19 +199,19 @@ updated: 2026-11-18
 | `duyao_06` 含笑半步颠 | 每 5 刻检查取整坐标：站定记录，下次坐标变化即受 100 点凋零伤害并爆炸（音效 `entity.generic.explode`、爆炸粒子）；游泳、跳跃、骑乘、岩浆中清除记录 |
 | `duyao_07` 一日丧命散 | 每 20 刻累积 1 层，满 1200 层毙命；玩家灵力压到 1，其他生物每次被沉默 40 刻；结束时玩家体质或非玩家持久化数据的 `duyao07level` 清零 |
 | `duyao_08` 砒霜 | 每 20 刻 2 × (等级 + 1) |
-| `duyao_09` 番木鳖 | 每刻把当前生命压到 最大生命 − 10 × (1 + 等级)（体质放大目标值，至少 1） |
+| `duyao_09` 番木鳖 | 每刻把当前生命压到 最大生命 − 经体质放大的 10 × (1 + 等级)（至少 1，已按 Q33 修正为放大扣血量） |
 | `duyao_10` 蜂毒 | 瞬时，4 × (1 + 等级) 并附加缓慢（60 刻，20 级）与发抖（20 刻，1 级），移除 |
 | `duyao_11` 青藤毒 | 每 20 刻 (1 + 等级) 点并扣灵力 10 × (1 + 等级)（玩家，不低于 0） |
 | `duyao_12` 寒毒 | 每刻冷冻值 +1，每 80 刻发抖 20 刻 |
-| `duyao_13` 赤炼毒 | 每 40 刻 4 × (1 + `duyao_01` 的等级)（Q33） |
+| `duyao_13` 赤炼毒 | 每 40 刻 4 × (1 + 等级)（已按 Q33 修正为读自身等级） |
 | `duyao_14` 烙毒 | 每 1200 刻 20 × (等级 + 1) |
 | `duyao_15` 蛇纹毒 | 每 100 刻 最大生命 × 1% × (1 + 等级) |
 | `duyao_17` 孢子 | 每 100 刻随机获得缓慢、中毒、霉运、发光、虚弱、失明、隐身之一，100 刻，等级同孢子 |
 | `duyao_19` 毒厄丹 | 开始时附加眩晕、剧痛、无力、发抖各 1200 刻 3 级；结束时由 combat 将来源指定七类生物原地转换为僵尸，详见下文 |
-| `duyao_20` 尸毒 | 每次感染累积 1 层；每 80 刻受 (等级 + 1 + 层数) 点，身上有瞬间治疗或生命恢复时层数清零；体质放大被覆盖不生效（Q33） |
+| `duyao_20` 尸毒 | 每次感染累积 1 层；每 80 刻受经体质放大的 (等级 + 1 + 层数) 点（已按 Q33 恢复体质毒伤放大），身上有瞬间治疗或生命恢复时层数清零 |
 | `duyao_16`、`duyao_18` | 标记，等级由伤害结算读取 |
 
-`duyao_21`（曼陀罗）经 `/shanghai` 结算，随伤害结算迁移。
+`duyao_21`（曼陀罗）使用独立计时 `duyao21tick` 并读取自身等级，每 40 刻按阴属性结算并向周围无伤害吸收实体扩散负面效果（已按 Q33 修正）。
 
 ### 毒药结束回调补齐（2026-11-09）
 
@@ -233,9 +233,9 @@ updated: 2026-11-18
 
 | 来源 | 目标 |
 | --- | --- |
-| `EntityHurt`（`LivingAttackEvent`）、`EntityBeforeHurt`（`LivingHurtEvent`） | 1.21.1 版本两个事件合并为 `LivingIncomingDamageEvent`：`HurtHandler` 先执行 `AttackStage`（命中处理）再执行 `HurtStage`（受伤处理），都要求有攻击者；`AttackStage` 的伤害量取原值，与来源一致 |
+| `EntityHurt`（`LivingAttackEvent`）、`EntityBeforeHurt`（`LivingHurtEvent`） | 盾前的命中与盾后的受伤分别接入，后者覆盖玩家与普通生物各自的实现，见[受伤阶段时序](#盾挡后的受伤阶段与复活符2026-11-23)。 |
 | `/shanghai` 的 `ShanghaiGo` 及两个计算过程 | `Shanghai.deal`（`damage/Shanghai`），命令 `ShanghaiCommand` 只解析参数；类别 `DamageCategory`（14 种，含“无”）承载各类别的灵根、体质键、武器附魔、护甲附魔、相克族 |
-| `DamageSource("linglidamage")` 等四种来源 | 数据包伤害类型 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player`（消息 ID 与来源一致，`exhaustion` 为 0），加入标签 `minecraft:bypasses_armor`；`CombatDamageTypes.source` 构造（死亡消息键与译文对不上，Q34） |
+| `DamageSource("linglidamage")` 等四种来源 | 数据包伤害类型 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player`（消息 ID 与来源一致，`exhaustion` 为 0），加入标签 `minecraft:bypasses_armor`；`CombatDamageTypes.source` 构造（已按 Q34 修正并补齐 `death.attack.*` 中英文死亡消息键） |
 | 记分板 `suijishu` | 来源每次先写随机数再读回，只是借用；改为局部随机数 |
 | 玩家变量、体质物品 | attribute 的最终值与基础值、xiulian 的体质键（`Cultivation.tizhiDouble/setTizhiDouble`）、灵力精力与境界（`Cultivation.get/set`） |
 | 敌友判定 | relation 的 `Relations.team/isFriendly`；`/shanghai` 与受伤处理按攻击方、受击方是否玩家分四种组合，规则同上文“伤害主链”（来源把受击玩家的数据来源与攻击者的混用，生物攻击玩家不会判为友方） |
@@ -250,7 +250,7 @@ updated: 2026-11-18
 
 ## 连锁采集与穿石（2026-11-04 已实现，会话决定）
 
-- **连锁采集**（`chain`，原初系统的 `ChainProcedure`，`enchant/ChainMining`）：`BlockEvent.BreakEvent` 中，主手工具对被挖方块有效且有 `chain` 时，从该方块按 3×3×3 邻域展开挖掉相同方块，展开条目不超过 附魔等级 × 5 + 1（条目可重复，来源如此）；每挖一块工具损耗 1 点；掉落不带工具，不受时运与精准采集影响，掉在被挖的方块位置。矿石（`c:ores` 与本 Mod 命名空间的 `ores`，后者收有来源 `forge:ores` 中本 Mod 的矿石）按玩家持久化数据的 `collection_LEVEL`（采集等级，随 profession 写入）以 等级 × 0.5% 的概率额外掉 3 份、等级 % 概率额外掉 2 份，每个矿石 2 点采集经验，经 `GatherExperienceEvent` 交给 profession（来源执行命令 `collection experience add`）。
+- **连锁采集**（`chain`，原初系统的 `ChainProcedure`，`enchant/ChainMining`）：`BlockEvent.BreakEvent` 中，主手工具对被挖方块有效且有 `chain` 时，从该方块按 3×3×3 邻域展开挖掉相同方块，展开条目不超过 附魔等级 × 5 + 1（条目可重复，来源如此）；每挖一块工具损耗 1 点；掉落不带工具，不受时运与精准采集影响，掉在被挖的方块位置。矿石（`c:ores` 与本 Mod 命名空间的 `ores`，后者收有来源 `forge:ores` 中本 Mod 的矿石）按玩家持久化数据的 `collection_LEVEL`（采集等级，随 profession 写入）以 等级 × 0.5% 的概率额外掉 3 份、等级 % 概率额外掉 2 份，每个矿石累计 2 点待分发值；来源裸命令与目标 `GatherExperienceEvent` 都没有实际的职业经验消费者，见[职业消费断链](../profession/architecture.md#连锁采集命令消费断链)。此处不含职业系统对原始破坏事件的独立结算。
 - **穿石**（`chuanshi`，`enchant/BedrockCracking`）：主手镐带穿石时左键方块给自己急迫 II（100 刻）；点到基岩且其下不是虚空空气时把基岩换成 `bedrock_01`，镐损耗 10 点。`bedrock_01`、`bedrock_02` 由 `CrackedBedrockBlock` 在被玩家破坏后原位变成下一阶段，`bedrock_03` 破坏后掉出基岩（内容表的兜底掉落）。
 - 来源 `LeftClickBlock` 的这段在 flow 的过程里，每次左键末尾还把玩家变量 `collection_LEVEL` 抄进持久化数据，由 profession 写入时直接维护持久化数据即可。
 
@@ -273,6 +273,13 @@ updated: 2026-11-18
 实机检查（`CombatCheck`）：物品放置、受击 6²/(6+0)、下一刻回满生命、设置物理与法术防御并在数字无法解析时置 0、装备槽的头盔关闭后穿在木人桩上、拿走木人桩；截图 `combat_dummy.png` 目视确认 GeckoLib 模型、待机姿态与“伤害：6.0”报告。
 
 GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../development/engineering.md)“依赖治理”，目标版本 API 事实写入移植技能的 NeoForge 1.21.1 参考。
+
+### 阶段 4：Q18 / Q29 / Q30 战斗与防御公式修复（2026-11-27）
+
+按阶段 4 已批准裁定在 `refactor/p4-legacy-bug-cleanup` 完成以下修正：
+- **Q18**：`AttributeTotals.receivedElementBonus` 改为负向减伤（`-gongfa * level / 4`）；`Shanghai.attack` 改为读取受击方 `target` 的同属性功法减伤，并在 `Shanghai.deal` 拒绝 `damage <= 0` 进入 `damage²/(damage+defence)`。
+- **Q29**：`Shanghai.defence` 为受击玩家恢复体质属性防御修正（`<前缀>DefCorrect` 与 `<前缀>DefCorrectPercentage`）以及神识/音波倍率（`SouldefofjingAttCorrectPercentage` / `SouldefofyinAttCorrectPercentage`）与法防倍率（`ManaDefDefCorrectPercentage`）。
+- **Q30**：`HurtStage.settle` 默认破甲系数改为 `1`（有 `pojia` 时为 `max(0, 1 - pojia * 0.1)`）、应用 `critical`/`criticalatt` 暴击倍率并改为读取攻击者 `AttackAttCorrectPercentage`；`Shanghai.defence` 与 `EquipmentAttributes.armorStat` 的非神识护甲法防改为查询 `mana_Def`（`ArmorStatEvent`）；`Shanghai.deal` 闪避改为 `1–100`；移除 `AttackStage` 重复吸血，仅保留 `HurtStage` 结算后吸血；`Shanghai.friendly` 对齐物理空团队不免伤判断。
 
 ## Q31 剧情伤害字段登记边界（2026-11-15）
 
@@ -322,3 +329,30 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 ## 人间界死亡标记
 
 `EntityDeathProcedure` 的入口读取致因实体；若为空，直接返回。对应地，玩家在人间界因无致因伤害死亡时保留原有 `REVIVE`；若有致因实体则写入“人间界”，不要求致因者是玩家。这一条件与谁领取击杀收益分别判断。
+
+## 盾挡后的受伤阶段与复活符（2026-11-23）
+
+1.18.2 版本 Forge 40.1.0 在 `LivingEntity` 与 `Player` 两份实际受伤实现中，均先检查易伤，再调用 `onLivingHurt`，若返回值不大于 0 则不进入护甲计算。`EntityBeforeHurtProcedure` 取事件入口量作为局部 `amount`；改写物理结果不改该局部值。符箓用 `当前生命 < amount` 而不是 `<=`，也不是和扣甲后的掉血量比较。
+
+1.21.1 版本 NeoForge 21.1.265 锁定源码（21.1.228 相同）：
+
+- `LivingEntity.hurt:1153–1187` 先发 `LivingIncomingDamageEvent`，再扣盾挡量及盾耐久，处理冻结、头盔，写回容器。`AttackStage` 在前一事件按原始命中量结算，故满盾也有第一段吸血。
+- `LivingEntity.hurt:1190–1208` 的无敌帧分支拒绝不大于上次的伤害；较大的攻击先在容器扣 `INVULNERABILITY`，再传 `amount - lastHurt`。普通分支即使盾已挡成 0，仍会传 0 调用 `actuallyHurt`。不要重扣差额，也不要仅据举盾动作判定实际格挡。
+- `LivingEntity.actuallyHurt:1785–1801`、`Player.actuallyHurt:1025–1042` 各自检查易伤并从栈顶容器读取当前值，玩家不转调父类。`LivingEntityDamageStageMixin` 分别注入两份实现，在首次 `getNewDamage()` 之前取容器快照，改写后的值才进入护甲、魔法、`LivingDamageEvent.Pre`、吸收和生命结算；只改方法的浮点参数无效。容器当前值也尊重 NeoForge 对无敌帧减量的修饰。
+- 全挡的 0 仍可走受伤阶段，但不进入正伤害公式、不产生第二段吸血，不满足活玩家的复活符条件。未挡时，受伤吸血按公式结果；替死符仍按该阶段入口量决定是否消耗。成功时在护甲、吸收和扣血之前中止当次 `actuallyHurt`，容器清零供外层读取，不撤销已经发生的盾损或无敌帧记录。`/shanghai` 自有的前置符箓判断不变。
+
+### Q262 妖兽未收到两种修为效果的经验
+
+A `Effect015…Procedure:18`、`Effect016…Procedure:19` 在妖兽分支写入经验并在达到阈值时升级、刷新名称和属性。B `BaoxiangDanyaoProcedure:24` 的丹药也引用这两种效果。目标 `CultivationEffects:94–112` 保留每 40 刻及瞬时一次的时机，玩家路径仍然写入修为。妖兽路径只发布 `EffectExperienceEvent`。生产源码仅见事件定义与发布点。取两只距升级差 1 点的同种妖兽，分别给一级效果 015、016，记录第 40 刻与首个有效刻的经验和等级。来源应分别获得 25、400 点经验。
+
+### Q263 四个效果触发点少了本人客户端音效
+
+来源 A 的幻音 `Effect032…:20`、含笑半步颠 `Duyao06…:55`、曼陀罗 `Duyao21…:73`、阴阳爆燃 `Effect023…:133` 在施加效果的玩家客户端还会执行本地播放。目标 `ContentEffect:49` 转给默认空的 `EffectBehavior.clientTick`，对应的 `BattleEffects:92`、`PoisonEffects:278,439`、`YihuoEffects:60` 保留服务端广播。幻音的本地抽声和方位独立。复核时给生存玩家施加幻音至少 60 刻，区分服务器声音包与效果过程的本地播放。另三项分别需在地面走动、等待曼陀罗第 40 刻、同时具有两火到阳火第 20 刻。两版听感待对照。
+
+### Q264 孢子效果的本机状态抽取不同
+
+A `Duyao17…Procedure:53` 每 100 刻从七种状态中抽一种并施加 100 刻，玩家客户端也独立执行。目标 `PoisonEffects.Spore:377` 只在服务端抽取，再同步给客户端。服务端候选池与时长相同。用无其他效果的生存玩家，分别记录服务端和本人客户端的状态添加来源，观察多个 100 刻窗口。两端抽到相同结果时画面可能一致，实际图标差异待对拍。
+
+### Q265 连锁工具损坏后仍会扩挖
+
+B `ChainProcedureProcedure:70,138–140` 在每轮展开前重新取主手附魔，扣光耐久后，当前 3×3×3 邻域会扫完，但不再展开下一项。目标 `ChainMining:44–56,76–79` 在开始时只读一次等级；工具碎了，仍按原等级展开后续邻域。复核：生存模式，用仅余 1 耐久、无耐久附魔的连锁 I 镐，从一端挖直线上三块相连的相同石头；比较距起点两格的第三块是否还在。

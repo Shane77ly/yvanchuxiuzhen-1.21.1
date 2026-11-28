@@ -11,10 +11,11 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 
 /**
  * 蓄放型远程符的松手过程（来源各 {@code Itemfulu<编号>Item.releaseUsing} 与 {@code Itemfulu10KeYiShiYongYuanChengWuPinDeTiaoJian}）：
- * 普通分支先把品阶写入使用者的 {@code fululevel} 再付款；41号先付款再写独立的 {@code fulu41level}。弹体首刻交接品阶。
+ * 普通分支先把品阶写入使用者的 {@code FuluData.CASTER} 再付款；41号先付款再写独立的 {@code level41}。弹体首刻交接品阶。
  * 以速度 2、伤害 0.1 从眼前射出并播放释放声。35 号符不查找弹药，其一张消耗由弹体第一刻从主手扣除；其余符消耗持有或背包中的一张，
  * 创造模式不消耗。
  */
@@ -24,13 +25,13 @@ public final class FuluRanged {
 
     public static void release(ServerPlayer player, ItemStack used, int number) {
         if (number != 41) {
-            player.getPersistentData().putDouble("fululevel", FuluUse.grade(used));
+            player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withPendingLevel(FuluUse.grade(used)));
         }
         if (!FuluUse.pay(player, used)) {
             return;
         }
         if (number == 41) {
-            player.getPersistentData().putDouble("fulu41level", FuluUse.grade(used));
+            player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel41(FuluUse.grade(used)));
         }
         Kind kind = switch (number) {
             case 10 -> Kind.DEBUFF;

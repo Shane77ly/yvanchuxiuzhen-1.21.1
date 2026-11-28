@@ -1,31 +1,33 @@
 package net.yvanchuxiuzhen.system.equipment.projectile;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 明光镜发出的光线弹体；首刻复制潜行标签，持续发出材料粒子并在二十刻后移除。 */
 public final class Fabao014 extends AbstractArrow implements ItemSupplier {
     public static final String ID = "projectile_fabao_014";
+    private boolean sneak;
+    private int ticks;
 
     public Fabao014(EntityType<? extends Fabao014> type, Level level) {
         super(type, level);
@@ -71,7 +73,7 @@ public final class Fabao014 extends AbstractArrow implements ItemSupplier {
             return;
         }
         Entity target = result.getEntity();
-        if (getPersistentData().getBoolean("sneak") && target instanceof LivingEntity living) {
+        if (sneak && target instanceof LivingEntity living) {
             level.sendParticles(Particles.type("fulutexiao_33"), target.getX(), target.getY(), target.getZ(), 1, 0, 0, 0, 0);
             living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 20));
         }
@@ -90,19 +92,31 @@ public final class Fabao014 extends AbstractArrow implements ItemSupplier {
             }
             if (!isNoGravity()) {
                 if (owner instanceof LivingEntity living
-                        && living.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBoolean("sneak")) {
-                    getPersistentData().putBoolean("sneak", true);
+                        && Boolean.TRUE.equals(living.getMainHandItem().get(EquipmentData.FABAO_SNEAK.get()))) {
+                    sneak = true;
                 }
                 setNoGravity(true);
             }
-            int ticks = getPersistentData().getInt("tick") + 1;
-            getPersistentData().putInt("tick", ticks);
-            if (ticks >= 20 && !level().isClientSide()) {
+            if (++ticks >= 20 && !level().isClientSide()) {
                 discard();
             }
         }
         if (inGround) {
             discard();
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("sneak", sneak);
+        tag.putInt("tick", ticks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        sneak = tag.getBoolean("sneak");
+        ticks = tag.getInt("tick");
     }
 }

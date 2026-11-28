@@ -1,0 +1,10 @@
+{
+  "type": "yvanchuxiuzhen:add_missing_biome_features",
+  "features": [
+    "yvanchuxiuzhen:suijijiegou_01",
+    "yvanchuxiuzhen:suijijiegou_02",
+    "yvanchuxiuzhen:suijijiegou_03",
+    "yvanchuxiuzhen:suijijiegou_04"
+  ],
+  "step": "surface_structures"
+}

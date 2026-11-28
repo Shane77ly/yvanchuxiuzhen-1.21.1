@@ -24,7 +24,9 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.Guiguai02Entity;
 import net.yvanchuxiuzhen.system.creature.entity.Guiguai03Entity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -91,8 +93,8 @@ final class GhostFireChainCheck extends SystemCheck {
         Relations.setTeam(bait, "ghost_check_cast_target");
         Relations.setTeam(enemy, "ghost_check_blast_target");
         // 预置03本轮选中的招式与目标；不预置施法刻、子实体或召唤分数。
-        king.getPersistentData().putString("jineng", "召唤鬼火");
-        king.getPersistentData().putString("gongjizhe", bait.getStringUUID());
+        CreatureData.state(king).setSkill("召唤鬼火");
+        CreatureData.state(king).setAttackerUuid(bait.getStringUUID());
         NeoForge.EVENT_BUS.register(this);
         listening = true;
     }
@@ -112,11 +114,11 @@ final class GhostFireChainCheck extends SystemCheck {
     public void join(EntityJoinLevelEvent event) {
         if (event.getLevel() != level || !inCast || !(event.getEntity() instanceof Guiguai02Entity ghost)) return;
         children.add(ghost);
-        birthTicks.add(king.getPersistentData().getInt("entitytick"));
+        birthTicks.add((int) CreatureData.state(king).tick());
         var objective = level.getScoreboard().getObjective(SCORE);
         var score = objective == null ? null : level.getScoreboard().getPlayerScoreInfo(ghost, objective);
         expectTrue("出生 #" + children.size() + " 已标记召唤物且继承03目标", score != null && score.value() == 1
-                && bait.getStringUUID().equals(ghost.getPersistentData().getString("gongjizhe")));
+                && bait.getStringUUID().equals(CreatureData.state(ghost).attackerUuid()));
         ghost.setNoAi(true);
         ghost.setNoGravity(true);
         if (children.size() == 1) idle = ghost;
@@ -134,10 +136,10 @@ final class GhostFireChainCheck extends SystemCheck {
         if ((e == idle && idleTicks == 0) || (e == blast && !blastPlaced)) {
             Vec3 pos = e == idle ? arena.add(0, 18, 0) : enemy.position().add(1.2, 0, 0);
             e.setPos(pos.x, pos.y, pos.z);
-            e.getPersistentData().remove("gongjizhe");
+            CreatureData.state(e).setAttackerUuid("");
             if (e == blast) blastPlaced = true;
         }
-        if (e == blast && "准备".equals(e.getPersistentData().getString("jinengjinxing"))) {
+        if (e == blast && "准备".equals(CreatureData.state(e).phase())) {
             // 预置可致死且不闪避的靶；紧贴爆发刻取基线，避开每秒吸收。
             enemy.setHealth(0.1F);
             enemy.getRandom().setSeed(1L);
@@ -151,23 +153,23 @@ final class GhostFireChainCheck extends SystemCheck {
     public void afterTick(EntityTickEvent.Post event) {
         Entity e = event.getEntity();
         if (e != king && e != idle && e != blast) return;
-        var data = e.getPersistentData();
+        var data = CreatureData.state(e);
         if (e == king) {
             inCast = false;
-            if (!castDone && data.getString("jineng").isEmpty()) {
+            if (!castDone && data.skill().isEmpty()) {
                 castDone = true;
                 expect("收招刻", 36, king.tickCount);
             }
         } else if (e == idle && !attacking) {
             idleTicks++;
             if (idleTicks >= 99 && idleTicks <= 101) {
-                boolean noTarget = data.getString("gongjizhe").isEmpty() && data.getString("linshigongjizhe").isEmpty();
-                if (e.isAlive() && noTarget && data.getString("jinengjinxing").isEmpty()) noTargetSamples++;
-                expect("无目标第" + idleTicks + "刻的召唤计时", idleTicks % 100, data.getDouble("xiaoshi"));
-                if (idleTicks >= 100) expect("百刻只置普攻", "普攻", data.getString("jineng"));
+                boolean noTarget = data.attackerUuid().isEmpty() && data.tempAttackerUuid().isEmpty();
+                if (e.isAlive() && noTarget && data.phase().isEmpty()) noTargetSamples++;
+                expect("无目标第" + idleTicks + "刻的召唤计时", idleTicks % 100, data.countdown());
+                if (idleTicks >= 100) expect("百刻只置普攻", "普攻", data.skill());
             }
-        } else if (e == blast && enemy.getStringUUID().equals(data.getString("gongjizhe"))
-                && enemy.getStringUUID().equals(data.getString("linshigongjizhe"))) locked = true;
+        } else if (e == blast && enemy.getStringUUID().equals(data.attackerUuid())
+                && enemy.getStringUUID().equals(data.tempAttackerUuid())) locked = true;
     }
 
     private boolean fromBlast(DamageSource source) {
@@ -220,7 +222,7 @@ final class GhostFireChainCheck extends SystemCheck {
             Cultivation.setMainTechnique(player, MainTechnique.NONE);
             idle.setPos(player.getX(), player.getY(), player.getZ() + 1.2);
             idle.setHealth(0.1F);
-            expect("受击鬼火的出生等级", 1, idle.getPersistentData().getDouble("LEVELnumber"));
+            expect("受击鬼火的出生等级", 1, EntityAttributes.level(idle));
             attacking = true;
             player.attack(idle);
             expectTrue("原生玩家近战实际致死", idle.isDeadOrDying());

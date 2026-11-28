@@ -23,6 +23,8 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 
 /** 八种飞行法器分别检查来源补能、实体和物品保存、潜行取回、死亡掉落及一点生命重召唤。 */
@@ -79,7 +81,7 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         if (entity == null) return;
 
         recharge(player, entity, path);
-        entity.getPersistentData().putDouble("power", 73.25);
+        entity.setPower(73.25);
         entity.setHealth(7.5f);
         CompoundTag saved = entity.saveWithoutId(new CompoundTag());
         if (path.equals(ITEMS.getFirst())) checkPreviousSave(player, initial, entity, saved);
@@ -88,24 +90,25 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         created.add(loaded);
         entity.discard();
         expectTrue(path + "实体保存重读保留当前生命灵力及完整原物品", loaded.getHealth() == 7.5
-                && loaded.getPersistentData().getDouble("power") == 73.25
+                && loaded.power() == 73.25
                 && ItemStack.isSameItemSameComponents(loaded.getMainHandItem(), entity.getMainHandItem()));
 
         player.setShiftKeyDown(true);
         loaded.mobInteract(player, InteractionHand.MAIN_HAND);
         player.setShiftKeyDown(false);
         ItemStack returned = inventoryItem(player, initial);
+        FlyingInstrumentData returnedData = Equipment.flyingInstrument(returned);
         expectTrue(path + "潜行取回保留原组件并写入当前生命灵力", loaded.isRemoved()
                 && data(returned).getInt("smoke_marker") == 27
                 && initial.get(DataComponents.CUSTOM_NAME).equals(returned.get(DataComponents.CUSTOM_NAME))
-                && data(returned).getDouble("health") == 7.5 && data(returned).getDouble("power") == 73.25);
+                && returnedData.health() == 7.5 && returnedData.power() == 73.25);
         if (returned.isEmpty()) return;
 
         ItemStack restoredItem = ItemStack.parse(player.registryAccess(), returned.save(player.registryAccess())).orElseThrow();
         player.getInventory().clearContent();
         entity = summon(player, restoredItem);
         expectTrue(path + "取回物品保存重读后重召保留受损生命灵力", entity != null && entity.getHealth() == 7.5
-                && entity.getPersistentData().getDouble("power") == 73.25
+                && entity.power() == 73.25
                 && ItemStack.isSameItemSameComponents(returned, restoredItem));
         if (entity == null) return;
 
@@ -117,27 +120,28 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
                 dropped -> !previousDrops.contains(dropped.getUUID()));
         created.addAll(drops);
         List<ItemEntity> deathDrops = drops.stream().filter(dropped -> dropped.getItem().is(initial.getItem()))
-                .filter(dropped -> data(dropped.getItem()).getDouble("health") == 1).toList();
+                .filter(dropped -> Equipment.flyingInstrument(dropped.getItem()).health() == 1).toList();
         expectTrue(path + "死亡生成独立的一点生命法器物品", !entity.isAlive() && deathDrops.size() == 1);
         if (deathDrops.size() != 1) return;
 
         ItemEntity dropped = deathDrops.getFirst();
-        CompoundTag dropData = data(dropped.getItem());
+        CompoundTag dropCustom = data(dropped.getItem());
+        FlyingInstrumentData dropData = Equipment.flyingInstrument(dropped.getItem());
         expectTrue(path + "死亡掉落保留八字段且拾取延迟精确十刻", dropped.saveWithoutId(new CompoundTag()).getShort("PickupDelay") == 10
-                && dropped.getY() == entity.getY() + 1 && dropData.getDouble("power") == 73.25
-                && dropData.getDouble("health_Max") == entity.getMaxHealth()
-                && dropData.getDouble("power_Max") == data(returned).getDouble("power_Max")
-                && dropData.getDouble("speed_num") == data(returned).getDouble("speed_num")
-                && dropData.getString("flyname").equals(data(returned).getString("flyname"))
-                && dropData.getString("flyitemID").equals(data(returned).getString("flyitemID"))
-                && dropData.getString("flyentityID").equals(data(returned).getString("flyentityID"))
-                && !dropData.contains("smoke_marker") && !dropped.getItem().has(DataComponents.CUSTOM_NAME));
+                && dropped.getY() == entity.getY() + 1 && dropData.power() == 73.25
+                && dropData.healthMax() == entity.getMaxHealth()
+                && dropData.powerMax() == returnedData.powerMax()
+                && dropData.speed() == returnedData.speed()
+                && dropData.name().equals(returnedData.name())
+                && dropData.itemId().equals(returnedData.itemId())
+                && dropData.entityId().equals(returnedData.entityId())
+                && !dropCustom.contains("smoke_marker") && !dropped.getItem().has(DataComponents.CUSTOM_NAME));
         ItemStack recovered = ItemStack.parse(player.registryAccess(), dropped.getItem().save(player.registryAccess())).orElseThrow();
         expectTrue(path + "死亡物品完整组件保存重读一致", ItemStack.isSameItemSameComponents(dropped.getItem(), recovered));
         dropped.discard();
         FlyingInstrumentEntity resummoned = summon(player, recovered);
         expectTrue(path + "死亡物品重召保持一点生命和储存灵力", resummoned != null && resummoned.getHealth() == 1
-                && resummoned.getPersistentData().getDouble("power") == 73.25);
+                && resummoned.power() == 73.25);
         created.forEach(Entity::discard);
         player.getInventory().clearContent();
     }
@@ -151,15 +155,15 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         loaded.mobInteract(player, InteractionHand.MAIN_HAND);
         player.setShiftKeyDown(false);
         ItemStack returned = inventoryItem(player, initial);
+        FlyingInstrumentData returnedData = Equipment.flyingInstrument(returned);
         expectTrue("补丁前空装备槽的已投放法器仍能取回", loaded.isRemoved() && !returned.isEmpty()
-                && data(returned).getDouble("power") == 73.25 && data(returned).getDouble("health") == 7.5
+                && returnedData.power() == 73.25 && returnedData.health() == 7.5
                 && !returned.has(DataComponents.CUSTOM_NAME));
         player.getInventory().clearContent();
     }
 
     private void recharge(ServerPlayer player, FlyingInstrumentEntity entity, String path) {
-        CompoundTag state = entity.getPersistentData();
-        double maximum = state.getDouble("power_Max");
+        double maximum = entity.powerMax();
         String formattedMaximum = Integer.toString((int) maximum);
         ItemStack reserve = item("cailiao_191");
         reserve.setCount(3);
@@ -169,38 +173,38 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         held.set(DataComponents.CUSTOM_NAME, Component.literal("后扣主手"));
         player.getInventory().setItem(0, reserve);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
-        state.putDouble("power", 0);
+        entity.setPower(0);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of("1", formattedMaximum)));
-        expectTrue(path + "补能按物品身份从最早匹配库存槽扣一件", state.getDouble("power") == 1
+        expectTrue(path + "补能按物品身份从最早匹配库存槽扣一件", entity.power() == 1
                 && reserve.getCount() == 2 && held.getCount() == 2 && !player.isPassenger());
 
-        state.putDouble("power", maximum - 1);
+        entity.setPower(maximum - 1);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(formattedMaximum, formattedMaximum)));
-        expectTrue(path + "补能恰好到上限仍只扣一件", state.getDouble("power") == maximum
+        expectTrue(path + "补能恰好到上限仍只扣一件", entity.power() == maximum
                 && reserve.getCount() == 1 && held.getCount() == 2);
 
         player.getInventory().clearContent();
         held = item("cailiao_192");
         held.setCount(2);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
-        state.putDouble("power", maximum - 1);
+        entity.setPower(maximum - 1);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(Integer.toString((int) maximum + 3), formattedMaximum)));
         expectedMessages.add(new Message(FULL_MESSAGE, List.of()));
-        expectTrue(path + "补能超过上限时扣一件并最终钳到上限", state.getDouble("power") == maximum && held.getCount() == 1);
+        expectTrue(path + "补能超过上限时扣一件并最终钳到上限", entity.power() == maximum && held.getCount() == 1);
 
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(formattedMaximum, formattedMaximum)));
-        expectTrue(path + "已满储灵交互不扣料或进入骑乘", state.getDouble("power") == maximum && held.getCount() == 1
+        expectTrue(path + "已满储灵交互不扣料或进入骑乘", entity.power() == maximum && held.getCount() == 1
                 && !player.isPassenger());
 
-        state.putDouble("power", maximum + 4);
+        entity.setPower(maximum + 4);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(Integer.toString((int) maximum + 4), formattedMaximum)));
         expectedMessages.add(new Message(FULL_MESSAGE, List.of()));
-        expectTrue(path + "已有超限储灵交互只钳值且不额外扣料", state.getDouble("power") == maximum && held.getCount() == 1);
+        expectTrue(path + "已有超限储灵交互只钳值且不额外扣料", entity.power() == maximum && held.getCount() == 1);
         player.getInventory().clearContent();
     }
 

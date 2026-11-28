@@ -12,6 +12,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.content.CombatMenus;
@@ -22,6 +23,8 @@ import net.yvanchuxiuzhen.system.combat.damage.HurtHandler;
 import net.yvanchuxiuzhen.system.combat.damage.LightningLanding;
 import net.yvanchuxiuzhen.system.combat.damage.PlayerDeathRules;
 import net.yvanchuxiuzhen.system.combat.damage.ShanghaiCommand;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
+import net.yvanchuxiuzhen.system.combat.data.CombatEntityState;
 import net.yvanchuxiuzhen.system.combat.effect.CombatEffects;
 import net.yvanchuxiuzhen.system.combat.enchant.BedrockCracking;
 import net.yvanchuxiuzhen.system.combat.enchant.ChainMining;
@@ -49,6 +52,7 @@ public final class CombatSetup {
     }
 
     public static void register(IEventBus modBus) {
+        CombatData.register(modBus);
         CombatEffects.register(CONTENT);
         CONTENT.register(modBus);
         CombatMenus.register(modBus);
@@ -59,8 +63,10 @@ public final class CombatSetup {
         NeoForge.EVENT_BUS.addListener(PlayerDeathRules::onDeath);
         ShanghaiCommand.register();
         LightningLanding.register(modBus);
-        NeoForge.EVENT_BUS.addListener((TribulationLightningEvent event) -> Lightning.command(event.level(), event.position(), event.command()));
-        NeoForge.EVENT_BUS.addListener((TribulationDamageEvent event) -> SpellDamage.command(event.level(), event.target(), event.command()));
+        NeoForge.EVENT_BUS.addListener((TribulationLightningEvent event) -> Lightning.tribulation(
+                event.level(), event.position(), event.base(), event.multiplier(), event.diameter(), event.color()));
+        NeoForge.EVENT_BUS.addListener((TribulationDamageEvent event) -> SpellDamage.deal(
+                event.level(), event.target(), DamageCategory.THUNDER, event.attacker(), false, event.base(), event.multiplier()));
         ChainMining.register();
         BedrockCracking.register();
     }
@@ -69,12 +75,13 @@ public final class CombatSetup {
     private static void onTargetChanged(LivingChangeTargetEvent event) {
         LivingEntity target = event.getNewAboutToBeSetTarget();
         LivingEntity attacker = event.getEntity();
-        if (target == null || target.getPersistentData().getBoolean("findtheenemy") || !(attacker.level() instanceof ServerLevel level)) {
+        CombatEntityState state = target == null ? null : target.getData(CombatData.ENTITY_STATE);
+        if (target == null || state.foundEnemy() || !(attacker.level() instanceof ServerLevel level)) {
             return;
         }
         level.sendParticles(Particles.type("exclamation_mark"), attacker.getX(), attacker.getY() + attacker.getBbHeight() + 0.5,
                 attacker.getZ(), 1, 0, 0, 0, 0);
-        target.getPersistentData().putBoolean("findtheenemy", true);
+        target.setData(CombatData.ENTITY_STATE, state.withFoundEnemy(true));
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {

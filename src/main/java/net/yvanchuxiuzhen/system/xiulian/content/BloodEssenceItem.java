@@ -24,7 +24,9 @@ public final class BloodEssenceItem extends ContentItem {
             serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, player.getX(), player.getY(), player.getZ(), 5, 0.5, 0.5, 0.5, 0.1);
             player.setHealth(player.getHealth() + 2);
         }
-        result.getObject().shrink(1);
+        if (!player.getAbilities().instabuild) {
+            result.getObject().shrink(1);
+        }
         return result;
     }
 }

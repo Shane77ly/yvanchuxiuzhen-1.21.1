@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Random;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,6 +16,9 @@ import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 
 /** 020号妖兽的分身、临时召唤寿命及来源技能选择。 */
 public final class Yaoshou020Behavior {
@@ -25,13 +27,13 @@ public final class Yaoshou020Behavior {
     public static void hurt(YaoshouEntity entity, DamageSource source) {
         Entity attacker = source.getEntity();
         if (entity.isAlive() && attacker != null && !YaoshouShared.isFriendly(entity, attacker)) {
-            CompoundTag data = entity.getPersistentData();
-            data.putString("linshigongjizhe", attacker.getStringUUID());
-            if (data.getBoolean("beidaduan")) {
+            CreatureState data = CreatureData.state(entity);
+            data.setTempAttackerUuid(attacker.getStringUUID());
+            if (data.interrupted()) {
                 entity.setAnimation("empty");
-                data.putBoolean("beidaduan", false);
+                data.setInterrupted(false);
             }
-            if (data.getString("jineng").isEmpty() && !entity.level().isClientSide()) {
+            if (data.skill().isEmpty() && !entity.level().isClientSide()) {
                 entity.setAnimation("animation.yaoshou020.attacked");
             }
         }
@@ -39,10 +41,10 @@ public final class Yaoshou020Behavior {
 
     public static void tick(YaoshouEntity entity) {
         if (!entity.isAlive()) return;
-        CompoundTag data = entity.getPersistentData();
+        CreatureState data = CreatureData.state(entity);
         if (Yaoshou037054Support.isSummoned(entity)) {
-            if (data.getDouble("daojishi") >= 1) {
-                data.putDouble("daojishi", data.getDouble("daojishi") - 1);
+            if (data.countdown() >= 1) {
+                data.setCountdown(data.countdown() - 1);
             } else {
                 if (entity.level() instanceof ServerLevel level) {
                     level.sendParticles(Particles.type("brokendeeporange"), entity.getX(), entity.getY() + entity.getBbHeight() / 2,
@@ -51,38 +53,38 @@ public final class Yaoshou020Behavior {
                 }
             }
         }
-        data.putDouble("entitytick", data.getDouble("entitytick") + 1);
-        if (data.getString("jineng").isEmpty()
-                && !data.getString("gongjizhe").equals(data.getString("linshigongjizhe"))) {
-            data.putString("gongjizhe", data.getString("linshigongjizhe"));
+        data.setTick(data.tick() + 1);
+        if (data.skill().isEmpty()
+                && !data.attackerUuid().equals(data.tempAttackerUuid())) {
+            data.setAttackerUuid(data.tempAttackerUuid());
         }
         Entity target = Yaoshou037054Support.target(entity.level(), entity);
         if (target == null) {
-            if (data.getDouble("entitytick") >= 100) {
+            if (data.tick() >= 100) {
                 entity.getNavigation().moveTo(entity.getX() + random(-3, 3), entity.getY(), entity.getZ() + random(-3, 3), 1);
-                data.putDouble("entitytick", 0);
+                data.setTick(0);
             }
         } else if (!target.isAlive()) {
-            data.putString("gongjizhe", "");
-            data.putString("linshigongjizhe", "");
+            data.setAttackerUuid("");
+            data.setTempAttackerUuid("");
             YaoshouShared.finishSkill(entity);
-        } else if (data.getString("jineng").isEmpty()) {
-            if (data.getString("yvdingjineng").isEmpty()) {
+        } else if (data.skill().isEmpty()) {
+            if (data.queuedSkill().isEmpty()) {
                 schedule(entity, target);
-            } else if (data.getDouble("entitytick") >= data.getDouble("yvdingjinengjishi")) {
-                data.putString("jineng", data.getString("yvdingjineng"));
-                data.putString("yvdingjineng", "");
-                data.putDouble("yvdingjinengjishi", 0);
-                data.putDouble("entitytick", 0);
-                for (int i = 1; i <= data.getDouble("jinengshuliang"); i++) {
-                    data.putString("linshijineng" + i, "");
-                    data.putDouble("jinengjishi" + i, 0);
-                    data.putDouble("jinengqvanzhong" + i, 0);
+            } else if (data.tick() >= data.queuedTimer()) {
+                data.setSkill(data.queuedSkill());
+                data.setQueuedSkill("");
+                data.setQueuedTimer(0);
+                data.setTick(0);
+                for (int i = 1; i <= data.candidateCount(); i++) {
+                    data.setCandidateSkill((int) (i), "");
+                    data.setCandidateTimer((int) (i), 0);
+                    data.setCandidateWeight((int) (i), 0);
                 }
-                data.putDouble("jinengshuliang", 0);
+                data.setCandidateCount(0);
             }
         } else {
-            switch (data.getString("jineng")) {
+            switch (data.skill()) {
                 case "靠近" -> Yaoshou019Behavior.approach(entity, target);
                 case "挣脱" -> YaoshouShared.escape(entity);
                 case "普攻" -> Yaoshou019Behavior.attack(entity, target, "animation.yaoshou020.attack");
@@ -94,7 +96,7 @@ public final class Yaoshou020Behavior {
     }
 
     private static void schedule(YaoshouEntity entity, Entity target) {
-        CompoundTag data = entity.getPersistentData();
+        CreatureState data = CreatureData.state(entity);
         double distance = entity.position().distanceTo(target.position()) - (entity.getBbWidth() / 2 + target.getBbWidth() / 2);
         look(entity, target);
         int count = 0;
@@ -117,27 +119,27 @@ public final class Yaoshou020Behavior {
             }
         }
         int total = 0;
-        for (int i = 1; i <= count; i++) total += (int) data.getDouble("jinengqvanzhong" + i);
+        for (int i = 1; i <= count; i++) total += (int) data.candidateWeight((int) (i));
         int roll = random(1, total);
         int cumulative = 0;
         for (int i = 1; i <= count; i++) {
-            cumulative += (int) data.getDouble("jinengqvanzhong" + i);
+            cumulative += (int) data.candidateWeight((int) (i));
             if (cumulative >= roll) {
-                data.putString("yvdingjineng", data.getString("linshijineng" + i));
-                data.putDouble("yvdingjinengjishi", data.getDouble("jinengjishi" + i));
+                data.setQueuedSkill(data.candidateSkill((int) (i)));
+                data.setQueuedTimer(data.candidateTimer((int) (i)));
                 break;
             }
         }
-        data.putDouble("jinengshuliang", count);
+        data.setCandidateCount(count);
     }
 
     private static void duplicate(YaoshouEntity entity, Entity target) {
-        CompoundTag data = entity.getPersistentData();
-        String phase = data.getString("jinengjinxing");
+        CreatureState data = CreatureData.state(entity);
+        String phase = data.phase();
         if (phase.isEmpty()) {
             look(entity, target);
-            data.putString("jinengjinxing", "准备");
-        } else if (phase.equals("准备") && data.getDouble("entitytick") >= 40) {
+            data.setPhase("准备");
+        } else if (phase.equals("准备") && data.tick() >= 40) {
             entity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20, 1));
             entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1));
             if (entity.level() instanceof ServerLevel level) {
@@ -147,8 +149,8 @@ public final class Yaoshou020Behavior {
                     YaoshouEntity copy = (YaoshouEntity) entity.getType().create(level);
                     copy.moveTo(entity.getX(), entity.getY(), entity.getZ(), level.getRandom().nextFloat() * 360F, 0);
                     Relations.shareEntityAllegiance(entity, copy);
-                    copy.getPersistentData().putDouble("LEVELnumber", Math.ceil(data.getDouble("LEVELnumber") / 2));
-                    copy.getPersistentData().putDouble("daojishi", 200);
+                    EntityAttributes.setLevel(copy, Math.ceil(EntityAttributes.level(entity) / 2));
+                    CreatureData.state(copy).setCountdown(200);
                     Scoreboard scoreboard = level.getScoreboard();
                     Objective objective = scoreboard.getObjective("zhaohuanwu");
                     if (objective == null) {
@@ -156,13 +158,13 @@ public final class Yaoshou020Behavior {
                                 Component.literal("zhaohuanwu"), ObjectiveCriteria.RenderType.INTEGER, false, null);
                     }
                     scoreboard.getOrCreatePlayerScore(copy, objective).set(1);
-                    copy.getPersistentData().putString("gongjizhe", data.getString("gongjizhe"));
-                    copy.getPersistentData().putString("jineng", "逃跑");
+                    CreatureData.state(copy).setAttackerUuid(data.attackerUuid());
+                    CreatureData.state(copy).setSkill("逃跑");
                     copy.finalizeSpawn(level, level.getCurrentDifficultyAt(copy.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
                     level.addFreshEntity(copy);
                 }
             }
-            data.putString("jinengjinxing", "结束");
+            data.setPhase("结束");
         } else if (phase.equals("准备")) {
             if (entity.level() instanceof ServerLevel level) {
                 level.sendParticles(Particles.type("starorange"), entity.getX(), entity.getY() + entity.getBbHeight() / 2,
@@ -170,16 +172,16 @@ public final class Yaoshou020Behavior {
                 level.sendParticles(Particles.type("brokendeeporange"), entity.getX(), entity.getY(), entity.getZ(),
                         1, entity.getBbWidth(), 0, entity.getBbWidth(), 0);
             }
-        } else if (phase.equals("结束") && data.getDouble("entitytick") >= 41) {
+        } else if (phase.equals("结束") && data.tick() >= 41) {
             YaoshouShared.finishSkill(entity);
-            data.putString("jineng", "逃跑");
+            data.setSkill("逃跑");
         }
     }
 
-    private static void candidate(CompoundTag data, int index, String skill, int delay, int weight) {
-        data.putString("linshijineng" + index, skill);
-        data.putDouble("jinengjishi" + index, delay);
-        data.putDouble("jinengqvanzhong" + index, weight);
+    private static void candidate(CreatureState data, int index, String skill, int delay, int weight) {
+        data.setCandidateSkill((int) (index), skill);
+        data.setCandidateTimer((int) (index), delay);
+        data.setCandidateWeight((int) (index), weight);
     }
 
     private static int random(int min, int max) {

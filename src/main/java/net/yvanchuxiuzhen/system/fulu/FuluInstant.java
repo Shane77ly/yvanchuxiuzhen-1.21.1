@@ -31,15 +31,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
@@ -102,7 +107,9 @@ final class FuluInstant {
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
         }
-        stack.shrink(1);
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
     }
 
     /** 04：20 枚符箓 21 粒子；速度提升 100 刻（等级 {@code 3+2×品阶}）；3 格内非友方被向外上抛。 */
@@ -119,8 +126,7 @@ final class FuluInstant {
     /** 06：视线 7 格处（下移至空气）落下红色独立落雷，伤害基数 {@code 30+20×品阶}。 */
     private static void lightning(ServerLevel level, ServerPlayer player, double grade) {
         BlockPos spot = lowered(level, player, 7);
-        Lightning.command(level, new Vec3(spot.getX(), spot.getY(), spot.getZ()),
-                "lightninglanding " + (30 + grade * 20) + " " + player.getStringUUID() + " 1 " + Relations.team(player) + " 4 红色 独立");
+        Lightning.cast(level, Vec3.atLowerCornerOf(spot), player, 30 + grade * 20, 1, Relations.team(player), 4, "红色", true);
     }
 
     /** 07：向前喷 20 枚火焰；视线 6 格处 3 格内非友方记录点燃来源，并受 {@code effect_023}（{@code 400+200×品阶} 刻，等级 {@code 2×(品阶−1)}）。 */
@@ -193,18 +199,14 @@ final class FuluInstant {
         TalismanSummon mob = FuluSetup.summon().get().create(level);
         mob.moveTo(spot.getX(), spot.getY(), spot.getZ(), level.random.nextFloat() * 360F, 0);
         Relations.copyAllegiance(player, mob);
-        mob.getPersistentData().putDouble("fululevel", grade);
-        mob.getPersistentData().putString("fuluname", name);
-        if (master) {
-            mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
-        }
+        mob.configure(grade, name, master ? player.getStringUUID() : "");
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);
     }
 
     /**
      * 26、27、34、38：在视线 {@code distance} 格处（下移至空气）召唤动画实体，朝向与使用者一致，继承使用者阵营，
-     * 记入品阶、符名与召唤者 UUID；27 号另把最大生命与攻击设为 {@code 100×品阶}、{@code 10×品阶} 并写入 {@code health_Max}、{@code attack_Num}。
+     * 记入品阶、符名与召唤者 UUID；27 号另把最大生命与攻击设为 {@code 100×品阶}、{@code 10×品阶} 并写入 {@code EntityAttributes}。
      */
     private static void beast(ServerLevel level, ServerPlayer player, double grade, String id, double distance, String name) {
         BlockPos spot = lowered(level, player, distance);
@@ -219,15 +221,13 @@ final class FuluInstant {
         mob.xRotO = mob.getXRot();
         mob.yBodyRotO = mob.getYRot();
         mob.yHeadRotO = mob.getYRot();
-        mob.getPersistentData().putDouble("fululevel", grade);
-        mob.getPersistentData().putString("fuluname", name);
-        mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        mob.configure(grade, name, player.getStringUUID());
         if (id.equals(TalismanBeast.SWORD_SOUL)) {
             mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100 * grade);
-            mob.getPersistentData().putDouble("health_Max", 100 * grade);
+            EntityAttributes.setStat(mob, Stat.HEALTH_MAX, 100 * grade);
             mob.setHealth((float) (100 * grade));
             mob.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10 * grade);
-            mob.getPersistentData().putDouble("attack_Num", 10 * grade);
+            EntityAttributes.setStat(mob, Stat.ATTACK, 10 * grade);
         }
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);
@@ -244,8 +244,7 @@ final class FuluInstant {
         TalismanBeast mob = FuluSetup.beast(TalismanBeast.THUNDER_PULL).get().create(level);
         mob.moveTo(spot.getX(), spot.getY(), spot.getZ(), level.random.nextFloat() * 360F, 0);
         Relations.copyAllegiance(player, mob);
-        mob.getPersistentData().putDouble("fululevel", grade);
-        mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        mob.configure(grade, "", player.getStringUUID());
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);
     }
@@ -332,11 +331,11 @@ final class FuluInstant {
             if (!Relations.isFriendly(player, target)) {
                 target.setDeltaMovement(new Vec3((target.getX() - player.getX()) * 0.85, 0.5, (target.getZ() - player.getZ()) * 0.85));
                 if (target instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 火 " + player.getStringUUID() + " true " + 25 * grade + " 1");
+                    SpellDamage.deal(level, living, DamageCategory.FIRE, player, true, 25 * grade, 1);
                 }
             }
         }
-        player.getPersistentData().putDouble("fulu45level", grade);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel45(grade));
         TalismanProjectile.launch(level, FuluSetup.projectile(Kind.CANNON).get(), player, eyeFront(player), player.getLookAngle());
         Vec3 look = player.getLookAngle();
         for (int index = 0; index < 20; index++) {
@@ -367,7 +366,9 @@ final class FuluInstant {
             Holder<Enchantment> enchantment = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(name));
             EnchantmentHelper.updateEnchantments(target, mutable -> mutable.set(enchantment, level));
         }
-        stack.shrink(1);
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
     }
 
     /**
@@ -386,23 +387,21 @@ final class FuluInstant {
         mob.xRotO = mob.getXRot();
         mob.yBodyRotO = mob.getYRot();
         mob.yHeadRotO = mob.getYRot();
-        mob.getPersistentData().putDouble("fululevel", grade);
-        mob.getPersistentData().putString("fuluname", "云灵符");
-        mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        mob.configure(grade, "云灵符", player.getStringUUID());
         mob.tame(player);
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);
     }
 
-    /** 05：品阶记入使用者持久数据，从眼前射出一枚穿透 10 的气剑。 */
+    /** 05：品阶记入使用者 {@link FuluData#CASTER}，从眼前射出一枚穿透 10 的气剑。 */
     private static void qiSword(ServerLevel level, ServerPlayer player, double grade) {
-        player.getPersistentData().putDouble("fulu05level", grade);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel05(grade));
         TalismanProjectile.launch(level, FuluSetup.projectile(Kind.QI_SWORD).get(), player, eyeFront(player), player.getLookAngle());
     }
 
-    /** 29：品阶记入持久数据，从胸前向前扇形射出 12 枚冰锥，方向各分量各乘 0.2–1.8 的随机系数。 */
+    /** 29：品阶记入 {@link FuluData#CASTER}，从胸前向前扇形射出 12 枚冰锥，方向各分量各乘 0.2–1.8 的随机系数。 */
     private static void frost(ServerLevel level, ServerPlayer player, double grade) {
-        player.getPersistentData().putDouble("fulu29level", grade);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel29(grade));
         Vec3 look = player.getLookAngle();
         for (int index = 0; index < 12; index++) {
             TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FROST).get(), player, new Vec3(player.getX(), player.getY() + 1.2, player.getZ()),
@@ -411,10 +410,9 @@ final class FuluInstant {
         }
     }
 
-    /** 32：品阶与“可分裂”标记记入持久数据，从眼前射出子母弹主弹。 */
+    /** 32：品阶与“可分裂”标记记入 {@link FuluData#CASTER}，从眼前射出子母弹主弹。 */
     private static void cluster(ServerLevel level, ServerPlayer player, double grade) {
-        player.getPersistentData().putDouble("fulu32level", grade);
-        player.getPersistentData().putBoolean("fulu32shoufa", true);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withCluster32(grade, true));
         TalismanProjectile.launch(level, FuluSetup.projectile(Kind.CLUSTER).get(), player, eyeFront(player), player.getLookAngle());
     }
 
@@ -423,12 +421,11 @@ final class FuluInstant {
     }
 
     /**
-     * 46：从眼前射出一枚火球。来源把品阶写进玩家的实体持久数据，而火球读的是玩家体质里的 {@code fululevel46}（仅 13 号符写入），
-     * 所以玩家直接使用 46 号符的火球按品阶 1 结算；保持来源（登记为 Q66）。
+     * 46：先将品阶写入 {@link FuluData#CASTER} 再射出火球，由火球首刻读取并清零（Q66 已修正）。
      */
     private static void fireball(ServerLevel level, ServerPlayer player, double grade) {
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel46(grade));
         TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FIREBALL).get(), player, eyeFront(player), player.getLookAngle());
-        player.getPersistentData().putDouble("fululevel46", grade);
     }
 
     private static BlockPos looked(ServerLevel level, Entity viewer, double distance) {
@@ -452,10 +449,8 @@ final class FuluInstant {
         if (target instanceof Player victim && victim instanceof ServerPlayer serverVictim) {
             Cultivation.setTizhiString(serverVictim, "fireteam", team);
             Cultivation.setTizhiString(serverVictim, "fireAttackUUID", caster.getStringUUID());
-        } else {
-            target.getPersistentData().putString("fireteam", team);
-            target.getPersistentData().putString("fireAttackUUID", caster.getStringUUID());
         }
+        Yihuo.markBurnTarget(target, team, caster.getStringUUID());
     }
 
     private static Holder<MobEffect> effect(String id) {

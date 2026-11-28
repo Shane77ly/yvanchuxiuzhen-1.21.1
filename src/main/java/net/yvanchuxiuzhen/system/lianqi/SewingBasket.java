@@ -33,8 +33,8 @@ public final class SewingBasket {
             for (int slot = 0; slot < 8; slot++) current.setPreview(slot, ItemStack.EMPTY);
         }
         if (!(level.getBlockEntity(pos) instanceof SewingBasketBlockEntity basket)) return;
-        Recipe recipe = RECIPES.get(basket.getPersistentData().getInt("xvanze"));
-        basket.getPersistentData().putInt("pagemax", RECIPES.size() - 1);
+        Recipe recipe = RECIPES.get(basket.selectedPage());
+        basket.setMaxPage(RECIPES.size() - 1);
         basket.changed();
         if (current == null) return;
         for (int slot = 0; slot < recipe.outputs().size(); slot++) {
@@ -47,8 +47,8 @@ public final class SewingBasket {
     }
 
     public static void page(ServerPlayer player, SewingBasketBlockEntity basket, boolean forward) {
-        int maximum = basket.getPersistentData().getInt("pagemax");
-        int page = basket.getPersistentData().getInt("xvanze");
+        int maximum = basket.maxPage();
+        int page = basket.selectedPage();
         if (forward && page <= maximum) {
             page++;
             if (page > maximum) page = 0;
@@ -56,7 +56,7 @@ public final class SewingBasket {
             page--;
             if (page < 0) page = maximum;
         }
-        basket.getPersistentData().putInt("xvanze", page);
+        basket.setSelectedPage(page);
         select(player, basket.getLevel(), basket.getBlockPos());
     }
 

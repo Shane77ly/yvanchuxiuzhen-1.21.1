@@ -37,11 +37,65 @@ public final class SteamerBlockEntity extends RandomizableContainerBlockEntity i
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private boolean cooking;
+    private double playerCookLevel;
+    private int cookAnimation;
+    private double cookNumber;
+    private int cookExp;
+    private int belongToLevel;
 
     public SteamerBlockEntity(BlockPos pos, BlockState state) {
         super(SteamerBlockEntities.type(state), pos, state);
         items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public boolean cooking() {
+        return cooking;
+    }
+
+    public void setCooking(boolean value) {
+        cooking = value;
+    }
+
+    public double playerCookLevel() {
+        return playerCookLevel;
+    }
+
+    public void setPlayerCookLevel(double value) {
+        playerCookLevel = value;
+    }
+
+    public int cookAnimation() {
+        return cookAnimation;
+    }
+
+    public void setCookAnimation(int value) {
+        cookAnimation = value;
+    }
+
+    public double cookNumber() {
+        return cookNumber;
+    }
+
+    public void setCookNumber(double value) {
+        cookNumber = value;
+    }
+
+    public int cookExp() {
+        return cookExp;
+    }
+
+    public void setCookExp(int value) {
+        cookExp = value;
+    }
+
+    public int belongToLevel() {
+        return belongToLevel;
+    }
+
+    public void setBelongToLevel(int value) {
+        belongToLevel = value;
     }
 
     public boolean tray() {
@@ -83,12 +137,24 @@ public final class SteamerBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        cooking = tag.getBoolean("cooking");
+        playerCookLevel = tag.getDouble("playercooklevel");
+        cookAnimation = tag.getInt("cookanimation");
+        cookNumber = tag.getDouble("cooknumber");
+        cookExp = tag.getInt("cookexp");
+        belongToLevel = tag.getInt("belongToLevel");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (cooking) tag.putBoolean("cooking", true);
+        if (playerCookLevel != 0) tag.putDouble("playercooklevel", playerCookLevel);
+        if (cookAnimation != 0) tag.putInt("cookanimation", cookAnimation);
+        if (cookNumber != 0) tag.putDouble("cooknumber", cookNumber);
+        if (cookExp != 0) tag.putInt("cookexp", cookExp);
+        if (belongToLevel != 0) tag.putInt("belongToLevel", belongToLevel);
     }
 
     @Override

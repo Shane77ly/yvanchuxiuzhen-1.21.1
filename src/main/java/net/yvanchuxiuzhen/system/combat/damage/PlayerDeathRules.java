@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.combat.damage;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,8 +11,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.combat.api.VictimBonusExperienceEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -46,9 +48,8 @@ public final class PlayerDeathRules {
     }
 
     private static void reward(ServerPlayer killer, LivingEntity victim) {
-        CompoundTag data = victim.getPersistentData();
-        double level = victimLevel(victim, data);
-        double experience = baseExperience(victim, data, level);
+        double level = victimLevel(victim);
+        double experience = baseExperience(victim, level);
         Cultivation.add(killer, CultivationValue.EXPERIENCE_STAND, experience + experienceBonus(killer, experience));
 
         double killerLevel = Cultivation.get(killer, CultivationValue.LEVEL_NUMBER);
@@ -67,22 +68,22 @@ public final class PlayerDeathRules {
         }
     }
 
-    /** 玩家境界以修炼附件为真值，读取旧字段消费者前先刷新 LEVELnumber 镜像。 */
-    private static double victimLevel(LivingEntity victim, CompoundTag data) {
+    private static double victimLevel(LivingEntity victim) {
         if (victim instanceof ServerPlayer player) {
-            Cultivation.syncLegacyLevelMirror(player);
             return Cultivation.get(player, CultivationValue.LEVEL_NUMBER);
         }
-        return data.getDouble("LEVELnumber");
+        return EntityAttributes.level(victim);
     }
 
     /**
      * 来源按实体等级优先；无等级时，Mob（包括 Animal）按实际生命上限的五分之一给修为。
      * 不属于 Mob 的实体没有默认击杀修为。
      */
-    private static double baseExperience(LivingEntity victim, CompoundTag data, double level) {
+    private static double baseExperience(LivingEntity victim, double level) {
         if (level >= 1) {
-            return Math.pow(level, 2.4) + level * 4 + 5 + data.getDouble("additional_experience");
+            VictimBonusExperienceEvent bonus = new VictimBonusExperienceEvent(victim);
+            NeoForge.EVENT_BUS.post(bonus);
+            return Math.pow(level, 2.4) + level * 4 + 5 + bonus.bonus();
         }
         if (victim instanceof Mob) {
             return victim.getMaxHealth() / 5.0F;

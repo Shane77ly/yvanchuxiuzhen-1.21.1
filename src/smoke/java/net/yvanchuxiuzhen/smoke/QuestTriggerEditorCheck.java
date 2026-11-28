@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.client.QuestTriggerEditorScreen;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
@@ -40,8 +42,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
     private int selected;
     private boolean shift;
     private boolean shiftKey;
-    private CompoundTag session;
-    private CompoundTag journal;
+    private QuestDialogueSession session;
+    private QuestJournalState journal;
     private CompoundTag configured;
     private boolean prepared;
 
@@ -77,7 +79,7 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                     for (int row = 1; row <= 10; row++) {
                         inputs().get(row - 1).setValue(script(row));
                         inputs().get(9 + row).setValue("商店" + row);
-                        inputs().get(19 + row).setValue("商品" + row);
+                        inputs().get(19 + row).setValue("shop_" + row);
                         if (row % 2 == 1) checks().get(row - 1).onPress();
                     }
                     checks().get(10).onPress();
@@ -85,8 +87,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 }
                 case 3 -> {
                     if (local < 15) return false;
-                    onServer(player -> checkFirst(block(player).getPersistentData()));
-                    checkFirst(clientBlock().getPersistentData());
+                    onServer(player -> checkFirst(block(player)));
+                    checkFirst(clientBlock());
                     expectTrue("设置按钮不关闭编辑页", minecraft.screen instanceof QuestTriggerEditorScreen);
                     screenshots.take("quest-trigger-editor-configured.png");
                     for (EditBox input : inputs()) input.setValue("");
@@ -99,10 +101,10 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 case 4 -> {
                     if (local < 15) return false;
                     onServer(player -> {
-                        checkSecond(block(player).getPersistentData());
-                        configured = block(player).getPersistentData().copy();
+                        checkSecond(block(player));
+                        configured = block(player).saveWithFullMetadata(player.registryAccess());
                     });
-                    checkSecond(clientBlock().getPersistentData());
+                    checkSecond(clientBlock());
                     minecraft.player.closeContainer();
                 }
                 case 5 -> {
@@ -114,7 +116,7 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 case 6 -> {
                     if (!editor(local)) return false;
                     expectTrue("重开不回填来源文本框", inputs().stream().allMatch(input -> input.getValue().isEmpty()));
-                    expectTrue("旧高级脚本仍使第一勾选为真", checks().getFirst().selected());
+                    expectTrue("旧高级模板仍使第一勾选为真", checks().getFirst().selected());
                     expectTrue("粒子勾选每次初始false", !checks().get(10).selected());
                     minecraft.player.closeContainer();
                 }
@@ -123,10 +125,10 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 case 9 -> {
                     if (!inWorld(local)) return false;
                     onServer(player -> {
-                        CompoundTag data = block(player).getPersistentData();
+                        CompoundTag data = block(player).saveWithFullMetadata(player.registryAccess());
                         for (String key : configured.getAllKeys()) {
-                            if (key.startsWith("renwulist") || key.startsWith("tasklist") || key.startsWith("shopinformation")
-                                    || key.startsWith("productlist") || key.equals("lizixianshi")) {
+                            if (key.equals("advanced_quests") || key.equals("ordinary_quests")
+                                    || key.equals("shop_ids") || key.equals("lizixianshi")) {
                                 expectTrue("保存重进配置 " + key, configured.get(key).equals(data.get(key)));
                             }
                         }
@@ -145,11 +147,11 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 }
                 case 11 -> {
                     if (!(minecraft.screen instanceof DialogueScreen)
-                            || !DialogueActions.snapshot(minecraft.player).getString("TXTxianshi").equals("配置高级1")) {
-                        if (local > 200) throw new IllegalStateException("保存的高级脚本没有经普通方块右键启动");
+                            || !DialogueActions.snapshot(minecraft.player).displayText().equals("当铺掌柜：想要卖点啥？")) {
+                        if (local > 200) throw new IllegalStateException("保存的高级模板没有经普通方块右键启动");
                         return false;
                     }
-                    expect("高级脚本优先普通旧值", "配置高级1", DialogueActions.snapshot(minecraft.player).getString("TXTxianshi"));
+                    expect("高级模板优先普通旧值", "当铺掌柜：想要卖点啥？", DialogueActions.snapshot(minecraft.player).displayText());
                     onServer(this::restore);
                     finish();
                 }
@@ -178,7 +180,7 @@ final class QuestTriggerEditorCheck extends SystemCheck {
         if (player.level().getBlockEntity(pos) != null || player.level().getBlockEntity(floor) != null) throw new IllegalStateException("夹具位置有原方块实体");
         prepared = true;
         player.closeContainer();
-        player.setData(QuestData.SESSION, new CompoundTag());
+        player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
         player.getInventory().clearContent();
         player.getInventory().setItem(selected, new ItemStack(Items.STICK));
         player.setGameMode(GameType.CREATIVE);
@@ -191,32 +193,29 @@ final class QuestTriggerEditorCheck extends SystemCheck {
         player.inventoryMenu.broadcastChanges();
     }
 
-    private void checkFirst(CompoundTag data) {
+    private void checkFirst(DisguisedQuestBlockEntity block) {
         for (int row = 1; row <= 10; row++) {
-            String prefix = row % 2 == 1 ? "renwulist" : "tasklist";
-            expect("第" + row + "行来源任务类型", script(row), data.getString(prefix + row));
-            expect("第" + row + "行商店信息", "商店" + row, data.getString("shopinformation" + row));
-            expect("第" + row + "行商品列表", "商品" + row, data.getString("productlist" + row));
+            expect("第" + row + "行来源任务类型", script(row), row % 2 == 1 ? block.advancedQuest(row) : block.ordinaryQuest(row));
+            expect("第" + row + "行商店ID", "shop_" + row, block.shopId(row));
         }
-        expectTrue("来源粒子配置开启", data.getBoolean("lizixianshi"));
+        expectTrue("来源粒子配置开启", block.showParticles());
     }
 
-    private void checkSecond(CompoundTag data) {
-        expect("改普通保留另一类型高级旧值", script(1), data.getString("renwulist1"));
-        expect("普通任务写入独立字段", ordinary(), data.getString("tasklist1"));
-        expect("空输入保留原任务", script(10), data.getString("tasklist10"));
-        expect("空信息保留原商店", "商店1", data.getString("shopinformation1"));
-        expect("非空信息允许写空商品", "", data.getString("productlist2"));
-        expect("二次商店信息已写入", "商店二次设置", data.getString("shopinformation2"));
-        expectTrue("取消勾选不关闭来源粒子", data.getBoolean("lizixianshi"));
+    private void checkSecond(DisguisedQuestBlockEntity block) {
+        expect("改普通保留另一类型高级旧值", script(1), block.advancedQuest(1));
+        expect("普通任务写入独立字段", ordinary(), block.ordinaryQuest(1));
+        expect("空输入保留原任务", script(10), block.ordinaryQuest(10));
+        expect("空信息保留原商店", "shop_1", block.shopId(1));
+        expect("二次商店ID已写入", "商店二次设置", block.shopId(2));
+        expectTrue("取消勾选不关闭来源粒子", block.showParticles());
     }
 
     private static String script(int row) {
-        return "编辑任务" + row + "/smoke_trigger_editor_" + row + "/说明/无/无/需求/奖励%文字/配置高级" + row + "%结束";
+        return row == 1 ? "npc01" : "qiankun_" + Math.min(8, row);
     }
 
     private static String ordinary() {
-        return "普通编辑任务/smoke_trigger_editor_normal/说明/无/无/需求/奖励%文字/普通新脚本%结束";
+        return "qiankun_2";
     }
 
     private boolean editor(int local) {
@@ -262,8 +261,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
         player.getInventory().selected = selected;
         player.setGameMode(mode);
         player.setShiftKeyDown(shift);
-        player.setData(QuestData.SESSION, session.copy());
-        player.setData(QuestData.JOURNAL, journal.copy());
+        player.setData(QuestData.SESSION, session);
+        player.setData(QuestData.JOURNAL, journal);
         player.connection.teleport(position.x, position.y, position.z, 0, 0);
         player.inventoryMenu.broadcastChanges();
         minecraft.execute(() -> {

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
@@ -13,7 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 
@@ -38,7 +37,7 @@ public final class FuluKnowledgeRuntime {
                         .withUnderlined(false).withStrikethrough(false).withObfuscated(false));
         player.connection.send(new ClientboundSetTitleTextPacket(title));
         player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.fulu.head_learned").withStyle(ChatFormatting.GOLD), false);
-        player.getPersistentData().putBoolean("shaohui", true);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withBurnedKnowledge(true));
         return true;
     }
 
@@ -58,7 +57,7 @@ public final class FuluKnowledgeRuntime {
     }
 
     private static boolean learningBook(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBoolean("fuluget");
+        return Fulu.learningBook(stack).enabled();
     }
 
     /** 原命令以参数4作为知识编号，参数3保留原位；玩家按执行维度中的显示名匹配。 */

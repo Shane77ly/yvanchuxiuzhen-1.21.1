@@ -3,8 +3,12 @@ package net.yvanchuxiuzhen.smoke;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.IntStream;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
@@ -12,8 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,30 +32,53 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.creature.api.DungeonCreatures;
 import net.yvanchuxiuzhen.system.dungeon.DungeonController;
+import net.yvanchuxiuzhen.system.dungeon.DungeonDefinitions;
+import net.yvanchuxiuzhen.system.dungeon.DungeonEntrances;
 import net.yvanchuxiuzhen.system.dungeon.DungeonPlayers;
-import net.yvanchuxiuzhen.system.dungeon.DungeonSourceData;
+import net.yvanchuxiuzhen.system.dungeon.PaintingRuntime;
 import net.yvanchuxiuzhen.system.dungeon.client.DungeonScreen;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonMenu;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.BlueprintIngredient;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.BlueprintPayload;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.DungeonRewardEntry;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.ItemPayload;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.MedicineIngredient;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.MedicineRecipePayload;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.SkillPayload;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.TreasurePayload;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonPlayerData;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonTransientData;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonWorldData;
+import net.yvanchuxiuzhen.system.dungeon.data.PaintingState;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 副本必要路径：客户端真实放置、四页菜单和按钮、三波受控清敌、十件奖励、成功与超时回程、画卷双击往返和收回。
@@ -67,7 +94,9 @@ final class DungeonCheck extends SystemCheck {
     private static final BlockPos PAINTING = SUPPORT.south();
     private static final Vec3 ENTRANCE_STAND = Vec3.atBottomCenterOf(ENTRANCE).add(0, 0, -3);
     private static final Vec3 PAINTING_STAND = Vec3.atBottomCenterOf(FLOOR.above()).add(0, 0, -1.5);
-    private static final Field AWAITING_TELEPORT = awaitingTeleportField();
+    private static final Field AWAITING_TELEPORT = field(ServerGamePacketListenerImpl.class, "awaitingPositionFromClient");
+    private static final Field HUD_TITLE = field(Gui.class, "title");
+    private static final Field HUD_SUBTITLE = field(Gui.class, "subtitle");
     private static final List<List<String>> WAVES = List.of(
             List.of("yaoshou_001:1", "yaoshou_001:1", "yaoshou_001:2"),
             List.of("yaoshou_001:1", "yaoshou_001:2", "yaoshou_002:3"),
@@ -87,14 +116,17 @@ final class DungeonCheck extends SystemCheck {
     private boolean originalKeyShift;
     private MobEffectInstance originalSlowFalling;
     private int originalSelected;
-    private CompoundTag originalDungeon;
-    private CompoundTag originalPersistent;
+    private DungeonPlayerData originalDungeon;
+    private DungeonTransientData originalPersistent;
     private ItemStack originalTransit;
     private String originalTeam;
     private String originalEntityTeam;
     private BlockPos controllerPosition;
     private BlockPos privateExit;
     private Vec3 privateStand;
+    private boolean sawName;
+    private boolean sawSuccess;
+    private boolean sawFailure;
     private int clearedWaves;
     private int visibleMenuId = -1;
     private int visibleMenuTicks;
@@ -109,6 +141,7 @@ final class DungeonCheck extends SystemCheck {
     @Override
     protected boolean step(int step, int local) {
         try {
+            if (step >= 16 && step <= 21 && !(sawName && sawSuccess && sawFailure)) sampleTitle();
             return advance(step, local);
         } catch (RuntimeException exception) {
             abort("步骤" + step + "异常：" + exception);
@@ -136,12 +169,14 @@ final class DungeonCheck extends SystemCheck {
                 if (!waitFor(local, "客户端收到自然放置的入口", read(p -> isBlock(p.server.overworld(), ENTRANCE, "tiandaofuben"))
                         && minecraft.level.getBlockState(ENTRANCE).is(DungeonPlayers.block("tiandaofuben")), 160)) return false;
                 onServer(p -> {
-                    CompoundTag data = block(p.server.overworld(), ENTRANCE).getPersistentData();
-                    expect("自然入口默认名称", "花妖连战", data.getString("fubenname"));
-                    expect("默认定义完整保存", DungeonSourceData.DEFAULT, data.getString("fubenshujv"));
-                    expectTrue("默认0–40级、10人、预览5、冷却240秒", data.getDouble("fubenminlevel") == 0
-                            && data.getDouble("fubenmaxlevel") == 40 && data.getDouble("fubenpeoplemax") == 10
-                            && data.getDouble("fubenyvlan") == 5 && data.getDouble("fubenjieshujishiMax") == 240);
+                    DungeonBlockEntity entrance = block(p.server.overworld(), ENTRANCE);
+                    expect("自然入口默认名称", "花妖连战", entrance.dungeonName());
+                    expect("默认定义完整保存", DungeonDefinitions.DEFAULT_ID, entrance.definitionId());
+                    expectTrue("默认定义三波与五奖励齐全", DungeonDefinitions.byId(entrance.definitionId()).waves().size() == 3
+                            && DungeonDefinitions.byId(entrance.definitionId()).rewards().size() == 5);
+                    expectTrue("默认0–40级、10人、预览5、冷却240秒", entrance.minLevel() == 0
+                            && entrance.maxLevel() == 40 && entrance.maxPeople() == 10
+                            && entrance.preview() == 5 && entrance.cooldownMax() == 240);
                     checkEntranceCapability(p.server.overworld());
                     p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_INGOT, 4));
                     p.inventoryMenu.broadcastChanges();
@@ -164,9 +199,9 @@ final class DungeonCheck extends SystemCheck {
             }
             case 5 -> {
                 if (!waitFor(local, "管理按钮写回简介并按十六字拆行", read(p -> {
-                    CompoundTag data = block(p.server.overworld(), ENTRANCE).getPersistentData();
-                    return data.getString("text01").equals("甲".repeat(16)) && data.getString("text02").equals("乙".repeat(16))
-                            && data.getString("text03").equals("尾") && data.getString("fubenshujv").equals(DungeonSourceData.DEFAULT);
+                    DungeonBlockEntity entrance = block(p.server.overworld(), ENTRANCE);
+                    return entrance.text01().equals("甲".repeat(16)) && entrance.text02().equals("乙".repeat(16))
+                            && entrance.text03().equals("尾") && entrance.definitionId().equals(DungeonDefinitions.DEFAULT_ID);
                 }), 100)) return false;
                 clickSlot(28, 0);
                 clickSlot(0, 1);
@@ -222,12 +257,21 @@ final class DungeonCheck extends SystemCheck {
             }
             case 11 -> {
                 if (!waitFor(local, "占位页真实按钮保存ID与攻击位", read(p -> {
-                    CompoundTag data = block(p.server.overworld(), MARKER).getPersistentData();
-                    return data.getString("zhanweifuid").equals("zhanweiSmoke") && data.getBoolean("entityshengchenggongji");
+                    DungeonBlockEntity marker = block(p.server.overworld(), MARKER);
+                    return marker.markerId().equals("zhanweiSmoke") && marker.markerAttack();
                 }), 100)) return false;
                 minecraft.player.closeContainer();
                 onServer(p -> {
                     p.setGameMode(GameType.SURVIVAL);
+                    DungeonBlockEntity entrance = block(p.server.overworld(), ENTRANCE);
+                    entrance.setMinLevel(10);
+                    double oldLevel = Cultivation.get(p, CultivationValue.LEVEL_NUMBER);
+                    Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 1);
+                    DungeonEntrances.enter(p, entrance);
+                    expectTrue("Q103 等级不足拒绝入场不扣门票且不进入冷却",
+                            p.getInventory().countItem(Items.IRON_INGOT) == 2 && !entrance.onCooldown());
+                    entrance.setMinLevel(0);
+                    Cultivation.set(p, CultivationValue.LEVEL_NUMBER, oldLevel);
                     move(p, ENTRANCE_STAND);
                 });
                 return true;
@@ -241,7 +285,7 @@ final class DungeonCheck extends SystemCheck {
                 if (!menu(local, DungeonMenu.OPEN, "天道副本")) return false;
                 onServer(p -> {
                     DungeonMenu menu = (DungeonMenu) p.containerMenu;
-                    expectTrue("普通入口只展示门票与预览5", menu.data().getDouble("fubenyvlan") == 5
+                    expectTrue("普通入口只展示门票与预览5", menu.snapshot().preview() == 5
                             && !menu.getSlot(0).mayPickup(p) && !menu.getSlot(0).mayPlace(new ItemStack(Items.STONE)));
                 });
                 screenshots.take("dungeon_open.png");
@@ -250,18 +294,18 @@ final class DungeonCheck extends SystemCheck {
             }
             case 14 -> {
                 if (!waitFor(local, "真实入场按钮进入画卷维度候场", read(p -> p.level().dimension().equals(DungeonPlayers.PAINTING)
-                        && p.getData(DungeonData.PLAYER).getBoolean("fubenstate")) && minecraft.level.dimension().equals(DungeonPlayers.PAINTING), 240)) return false;
+                        && p.getData(DungeonData.PLAYER).waiting()) && minecraft.level.dimension().equals(DungeonPlayers.PAINTING), 240)) return false;
                 onServer(p -> {
-                    CompoundTag data = p.getData(DungeonData.PLAYER);
-                    controllerPosition = position(data, "fubenzuobiao");
-                    expectTrue("候场六秒倒计时与大厅自然生成", data.getDouble("daojishi") > 0 && data.getDouble("daojishi") <= 6
+                    DungeonPlayerData data = p.getData(DungeonData.PLAYER);
+                    controllerPosition = data.controllerPos();
+                    expectTrue("候场六秒倒计时与大厅自然生成", data.countdown() > 0 && data.countdown() <= 6
                             && DungeonWorldData.get(p.server).lobbyGenerated());
                     expect("进入时切换冒险模式", GameType.ADVENTURE, p.gameMode.getGameModeForPlayer());
                     expectTrue("真实门票只扣两枚并标记入口冷却", p.getInventory().countItem(Items.IRON_INGOT) == 0
-                            && block(p.server.overworld(), ENTRANCE).getPersistentData().getBoolean("fubenbegin")
+                            && block(p.server.overworld(), ENTRANCE).onCooldown()
                             && block(p.server.overworld(), ENTRANCE).getItem(1).is(Items.FLINT));
-                    expectTrue("保存入口回程坐标", position(data, "chuansong").equals(ENTRANCE)
-                            && data.getString("chuansongid").equals("minecraft:overworld"));
+                    expectTrue("保存入口回程坐标", data.returnPos().equals(ENTRANCE)
+                            && data.returnDimension().equals("minecraft:overworld"));
                 });
                 screenshots.take("dungeon_lobby.png");
                 return true;
@@ -269,16 +313,15 @@ final class DungeonCheck extends SystemCheck {
             case 15 -> {
                 if (!waitFor(local, "六秒后原生实例控制器进入准备阶段", read(p -> {
                     if (!(p.serverLevel().getBlockEntity(controllerPosition) instanceof DungeonBlockEntity controller)) return false;
-                    return controller.getPersistentData().getBoolean("fubenstate") && controller.getPersistentData().getString("fubenjindu").equals("准备");
+                    return controller.active() && controller.phase().equals("准备");
                 }), 240)) return false;
                 onServer(p -> {
                     DungeonBlockEntity controller = block(p.serverLevel(), controllerPosition);
-                    CompoundTag data = controller.getPersistentData();
-                    expectTrue("默认三波3/3/5及区域边界有效", data.getInt("fubenbociMax") == 3 && data.getInt("fybenboci1num") == 3
-                            && data.getInt("fybenboci2num") == 3 && data.getInt("fybenboci3num") == 5 && area(controller).contains(p.position()));
+                    expectTrue("默认三波3/3/5及区域边界有效", controller.waveMax() == 3 && controller.waveCount(1) == 3
+                            && controller.waveCount(2) == 3 && controller.waveCount(3) == 5 && area(controller).contains(p.position()));
                     for (int slot = 0; slot < 5; slot++) expectTrue("默认奖励槽" + slot + "为100%两件特殊皮革", controller.getItem(slot).is(item("cailiao_001").getItem())
                             && controller.getItem(slot).getCount() == 2 && controller.getItem(slot).getHoverName().getString().equals("特殊皮革")
-                            && data.getInt("gift" + slot + "qvanzhong") == 100);
+                            && controller.rewardWeight(slot) == 100);
                 });
                 return true;
             }
@@ -309,22 +352,21 @@ final class DungeonCheck extends SystemCheck {
             }
             case 20 -> {
                 if (local == 1 || local == 300) onServer(p -> {
-                    CompoundTag state = p.getData(DungeonData.PLAYER);
+                    DungeonPlayerData state = p.getData(DungeonData.PLAYER);
                     DungeonBlockEntity controller = block(p.server.getLevel(DungeonPlayers.PAINTING), controllerPosition);
-                    CompoundTag data = controller.getPersistentData();
                     report.add("INFO 天道副本与画卷 二次入场第" + local + "刻：维度=" + p.level().dimension().location()
-                            + "，位置=" + p.position() + "，玩家候场=" + state.getBoolean("fubenstate") + "/" + state.getDouble("daojishi")
-                            + "，控制点=" + position(state, "fubenzuobiao") + "，入口冷却=" + block(p.server.overworld(), ENTRANCE).getPersistentData().getBoolean("fubenbegin")
+                            + "，位置=" + p.position() + "，玩家候场=" + state.waiting() + "/" + state.countdown()
+                            + "，控制点=" + state.controllerPos() + "，入口冷却=" + block(p.server.overworld(), ENTRANCE).onCooldown()
                             + "，铁锭=" + p.getInventory().countItem(Items.IRON_INGOT) + "，控制器移除=" + controller.isRemoved()
-                            + "，开关=" + data.getBoolean("fubenopen") + "/" + data.getBoolean("fubenstate") + "，阶段=" + data.getString("fubenjindu"));
+                            + "，开关=" + controller.openRequested() + "/" + controller.active() + "，阶段=" + controller.phase());
                 });
                 if (!waitFor(local, "第二次自然入场并初始化原控制器", read(p -> p.level().dimension().equals(DungeonPlayers.PAINTING)
-                        && !p.getData(DungeonData.PLAYER).getBoolean("fubenstate")
-                        && block(p.serverLevel(), controllerPosition).getPersistentData().getBoolean("fubenstate")), 360)) return false;
+                        && !p.getData(DungeonData.PLAYER).waiting()
+                        && block(p.serverLevel(), controllerPosition).active()), 360)) return false;
                 onServer(p -> {
                     DungeonBlockEntity controller = block(p.serverLevel(), controllerPosition);
-                    expect("失败样本仍处于原生准备阶段", "准备", controller.getPersistentData().getString("fubenjindu"));
-                    controller.getPersistentData().putInt("fubenjieshutime", 1);
+                    expect("失败样本仍处于原生准备阶段", "准备", controller.phase());
+                    controller.setEndTime(1);
                     controller.changed();
                 });
                 return true;
@@ -332,9 +374,12 @@ final class DungeonCheck extends SystemCheck {
             case 21 -> {
                 if (!returned(local, "受控超时失败经延后任务回程并复位入口")) return false;
                 onServer(p -> {
+                    expectTrue("客户端中央收到黑色非粗体副本名", sawName);
+                    expectTrue("客户端中央收到金色粗体通关标题", sawSuccess);
+                    expectTrue("客户端中央收到黑色粗体失败标题", sawFailure);
                     expect("失败不新增成功奖励", 10, leather(p));
-                    expectTrue("失败控制器停止且清空倒计时", !block(p.server.getLevel(DungeonPlayers.PAINTING), controllerPosition).getPersistentData().getBoolean("fubenstate")
-                            && block(p.server.getLevel(DungeonPlayers.PAINTING), controllerPosition).getPersistentData().getInt("fubenjieshutime") == 0);
+                    DungeonBlockEntity controller = block(p.server.getLevel(DungeonPlayers.PAINTING), controllerPosition);
+                    expectTrue("失败控制器停止且清空倒计时", !controller.active() && controller.endTime() == 0);
                     p.serverLevel().setBlock(SUPPORT, Blocks.STONE.defaultBlockState(), 3);
                     p.setItemInHand(InteractionHand.MAIN_HAND, item("fabao_00901"));
                     p.inventoryMenu.broadcastChanges();
@@ -353,9 +398,10 @@ final class DungeonCheck extends SystemCheck {
                         && minecraft.level.getBlockState(PAINTING).is(DungeonPlayers.block("fabao_009")), 120)) return false;
                 onServer(p -> {
                     DungeonBlockEntity painting = block(p.server.overworld(), PAINTING);
+                    PaintingState state = PaintingRuntime.state(painting.getItem(0));
                     expectTrue("画卷单槽一件并记录主人和入口坐标", painting.getContainerSize() == 1 && painting.getItem(0).getCount() == 1
-                            && data(painting.getItem(0)).getString("belongToMasterUUID").equals(p.getStringUUID())
-                            && position(data(painting.getItem(0)), "rukou").equals(PAINTING));
+                            && state.ownerUuid().equals(p.getStringUUID())
+                            && state.rukouPos().equals(PAINTING));
                     checkClosedSides(p.server.overworld(), PAINTING, 1);
                 });
                 screenshots.take("dungeon_painting_placed.png");
@@ -365,24 +411,24 @@ final class DungeonCheck extends SystemCheck {
             case 24 -> {
                 if (local < 8) return false;
                 if (!require("画卷首次只启动动画1及八秒窗口", read(p -> p.level().dimension().equals(Level.OVERWORLD)
-                        && block(p.server.overworld(), PAINTING).getPersistentData().getBoolean("chuanyve")
+                        && block(p.server.overworld(), PAINTING).portalActive()
                         && block(p.server.overworld(), PAINTING).animation() == 1
-                        && !data(block(p.server.overworld(), PAINTING).getItem(0)).getBoolean("jihuo")))) return false;
+                        && !PaintingRuntime.state(block(p.server.overworld(), PAINTING).getItem(0)).activated()))) return false;
                 use(PAINTING, Direction.SOUTH);
                 return true;
             }
             case 25 -> {
                 if (!waitFor(local, "画卷第二次右键自然生成私人出口", read(p -> p.level().dimension().equals(DungeonPlayers.PAINTING)
-                        && data(p.getData(DungeonData.PAINTING_TRANSIT)).getBoolean("fangzhi"))
+                        && PaintingRuntime.state(p.getData(DungeonData.PAINTING_TRANSIT)).placed())
                         && minecraft.level.dimension().equals(DungeonPlayers.PAINTING), 300)) return false;
                 onServer(p -> {
-                    CompoundTag transit = data(p.getData(DungeonData.PAINTING_TRANSIT));
-                    privateExit = position(transit, "chukou");
-                    expectTrue("私人结构出口保存激活、主人和主世界回程", transit.getBoolean("jihuo")
-                            && transit.getString("belongToMasterUUID").equals(p.getStringUUID())
-                            && transit.getString("mubiaoweidu").equals("主世界")
+                    PaintingState transit = PaintingRuntime.state(p.getData(DungeonData.PAINTING_TRANSIT));
+                    privateExit = transit.chukouPos();
+                    expectTrue("私人结构出口保存激活、主人和主世界回程", transit.activated()
+                            && transit.ownerUuid().equals(p.getStringUUID())
+                            && transit.returnDimension().equals("主世界")
                             && isBlock(p.serverLevel(), privateExit, "fabao_009")
-                            && data(block(p.serverLevel(), privateExit).getItem(0)).getBoolean("fangzhi"));
+                            && PaintingRuntime.state(block(p.serverLevel(), privateExit).getItem(0)).placed());
                     privateStand = Vec3.atBottomCenterOf(privateExit).add(0, 0, 3);
                     platform(p.serverLevel(), privateStand, 1);
                     move(p, privateStand, 180);
@@ -398,7 +444,7 @@ final class DungeonCheck extends SystemCheck {
             case 27 -> {
                 if (local < 8) return false;
                 if (!require("私人出口首次右键仍只启动窗口", read(p -> p.level().dimension().equals(DungeonPlayers.PAINTING)
-                        && block(p.serverLevel(), privateExit).getPersistentData().getBoolean("chuanyve")))) return false;
+                        && block(p.serverLevel(), privateExit).portalActive()))) return false;
                 use(privateExit, Direction.SOUTH);
                 return true;
             }
@@ -406,8 +452,8 @@ final class DungeonCheck extends SystemCheck {
                 if (!waitFor(local, "画卷第二次右键返回主世界并完成客户端确认", read(p -> p.level().dimension().equals(Level.OVERWORLD)
                         && acknowledged(p)) && minecraft.level.dimension().equals(Level.OVERWORLD), 300)) return false;
                 onServer(p -> {
-                    CompoundTag stored = data(block(p.server.overworld(), PAINTING).getItem(0));
-                    expectTrue("回程更新原画卷且清除瞬时返回标志", stored.getBoolean("jihuo") && !stored.getBoolean("fanhui")
+                    PaintingState stored = PaintingRuntime.state(block(p.server.overworld(), PAINTING).getItem(0));
+                    expectTrue("回程更新原画卷且清除瞬时返回标志", stored.activated() && !stored.returning()
                             && p.position().distanceToSqr(Vec3.atLowerCornerOf(PAINTING)) < 25);
                     p.setShiftKeyDown(true);
                     move(p, PAINTING_STAND, 180);
@@ -425,10 +471,29 @@ final class DungeonCheck extends SystemCheck {
                         && p.getInventory().countItem(item("fabao_00901").getItem()) == 1), 120)) return false;
                 onServer(p -> {
                     ItemStack painting = p.getInventory().items.stream().filter(stack -> stack.is(item("fabao_00901").getItem())).findFirst().orElseThrow();
-                    expectTrue("回收保留主人、激活和私人出口坐标", painting.getCount() == 1 && data(painting).getBoolean("jihuo")
-                            && data(painting).getString("belongToMasterUUID").equals(p.getStringUUID())
-                            && position(data(painting), "chukou").equals(privateExit));
+                    PaintingState recovered = PaintingRuntime.state(painting);
+                    expectTrue("回收保留主人、激活和私人出口坐标", painting.getCount() == 1 && recovered.activated()
+                            && recovered.ownerUuid().equals(p.getStringUUID())
+                            && recovered.chukouPos().equals(privateExit));
                 });
+                return true;
+            }
+            case 31 -> {
+                onServer(p -> {
+                    DungeonBlockEntity sample = block(p.serverLevel(), SAMPLE);
+                    sampleTitleName(sample, "甲\\\"乙\\\\丙");
+                    sampleTitleName(sample, "甲\"乙");
+                    sampleTitleName(sample, "甲\\乙");
+                    sampleTitleName(sample, "甲\"}]尾");
+                    p.connection.send(new ClientboundSetSubtitleTextPacket(Component.literal("副本名称样本结束")));
+                });
+                return true;
+            }
+            case 32 -> {
+                Component marker = hudText(HUD_SUBTITLE);
+                if (!waitFor(local, "收到所有名称样本之后的副标题", marker != null && marker.getString().equals("副本名称样本结束"), 100)) return false;
+                Component title = hudText(HUD_TITLE);
+                expect("合法转义显示引号与反斜杠，三个非法名称均未覆盖中央标题", "甲\"乙\\丙", title == null ? "" : title.getString());
                 return true;
             }
             default -> {
@@ -453,8 +518,8 @@ final class DungeonCheck extends SystemCheck {
         MobEffectInstance slowFalling = player.getEffect(MobEffects.SLOW_FALLING);
         originalSlowFalling = slowFalling == null ? null : new MobEffectInstance(slowFalling);
         originalSelected = player.getInventory().selected;
-        originalDungeon = player.getData(DungeonData.PLAYER).copy();
-        originalPersistent = player.getPersistentData().copy();
+        originalDungeon = player.getData(DungeonData.PLAYER);
+        originalPersistent = player.getData(DungeonData.PLAYER_TRANSIENT);
         originalTransit = player.getData(DungeonData.PAINTING_TRANSIT).copy();
         originalTeam = Relations.temporaryTeam(player);
         originalEntityTeam = Relations.entityTemporaryTeam(player);
@@ -463,9 +528,9 @@ final class DungeonCheck extends SystemCheck {
         player.closeContainer();
         player.getInventory().clearContent();
         player.getInventory().selected = 0;
-        player.setData(DungeonData.PLAYER, new CompoundTag());
+        player.setData(DungeonData.PLAYER, DungeonPlayerData.EMPTY);
         player.setData(DungeonData.PAINTING_TRANSIT, ItemStack.EMPTY);
-        for (String key : List.of("openfubengui", "fubenfanhui", "gamemoshi")) player.getPersistentData().remove(key);
+        player.setData(DungeonData.PLAYER_TRANSIENT, DungeonTransientData.EMPTY);
         Relations.setTemporaryTeam(player, "");
         Relations.setEntityTemporaryTeam(player, "");
         player.setInvulnerable(true);
@@ -486,11 +551,10 @@ final class DungeonCheck extends SystemCheck {
         level.setBlock(SAMPLE, DungeonPlayers.block("fubenblock").defaultBlockState(), 3);
         level.setBlock(MARKER, DungeonPlayers.block("fubenentity").defaultBlockState(), 3);
         DungeonBlockEntity controller = block(level, SAMPLE);
-        CompoundTag state = controller.getPersistentData();
-        state.putString("fubenshujv", "字段样本%0%240%" + sampleRewards());
-        state.putBoolean("fubenopen", true);
+        controller.setCustomDefinition(new DungeonDefinition("smoke_sample", "字段样本", 240, Optional.empty(), sampleRewards(), List.of()));
+        controller.setOpenRequested(true);
         DungeonController.tick(controller);
-        state.putBoolean("fubenstate", false);
+        controller.setActive(false);
         if (!require("五类奖励载体均为有效注册物品", controller.getItem(0).is(item("cailiao_001").getItem())
                 && controller.getItem(1).is(item("book_006").getItem()) && controller.getItem(2).is(item("book_031").getItem())
                 && controller.getItem(3).is(item("book_021").getItem()) && controller.getItem(4).is(item("treasure_chest_03").getItem())
@@ -501,70 +565,68 @@ final class DungeonCheck extends SystemCheck {
         expect("材料奖励组件等级品阶", new MaterialInstance(17, 3), Materials.instance(controller.getItem(0)));
         if (!require("技能奖励具有所有者组件", Skills.book(controller.getItem(1)).isPresent())) return false;
         SkillBook skill = Skills.book(controller.getItem(1)).orElseThrow();
-        expectTrue("技能所有者组件与未消费身份字段均保留", skill.kind() == SkillKind.SPELL && skill.name().equals("字段法术")
-                && skill.grade() == 12 && skill.level() == 11 && skill.damageMultiplier() == 1.75
-                && data(controller.getItem(1)).getString("belongToItemID").equals("yvanchuxiuzhen:book_006"));
-        CompoundTag blueprint = data(controller.getItem(2));
-        expectTrue("图纸所有者转换ID优先于额外根字段", blueprint.getString("fabaoid").equals("yvanchuxiuzhen:fabao_001"));
+        expectTrue("技能所有者组件保留", skill.kind() == SkillKind.SPELL && skill.name().equals("字段法术")
+                && skill.grade() == 12 && skill.level() == 11 && skill.damageMultiplier() == 1.75);
+        LianqiBlueprint blueprint = Lianqi.blueprint(controller.getItem(2)).orElse(LianqiBlueprint.EMPTY);
+        expectTrue("图纸所有者转换ID", blueprint.itemId().equals("yvanchuxiuzhen:fabao_001"));
         for (int slot = 0; slot < 9; slot++) expectTrue("图纸九材料" + slot,
-                blueprint.getString("cailiao0" + slot).equals("yvanchuxiuzhen:cailiao_001")
-                        && blueprint.getString("cailiao0" + slot + "name").equals("材料" + slot)
-                        && blueprint.getInt("cailiao0" + slot + "num") == slot + 1);
-        CompoundTag recipe = data(controller.getItem(3));
-        expectTrue("丹方所有者信息与未消费danfangid保留", recipe.getString("danyaoname").equals("字段丹方")
-                && recipe.getString("danfangid").equals("独立丹方标记"));
+                blueprint.ingredient(slot).id().equals("yvanchuxiuzhen:cailiao_001")
+                        && blueprint.ingredient(slot).name().equals("材料" + slot)
+                        && blueprint.ingredient(slot).count() == slot + 1);
+        MedicineRecipe recipe = Liandan.recipe(controller.getItem(3));
+        expectTrue("丹方所有者信息保留", recipe.name().equals("字段丹方"));
         for (int slot = 1; slot <= 8; slot++) expectTrue("丹方八材料" + slot,
-                recipe.getString("cailiao0" + slot).equals("yvanchuxiuzhen:cailiao_001")
-                        && recipe.getString("cailiao0" + slot + "name").equals("药草" + slot));
-        CompoundTag chest = data(controller.getItem(4));
-        expectTrue("宝箱所有者五字段完整", chest.getString("TreasureTypeBig").equals("材料") && chest.getString("TreasureTypeSmall").equals("全部")
-                && chest.getDouble("TreasureLEVEL") == 11 && chest.getDouble("minimumvalue") == 2 && chest.getDouble("Maximumvalue") == 4);
+                recipe.ingredient(slot).id().equals("yvanchuxiuzhen:cailiao_001")
+                        && recipe.ingredient(slot).name().equals("药草" + slot));
+        TreasureContainerConfig chest = TreasureContainers.config(controller.getItem(4));
+        expectTrue("宝箱所有者五字段完整", chest.category().equals("材料") && chest.subtype().equals("全部")
+                && chest.level() == 11 && chest.minimum() == 2 && chest.maximum() == 4);
         for (int slot = 0; slot < 5; slot++) {
-            CompoundTag extra = data(controller.getItem(slot));
-            expectTrue("任意额外字段保全" + slot, extra.getBoolean("smokeLogic") && extra.getString("smokeText").equals("额外字段")
-                    && extra.getInt("smokeInt") == 7 && extra.getDouble("smokeDouble") == 1.25 && extra.getInt("smokeEmpty") == 0);
+            expectTrue("不写回未注册CustomData " + slot, !controller.getItem(slot).has(DataComponents.CUSTOM_DATA));
         }
         return true;
     }
 
-    private static String sampleRewards() {
-        String extra = "/smokeLogic/logic/真/smokeText/str/额外字段/smokeInt/int/7/smokeDouble/double/1.25/smokeEmpty/int/ ";
-        List<String> gifts = new ArrayList<>();
-        gifts.add("yvanchuxiuzhen:cailiao_001/无/100/2/cailiaolevel/int/17/cailiaopinjie/int/3" + extra);
-        gifts.add("yvanchuxiuzhen:book_006/无/100/1/jinengName/char/字段法术/belongTopinjie/int/12/belongToLevel/int/11/belongTobody/char/火"
-                + "/belongTojianjie/str/字段说明/jinengshanghai/doube/1.75/belongToItemID/char/yvanchuxiuzhen:book_006" + extra);
-        StringBuilder blueprint = new StringBuilder("yvanchuxiuzhen:book_031/无/100/1/tuzhiname/str/字段图纸/tuzhishuoming/str/图纸说明"
-                + "/fabaoid/char/yvanchuxitong:fabao_001/fabaoshuoming/str/成品说明/fabaotype/str/武器/item_level/str/下品/item_level_num/int/11");
-        for (int slot = 0; slot < 9; slot++) blueprint.append("/cailiao0").append(slot).append("/char/yvanchuxitong:cailiao_001/cailiao0")
-                .append(slot).append("name/str/材料").append(slot).append("/cailiao0").append(slot).append("num/int/").append(slot + 1);
-        gifts.add(blueprint + extra);
-        StringBuilder recipe = new StringBuilder("yvanchuxiuzhen:book_021/无/100/1/danyaoname/str/字段丹方/danfangshuoming/str/丹方说明"
-                + "/danyaoshuoming/str/丹药说明/item_level/str/下品/item_level_num/int/11/danfangid/str/独立丹方标记");
-        for (int slot = 1; slot <= 8; slot++) recipe.append("/cailiao0").append(slot).append("/char/yvanchuxitong:cailiao_001/cailiao0")
-                .append(slot).append("name/str/药草").append(slot);
-        gifts.add(recipe + extra);
-        gifts.add("yvanchuxiuzhen:treasure_chest_03/无/100/1/TreasureTypeBig/str/材料/TreasureTypeSmall/str/全部/TreasureLEVEL/double/11"
-                + "/minimumvalue/double/2/Maximumvalue/double/4" + extra);
-        return String.join("&", gifts);
+    private static List<DungeonRewardEntry> sampleRewards() {
+        List<BlueprintIngredient> bpIngredients = new ArrayList<>();
+        for (int slot = 0; slot < 9; slot++) {
+            bpIngredients.add(new BlueprintIngredient("yvanchuxiuzhen:cailiao_001", "材料" + slot, slot + 1));
+        }
+        List<MedicineIngredient> medIngredients = new ArrayList<>();
+        for (int slot = 1; slot <= 8; slot++) {
+            medIngredients.add(new MedicineIngredient("yvanchuxiuzhen:cailiao_001", "药草" + slot));
+        }
+        return List.of(
+                new DungeonRewardEntry(ResourceLocation.parse("yvanchuxiuzhen:cailiao_001"), "", 100, 2, new ItemPayload(17, 3)),
+                new DungeonRewardEntry(ResourceLocation.parse("yvanchuxiuzhen:book_006"), "", 100, 1,
+                        new SkillPayload("字段法术", 12, 11, "火", "字段说明",
+                                Map.of("belongTopinjie", 12.0, "belongToLevel", 11.0, "jinengshanghai", 1.75),
+                                Map.of("jinengName", "字段法术", "belongTobody", "火", "belongTojianjie", "字段说明", "belongToItemID", "yvanchuxiuzhen:book_006"))),
+                new DungeonRewardEntry(ResourceLocation.parse("yvanchuxiuzhen:book_031"), "", 100, 1,
+                        new BlueprintPayload("字段图纸", "图纸说明", "yvanchuxiuzhen:fabao_001", "成品说明", "武器", "下品", 11, bpIngredients)),
+                new DungeonRewardEntry(ResourceLocation.parse("yvanchuxiuzhen:book_021"), "", 100, 1,
+                        new MedicineRecipePayload("字段丹方", "丹方说明", "丹药说明", "下品", 11, medIngredients)),
+                new DungeonRewardEntry(ResourceLocation.parse("yvanchuxiuzhen:treasure_chest_03"), "", 100, 1,
+                        new TreasurePayload("材料", "全部", 11, 2, 4))
+        );
     }
 
     private boolean waves(int local) {
         if (local % 3 != 0) return waitFor(local, "默认三波自然推进", false, 1200);
         return read(player -> {
             DungeonBlockEntity controller = block(player.serverLevel(), controllerPosition);
-            CompoundTag state = controller.getPersistentData();
-            if (state.getBoolean("fubenclose")) {
+            if (controller.closing()) {
                 if (!require("三波均实际出现后成功", clearedWaves == 3)) return false;
                 expectTrue("成功在原维度保留十秒退出倒计时", player.level().dimension().equals(DungeonPlayers.PAINTING)
-                        && state.getInt("fubenjieshutime") > 0 && state.getInt("fubenjieshutime") <= 10);
+                        && controller.endTime() > 0 && controller.endTime() <= 10);
                 expect("成功立即发放十件特殊皮革", 10, leather(player));
                 minecraft.execute(() -> screenshots.take("dungeon_success.png"));
                 return true;
             }
-            if (state.getString("fubenjindu").equals("监测敌人是否死亡") && state.getInt("fubenbocinum") == clearedWaves + 1) {
+            if (controller.phase().equals("监测敌人是否死亡") && controller.waveIndex() == clearedWaves + 1) {
                 List<Entity> enemies = enemies(player.serverLevel());
                 List<String> actual = enemies.stream().map(entity -> BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath()
-                        + ":" + entity.getPersistentData().getInt("LEVELnumber")).sorted().toList();
+                        + ":" + (int) EntityAttributes.level(entity)).sorted().toList();
                 if (!require("第" + (clearedWaves + 1) + "波实体种类和等级，实际" + actual, actual.equals(WAVES.get(clearedWaves)))) return false;
                 expectTrue("本波刷怪均在控制器区域", enemies.stream().allMatch(entity -> area(controller).contains(entity.position())));
                 for (Entity enemy : enemies) {
@@ -574,7 +636,7 @@ final class DungeonCheck extends SystemCheck {
                 }
                 clearedWaves++;
             }
-            if (local > 1200) abort("默认三波推进超时，阶段=" + state.getString("fubenjindu") + "，已清波数=" + clearedWaves);
+            if (local > 1200) abort("默认三波推进超时，阶段=" + controller.phase() + "，已清波数=" + clearedWaves);
             return false;
         });
     }
@@ -582,8 +644,8 @@ final class DungeonCheck extends SystemCheck {
     private boolean returned(int local, String label) {
         return waitFor(local, label, read(p -> p.level().dimension().equals(Level.OVERWORLD) && acknowledged(p)
                 && p.gameMode.getGameModeForPlayer() == GameType.SURVIVAL
-                && !block(p.server.overworld(), ENTRANCE).getPersistentData().getBoolean("fubenbegin")
-                && !p.getData(DungeonData.PLAYER).getBoolean("fubenfanhui"))
+                && !block(p.server.overworld(), ENTRANCE).onCooldown()
+                && !p.getData(DungeonData.PLAYER).returning())
                 && minecraft.level.dimension().equals(Level.OVERWORLD), 400);
     }
 
@@ -615,9 +677,41 @@ final class DungeonCheck extends SystemCheck {
         }
     }
 
-    private static Field awaitingTeleportField() {
+    private static void sampleTitleName(DungeonBlockEntity sample, String name) {
+        sample.setActive(true);
+        sample.setPhase("准备");
+        sample.setDungeonName(name);
+        sample.setSideLength(40);
+        sample.setControllerTick(6);
+        sample.setEndTime(100);
+        DungeonController.tick(sample);
+        sample.setActive(false);
+    }
+
+    private void sampleTitle() {
+        Component title = hudText(HUD_TITLE);
+        if (title == null) return;
+        var style = title.getStyle();
+        if (style.getColor() == null || style.isItalic() || style.isUnderlined() || style.isStrikethrough() || style.isObfuscated()) return;
+        int color = style.getColor().getValue();
+        switch (title.getString()) {
+            case "花妖连战" -> sawName |= color == ChatFormatting.BLACK.getColor() && !style.isBold();
+            case "通 关" -> sawSuccess |= color == ChatFormatting.GOLD.getColor() && style.isBold();
+            case "失 败" -> sawFailure |= color == ChatFormatting.BLACK.getColor() && style.isBold();
+        }
+    }
+
+    private Component hudText(Field field) {
         try {
-            Field field = ServerGamePacketListenerImpl.class.getDeclaredField("awaitingPositionFromClient");
+            return (Component) field.get(minecraft.gui);
+        } catch (IllegalAccessException exception) {
+            throw new IllegalStateException(exception);
+        }
+    }
+
+    private static Field field(Class<?> owner, String name) {
+        try {
+            Field field = owner.getDeclaredField(name);
             field.setAccessible(true);
             return field;
         } catch (ReflectiveOperationException exception) {
@@ -748,23 +842,14 @@ final class DungeonCheck extends SystemCheck {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id)));
     }
 
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-    }
-
-    private static BlockPos position(CompoundTag tag, String prefix) {
-        return BlockPos.containing(tag.getDouble(prefix + "X"), tag.getDouble(prefix + "Y"), tag.getDouble(prefix + "Z"));
-    }
-
     private static AABB area(DungeonBlockEntity controller) {
-        CompoundTag data = controller.getPersistentData();
-        Vec3 center = Vec3.atLowerCornerOf(controller.getBlockPos()).add(data.getInt("fubenzhongxinX"), data.getInt("fubenzhongxinY"), data.getInt("fubenzhongxinZ"));
-        return new AABB(center, center).inflate(data.getInt("fubenbianchang") / 2.0);
+        Vec3 center = Vec3.atLowerCornerOf(controller.getBlockPos()).add(controller.centerOffsetX(), controller.centerOffsetY(), controller.centerOffsetZ());
+        return new AABB(center, center).inflate(controller.sideLength() / 2.0);
     }
 
     private List<Entity> enemies(ServerLevel level) {
-        return level.getEntitiesOfClass(Entity.class, new AABB(controllerPosition).inflate(128), entity -> entity.getPersistentData().getBoolean("fubenentity")
-                && position(entity.getPersistentData(), "fubenzuobiao").equals(controllerPosition));
+        return level.getEntitiesOfClass(Entity.class, new AABB(controllerPosition).inflate(128), entity -> DungeonCreatures.isDungeonEntity(entity)
+                && controllerPosition.equals(entity.getData(DungeonData.CONTROLLER_POS)));
     }
 
     private static int leather(ServerPlayer player) {
@@ -780,24 +865,21 @@ final class DungeonCheck extends SystemCheck {
         if (controllerPosition != null && paintingLevel != null) {
             enemies(paintingLevel).forEach(Entity::discard);
             if (paintingLevel.getBlockEntity(controllerPosition) instanceof DungeonBlockEntity controller) {
-                controller.getPersistentData().putBoolean("fubenstate", false);
-                controller.getPersistentData().putBoolean("fubenclose", false);
-                controller.getPersistentData().putBoolean("fubenopen", false);
+                controller.setActive(false);
+                controller.setClosing(false);
+                controller.setOpenRequested(false);
             }
         }
         for (BlockPos pos : List.of(ENTRANCE, SAMPLE, MARKER, PAINTING, SUPPORT)) {
             if (player.server.overworld().getBlockEntity(pos) instanceof DungeonBlockEntity block) block.clearContent();
             player.server.overworld().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
         }
-        player.setData(DungeonData.PLAYER, new CompoundTag());
+        player.setData(DungeonData.PLAYER, DungeonPlayerData.EMPTY);
         player.setData(DungeonData.PAINTING_TRANSIT, ItemStack.EMPTY);
         player.teleportTo(originalLevel, originalPosition.x, originalPosition.y, originalPosition.z, originalYaw, originalPitch);
-        player.setData(DungeonData.PLAYER, originalDungeon.copy());
+        player.setData(DungeonData.PLAYER, originalDungeon);
+        player.setData(DungeonData.PLAYER_TRANSIENT, originalPersistent);
         player.setData(DungeonData.PAINTING_TRANSIT, originalTransit.copy());
-        for (String key : List.of("openfubengui", "fubenfanhui", "gamemoshi")) {
-            if (originalPersistent.contains(key)) player.getPersistentData().put(key, originalPersistent.get(key).copy());
-            else player.getPersistentData().remove(key);
-        }
         Relations.setTemporaryTeam(player, originalTeam);
         Relations.setEntityTemporaryTeam(player, originalEntityTeam);
         player.getInventory().clearContent();

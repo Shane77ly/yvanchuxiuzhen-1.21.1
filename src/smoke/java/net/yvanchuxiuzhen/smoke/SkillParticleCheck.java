@@ -15,6 +15,7 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -52,7 +53,6 @@ final class SkillParticleCheck extends SystemCheck {
                 SkillProjectile arrow = SkillSetup.<SkillProjectile>entityType("projectile_skill_arrow_02").get().create(player.serverLevel());
                 arrow.setOwner(player);
                 arrow.setBaseDamage(8);
-                arrow.getPersistentData().putBoolean("arrowAlt", true);
                 arrow.setPos(player.position().add(1.5, 2, 5));
                 player.serverLevel().addFreshEntity(arrow);
                 spirit = arrow;
@@ -117,7 +117,7 @@ final class SkillParticleCheck extends SystemCheck {
         expectTrue("弹体的自定义粒子从服务端广播到真实客户端提供器", libraryParticles() > before);
         onServer(player -> {
             expectTrue("第02箭不套用增伤模式且保留玩家施放标记", spirit.getBaseDamage() == 8
-                    && spirit.getPersistentData().getString("jinengName").isEmpty()
+                    && spirit.skillName().isEmpty()
                     && Cultivation.tizhiBoolean(player, "arrowskill") && Cultivation.tizhiBoolean(player, "manxvli"));
             expectTrue("共用火球弹体真实命中后不留下生物身上的箭", target.getHealth() < 100 && target.getArrowCount() == 0);
             expectTrue("火球范围循环只伤直接命中目标，邻近非友方傀儡保持满血", bystander.getHealth() == 100);
@@ -138,7 +138,7 @@ final class SkillParticleCheck extends SystemCheck {
         target = EntityType.IRON_GOLEM.create(player.serverLevel());
         target.setNoAi(true);
         target.setPos(player.position().add(8, 0, 0));
-        target.getPersistentData().putDouble("LEVELnumber", 17);
+        EntityAttributes.setLevel(target, 17);
         player.serverLevel().addFreshEntity(target);
         bystander = EntityType.IRON_GOLEM.create(player.serverLevel());
         bystander.setNoAi(true);

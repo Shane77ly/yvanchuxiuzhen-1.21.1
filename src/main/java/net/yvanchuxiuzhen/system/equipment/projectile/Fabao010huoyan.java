@@ -21,8 +21,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 覆火葫芦的普通火焰弹体；保留来源的十刻寿命、无重力、命中后置火与命中字段写入。 */
 public final class Fabao010huoyan extends AbstractArrow implements ItemSupplier {
@@ -136,8 +138,8 @@ public final class Fabao010huoyan extends AbstractArrow implements ItemSupplier 
     }
 
     private static void writePendingDamage(Entity target, Entity owner) {
-        String targetTeam = target.getPersistentData().getString("team");
-        String ownerTeam = owner.getPersistentData().getString("team");
+        String targetTeam = Relations.entityTeam(target);
+        String ownerTeam = Relations.entityTeam(owner);
         if (targetTeam.equals(ownerTeam)) {
             return;
         }
@@ -145,9 +147,6 @@ public final class Fabao010huoyan extends AbstractArrow implements ItemSupplier 
         if (target instanceof LivingEntity living) {
             damage += Equipment.properties(living.getMainHandItem()).number("mana_Att");
         }
-        target.getPersistentData().putDouble("ManaAttackDamage", damage);
-        target.getPersistentData().putString("ManaAttackUUID", owner.getStringUUID());
-        target.getPersistentData().putString("damagetype", "火");
-        target.getPersistentData().putDouble("Damage_multiplier", .5);
+        SpellDamage.markQuestAttack(target, false, damage, owner.getStringUUID(), "火", .5);
     }
 }

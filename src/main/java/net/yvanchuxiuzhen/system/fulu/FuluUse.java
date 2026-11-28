@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.fulu;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,8 +13,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -23,8 +24,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 符箓施用的共享前半段：精力付款（来源 {@code Fulujinglineed}）与持续效果的激活登记
  * （来源 {@code Itemfulu02DangYouJianDianJiKongQiShiShiTiDeWeiZhi}，02、03、13、17、19、24、31 号符共用）。
  *
- * <p>效果状态保存在玩家体质标签：{@code fuluxiaoguo<编号>} 为是否生效，{@code fulu<编号>level} 为生效时的品阶，
- * {@code fulunumber} 为同时生效的符箓数；逐刻推进与结束见 {@link FuluTick}。
+ * <p>玩家效果状态保存在体质标签，非玩家实体保存在 {@link FuluData#CASTER}：{@code fuluxiaoguo<编号>} 为是否生效，
+ * {@code fulu<编号>level} 为生效时的品阶，{@code fulunumber} 为同时生效的符箓数；逐刻推进与结束见 {@link FuluTick}。
  */
 public final class FuluUse {
     private static final double BASE_COST_PER_SQUARE = 10;
@@ -32,21 +33,33 @@ public final class FuluUse {
     private FuluUse() {
     }
 
-    /** 符箓状态键的当前值：玩家在体质标签，其他实体在实体持久数据（弹体读取发射者的品阶用）。 */
+    /** 符箓状态键的当前值：玩家在体质标签，其他实体在 {@link FuluData#CASTER}（弹体读取发射者的品阶用）。 */
     public static double stateValue(Entity owner, String key) {
-        return owner instanceof Player player ? Cultivation.tizhiDouble(player, key) : owner.getPersistentData().getDouble(key);
+        if (owner instanceof Player player) {
+            return Cultivation.tizhiDouble(player, key);
+        }
+        FuluCasterState state = owner.getData(FuluData.CASTER);
+        return switch (key) {
+            case "fululevel46" -> state.level46();
+            case "fulunumber" -> state.activeCount();
+            default -> {
+                if (key.startsWith("fulu") && key.endsWith("level") && key.length() == 11) {
+                    yield state.effectLevel(key.substring(4, 6));
+                }
+                yield 0;
+            }
+        };
     }
 
     /** 成品组件 {@code fululevel}；低于 1 按 1 计，品阶与付款共用。 */
     static double grade(ItemStack stack) {
-        double level = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fululevel");
-        return level < 1 ? 1 : level;
+        return Fulu.talisman(stack).effectiveGrade();
     }
 
     /**
      * 精力付款：非创造玩家扣除 {@code 品阶² × 10}，体质 {@code FuluConsumeJingli} 非 0 时加上固定值；
-     * {@code FuluConsumeJingliPercentage} 非 0 时来源乘的是 {@code (FuluConsumeJingli + 1)} 而不是自己的值，
-     * 疑似字段误用，保持来源（登记为 Q64）。精力不足返回 false 且不扣；创造模式与非玩家直接通过。
+     * {@code FuluConsumeJingliPercentage} 非 0 时乘以 {@code (FuluConsumeJingliPercentage + 1)}（Q64 已修正）。
+     * 精力不足返回 false 且不扣；创造模式与非玩家直接通过。
      */
     static boolean pay(Entity entity, ItemStack stack) {
         if (!(entity instanceof Player player) || player.isCreative()) {
@@ -57,8 +70,9 @@ public final class FuluUse {
         if (fixed != 0) {
             cost += fixed;
         }
-        if (Cultivation.tizhiDouble(player, "FuluConsumeJingliPercentage") != 0) {
-            cost *= fixed + 1;
+        double percentage = Cultivation.tizhiDouble(player, "FuluConsumeJingliPercentage");
+        if (percentage != 0) {
+            cost *= percentage + 1;
         }
         double soul = Cultivation.get(player, CultivationValue.SOUL);
         if (soul < cost) {
@@ -73,7 +87,7 @@ public final class FuluUse {
     /**
      * 按编号分派成品施用；持续效果符先付款，再判断该编号是否已生效。已生效时精力已经扣除而符不消耗（来源顺序）；
      * 未生效时登记品阶、计入生效数、播放释放声并消耗一张。21 号符另清除低于 {@code 2×品阶−1} 的负面状态，
-     * 其生效数来源读的是物品而不是玩家的 {@code fulunumber}（登记为 Q65）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
+     * 生效数与其余持续符同样按玩家体质的 {@code fulunumber + 1} 累计（Q65 已修正）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
      */
     public static void activate(ServerPlayer player, ItemStack stack, int number) {
         if (number == 30) {
@@ -99,11 +113,10 @@ public final class FuluUse {
             cast(player);
         }
         if (!active) {
-            double itemCount = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fulunumber");
             Cultivation.editTizhi(player, tizhi -> {
-                tizhi.putBoolean(flag, true);
-                tizhi.putDouble("fulu" + suffix + "level", grade);
-                tizhi.putDouble("fulunumber", Math.round((number == 21 ? itemCount : tizhi.getDouble("fulunumber")) + 1));
+                tizhi.setFlag(flag, true);
+                tizhi.setNumber("fulu" + suffix + "level", grade);
+                tizhi.setNumber("fulunumber", Math.round(tizhi.number("fulunumber") + 1));
             });
         }
         if (breath) {
@@ -114,7 +127,9 @@ public final class FuluUse {
                 cleanse(player, 2 * grade - 1);
             }
         }
-        stack.shrink(1);
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
     }
 
     /** 在玩家位置上方一格播放释放声。 */

@@ -39,7 +39,6 @@ import net.yvanchuxiuzhen.system.particle.api.Particles;
 /** 热油的源、流动态、液体方块及滚油桶。地灵地物按方块 ID 使用源状态。 */
 public final class HotOil {
     private static final String ID = "hotoil";
-    private static final String CONTACT_TICKS = "waterhurttick";
     private static final ResourceLocation BLOCK_TAB = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "tabyvanchu_block");
     private static final DeferredRegister<FluidType> TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.FLUID_TYPES, ModId.VALUE);
     private static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(Registries.FLUID, ModId.VALUE);
@@ -98,9 +97,9 @@ public final class HotOil {
             server.sendParticles(ParticleTypes.CLOUD, entity.getX(), height, entity.getZ(), 1, width, 0.5, width, 0.1);
             server.sendParticles(Particles.type("hotoillizi"), entity.getX(), height, entity.getZ(), 2, width, 0.5, width, 0.1);
 
-            double ticks = entity.getPersistentData().getDouble(CONTACT_TICKS) + 1;
+            double ticks = entity.getData(DecorData.HOT_OIL_CONTACT_TICKS) + 1;
             if (ticks < 10) {
-                entity.getPersistentData().putDouble(CONTACT_TICKS, ticks);
+                entity.setData(DecorData.HOT_OIL_CONTACT_TICKS, ticks);
                 return;
             }
 
@@ -111,7 +110,7 @@ public final class HotOil {
                 markAttack = mode == GameType.SURVIVAL || mode == GameType.ADVENTURE;
             }
             if (markAttack) SpellDamage.markHotOilContact(entity);
-            entity.getPersistentData().putDouble(CONTACT_TICKS, 0);
+            entity.setData(DecorData.HOT_OIL_CONTACT_TICKS, 0.0);
         }
     }
 }

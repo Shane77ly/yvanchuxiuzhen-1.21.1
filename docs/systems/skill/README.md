@@ -2,10 +2,18 @@
 topic: skill
 role: entry
 status: partial
-updated: 2026-11-19
+updated: 2026-11-28
 ---
 
 # 技能
+
+阶段 4 续批（子批 5）已修复 **Q36、Q37、Q38、Q39、Q41、Q42、Q44、Q68**：修正技能冷却跨组串台与阴阳组上限读取、`/jineng` 权限设为 `1`、施法武器超重改读主手 `held`、Z 键补齐禁施/沉默校验并纠正写反提示、控火术补回施放者与正常伤害、巨石锤 20% 眩晕改为施加给受击生物、木篱 194 刻展开收起消散/回身鞭仅抛无霸体/灰木树梯 52 刻寿命，以及 `SkillLoadoutMenu`（04 装配页）槽位改动与登出同步保存；`skillcore`、`skillentity`（269 行）与 `skillui`（57 行）客户端 Smoke 全部 `0 FAIL` / `DONE`（[本月记录](logs/2026-11.md#2026-11-28-阶段-4q36-至-q68-技能冷却神通与装配保存修复)）。
+
+阶段 4 续批（子批 4）已修复 Q45 灵纹附魔：`LingwenHit` 改按自身 `lingwen` 等级生成与扣减**攻击者**灵力，`Relations.initializeRune` 改用独立 `copyFrom` 不再污染攻击者好友列表；`LingwenCheck`（`-PsmokeOnly=combat,lingwen`）18 项全部通过（[本月记录](logs/2026-11.md#2026-11-28-阶段-4q45-灵纹附魔修复)）。
+
+08 号暗箭落地不再执行无效召唤，保留不出云与正常掉落；目标客户端结果见[技能月志](logs/2026-11.md#2026-11-26-暗箭落地)。
+
+独立 Ctrl、Alt 已恢复为可改绑的两个键位；按下与松开均同步。来源和验证边界见[技能月志](logs/2026-11.md#2026-11-23-独立修饰键)。
 
 2026-11-20修正技能箭族的修饰键读取时机，生产与Smoke源码编译通过；实际键盘网络时序、命中和保存重进未验，见[技能月志](logs/2026-11.md#2026-11-20-技能箭首刻模式选择)。
 
@@ -64,7 +72,7 @@ Skill部分实现已随 `5cdc045c` 合入主线，不代表系统完整验收。
 | 生成技能书 | `createBook(类别, 参数)`（与命令同一解析）；`createBook(物品, SkillBook)` 按已解析实例写入技能书组件 | flow 等给书的玩法、treasure 来源奖励表 |
 | 书架藏宝 | `giveTreasureBook(玩家)`：13 本随机一本 | book（真实书架藏宝右键已接，需藏宝等级不低于 1） |
 | 开启虚空裂隙 | `openVoidRift(玩家)`：境界含修正达到 31 时关闭菜单，在视线五格处生成裂隙 | 技能界面虚空按钮（阶段 5） |
-| 显示伤害范围 | `showDamageArea(施放者, 坐标, 动画, 技能名, 持续刻数, 攻击量)`；普通提示的技能名为空，控雷阵与惊蛰闻雷按自身计时 | 已接：小尸王力劈/熊抱、妖兽011爪岩拍击/震地、妖兽040万丈光芒、妖兽047夜啼。`Boss04skill03`、`Ycxzboss01/02`的三个Boss过程随Creature Boss批次；控雷阵已调用combat共享落雷命令 |
+| 显示伤害范围 | `showDamageArea(施放者, 坐标, 动画, 技能名, 持续刻数, 攻击量)`；普通提示的技能名为空，控雷阵与惊蛰闻雷按自身计时 | 已接：小尸王力劈/熊抱、妖兽011爪岩拍击/震地、妖兽040万丈光芒、妖兽047夜啼。`Boss04skill03`、`Ycxzboss01/02`的三个Boss过程随Creature Boss批次；控雷阵以存档主人调用 `Lightning.castSaved` |
 | 妖兽风技能实体 | `showWindBurst(施放者)` 生成八刻风波；`launchWindBlade(施放者, 目标, 攻击量)` 生成追踪风刃，倍率一、计时上限二百刻 | 风波调用者：`Yaoshou011Behavior`、`Yaoshou024Behavior`、`Yaoshou026Behavior`、`Guiguai03Behavior`；风刃调用者：`Yaoshou014Behavior`。自然战斗时序与完整表现仍待验收 |
 | 延迟来源技能表现 | `system.skill.api.SkillDelays.after(刻数, 回调)`：服务端经过指定刻数执行一次内存回调，服务端停止时未执行回调丢弃 | creature 妖兽增幅技能的分批粒子 |
 | 生成毒蔓鞭技能实体 | `system.skill.api.SkillSummons.summonVineWhip(服务端世界, 施放者, 坐标)`：按来源攻击量4、倍率1、木系类型和技能名创建，复制施放者友方关系，定位并初始化后加入世界 | creature 妖兽001/002鞭挞过程；实体状态、动画与团队复制由 skill 持有 |

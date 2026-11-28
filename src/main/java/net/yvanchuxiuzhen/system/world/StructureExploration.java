@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
@@ -15,11 +14,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
@@ -45,7 +44,7 @@ public final class StructureExploration {
                 .executes(context -> {
                     CommandSourceStack source = context.getSource();
                     Entity executor = source.getEntity() == null ? FakePlayerFactory.getMinecraft(source.getLevel()) : source.getEntity();
-                    releaseAll(source.getLevel(), source.getPosition(), executor);
+                    releaseAll(source.getLevel(), executor);
                     return 0;
                 }));
     }
@@ -107,20 +106,26 @@ public final class StructureExploration {
         }
     }
 
-    private static void releaseAll(ServerLevel level, Vec3 origin, Entity executor) {
+    private static void releaseAll(ServerLevel level, Entity executor) {
         StructureExplorationData data = StructureExplorationData.get(level.getServer());
         List<String> released = data.released();
         for (StructureCatalog.Entry entry : StructureCatalog.ENTRIES) {
             if (released.contains(entry.id())) continue;
-            release(level, origin, executor.getDisplayName().getString(), entry.name());
+            release(level, executor.getDisplayName().getString(), entry.name());
             data.mark(entry.id());
         }
     }
 
     /** 裂隙保留来源命令的当前维度在线玩家显示名门控。 */
-    public static void release(ServerLevel level, Vec3 origin, String playerName, String structureName) {
-        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, origin, Vec2.ZERO, level, 4,
-                "", Component.empty(), level.getServer(), null).withSuppressedOutput();
-        level.getServer().getCommands().performPrefixedCommand(source, "yvanchu " + playerName + " unlock sealrelease " + structureName);
+    public static void release(ServerLevel level, String playerName, String structureName) {
+        String target = playerName.trim();
+        if (target.isEmpty() || target.matches("(?s).*\\s.*")) return;
+        for (ServerPlayer player : level.players()) {
+            if (player.getDisplayName().getString().equals(target)) {
+                String[] words = structureName.trim().split("\\s+", 3);
+                StructureReleases.release(level, player, words[0], words.length > 1 && words[1].equals("true"));
+                return;
+            }
+        }
     }
 }

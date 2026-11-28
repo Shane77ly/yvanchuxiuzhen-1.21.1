@@ -1,12 +1,10 @@
 package net.yvanchuxiuzhen.system.economy.client;
 
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -17,6 +15,8 @@ import net.yvanchuxiuzhen.system.economy.api.BankMenus;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntities;
 import net.yvanchuxiuzhen.system.economy.content.BankBlockItem;
+import net.yvanchuxiuzhen.system.economy.data.AuctionTokenData;
+import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 
 /** 银行客户端保留来源登录与存取界面，服务端菜单持有库存和账户。 */
 public final class EconomyClientSetup {
@@ -58,7 +58,7 @@ public final class EconomyClientSetup {
         lines.add(Component.literal("暂未开放拍卖行，请等待下次更新！"));
         lines.add(Component.literal("手持此物，右键地面可以放置拍卖台，放置好拍卖台后，再次用此物右键其它地面，可以放置座位，一共可以放置10个座位和1个拍卖台。"));
         lines.add(Component.literal("手持此物，右键座位可以快速收起座位；右键拍卖台则同时收起拍卖台和所有座位。"));
-        int count = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("paimaifangzhi");
+        int count = stack.getOrDefault(CommerceData.AUCTION_TOKEN.get(), AuctionTokenData.EMPTY).placedCount();
         if (count == 0) {
             lines.add(Component.literal("§b还未放置任何拍卖设施。"));
         } else if (count == 1) {

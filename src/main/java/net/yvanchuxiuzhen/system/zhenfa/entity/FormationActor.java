@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.zhenfa.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -25,12 +26,47 @@ import net.neoforged.neoforge.fluids.FluidType;
 
 /** 阳一发射体和阳三落实体的共有来源生命周期：飞行导航、无重力、无推挤与基础免伤。 */
 public abstract class FormationActor extends PathfinderMob {
+    private String skillName = "";
+    private int zhenLevel;
+    private int targetMode;
+    private String manaAttackUuid = "";
+
     protected FormationActor(EntityType<? extends FormationActor> type, Level level) {
         super(type, level);
         xpReward = 0;
         setNoAi(false);
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
+    }
+
+    public String skillName() { return skillName; }
+    public int zhenLevel() { return zhenLevel; }
+    public int targetMode() { return targetMode; }
+    public String manaAttackUuid() { return manaAttackUuid; }
+
+    public void configure(String skillName, int zhenLevel, int targetMode, String manaAttackUuid) {
+        this.skillName = skillName == null ? "" : skillName;
+        this.zhenLevel = zhenLevel;
+        this.targetMode = targetMode;
+        this.manaAttackUuid = manaAttackUuid == null ? "" : manaAttackUuid;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("skill_name", skillName);
+        tag.putInt("zhen_level", zhenLevel);
+        tag.putInt("target_mode", targetMode);
+        tag.putString("mana_attack_uuid", manaAttackUuid);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        skillName = tag.getString("skill_name");
+        zhenLevel = tag.getInt("zhen_level");
+        targetMode = tag.getInt("target_mode");
+        manaAttackUuid = tag.getString("mana_attack_uuid");
     }
 
     public static AttributeSupplier.Builder attributes() {

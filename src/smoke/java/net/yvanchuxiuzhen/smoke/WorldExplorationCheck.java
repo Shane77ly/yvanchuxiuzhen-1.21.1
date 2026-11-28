@@ -29,7 +29,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -47,9 +46,12 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.world.WorldSetup;
+import net.yvanchuxiuzhen.system.world.content.CompassAnchor;
 import net.yvanchuxiuzhen.system.world.content.RiftBlockEntity;
 import net.yvanchuxiuzhen.system.world.content.RiftItem;
 import net.yvanchuxiuzhen.system.world.content.SpiritCompassItem;
+import net.yvanchuxiuzhen.system.world.data.StructureNavigation;
+import net.yvanchuxiuzhen.system.world.data.WorldData;
 import net.yvanchuxiuzhen.system.world.entity.GuidanceHalo;
 
 /** 在独立冒烟存档内，以真实玩家主手验证遗迹搜索、裂隙计划刻、指引和保存重进。 */
@@ -61,7 +63,6 @@ final class WorldExplorationCheck extends SystemCheck {
     private static final Vec3 STAND = new Vec3(44, 63, 22);
     private static final Vec3 MIDPOINT = new Vec3(120, 65.5, 18);
     private static final Vec3 SCROLL = new Vec3(212, 67, 14);
-    private static final String NAVIGATION = "structure_navigation";
     private static final Field RELEASED = field("net.yvanchuxiuzhen.system.world.StructureExplorationData", "released");
     private static final Method WORLD_DATA = method("net.yvanchuxiuzhen.system.world.StructureExplorationData", "get", MinecraftServer.class);
     private static final Field CATALOG = field("net.yvanchuxiuzhen.system.world.StructureCatalog", "ENTRIES");
@@ -80,12 +81,11 @@ final class WorldExplorationCheck extends SystemCheck {
     private GameType originalMode;
     private int originalSelected;
     private CompoundTag originalAbilities;
-    private CompoundTag originalNavigation;
-    private boolean hadNavigation;
+    private StructureNavigation originalNavigation;
     private String originalProgress;
     private String stagedProgress;
     private String persistedProgress;
-    private CompoundTag persistedCompass;
+    private CompassAnchor persistedCompass;
     private StructureTemplate previousBoat;
     private Vec3i boatSize;
     private AABB boatArea;
@@ -147,8 +147,8 @@ final class WorldExplorationCheck extends SystemCheck {
                     RiftBlockEntity rift = rift(player.serverLevel());
                     expectTrue("恰好16格的原生主手使用生成裂隙并立即登记", rift != null
                             && progress(player.server).equals(stagedProgress + "%shuishangguzhou"));
-                    expect("裂隙保存实际结构名", "水上孤舟", rift.getPersistentData().getString("jiegouname"));
-                    expect("裂隙保存当前玩家显示名", player.getDisplayName().getString(), rift.getPersistentData().getString("playername"));
+                    expect("裂隙保存实际结构名", "水上孤舟", rift.structureName());
+                    expect("裂隙保存当前玩家显示名", player.getDisplayName().getString(), rift.playerName());
                     expectTrue("正常使用添加100刻冷却", player.getCooldowns().isOnCooldown(compass())
                             && Math.abs(player.getCooldowns().getCooldownPercent(compass(), 0) - 1) < 1e-6);
                     List<GuidanceHalo> active = player.serverLevel().getEntitiesOfClass(GuidanceHalo.class, new AABB(STAND, STAND).inflate(4));
@@ -156,9 +156,8 @@ final class WorldExplorationCheck extends SystemCheck {
                     GuidanceHalo halo = active.getFirst();
                     halos.add(halo.getUUID());
                     haloEntityId = halo.getId();
-                    CompoundTag navigation = halo.getPersistentData().getCompound(NAVIGATION);
                     expectTrue("召唤光环保留原生主人与导航UUID", halo.isOwnedBy(player)
-                            && navigation.getString("belongToMasterUUID").equals(player.getStringUUID()));
+                            && halo.masterUuid().equals(player.getStringUUID()));
                     expect("光环写入孤舟目标", new Vec3(28, 64, 22), target(halo));
                     use(player);
                     expect("原生玩家冷却阻断重复召唤", 1,
@@ -203,14 +202,14 @@ final class WorldExplorationCheck extends SystemCheck {
                     ModifierKeys.update(player, true, true);
                     use(player);
                     expect("Alt与Ctrl同时按住时优先Alt", new Vec3(0, 32, 0), player.position());
-                    persistedCompass = custom(player.getMainHandItem());
-                    expectTrue("Alt把精确回程坐标写入实际手持栈", persistedCompass.getDouble("dangqianX") == STAND.x
-                            && persistedCompass.getDouble("dangqianY") == STAND.y && persistedCompass.getDouble("dangqianZ") == STAND.z);
+                    persistedCompass = anchor(player.getMainHandItem());
+                    expectTrue("Alt把精确回程坐标写入实际手持栈", persistedCompass.present() && persistedCompass.x() == STAND.x
+                            && persistedCompass.y() == STAND.y && persistedCompass.z() == STAND.z);
                     expectTrue("Alt不添加普通冷却", !player.getCooldowns().isOnCooldown(compass()));
                     ModifierKeys.update(player, true, false);
                     use(player);
                     expect("Ctrl从同一物品实例返回保存坐标", STAND, player.position());
-                    expect("Ctrl保留回程记录", persistedCompass, custom(player.getMainHandItem()));
+                    expect("Ctrl保留回程记录", persistedCompass, anchor(player.getMainHandItem()));
                     expectTrue("寻灵盘不消耗数量或耐久", player.getMainHandItem().getCount() == 1 && player.getMainHandItem().getDamageValue() == 0);
                     ModifierKeys.update(player, false, false);
                     persistedProgress = progress(player.server);
@@ -228,7 +227,7 @@ final class WorldExplorationCheck extends SystemCheck {
             case 7 -> {
                 onServer(player -> {
                     expect("正常保存重进保留全服遗迹进度", persistedProgress, progress(player.server));
-                    expect("正常保存重进保留寻灵盘实例回程", persistedCompass, custom(player.getInventory().getItem(0)));
+                    expect("正常保存重进保留寻灵盘实例回程", persistedCompass, anchor(player.getInventory().getItem(0)));
                     cleanup(player);
                 });
                 finish();
@@ -247,8 +246,7 @@ final class WorldExplorationCheck extends SystemCheck {
         originalSelected = player.getInventory().selected;
         originalAbilities = new CompoundTag();
         player.getAbilities().addSaveData(originalAbilities);
-        hadNavigation = player.getPersistentData().contains(NAVIGATION, Tag.TAG_COMPOUND);
-        originalNavigation = player.getPersistentData().getCompound(NAVIGATION).copy();
+        originalNavigation = player.getData(WorldData.NAVIGATION).copy();
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) inventory.add(player.getInventory().getItem(slot).copy());
         originalProgress = progress(player.server);
         ChunkPos overworldChunk = new ChunkPos(BlockPos.containing(STAND));
@@ -320,7 +318,6 @@ final class WorldExplorationCheck extends SystemCheck {
         GuidanceHalo other = WorldSetup.<GuidanceHalo>entityType("guanghuan").get().create(level);
         for (GuidanceHalo specimen : List.of(halo, other)) {
             specimen.moveTo(position.x, position.y, position.z);
-            specimen.getPersistentData().put(NAVIGATION, new CompoundTag());
             level.addFreshEntity(specimen);
         }
         level.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack().withLevel(level)
@@ -336,8 +333,7 @@ final class WorldExplorationCheck extends SystemCheck {
         long elapsed = level.getGameTime() - creationTime;
         if (elapsed < 0 || elapsed > 85) return;
         RiftBlockEntity block = rift(level);
-        riftTicks.put(elapsed, block == null ? "released" : block.getPersistentData().getBoolean("kaishi")
-                + ":" + block.getPersistentData().getDouble("MobcomeTick"));
+        riftTicks.put(elapsed, block == null ? "released" : block.releasing() + ":" + block.releaseTicks());
     }
 
     private void force(ServerLevel level, int x, int z) {
@@ -367,8 +363,7 @@ final class WorldExplorationCheck extends SystemCheck {
         player.server.overworld().setChunkForced(overworldChunk.x, overworldChunk.z, originalOverworldForced);
         setProgress(player.server, originalProgress);
         ModifierKeys.update(player, false, false);
-        if (hadNavigation) player.getPersistentData().put(NAVIGATION, originalNavigation);
-        else player.getPersistentData().remove(NAVIGATION);
+        player.getData(WorldData.NAVIGATION).copyFrom(originalNavigation);
         player.getCooldowns().removeCooldown(compass());
         player.teleportTo(player.server.getLevel(originalDimension), originalPosition.x, originalPosition.y, originalPosition.z, originalYaw, originalPitch);
         player.getInventory().clearContent();
@@ -414,14 +409,13 @@ final class WorldExplorationCheck extends SystemCheck {
     }
 
     private static Vec3 target(GuidanceHalo halo) {
-        CompoundTag navigation = halo.getPersistentData().getCompound(NAVIGATION);
-        return new Vec3(navigation.getDouble("mubiaoX"), navigation.getDouble("mubiaoY"), navigation.getDouble("mubiaoZ"));
+        return halo.targetPosition();
     }
 
     private static RiftBlockEntity rift(ServerLevel level) {
         return level.getBlockEntity(RIFT) instanceof RiftBlockEntity block ? block : null;
     }
-    private static CompoundTag custom(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
+    private static CompassAnchor anchor(ItemStack stack) { return stack.getOrDefault(WorldData.COMPASS_ANCHOR.get(), CompassAnchor.EMPTY); }
     private static Item compass() { return item("ling_14item"); }
     private static Item item(String path) { return BuiltInRegistries.ITEM.get(id(path)); }
     private static Block block(String path) { return BuiltInRegistries.BLOCK.get(id(path)); }

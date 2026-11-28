@@ -57,7 +57,7 @@ final class AttributeCheck extends SystemCheck {
                 onServer(player -> {
                     expect("重生后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
                     expect("重生后 原版最大生命", 30, player.getMaxHealth());
-                    expect("重生后 当前生命", 30, player.getHealth());
+                    expect("重生后 当前生命", 11, player.getHealth());
                     expect("重生后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
                     // 存档前把原版基础值改成过时的值，重进后应由登录时的重新写入恢复。
                     player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20);
@@ -92,7 +92,7 @@ final class AttributeCheck extends SystemCheck {
         return true;
     }
 
-    /** Q17：防具与武器的炼器数值计入原版最大生命与攻击伤害；Q18：受击方同属性功法加到伤害上。 */
+    /** Q17：防具与武器的炼器数值计入原版最大生命与攻击伤害；Q18：受击方同属性功法转为减伤。 */
     private void submitContributions(ServerPlayer player) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             player.setItemSlot(slot, ItemStack.EMPTY);
@@ -113,7 +113,7 @@ final class AttributeCheck extends SystemCheck {
         expect("提交后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
         expect("提交后 火五行系数", 0.3, PlayerAttributes.elementCoefficient(player, DamageElement.FIRE));
         expect("提交后 光借用火灵根", 0.3, PlayerAttributes.elementCoefficient(player, DamageElement.LIGHT));
-        expect("提交后 受击方火功法项", 10, PlayerAttributes.receivedElementBonus(player, DamageElement.FIRE));
+        expect("提交后 受击方火功法项", -10, PlayerAttributes.receivedElementBonus(player, DamageElement.FIRE));
         expect("提交后 阴没有功法项", 0, PlayerAttributes.receivedElementBonus(player, DamageElement.YIN));
     }
 

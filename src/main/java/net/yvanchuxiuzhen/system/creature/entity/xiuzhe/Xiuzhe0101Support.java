@@ -4,12 +4,13 @@ import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.UUID;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 
 /** 修者技能共用的来源随机、目标查找和独立技能结束操作。 */
 public final class Xiuzhe0101Support {
@@ -28,7 +29,7 @@ public final class Xiuzhe0101Support {
     public static Entity target(LevelAccessor world, Entity entity) {
         if (!(world instanceof ServerLevel level)) return null;
         try {
-            return level.getEntity(UUID.fromString(entity.getPersistentData().getString("gongjizhe")));
+            return level.getEntity(UUID.fromString(CreatureData.state(entity).attackerUuid()));
         } catch (IllegalArgumentException exception) {
             return null;
         }
@@ -42,10 +43,10 @@ public final class Xiuzhe0101Support {
 
     /** 来源Entityjinengjieshu只清理该技能的当前名、阶段和两个刻计数。 */
     public static void finish(Entity entity) {
-        CompoundTag data = entity.getPersistentData();
-        data.putString("jineng", "");
-        data.putString("jinengjinxing", "");
-        data.putDouble("entitytick", 0);
-        data.putDouble("entitytick2", 0);
+        CreatureState data = CreatureData.state(entity);
+        data.setSkill("");
+        data.setPhase("");
+        data.setTick(0);
+        data.setTick2(0);
     }
 }

@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -46,6 +47,8 @@ import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
 import net.yvanchuxiuzhen.system.yihuo.YihuoProjectile;
 import net.yvanchuxiuzhen.system.yihuo.YihuoProjectiles;
 import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
+import net.yvanchuxiuzhen.system.yihuo.data.YihuoData;
 
 /** 真实客户端逐类使用十八种异火材料，并检查弹体碰撞、燃料同步和首标签选择。 */
 final class YihuoMaterialCheck extends SystemCheck {
@@ -55,6 +58,8 @@ final class YihuoMaterialCheck extends SystemCheck {
             "幽罗阴火", "紫微星火", "无忧业火", "碧落华火", "凋零魔火", "幽冥地火", "黯无玄火", "太阴浮火", "流星空火"};
     private final Screenshots screenshots;
     private final ActionCheck actions;
+    private Vec3 originalPosition;
+    private BlockPos platform;
     private BlockPos hitPos;
     private BlockPos abovePos;
     private BlockPos belowPos;
@@ -84,6 +89,7 @@ final class YihuoMaterialCheck extends SystemCheck {
     private YihuoProjectile projectile;
     private BlockPos observedHit;
     private int observedEntityHit = -1;
+    private boolean waitingInventory;
     private boolean waitingNaturalUse;
     private boolean waitingNaturalBurn;
     private boolean aborted;
@@ -160,6 +166,14 @@ final class YihuoMaterialCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
+        if (waitingInventory) {
+            if (waitStart < 0) waitStart = local;
+            boolean[] ready = {false};
+            onServer(player -> ready[0] = materialReady(player));
+            if (!ready[0] && local - waitStart < 120) return false;
+            // 超时仍由使用动作中的同一断言报告失败，不跳过本次使用。
+            waitingInventory = false;
+        }
         if (waitingNaturalUse) {
             if (!awaitNaturalUse(local)) return false;
             if (aborted) return true;
@@ -234,16 +248,25 @@ final class YihuoMaterialCheck extends SystemCheck {
         player.setGameMode(GameType.SURVIVAL);
         player.setShiftKeyDown(false);
         player.removeEffect(StatusEffects.holder("effect_002"));
-        player.connection.teleport(player.getX(), player.getY(), player.getZ(), -90, 0);
-        hitPos = player.blockPosition().east(4).above();
+        originalPosition = player.position();
+        ServerLevel level = player.serverLevel();
+        BlockPos feet = player.blockPosition();
+        int surface = feet.getY();
+        for (int dx = 0; dx <= 4; dx++) {
+            surface = Math.max(surface, level.getHeight(Heightmap.Types.WORLD_SURFACE, feet.getX() + dx, feet.getZ()));
+        }
+        // 将射手与目标放在五列地表上方，避免出生地的山坡或植物先于靶块截获弹体。
+        platform = new BlockPos(feet.getX(), surface + 1, feet.getZ());
+        hitPos = platform.east(4).above(2);
         abovePos = hitPos.above();
         belowPos = hitPos.below();
-        ServerLevel level = player.serverLevel();
-        for (BlockPos pos : List.of(hitPos, abovePos, belowPos)) {
+        for (BlockPos pos : List.of(hitPos, abovePos, belowPos, platform)) {
             originalBlocks.add(level.getBlockState(pos));
             BlockEntity block = level.getBlockEntity(pos);
             originalBlockEntities.add(block == null ? null : block.saveWithFullMetadata(player.registryAccess()));
         }
+        level.setBlock(platform, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        player.connection.teleport(platform.getX() + .5, platform.getY() + 1, platform.getZ() + .5, -90, 0);
         level.setBlock(hitPos, Blocks.STONE.defaultBlockState(), 2);
     }
 
@@ -256,9 +279,13 @@ final class YihuoMaterialCheck extends SystemCheck {
         minecraft.execute(() -> minecraft.options.keyShift.setDown(false));
     }
 
-    private void useSelectedMaterial(ServerPlayer player) {
-        boolean ready = player.getMainHandItem().is(item(expectedMaterial))
+    private boolean materialReady(ServerPlayer player) {
+        return player.getMainHandItem().is(item(expectedMaterial))
                 && minecraft.player.getMainHandItem().is(item(expectedMaterial)) && inventorySynced(player);
+    }
+
+    private void useSelectedMaterial(ServerPlayer player) {
+        boolean ready = materialReady(player);
         expectTrue("材料" + expectedMaterial + "使用前双端已持有本次材料", ready);
         if (!ready) {
             cleanup(player);
@@ -304,9 +331,9 @@ final class YihuoMaterialCheck extends SystemCheck {
                 BuiltInRegistries.BLOCK.getKey(player.serverLevel().getBlockState(firePos).getBlock()).toString());
         expect("潜行右键" + material + "初始化燃料", fuel(material), fuel(fire));
         expect("潜行右键" + material + "记录施放者", player.getStringUUID(),
-                fire == null ? "" : fire.getPersistentData().getString("ManaAttackUUID"));
+                fire instanceof FireBlockEntity fireBlock ? fireBlock.manaAttackUuid() : "");
         expect("潜行右键" + material + "记录团队", Relations.entityTeam(player),
-                fire == null ? "" : fire.getPersistentData().getString("team"));
+                fire instanceof FireBlockEntity fireBlock ? fireBlock.team() : "");
         expect("潜行右键" + material + "客户端火块燃料同步", fuel(material), fuel(minecraft.level.getBlockEntity(firePos)));
         expect("潜行右键" + material + "生成对应弹体", projectileId(material), observedTypeId);
         expect("潜行右键" + material + "弹体实际命中", hitPos, observedHit);
@@ -350,7 +377,7 @@ final class YihuoMaterialCheck extends SystemCheck {
         expect("非友方弹体" + material + "施加炙烤等级", material % 10 - 1,
                 serverEffect == null ? -1 : serverEffect.getAmplifier());
         expectTrue("非友方弹体" + material + "保留来源攻击者", player.getStringUUID().equals(
-                contactTarget.getPersistentData().getString("fireAttackUUID")));
+                Yihuo.burnAttacker(contactTarget)));
         Entity clientEntity = minecraft.level.getEntity(contactTarget.getId());
         List<String> expectedParticles = List.of(particleSignature(new MobEffectInstance(
                 StatusEffects.holder(effectId), 200, material % 10 - 1, true, true).getParticleOptions()));
@@ -403,6 +430,8 @@ final class YihuoMaterialCheck extends SystemCheck {
     private void stageNaturalItem(ServerPlayer player, int material) {
         ServerLevel level = player.serverLevel();
         expectedMaterial = material;
+        waitingInventory = true;
+        waitStart = -1;
         observedTypeId = null;
         observedEmptyDisplay = false;
         observedHit = null;
@@ -481,7 +510,7 @@ final class YihuoMaterialCheck extends SystemCheck {
             projectile.discard();
         }
         if (contactTarget != null) contactTarget.discard();
-        List<BlockPos> positions = List.of(hitPos, abovePos, belowPos);
+        List<BlockPos> positions = List.of(hitPos, abovePos, belowPos, platform);
         ServerLevel level = player.serverLevel();
         for (int index = 0; index < positions.size(); index++) {
             BlockPos pos = positions.get(index);
@@ -508,7 +537,7 @@ final class YihuoMaterialCheck extends SystemCheck {
         Cultivation.setTizhiDouble(player, "jishiqi", originalCultivationTick);
         if (originalSilence != null) player.addEffect(originalSilence);
         player.setGameMode(gameMode);
-        player.connection.teleport(player.getX(), player.getY(), player.getZ(), originalYaw, originalPitch);
+        player.connection.teleport(originalPosition.x, originalPosition.y, originalPosition.z, originalYaw, originalPitch);
         player.setShiftKeyDown(sneaking);
         minecraft.execute(() -> {
             minecraft.player.getInventory().selected = selectedSlot;
@@ -538,7 +567,7 @@ final class YihuoMaterialCheck extends SystemCheck {
     }
 
     private static double fuel(BlockEntity block) {
-        return block == null ? Double.NaN : block.getPersistentData().getDouble("power");
+        return Yihuo.firePower(block);
     }
 
     /** 同一测试格先清除旧方块与尚未执行的计划刻，再触发新方块的放置生命周期。 */
@@ -570,9 +599,8 @@ final class YihuoMaterialCheck extends SystemCheck {
 
     private static void setPower(ServerLevel level, BlockPos pos, double value) {
         BlockEntity block = level.getBlockEntity(pos);
-        block.getPersistentData().putDouble("power", value);
-        block.setChanged();
-        level.sendBlockUpdated(pos, block.getBlockState(), block.getBlockState(), Block.UPDATE_ALL);
+        if (block instanceof FireBlockEntity fire) fire.power(value);
+        else block.setData(YihuoData.BLOCK_FIRE_POWER, value);
     }
 
     private static boolean inventorySynced(ServerPlayer player) {

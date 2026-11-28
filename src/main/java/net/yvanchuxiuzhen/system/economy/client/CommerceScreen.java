@@ -4,10 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.text.DecimalFormat;
 import java.util.Locale;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,13 +15,15 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
-import net.yvanchuxiuzhen.system.economy.CommerceCatalog;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankDisplay;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
+import net.yvanchuxiuzhen.system.economy.data.EconomyBlockState;
 import net.yvanchuxiuzhen.system.economy.network.CommerceButtonPayload;
 
 /** 七页来源经济界面共用提取几何和只读状态；拍卖现场按钮保持来源空回调。 */
@@ -45,6 +47,13 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
                     });
             button.setMessage(Component.translatable("gui.yvanchuxiuzhen.commerce.action"));
             addRenderableWidget(button);
+        }
+        if (layout.plain_buttons() != null) {
+            for (EconomyLayout.PlainButton source : layout.plain_buttons()) {
+                addRenderableWidget(Button.builder(Component.translatable(source.key()), pressed -> {
+                    if (source.operation() >= 0) PacketDistributor.sendToServer(new CommerceButtonPayload(menu.containerId, source.operation()));
+                }).bounds(leftPos + source.x(), topPos + source.y(), source.width(), source.height()).build());
+            }
         }
         if (menu.kind() == CommerceMenu.Kind.AUCTION) {
             Component prompt = Component.translatable("gui.yvanchuxiuzhen.paimaihang.jiage");
@@ -70,28 +79,29 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
     }
 
     @Override protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        CompoundTag session = EconomyMenus.snapshot(player);
-        BlockPos pos = menu.kind() == CommerceMenu.Kind.AUCTION ? new BlockPos(session.getInt("paiblockX"), session.getInt("paiblockY"), session.getInt("paiblockZ")) : menu.position();
-        CompoundTag block = player.level().getBlockEntity(pos) instanceof EconomyBlockEntity economy ? economy.state() : new CompoundTag();
+        CommerceSession session = EconomyMenus.snapshot(player);
+        BlockPos pos = menu.kind() == CommerceMenu.Kind.AUCTION ? new BlockPos(session.auctionBlockX(), session.auctionBlockY(), session.auctionBlockZ()) : menu.position();
+        EconomyBlockState block = player.level().getBlockEntity(pos) instanceof EconomyBlockEntity economy ? economy.state() : null;
         for (EconomyLayout.Label source : layout.labels()) {
             Component text = source.key().isEmpty() ? Component.literal(label(source.procedure(), session, block)) : Component.translatable(source.key());
             graphics.drawString(font, text, source.x(), source.y(), source.color(), false);
         }
     }
 
-    private String label(String procedure, CompoundTag session, CompoundTag block) {
+    private String label(String procedure, CommerceSession session, EconomyBlockState block) {
         if (procedure.startsWith("Shopnametxt") || procedure.startsWith("Shopjiagetxt")) {
             int index = Integer.parseInt(procedure.substring(procedure.length() - 2)) - 1;
-            String suffix = String.format(Locale.ROOT, "%02d", index);
-            String value = session.getString((procedure.startsWith("Shopnametxt") ? "shopnametxt" : "shopjiagetxt") + suffix);
+            String value = procedure.startsWith("Shopnametxt") ? session.shopNameText(index) : session.shopPriceText(index);
             if (!procedure.startsWith("Shopnametxt") || menu.kind() != CommerceMenu.Kind.SHOP) return value;
             var item = menu.getSlot(index).getItem();
             if (item.isEmpty()) return "";
-            String[] products = CommerceCatalog.translated(session.getString("productlist")).split("%");
-            int priceIndex = session.getInt("shoppage") * 60 + index * 5 + 3;
-            return priceIndex >= 0 && priceIndex < products.length
-                    ? item.getHoverName().getString() + "(" + products[priceIndex] + ")"
-                    : item.getHoverName().getString();
+            var products = EconomyMenus.shopCatalog(player).products();
+            int productIndex = session.shopPage() * 12 + index;
+            if (productIndex >= 0 && productIndex < products.size()) {
+                ShopCatalogDefinition.Product product = products.get(productIndex);
+                return item.getHoverName().getString() + "(" + new DecimalFormat("0.##").format(product.price()) + ")";
+            }
+            return item.getHoverName().getString();
         }
         if (procedure.startsWith("Banktxtlingshi")) {
             BankDisplay display = BankAccounts.display(player);
@@ -100,26 +110,30 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
             int amount = display.amounts().balance(tier);
             return amount >= 1 ? Component.translatable("item.yvanchuxiuzhen.cailiao_" + (190 + tier)).getString() + amount + "枚" : "无";
         }
-        if (procedure.startsWith("Xianshiwenben")) return block.getString("xianshiwenben" + procedure.substring(13));
+        if (procedure.startsWith("Xianshiwenben")) {
+            return block == null ? "" : block.auction().displayLine(Integer.parseInt(procedure.substring(13)));
+        }
+        EconomyBlockState.ShopState shop = block == null ? new EconomyBlockState.ShopState() : block.shop();
+        EconomyBlockState.AuctionState auction = block == null ? new EconomyBlockState.AuctionState() : block.auction();
         return switch (procedure) {
-            case "ShopPageTxt" -> Integer.toString(session.getInt("shoppage") + 1);
-            case "Storenametxt" -> session.getString("storename");
+            case "ShopPageTxt" -> Integer.toString(session.shopPage() + 1);
+            case "Storenametxt" -> session.storeName();
             case "Banktgoumaili" -> BankAccounts.display(player).ready() ? "总购买力：" + new DecimalFormat("0").format(BankAccounts.display(player).amounts().purchasingPower()) : "";
-            case "Shougoushuoming01" -> session.getString("bankceshi1");
-            case "Shougoushuoming02" -> session.getString("bankceshi2");
-            case "Shopblockguijiagexianshi" -> "灵石:" + block.getInt("lingshineed");
-            case "Shopblockshengyv" -> "剩余商品:" + block.getInt("shengyvshangpin");
-            case "Shopblockshuaxinshuaxin" -> block.getString("shuaxinshuaxin");
-            case "Shopdanrenxiangouxianshi" -> "每个玩家限购数量:" + (block.getInt("danrenxiangou") >= 1 ? block.getInt("danrenxiangou") : "无限制");
-            case "Shopshuaxintickxianshi" -> "商店刷新时间（生存玩家请忽略）:" + (block.getInt("shuaxintick") == 0 ? "不刷新" : block.getInt("shuaxintick"));
-            case "Paimaihuiname" -> block.getString("paimaihuiname");
-            case "PaimaiTuoguan" -> block.getBoolean("tuoguan") ? "全自动" : "自营";
-            case "Paimaimoshi" -> block.getString("paimaimoshi");
-            case "Paimaidengji", "Paimaidengjixianshi" -> block.getString("paimaidengji");
-            case "Paimaihefaxing" -> block.getString("paimaihefaxing");
-            case "Paimaiitemnumber" -> "拍卖数量：4<" + block.getInt("paimaiitemnumber") + "<21";
-            case "Paimainpcnumberxianshi" -> block.isEmpty() ? "" : "人数：" + block.getInt("paimainpcnumber");
-            case "Paimainame" -> block.isEmpty() ? "" : block.getString("paimaihuiname") + switch (block.getInt("paimaijindu")) { case 0 -> "(休会)"; case 1 -> "(准备)"; case 3 -> "(结束)"; default -> ""; };
+            case "Shougoushuoming01" -> session.bankTest1();
+            case "Shougoushuoming02" -> session.bankTest2();
+            case "Shopblockguijiagexianshi" -> "灵石:" + shop.stonesNeeded;
+            case "Shopblockshengyv" -> "剩余商品:" + shop.remainingStock;
+            case "Shopblockshuaxinshuaxin" -> shop.refreshCountdownText;
+            case "Shopdanrenxiangouxianshi" -> "每个玩家限购数量:" + (shop.perPlayerLimit >= 1 ? shop.perPlayerLimit : "无限制");
+            case "Shopshuaxintickxianshi" -> "商店刷新时间（生存玩家请忽略）:" + (shop.refreshInterval == 0 ? "不刷新" : shop.refreshInterval);
+            case "Paimaihuiname" -> auction.auctionName;
+            case "PaimaiTuoguan" -> auction.managed ? "全自动" : "自营";
+            case "Paimaimoshi" -> auction.auctionMode;
+            case "Paimaidengji", "Paimaidengjixianshi" -> auction.auctionTier;
+            case "Paimaihefaxing" -> auction.auctionLegality;
+            case "Paimaiitemnumber" -> "拍卖数量：4<" + auction.auctionItemCount + "<21";
+            case "Paimainpcnumberxianshi" -> block == null ? "" : "人数：" + auction.npcCount;
+            case "Paimainame" -> block == null ? "" : auction.auctionName + switch (auction.stage) { case 0 -> "(休会)"; case 1 -> "(准备)"; case 3 -> "(结束)"; default -> ""; };
             default -> throw new IllegalArgumentException("未实现经济标签：" + procedure);
         };
     }

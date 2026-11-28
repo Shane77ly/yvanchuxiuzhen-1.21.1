@@ -10,6 +10,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
@@ -30,6 +32,7 @@ public final class FormationInspection {
                 .sorted(Comparator.comparingDouble(candidate -> candidate.distanceToSqr(center))).toList()) {
             if (!(entity instanceof Player recipient)) continue;
             if (rank >= 1) recipient.displayClientMessage(Component.literal(inspected.getDisplayName().getString()), false);
+            EntityStats entityStats = inspected instanceof Player ? null : EntityAttributes.get(inspected);
             if (rank >= 2) {
                 String name;
                 double experience;
@@ -39,24 +42,27 @@ public final class FormationInspection {
                     experience = Cultivation.get(player, CultivationValue.EXPERIENCE);
                     maximum = Cultivation.get(player, CultivationValue.EXPERIENCE_MAX);
                 } else {
-                    name = inspected.getPersistentData().getString("LEVELname");
-                    experience = inspected.getPersistentData().getDouble("experience");
-                    maximum = inspected.getPersistentData().getDouble("experience_Max");
+                    name = entityStats.realmName();
+                    experience = entityStats.experience();
+                    maximum = entityStats.experienceMax();
                 }
                 recipient.displayClientMessage(Component.literal(name + "（" + experience + "/" + maximum + "）"), false);
             } else {
                 String name = inspected instanceof Player player
                         ? Cultivation.get(player, CultivationText.LEVEL_NAME)
-                        : inspected.getPersistentData().getString("LEVELname");
+                        : entityStats.realmName();
                 recipient.displayClientMessage(Component.literal(name), false);
             }
             if (inspected instanceof Player player) {
                 reportPlayer(recipient, player, rank);
             } else {
+                // 来源命令在没有相应属性时结束该次反馈，保留已经发出的消息。
+                if (rank >= 4 && !(inspected instanceof LivingEntity)) return;
                 if (rank >= 4) send(recipient, "血量上限：" + ((LivingEntity) inspected).getAttribute(Attributes.MAX_HEALTH).getBaseValue());
+                if (rank >= 5 && !((LivingEntity) inspected).getAttributes().hasAttribute(Attributes.ATTACK_DAMAGE)) return;
                 if (rank >= 5) send(recipient, "物理攻击：" + ((LivingEntity) inspected).getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
-                if (rank >= 5) send(recipient, "法术攻击：" + inspected.getPersistentData().getDouble("mana_Att"));
-                if (rank >= 6) send(recipient, "精神攻击：" + inspected.getPersistentData().getDouble("soul_Att"));
+                if (rank >= 5) send(recipient, "法术攻击：" + entityStats.stat(Stat.MANA_ATT));
+                if (rank >= 6) send(recipient, "精神攻击：" + entityStats.stat(Stat.SOUL_ATT));
             }
         }
     }

@@ -53,7 +53,8 @@ final class XiulianCheck extends SystemCheck {
                 expect("阴阳 = 金 + 火 − 木 − 水", Cultivation.get(player, CultivationValue.ROOT_GOLD) + Cultivation.get(player, CultivationValue.ROOT_FIRE)
                         - Cultivation.get(player, CultivationValue.ROOT_TREE) - Cultivation.get(player, CultivationValue.ROOT_WATER), Cultivation.get(player, CultivationValue.YINYANG));
                 constitution = Cultivation.get(player, CultivationText.CONSTITUTION);
-                expectTrue("随机体质为前 10 种 " + constitution, Constitution.applied(constitution).ordinal() < 10 && !constitution.isEmpty());
+                expectTrue("随机体质覆盖全部 12 种（Q21） " + constitution, Constitution.applied(constitution).ordinal() < 12 && !constitution.isEmpty()
+                        && Constitution.rolled(11) == Constitution.FENGDONG && Constitution.rolled(12) == Constitution.CHUNYANG);
                 expect("火灵根提交给 attribute", Cultivation.get(player, CultivationValue.ROOT_FIRE) * 0.1,
                         PlayerAttributes.elementCoefficient(player, DamageElement.FIRE));
                 gold = Cultivation.get(player, CultivationValue.ROOT_GOLD);

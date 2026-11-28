@@ -26,8 +26,8 @@ public final class BookQuiz {
         if (question.answer() == option) {
             player.serverLevel().sendParticles(Particles.type("tiangandizhi"), player.getX() + 0.5, player.getY() + 1,
                     player.getZ() + 0.5, 10, 0, 0, 0, 0.2);
-            double progress = player.getPersistentData().getDouble("daduishuliang") + 1;
-            player.getPersistentData().putDouble("daduishuliang", progress);
+            double progress = BookQuizData.answerCount(player) + 1;
+            BookQuizData.setAnswerCount(player, progress);
             if (progress > 10) {
                 complete(player);
             } else {
@@ -38,7 +38,7 @@ public final class BookQuiz {
             player.serverLevel().sendParticles(ParticleTypes.ENCHANTED_HIT, player.getX() + 0.5, player.getY() + 1,
                     player.getZ() + 0.5, 20, 0, 0, 0, 0.2);
             player.setHealth((float) (player.getHealth() - player.getMaxHealth() * 0.1));
-            player.getPersistentData().putDouble("daduishuliang", 0);
+            BookQuizData.setAnswerCount(player, 0);
             BookQuizData.publish(player);
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.book_quiz_failed"), false);
         }
@@ -55,7 +55,7 @@ public final class BookQuiz {
             Skills.completeQuiz(player, stack);
         }
         player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.book_quiz_complete"), false);
-        player.getPersistentData().putDouble("daduishuliang", 0);
+        BookQuizData.setAnswerCount(player, 0);
         BookQuizData.publish(player);
         player.inventoryMenu.broadcastChanges();
         player.closeContainer();

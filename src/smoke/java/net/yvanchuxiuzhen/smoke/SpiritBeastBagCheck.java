@@ -31,11 +31,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.creature.SpiritBeastBagRuntime;
 import net.yvanchuxiuzhen.system.creature.client.SpiritBeastBagDyeScreen;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastBagDyeMenu;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastDyeToolInventory;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 import net.yvanchuxiuzhen.system.creature.item.SpiritBeastBagItem;
@@ -163,10 +169,10 @@ final class SpiritBeastBagCheck extends SystemCheck {
         expectTrue("错误主人不能收纳且不生成袋UUID", !active.isRemoved() && data(empty).isEmpty());
         active.tame(player);
 
-        active.getPersistentData().putString("lingshoudaiuuid", "different_bag");
+        CreatureData.state(active).setBagUuid("different_bag");
         capture(player, active);
         expectTrue("错误袋UUID在收纳过程前拒绝且不改袋", !active.isRemoved() && data(empty).isEmpty());
-        active.getPersistentData().remove("lingshoudaiuuid");
+        CreatureData.state(active).setBagUuid("");
 
         ItemStack occupied = item("lingshoudai_02");
         CompoundTag occupiedData = new CompoundTag();
@@ -234,7 +240,7 @@ final class SpiritBeastBagCheck extends SystemCheck {
 
     private void recapture(ServerPlayer player) {
         active.setHealth(31.25F);
-        active.getPersistentData().putDouble("experience", 42.5);
+        EntityAttributes.update(active, stats -> stats.withExperience(42.5));
         capture(player, active);
         require(active.isRemoved(), "关联妖兽再次潜行收纳未完成");
         ItemStack bag = player.getMainHandItem();
@@ -389,6 +395,7 @@ final class SpiritBeastBagCheck extends SystemCheck {
         active.moveTo(player.position().add(2, 0, 0));
         activeUuid = active.getUUID();
         verifyEntity(player, "染色后再次释放");
+        StatusEffects.add(active, "effect_007", 2400, 0);
         savedBag = player.getMainHandItem().copy();
         player.getInventory().setItem(20, player.getMainHandItem());
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -426,9 +433,31 @@ final class SpiritBeastBagCheck extends SystemCheck {
         YaoshouEntity beast = (YaoshouEntity) CreatureSetup.entityType("yaoshou_001").get().create(player.serverLevel());
         beast.moveTo(player.position().add(2, 0, 0));
         beast.finalizeSpawn(player.serverLevel(), player.serverLevel().getCurrentDifficultyAt(beast.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
-        beast.getPersistentData().merge(expectedFields.copy());
-        beast.getPersistentData().putDouble("caijinumber", 7);
-        beast.getPersistentData().putBoolean("yaodandiaoluo", true);
+        EntityAttributes.update(beast, current -> {
+            EntityStats updated = current.withRealmName(expectedFields.getString("LEVELname"))
+                    .withLevel(expectedFields.getDouble("LEVELnumber"))
+                    .withExperienceMax(expectedFields.getDouble("experience_Max"))
+                    .withExperience(expectedFields.getDouble("experience"));
+            List<String> statKeys = List.of("health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+                    "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed_number");
+            List<String> ratingKeys = List.of("health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL", "power_Rec_LEVEL",
+                    "soul_Max_LEVEL", "soul_Rec_LEVEL", "attack_Num_LEVEL", "attack_Def_LEVEL", "mana_Att_LEVEL",
+                    "mana_Def_LEVEL", "soul_Att_LEVEL", "soul_Def_LEVEL", "speed_LEVEL");
+            for (int i = 0; i < EntityAttributes.COMBAT_STATS.size(); i++) {
+                Stat stat = EntityAttributes.COMBAT_STATS.get(i);
+                updated = updated.withStat(stat, expectedFields.getDouble(statKeys.get(i)))
+                        .withRating(stat, expectedFields.getString(ratingKeys.get(i)));
+            }
+            return updated;
+        });
+        CreatureState state = CreatureData.state(beast);
+        state.setHarvestCount(7);
+        state.setBeastCoreDropped(true);
+        state.setCharacter(expectedFields.getString("character"));
+        state.setCharacterDef(expectedFields.getDouble("character_def"));
+        state.setCharacterAtt(expectedFields.getDouble("character_att"));
+        state.setCharacterInterval(expectedFields.getDouble("character_interval"));
+        state.setCharacterResist(expectedFields.getDouble("character_resist"));
         beast.getAttribute(Attributes.MAX_HEALTH).setBaseValue(141.25);
         beast.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(19.75);
         beast.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(.37);
@@ -445,20 +474,44 @@ final class SpiritBeastBagCheck extends SystemCheck {
     }
 
     private void verifyEntity(ServerPlayer player, String phase) {
-        verifyFields(active.getPersistentData(), phase);
+        verifyEntityFields(active, phase);
+        CreatureState state = CreatureData.state(active);
         expectTrue(phase + "恢复原生主人名称与袋UUID", active.isOwnedBy(player) && active.getDisplayName().getString().contains("袋中花妖")
-                && active.getPersistentData().getString("lingshoudaiuuid").equals(bagUuid)
-                && active.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID()));
+                && state.bagUuid().equals(bagUuid)
+                && state.masterUuid().equals(player.getStringUUID()));
         expectTrue(phase + "继承当前主人阵营好友且不恢复采集状态", Relations.entityTeam(active).equals(Relations.team(player))
                 && Relations.friendlyTeams(active).equals(Relations.friendlyTeams(player))
-                && !active.getPersistentData().contains("caijinumber") && !active.getPersistentData().contains("yaodandiaoluo"));
+                && state.harvestCount() == 0 && !state.beastCoreDropped());
         expect(phase + "最大生命属性", 141.25, active.getAttributeBaseValue(Attributes.MAX_HEALTH));
         expect(phase + "原生攻击属性", 19.75, active.getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
         expect(phase + "原生速度属性", .37, active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED));
         expect(phase + "体型属性", 1.7, active.getAttributeBaseValue(YaoshouAttributes.SIZE));
         expect(phase + "皮肤属性", 3, active.getAttributeBaseValue(YaoshouAttributes.SKIN));
         expect(phase + "当前生命", expectedFields.getDouble("experience") == 42.5 ? 31.25 : 37.5, active.getHealth());
-        expectTrue(phase + "未额外写入来源未恢复的health_Num字段", !active.getPersistentData().contains("health_Num"));
+    }
+
+    private void verifyEntityFields(YaoshouEntity entity, String phase) {
+        EntityStats stats = EntityAttributes.get(entity);
+        CreatureState state = CreatureData.state(entity);
+        expect(phase + "选定字段LEVELname", expectedFields.getString("LEVELname"), stats.realmName());
+        expect(phase + "选定字段LEVELnumber", expectedFields.getDouble("LEVELnumber"), stats.level());
+        expect(phase + "选定字段experience_Max", expectedFields.getDouble("experience_Max"), stats.experienceMax());
+        expect(phase + "选定字段experience", expectedFields.getDouble("experience"), stats.experience());
+        List<String> statKeys = List.of("health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+                "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed_number");
+        List<String> ratingKeys = List.of("health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL", "power_Rec_LEVEL",
+                "soul_Max_LEVEL", "soul_Rec_LEVEL", "attack_Num_LEVEL", "attack_Def_LEVEL", "mana_Att_LEVEL",
+                "mana_Def_LEVEL", "soul_Att_LEVEL", "soul_Def_LEVEL", "speed_LEVEL");
+        for (int i = 0; i < EntityAttributes.COMBAT_STATS.size(); i++) {
+            Stat stat = EntityAttributes.COMBAT_STATS.get(i);
+            expect(phase + "选定字段" + statKeys.get(i), expectedFields.getDouble(statKeys.get(i)), stats.stat(stat));
+            expect(phase + "选定字段" + ratingKeys.get(i), expectedFields.getString(ratingKeys.get(i)), stats.rating(stat));
+        }
+        expect(phase + "选定字段character", expectedFields.getString("character"), state.character());
+        expect(phase + "选定字段character_def", expectedFields.getDouble("character_def"), state.characterDef());
+        expect(phase + "选定字段character_att", expectedFields.getDouble("character_att"), state.characterAtt());
+        expect(phase + "选定字段character_interval", expectedFields.getDouble("character_interval"), state.characterInterval());
+        expect(phase + "选定字段character_resist", expectedFields.getDouble("character_resist"), state.characterResist());
     }
 
     private void verifyFields(CompoundTag actual, String phase) {

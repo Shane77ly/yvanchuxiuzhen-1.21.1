@@ -1,5 +1,8 @@
 package net.yvanchuxiuzhen.smoke;
 
+import com.google.common.hash.Hashing;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,10 +30,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraft.world.level.levelgen.DensityFunctions;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.world.terrain.LegacyDimensionChunkGenerator;
+import net.yvanchuxiuzhen.system.world.terrain.LegacyNoiseSlide;
 
 /** 无归十群系数据、有限自然区块与地物生成的植物/模板保存消费者。 */
 final class WuguiWorldgenCheck extends SystemCheck {
@@ -109,6 +116,29 @@ final class WuguiWorldgenCheck extends SystemCheck {
         return true;
     }
 
+    private void checkSlide(LegacyDimensionChunkGenerator generator) {
+        var nodes = new ArrayList<LegacyNoiseSlide>();
+        generator.generatorSettings().value().noiseRouter().finalDensity().mapAll(f -> {
+            if (f instanceof LegacyNoiseSlide slide) nodes.add(slide);
+            return f;
+        });
+        expect("最终密度仅包含一个紧凑滑移", 1, nodes.size());
+        if (nodes.size() != 1) return;
+        var node = nodes.getFirst();
+        double[] inputs = {-91.75, -0.0, 0.0, Math.PI, Math.nextDown(0.9375), 31.125};
+        var samples = new ArrayList<LegacyNoiseSlide>();
+        for (double value : inputs) samples.add(new LegacyNoiseSlide(DensityFunctions.constant(value), node.cellHeight(),
+                node.minCell(), node.cells(), node.top(), node.bottom()));
+        var bits = ByteBuffer.allocate(385 * inputs.length * Long.BYTES);
+        for (int y = -64; y <= 320; y++) {
+            var pos = new DensityFunction.SinglePointContext(0, y, 0);
+            for (var sample : samples) bits.putLong(Double.doubleToRawLongBits(sample.compute(pos)));
+        }
+        // 对照摘要来自相同坐标与输入在原 range_choice JSON 中的逐节点运算，大端 IEEE 754 位序。
+        expect("原高度分支 2310 个双精度结果逐位一致", "b4388983ee4bd09512c2a94409283b1fe3afa35d7976a0b806ba6878e1540ff6",
+                Hashing.sha256().hashBytes(bits.array()).toString());
+    }
+
     private boolean ready(int local) {
         if (local > 600) throw new IllegalStateException("无归客户端画面同步超时");
         return local >= 30 && minecraft.screen == null && minecraft.level != null && minecraft.level.dimension().equals(WUGUI);
@@ -117,6 +147,7 @@ final class WuguiWorldgenCheck extends SystemCheck {
     private void checkWorld(ServerPlayer player) {
         ServerLevel level = player.server.getLevel(WUGUI);
         if (level == null) throw new IllegalStateException("正式无归维度未加载");
+        checkSlide((LegacyDimensionChunkGenerator) level.getChunkSource().getGenerator());
         Set<ResourceLocation> actual = new HashSet<>();
         level.getChunkSource().getGenerator().getBiomeSource().possibleBiomes()
                 .forEach(holder -> actual.add(holder.unwrapKey().orElseThrow().location()));

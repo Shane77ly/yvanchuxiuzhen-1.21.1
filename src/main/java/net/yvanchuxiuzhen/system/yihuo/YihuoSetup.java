@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.material.api.Materials;
+import net.yvanchuxiuzhen.system.yihuo.data.YihuoData;
 
 /**
  * 异火系统的启动装配，只在 Mod 构造时调用一次。
@@ -33,6 +34,7 @@ public final class YihuoSetup {
         YihuoEffects.register(CONTENT);
         YihuoProjectiles.register(CONTENT);
         CONTENT.register(modBus);
+        YihuoData.register(modBus);
         YihuoBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(YihuoSetup::onLogin);
     }

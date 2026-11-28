@@ -22,16 +22,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
 
 /** 通过原生玩家方块右键检查两处商店修补的手别、潜行顺序与方块存档。 */
 final class QuestBlockRefreshCheck extends SystemCheck {
     private static final BlockPos MATERIAL_SHOP = new BlockPos(-103, 64, -263);
     private static final BlockPos CLOTHING_SHOP = new BlockPos(-51, 64, -320);
-    private static final String OLD_INFORMATION = "陈氏服饰%陈氏%在这里可以买到初级服饰。";
-    private static final String NEW_INFORMATION = "陈氏服饰%陈氏%在这里可以买到初级服饰和一些布匹。";
-    private static final String CLOTHING_SHA256 = "b19f8adaaac9fd4d30a6676e560044c9bcf9d00f91833b79c6452b4fb5173ee1";
-    private static final String SENTINEL_PRODUCTS = "待修补货架";
+    private static final String OLD_SHOP_ID = "fanhuacheng09_21_2_16_s1";
+    private static final String REPAIRED_SHOP_ID = "huafancheng_clothing_repaired";
+    private static final String OLD_DESCRIPTION = "在这里可以买到初级服饰。";
+    private static final String NEW_DESCRIPTION = "在这里可以买到初级服饰和一些布匹。";
 
     QuestBlockRefreshCheck(List<String> report, String levelId) {
         super("任务方块商店刷新", report, levelId);
@@ -75,51 +76,51 @@ final class QuestBlockRefreshCheck extends SystemCheck {
     }
 
     private void material(ServerPlayer player, DisguisedQuestBlockEntity block, InteractionHand current, InteractionHand other) {
-        CompoundTag data = block.getPersistentData();
-        data.putBoolean("shuaxin", true);
-        data.putString("productlist1", SENTINEL_PRODUCTS);
+        block.setRefreshDue(true);
+        block.setShopId(1, "npc03");
+        block.setCustomShop(1, ShopCatalogDefinition.EMPTY);
         use(player, MATERIAL_SHOP, current);
-        String firstProducts = data.getString("productlist1");
-        expectTrue("材料店当前手右键消费刷新标记并生成六十件商品",
-                !data.getBoolean("shuaxin") && firstProducts.split("%", -1).length == 300);
+        ShopCatalogDefinition firstShop = block.customShop(1);
+        expectTrue("材料店当前手右键消费刷新标记并生成六十件强类型商品",
+                !block.refreshDue() && firstShop.products().size() == 60);
         use(player, MATERIAL_SHOP, current);
-        expect("刷新标记消费后再次右键保留货架", firstProducts, data.getString("productlist1"));
+        expect("刷新标记消费后再次右键保留货架", firstShop, block.customShop(1));
 
-        data.putBoolean("shuaxin", true);
-        data.putString("productlist1", SENTINEL_PRODUCTS);
+        block.setRefreshDue(true);
+        block.setShopId(1, "npc02");
+        block.setCustomShop(1, ShopCatalogDefinition.EMPTY);
         use(player, MATERIAL_SHOP, other);
-        expectTrue("非当前手右键不消费标记或修改货架", data.getBoolean("shuaxin")
-                && data.getString("productlist1").equals(SENTINEL_PRODUCTS));
+        expectTrue("非当前手右键不消费标记或修改货架", block.refreshDue()
+                && block.customShop(1).products().isEmpty() && block.shopId(1).equals("npc02"));
 
         player.setShiftKeyDown(true);
         use(player, MATERIAL_SHOP, current);
         player.setShiftKeyDown(false);
-        String sneakingProducts = data.getString("productlist1");
+        ShopCatalogDefinition sneakingShop = block.customShop(1);
         expectTrue("持物潜行绕过方块交互前仍修补材料货架",
-                !data.getBoolean("shuaxin") && sneakingProducts.split("%", -1).length == 300);
+                !block.refreshDue() && sneakingShop.products().size() == 60);
         DisguisedQuestBlockEntity restored = read(player, block);
-        expectTrue("材料店保存重读保留消费后的标记与完整货架", !restored.getPersistentData().getBoolean("shuaxin")
-                && restored.getPersistentData().getString("productlist1").equals(sneakingProducts));
+        expectTrue("材料店保存重读保留消费后的标记与完整货架", !restored.refreshDue()
+                && restored.customShop(1).equals(sneakingShop));
     }
 
     private void clothing(ServerPlayer player, DisguisedQuestBlockEntity block, InteractionHand current) {
-        CompoundTag data = block.getPersistentData();
-        String mismatch = OLD_INFORMATION + " ";
-        data.putString("shopinformation1", mismatch);
-        data.putString("productlist1", SENTINEL_PRODUCTS);
+        block.setShopId(1, "npc02");
+        block.setCustomShop(1, ShopCatalogDefinition.EMPTY);
         use(player, CLOTHING_SHOP, current);
-        expectTrue("陈氏旧说明只差末尾空格时不改说明或商品", data.getString("shopinformation1").equals(mismatch)
-                && data.getString("productlist1").equals(SENTINEL_PRODUCTS));
+        expectTrue("非陈氏旧说明时不改说明或商品", block.shopId(1).equals("npc02"));
 
-        data.putString("shopinformation1", OLD_INFORMATION);
+        block.setShopId(1, OLD_SHOP_ID);
+        block.setCustomShop(1, ShopCatalogDefinition.EMPTY);
+        expect("陈氏旧说明匹配", OLD_DESCRIPTION, block.resolveShop(1).info().description());
         use(player, CLOTHING_SHOP, current);
-        expect("精确旧说明替换为来源中文说明", NEW_INFORMATION, data.getString("shopinformation1"));
-        String products = data.getString("productlist1");
-        expectTrue("陈氏整份十一件商品与来源提取摘要一致", products.split("%", -1).length == 55
-                && sha256(products).equals(CLOTHING_SHA256));
+        expect("精确旧说明替换为来源中文商店ID", REPAIRED_SHOP_ID, block.shopId(1));
+        ShopCatalogDefinition repaired = block.resolveShop(1);
+        expect("精确旧说明替换为来源中文说明", NEW_DESCRIPTION, repaired.info().description());
+        expect("陈氏整份十一件强类型商品", 11, repaired.products().size());
         DisguisedQuestBlockEntity restored = read(player, block);
-        expectTrue("陈氏保存重读保留中文说明与完整商品", restored.getPersistentData().getString("shopinformation1").equals(NEW_INFORMATION)
-                && restored.getPersistentData().getString("productlist1").equals(products));
+        expectTrue("陈氏保存重读保留商店ID与完整商品", restored.shopId(1).equals(REPAIRED_SHOP_ID)
+                && restored.resolveShop(1).equals(repaired));
     }
 
     private static void use(ServerPlayer player, BlockPos pos, InteractionHand hand) {

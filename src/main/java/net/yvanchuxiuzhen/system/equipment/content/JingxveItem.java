@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.equipment.content;
 
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +11,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
@@ -50,7 +48,7 @@ public final class JingxveItem extends ContentItem {
             message(player, "level");
             return;
         }
-        String owner = blood.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("belongToMasterUUID");
+        String owner = Equipment.bloodEssence(blood).ownerUuid();
         if (!owner.equals(player.getStringUUID())) {
             message(player, "blood_owner");
             return;
@@ -60,8 +58,7 @@ public final class JingxveItem extends ContentItem {
             message(player, "owned");
             return;
         }
-        CustomData.update(DataComponents.CUSTOM_DATA, instrument,
-                data -> data.putString("belongToMasterUUID", player.getStringUUID()));
+        Equipment.bindOwner(instrument, player.getStringUUID());
         message(player, "success");
         // 1.18.2 原生创造使用恢复当前手数量；来源过程只扣主手，恢复范围不含另一只手。
         if (hand != InteractionHand.MAIN_HAND || !player.getAbilities().instabuild) {

@@ -16,6 +16,8 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
 import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 import software.bernie.geckolib.animation.AnimatableManager;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 
 /** 030号妖兽：飞行导航、来源重力约束及金系技能流程。 */
 public final class Yaoshou030Entity extends YaoshouEntity {
@@ -82,7 +84,7 @@ public final class Yaoshou030Entity extends YaoshouEntity {
     protected void sourceSpawn(ServerLevelAccessor level) {
         if (YaoshouShared.initialize(this, 7,
                 "贫弱", "贫弱", "勉强", "贫弱", "勉强", "贫弱", "贫弱", "贫弱", "强劲", "贫弱", "贫弱", "贫弱", "强劲")) {
-            getAttribute(Attributes.FLYING_SPEED).setBaseValue(getPersistentData().getDouble("speed_number") * 0.7);
+            getAttribute(Attributes.FLYING_SPEED).setBaseValue(EntityAttributes.stat(this, Stat.MOVE_SPEED) * 0.7);
         }
     }
 

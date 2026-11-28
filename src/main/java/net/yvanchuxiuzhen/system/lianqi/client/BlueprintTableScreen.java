@@ -7,13 +7,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.lianqi.content.BlueprintTableMenu;
 import net.yvanchuxiuzhen.system.lianqi.network.BlueprintTableButtonPayload;
 
@@ -80,8 +80,8 @@ public final class BlueprintTableScreen extends AbstractContainerScreen<Blueprin
         graphics.drawString(font, text("label_yu_jian"), 374, 163, -16751002, false);
         graphics.drawString(font, text("label_diu_qi"), 437, 163, -10092493, false);
         if (menu.table() == null) return;
-        CompoundTag data = menu.table().getPersistentData().getCompound("zong");
-        boolean armor = Set.of("头盔", "胸甲", "裤子", "战靴").contains(data.getString("fabaotype"));
+        EquipmentRefinement data = menu.table().previewData();
+        boolean armor = Set.of("头盔", "胸甲", "裤子", "战靴").contains(data.text("fabaotype"));
         String support = armor ? "§b" : "§4";
         String attack = armor ? "§4" : "§b";
         String[] lines = {
@@ -91,31 +91,31 @@ public final class BlueprintTableScreen extends AbstractContainerScreen<Blueprin
             attack + stat(data, "物理攻击", "attack_num", "attnum") + support + stat(data, "物理防御", "attack_Def", "attdefnum"),
             attack + stat(data, "法术攻击", "mana_Att", "mananum") + support + stat(data, "法术防御", "mana_Def", "manadefnum"),
             attack + stat(data, "精神攻击", "soul_Att", "soulnum") + support + stat(data, "精神防御", "soul_Def", "souldefnum"),
-            (data.getInt("weightnum") > 100 ? "§4" : "§b") + "重量：" + data.getInt("weightnum") + "§b" + percent(data, "击退抗性", "knockback_resistance", "knockbacknum"),
+            (data.integer("weightnum") > 100 ? "§4" : "§b") + "重量：" + data.integer("weightnum") + "§b" + percent(data, "击退抗性", "knockback_resistance", "knockbacknum"),
             "§b" + percent(data, "移动速度", "speed_num", "spenum") + "§b" + percent(data, "攻击速度", "attack_speed", "attspeednum")
         };
         for (int row = 0; row < lines.length; row++) graphics.drawString(font, lines[row], 293, 37 + row * 9, -16777216, false);
-        graphics.drawString(font, "§6" + data.getString("item_level") + "（" + data.getInt("item_level_num") + "）" + data.getString("fabaotype"), 293, 28, -3368704, false);
+        graphics.drawString(font, "§6" + data.text("item_level") + "（" + data.integer("item_level_num") + "）" + data.text("fabaotype"), 293, 28, -3368704, false);
         for (int row = 0; row < 4; row++) {
             graphics.drawString(font, enchantment(data, row * 2) + enchantment(data, row * 2 + 1), 293, 109 + row * 9, -16777216, false);
         }
     }
 
-    private static String stat(CompoundTag data, String name, String value, String raw) {
-        return name + "+" + data.getInt(value) + "（" + data.getInt(raw) + "）";
+    private static String stat(EquipmentRefinement data, String name, String value, String raw) {
+        return name + "+" + data.integer(value) + "（" + data.integer(raw) + "）";
     }
 
-    private static String percent(CompoundTag data, String name, String value, String raw) {
-        return name + "+" + new DecimalFormat("0").format(data.getDouble(value) * 100) + "%（" + data.getDouble(raw) + "）";
+    private static String percent(EquipmentRefinement data, String name, String value, String raw) {
+        return name + "+" + new DecimalFormat("0").format(data.number(value) * 100) + "%（" + data.number(raw) + "）";
     }
 
-    private static String enchantment(CompoundTag data, int index) {
+    private static String enchantment(EquipmentRefinement data, int index) {
         String prefix = "fumo" + index;
-        if (data.getString(prefix).isEmpty()) return "";
-        String namespace = data.getString(prefix + "kongjian");
+        if (data.text(prefix).isEmpty()) return "";
+        String namespace = data.text(prefix + "kongjian");
         if (namespace.equals("yvanchuxitong")) namespace = ModId.VALUE;
-        return "§b" + Component.translatable("enchantment." + namespace + "." + data.getString(prefix)).getString()
-                + "（LV" + data.getInt(prefix + "num") / 100 + "）(" + data.getInt(prefix + "num") + ")";
+        return "§b" + Component.translatable("enchantment." + namespace + "." + data.text(prefix)).getString()
+                + "（LV" + data.integer(prefix + "num") / 100 + "）(" + data.integer(prefix + "num") + ")";
     }
 
     private static Component text(String suffix) {

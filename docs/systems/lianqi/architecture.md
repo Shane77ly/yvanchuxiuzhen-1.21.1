@@ -291,7 +291,7 @@ lianqi 唯一写鼎内炉次和图纸；material 提供材料定义与实例；e
 
 `A:block/CauldronduyaoBlock.java:39–41,60–78`为普通整立方方块，金属声音、硬度2、爆炸抗性20；没有炼药锅内凹碰撞形状，无有效loot时回落原版空炼药锅。右键只调用淬毒过程并返回SUCCESS，没有自然开菜单。`A:block/entity/CauldronduyaoBlockEntity.java:32,40–62,84–90`实际0槽，保存两项毒种字符串并提供完整更新包；生成的三排箱菜单提供者没有被自然右键调用。目标保留零槽物品能力和毒种持久数据，没有引入炼制库存或计时机制。
 
-`A:CauldronduyaoZaiFangKuaiShangYouJian:27–72`要求锅的 `linshifumo`非空且主手非空，不要求武器、适用附魔标签或职业。蜂毒只有在主手没有蜂毒时成功；另外七种毒反而要求主手已有对应附魔。成功调用附魔写入后立即替换为原版空 `CAULDRON`，不保留水，不消耗主手物品，不写装备累计 `lianqizong`或 `fumozongshu`。条件不满足时锅和主手保留。
+`A:CauldronduyaoZaiFangKuaiShangYouJian:27–72` 要求锅的 `linshifumo` 非空且主手非空；阶段 4 子批 5（Q35，2026-11-28）已将 `PoisonCrafting.useCauldron` 统一为所有 8 种毒药均在主手尚未拥有对应毒药附魔时淬毒为 1 级，并立即替换为原版空 `CAULDRON`（不消耗主手、不写装备累计 `lianqizong`/`fumozongshu`），已有同附魔则保留毒锅与主手（经 `EquipmentProductCheck` 实机通过）。
 
 ### 1.18.2版本重复附魔NBT与目标表示
 

@@ -17,6 +17,7 @@ import net.yvanchuxiuzhen.system.npc.content.QiankunBlock;
 import net.yvanchuxiuzhen.system.npc.content.QiankundaorenBlockEntity;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.economy.api.AuctionNpcRequestEvent;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineTargetCheckEvent;
 import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.entity.NpcCreatures;
 import net.yvanchuxiuzhen.system.npc.entity.NpcProfiles;
@@ -39,6 +40,7 @@ public final class NpcSetup {
         NpcCreatures.register(CONTENT);
         NpcUnderworldCreatures.register(CONTENT);
         CONTENT.register(modBus);
+        NpcData.register(modBus);
         QiankunBlockEntities.register(modBus);
         QiankunMenus.register(modBus);
         NpcManagementMenus.register(modBus);
@@ -49,6 +51,9 @@ public final class NpcSetup {
         NeoForge.EVENT_BUS.addListener(NpcFollowerRuntime::tick);
         NeoForge.EVENT_BUS.addListener(EventPriority.LOW, false, StructureReleasedEvent.class, NpcStructureReleases::structureReleased);
         NeoForge.EVENT_BUS.addListener((AuctionNpcRequestEvent event) -> event.setDefinitions(NpcDefinitions.snapshot()));
+        NeoForge.EVENT_BUS.addListener((MedicineTargetCheckEvent event) -> {
+            if (NpcDefinitions.isInteractiveNpc(event.target())) event.setCanceled(true);
+        });
     }
 
     public static <T extends Entity> Supplier<EntityType<T>> entityType(String id) {

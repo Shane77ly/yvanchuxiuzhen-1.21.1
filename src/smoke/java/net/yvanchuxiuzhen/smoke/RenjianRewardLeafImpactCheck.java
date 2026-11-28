@@ -76,9 +76,8 @@ final class RenjianRewardLeafImpactCheck extends SystemCheck {
     private record Impact(int tick, int flightTicks, Vec3 position, UUID target, boolean basePresent, double base,
                           boolean multiplierPresent, double multiplier) {
         private static Impact read(SkillProjectile leaf, int tick, UUID target) {
-            CompoundTag data = leaf.getPersistentData();
-            return new Impact(tick, leaf.ticks(), leaf.position(), target, data.contains("AttackDamage"), data.getDouble("AttackDamage"),
-                    data.contains("Damage_multiplier"), data.getDouble("Damage_multiplier"));
+            return new Impact(tick, leaf.ticks(), leaf.position(), target, leaf.manaRecorded(), leaf.mana(),
+                    leaf.manaRecorded(), leaf.multiplier());
         }
     }
 

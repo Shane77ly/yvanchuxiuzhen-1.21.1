@@ -32,6 +32,7 @@ import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -58,6 +59,12 @@ public final class CloudSpirit extends TamableAnimal implements GeoEntity, Anima
 
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final EntityModelRow model;
+    private double grade;
+    private String talismanName = "";
+    private String masterUuid = "";
+    private double lifeTicks;
+    private double cycleTicks;
+    private String phase = CHARGING;
 
     public CloudSpirit(EntityType<? extends CloudSpirit> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -65,6 +72,24 @@ public final class CloudSpirit extends TamableAnimal implements GeoEntity, Anima
         xpReward = 0;
         navigation = new FlyingPathNavigation(this, level);
         moveControl = new FlyingMoveControl(this, 10, true);
+    }
+
+    public void configure(double grade, String talismanName, String masterUuid) {
+        this.grade = grade;
+        this.talismanName = talismanName;
+        this.masterUuid = masterUuid;
+    }
+
+    public double grade() {
+        return grade;
+    }
+
+    public String talismanName() {
+        return talismanName;
+    }
+
+    public String masterUuid() {
+        return masterUuid;
     }
 
     @Override
@@ -156,45 +181,60 @@ public final class CloudSpirit extends TamableAnimal implements GeoEntity, Anima
         }
     }
 
-    private CompoundTag data() {
-        return getPersistentData();
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("fululevel", grade);
+        tag.putString("fuluname", talismanName);
+        tag.putString("belongToMasterUUID", masterUuid);
+        tag.putDouble("tick", lifeTicks);
+        tag.putDouble("tick2", cycleTicks);
+        tag.putString("attacking", phase);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        grade = tag.getDouble("fululevel");
+        talismanName = tag.getString("fuluname");
+        masterUuid = tag.getString("belongToMasterUUID");
+        lifeTicks = tag.getDouble("tick");
+        cycleTicks = tag.getDouble("tick2");
+        phase = tag.contains("attacking") ? tag.getString("attacking") : CHARGING;
     }
 
     private void tickSpirit(ServerLevel level) {
-        double life = data().getDouble("tick") + 1;
-        data().putDouble("tick", life);
+        double life = ++lifeTicks;
         if (life >= 12000) {
-            data().putDouble("tick", 0);
+            lifeTicks = 0;
             discard();
         }
         if (getTarget() == null) {
-            if (data().getDouble("tick2") != 0) {
-                data().putDouble("tick2", 0);
+            if (cycleTicks != 0) {
+                cycleTicks = 0;
             }
-            if (data().getString("attacking").equals(STRIKING)) {
-                data().putString("attacking", CHARGING);
+            if (phase.equals(STRIKING)) {
+                phase = CHARGING;
             }
             return;
         }
-        String phase = data().getString("attacking");
-        double ticks = data().getDouble("tick2") + 1;
-        data().putDouble("tick2", ticks);
+        double ticks = ++cycleTicks;
         if (phase.equals(CHARGING)) {
             if (ticks >= 100) {
-                data().putString("attacking", ANIMATING);
+                phase = ANIMATING;
                 triggerAnim("attack", "attack");
-                data().putDouble("tick2", 0);
+                cycleTicks = 0;
             }
         } else if (phase.equals(ANIMATING)) {
             if (ticks >= 100) {
-                data().putString("attacking", STRIKING);
-                data().putDouble("tick2", 0);
+                phase = STRIKING;
+                cycleTicks = 0;
             }
         } else if (phase.equals(STRIKING)) {
             strike(level);
             if (ticks >= 30) {
-                data().putString("attacking", CHARGING);
-                data().putDouble("tick2", 0);
+                phase = CHARGING;
+                cycleTicks = 0;
             }
         }
     }
@@ -202,8 +242,7 @@ public final class CloudSpirit extends TamableAnimal implements GeoEntity, Anima
     private void strike(ServerLevel level) {
         Vec3 eye = getEyePosition(1f);
         Vec3 view = getViewVector(1f);
-        double damage = data().getDouble("fululevel") * 5;
-        String master = data().getString("belongToMasterUUID");
+        double damage = grade * 5;
         for (int reach : REACH) {
             BlockPos spot = level.clip(new ClipContext(eye, eye.add(view.scale(reach)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, this)).getBlockPos();
             Vec3 center = new Vec3(spot.getX(), spot.getY(), spot.getZ());
@@ -211,7 +250,7 @@ public final class CloudSpirit extends TamableAnimal implements GeoEntity, Anima
                     .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
             for (Entity target : targets) {
                 if (!Relations.isFriendly(this, target) && target instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 雷 " + master + " true " + damage + " 1");
+                    SpellDamage.dealSaved(level, living, DamageCategory.THUNDER, masterUuid, true, damage, 1);
                 }
             }
         }

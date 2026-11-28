@@ -6,7 +6,6 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -18,7 +17,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.NeoForge;
@@ -66,8 +64,13 @@ final class JadePickupPersistenceCheck extends SystemCheck {
             case 0 -> {
                 shiftKey = minecraft.options.keyShift.isDown();
                 minecraft.options.keyShift.setDown(false);
+                onServer(this::prepare);
+            }
+            case 1 -> {
+                boolean[] ready = {false};
                 onServer(player -> {
-                    prepare(player);
+                    if (!player.serverLevel().isPositionEntityTicking(new BlockPos(0, 181, 0))) return;
+                    ready[0] = true;
                     fill(player, 161, false);
                     ItemEntity drop = carve(player, item("cailiao_161"));
                     pickedId = drop.getUUID();
@@ -80,8 +83,12 @@ final class JadePickupPersistenceCheck extends SystemCheck {
                             && player.serverLevel().getEntity(pickedId) == drop && player.getInventory().getItem(1).isEmpty());
                     player.inventoryMenu.broadcastChanges();
                 });
+                if (!ready[0]) {
+                    if (local > 200) abort("雕琢平台区块未进入实体刻状态");
+                    return false;
+                }
             }
-            case 1 -> {
+            case 2 -> {
                 boolean[] complete = {false};
                 onServer(player -> {
                     Entity entity = player.serverLevel().getEntity(pickedId);
@@ -98,7 +105,7 @@ final class JadePickupPersistenceCheck extends SystemCheck {
                     return false;
                 }
             }
-            case 2 -> {
+            case 3 -> {
                 onServer(player -> {
                     fill(player, 162, true);
                     ItemEntity drop = carve(player, item("cailiao_162"));
@@ -111,7 +118,7 @@ final class JadePickupPersistenceCheck extends SystemCheck {
                     player.inventoryMenu.broadcastChanges();
                 });
             }
-            case 3 -> {
+            case 4 -> {
                 if (local < 100) return false;
                 onServer(player -> {
                     Entity entity = player.serverLevel().getEntity(savedId);
@@ -124,13 +131,13 @@ final class JadePickupPersistenceCheck extends SystemCheck {
                 screenshots.take("jade-pickup-before-exit.png");
                 leaveWorld();
             }
-            case 4 -> {
+            case 5 -> {
                 if (minecraft.screen instanceof TitleScreen && local >= 20) return reopened(local);
                 if (local > 900) abort("退出后未到标题界面");
                 return false;
             }
-            case 5 -> { return inWorld(local); }
-            case 6 -> {
+            case 6 -> { return inWorld(local); }
+            case 7 -> {
                 onServer(player -> {
                     Entity entity = player.serverLevel().getEntity(savedId);
                     expectTrue("真实重进后原UUID的未拾取成玉存在", entity instanceof ItemEntity);
@@ -181,7 +188,7 @@ final class JadePickupPersistenceCheck extends SystemCheck {
         }
         if (keepPicked) player.getInventory().setItem(35, pickedStack.copy());
         ItemStack input = new ItemStack(item("cailiao_" + jade + "02"), 2);
-        CustomData.update(DataComponents.CUSTOM_DATA, input, tag -> tag.putDouble("qiyvbianhao", 4));
+        Materials.setFortuneIndex(input, 4);
         player.setItemInHand(InteractionHand.MAIN_HAND, input);
         Cultivation.setTizhiDouble(player, "jiyvgailv", 0);
         Cultivation.setTizhiDouble(player, "qiyvbianhao", 0);

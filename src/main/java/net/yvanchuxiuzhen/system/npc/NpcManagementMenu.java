@@ -1,10 +1,7 @@
 package net.yvanchuxiuzhen.system.npc;
 
+import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 
 /** 天道NPC设置菜单：六个设备槽及玩家背包，编辑文本由设置提交载荷写回手持工具。 */
 public final class NpcManagementMenu extends AbstractContainerMenu {
@@ -45,8 +41,7 @@ public final class NpcManagementMenu extends AbstractContainerMenu {
     public InteractionHand hand() { return hand; }
 
     public String fieldValue(String key) {
-        CompoundTag data = tool.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return key.equals("npclevel") ? Double.toString(data.getDouble(key)) : data.getString(key);
+        return tool.getOrDefault(NpcData.TOOL_PROFILE.get(), NpcToolProfile.EMPTY).fieldValue(key);
     }
 
     public boolean hasBoundTool() {
@@ -54,14 +49,8 @@ public final class NpcManagementMenu extends AbstractContainerMenu {
     }
 
     public void saveProfile(List<String> values, double level, boolean fixed) {
-        CompoundTag data = tool.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        data.putDouble("npclevel", level);
-        for (int index = 0; index < values.size(); index++) {
-            String key = NpcManagementData.KEYS.get(index);
-            if (!key.equals("npclevel")) data.putString(key, values.get(index));
-        }
-        if (fixed) data.putBoolean("npcset", true);
-        tool.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        NpcToolProfile current = tool.getOrDefault(NpcData.TOOL_PROFILE.get(), NpcToolProfile.EMPTY);
+        tool.set(NpcData.TOOL_PROFILE.get(), current.withEditedFields(values, level, fixed));
     }
 
     private static InteractionHand readHand(RegistryFriendlyByteBuf buffer) {
@@ -80,32 +69,21 @@ public final class NpcManagementMenu extends AbstractContainerMenu {
 
     public static SimpleContainer readEquipment(Player player, InteractionHand hand) {
         ItemStack tool = player.getItemInHand(hand);
-        CompoundTag item = tool.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        ListTag list = item.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
+        NpcToolProfile profile = tool.getOrDefault(NpcData.TOOL_PROFILE.get(), NpcToolProfile.EMPTY);
         SimpleContainer container = new SimpleContainer(6);
-        for (int index = 0; index < list.size(); index++) {
-            CompoundTag entry = list.getCompound(index);
-            int slot = entry.getByte("Slot") & 255;
-            if (slot < container.getContainerSize()) container.setItem(slot, ItemStack.parseOptional(player.registryAccess(), entry));
+        for (int index = 0; index < container.getContainerSize(); index++) {
+            container.setItem(index, profile.equipment().get(index).copy());
         }
         return container;
     }
 
     public void saveEquipment(ServerPlayer player) {
-        CompoundTag data = tool.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        CompoundTag inventory = new CompoundTag();
-        ListTag items = new ListTag();
+        NpcToolProfile current = tool.getOrDefault(NpcData.TOOL_PROFILE.get(), NpcToolProfile.EMPTY);
+        List<ItemStack> items = new ArrayList<>(equipment.getContainerSize());
         for (int slot = 0; slot < equipment.getContainerSize(); slot++) {
-            ItemStack stack = equipment.getItem(slot);
-            if (stack.isEmpty()) continue;
-            CompoundTag entry = (CompoundTag) stack.save(player.registryAccess());
-            entry.putByte("Slot", (byte) slot);
-            items.add(entry);
+            items.add(equipment.getItem(slot).copy());
         }
-        inventory.putInt("Size", equipment.getContainerSize());
-        inventory.put("Items", items);
-        data.put("Inventory", inventory);
-        tool.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        tool.set(NpcData.TOOL_PROFILE.get(), current.withEquipment(items));
     }
 
     @Override

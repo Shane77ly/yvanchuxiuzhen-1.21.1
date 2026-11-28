@@ -23,9 +23,13 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -53,7 +57,9 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
     private double level;
     private Vec3 origin;
     private boolean shifting;
-    private CompoundTag journal, session, commerce;
+    private QuestJournalState journal;
+    private QuestDialogueSession session;
+    private CommerceSession commerce;
 
     FlyingInstrumentAcquisitionCheck(List<String> report, String levelId) {
         super("飞行法器取得与自然拾取", report, levelId);
@@ -105,12 +111,12 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         origin = p.position();
         journal = DialogueActions.journal(p);
         session = DialogueActions.snapshot(p);
-        commerce = p.getData(CommerceData.SESSION).copy();
+        commerce = p.getData(CommerceData.SESSION);
         for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
         NeoForge.EVENT_BUS.addListener(observer);
         ready = true;
-        p.setData(QuestData.JOURNAL, new CompoundTag());
-        p.setData(QuestData.SESSION, new CompoundTag());
+        p.setData(QuestData.JOURNAL, QuestJournalState.EMPTY);
+        p.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
         p.setGameMode(GameType.SURVIVAL);
         p.setShiftKeyDown(false);
         p.getInventory().clearContent();
@@ -119,8 +125,10 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         var template = p.server.getStructureManager().get(id("fanhuacheng11")).orElseThrow();
         var entries = template.save(new CompoundTag()).getList("entities", Tag.TAG_COMPOUND);
         var matches = entries.stream().map(tag -> ((CompoundTag) tag).getCompound("nbt"))
-                .filter(nbt -> nbt.getString("id").equals(id("businessman_23").toString()) && nbt.getCompound("NeoForgeData")
-                        .getString("renwulist1").startsWith("陈叶/chenyeduihua/")).toList();
+                .filter(nbt -> nbt.getString("id").equals(id("businessman_23").toString())
+                        && nbt.getCompound("neoforge:attachments").getCompound("yvanchuxiuzhen:npc_profile")
+                                .getList("scripts", Tag.TAG_STRING).stream()
+                                .findFirst().map(Tag::getAsString).orElse("").startsWith("陈叶/chenyeduihua/")).toList();
         require(matches.size() == 1, "模板中没有唯一的陈叶任务居民");
         CompoundTag resident = matches.getFirst().copy();
         resident.remove("UUID");
@@ -133,7 +141,7 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
 
     private void purchase(ServerPlayer p, boolean paid) {
         for (int i = 0; i < 6; i++) click(p, false);
-        require(DialogueActions.snapshot(p).getString("daantxt1").equals("购买"), "首个选项不是购买");
+        require(DialogueActions.snapshot(p).choiceText(1).equals("购买"), "首个选项不是购买");
         click(p, true);
         expect(paid ? "足额扣12枚三级灵石" : "11枚不足时不扣费", paid ? 0 : 11, p.getInventory().countItem(PRICE));
         expect(paid ? "陈叶交付一件飞叶" : "不足额不发飞叶", paid ? 1 : 0, p.getInventory().countItem(LEAF));
@@ -171,12 +179,12 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         select(p, reward, null);
         dead = summon(p);
         require(dead.getType() == BuiltInRegistries.ENTITY_TYPE.get(id(entityId)) && dead.getHealth() == health
-                && dead.getPersistentData().getDouble("power") == capacity, "首次召唤实体类型或初始生命、储灵不符");
+                && dead.power() == capacity, "首次召唤实体类型或初始生命、储灵不符");
         p.interactOn(dead, InteractionHand.MAIN_HAND);
         require(p.getVehicle() == dead, "空手交互未骑上奖励法器");
         p.stopRiding();
         power = capacity - 17.25;
-        dead.getPersistentData().putDouble("power", power);
+        dead.setPower(power);
         var area = dead.getBoundingBox().inflate(4);
         Set<UUID> prior = p.serverLevel().getEntitiesOfClass(ItemEntity.class, area).stream()
                 .map(Entity::getUUID).collect(Collectors.toSet());
@@ -184,11 +192,12 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         require(!dead.isAlive(), "法器未死亡");
         var newDrops = p.serverLevel().getEntitiesOfClass(ItemEntity.class, area, e -> !prior.contains(e.getUUID()));
         created.addAll(newDrops);
-        var matches = newDrops.stream().filter(e -> e.getItem().is(current) && data(e.getItem()).getDouble("health") == 1).toList();
+        var matches = newDrops.stream().filter(e -> e.getItem().is(current)
+                && Equipment.flyingInstrument(e.getItem()).health() == 1).toList();
         require(matches.size() == 1, "死亡没有唯一的一点生命专有掉落");
         drop = matches.getFirst();
         expected = drop.getItem().copy(); // 仅作组件比较，不作为背包或重召输入。
-        require(expected.getCount() == 1 && data(expected).getDouble("power") == power && drop.hasPickUpDelay()
+        require(expected.getCount() == 1 && Equipment.flyingInstrument(expected).power() == power && drop.hasPickUpDelay()
                 && p.getInventory().countItem(current) == 0, "拾取前数量、储灵或延迟错误");
         witnessed = false;
     }
@@ -205,7 +214,7 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         var replacement = summon(p);
         expectTrue("拾取 " + drop.getUUID() + " 后从背包重召 " + replacement.getUUID(), replacement.getType() == dead.getType()
                 && !replacement.getUUID().equals(dead.getUUID()) && replacement.getHealth() == 1
-                && replacement.getPersistentData().getDouble("power") == power);
+                && replacement.power() == power);
         replacement.discard();
         drop = null;
     }

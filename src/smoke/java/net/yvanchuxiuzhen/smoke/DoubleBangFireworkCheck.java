@@ -91,7 +91,7 @@ final class DoubleBangFireworkCheck extends ActionCheck {
         for (DoubleBangFirework entity : nearby(player)) {
             spawned.add(entity.getUUID());
             expect("放置位置为顶面中心", Vec3.atBottomCenterOf(base.above()), entity.position());
-            expectTrue("放置时保持未点燃", !entity.getPersistentData().getBoolean("begin") && !entity.getPersistentData().getBoolean("begin2"));
+            expectTrue("放置时保持未点燃", !entity.begin() && !entity.begin2());
             expectTrue("实体保持来源不受推挤", !entity.isPushable());
         }
         player.inventoryMenu.broadcastChanges();
@@ -106,19 +106,19 @@ final class DoubleBangFireworkCheck extends ActionCheck {
         }
         DoubleBangFirework first = group.getFirst();
         expect("自然实体右键在服务端返回CONSUME", InteractionResult.CONSUME, first.interact(player, InteractionHand.MAIN_HAND));
-        expectTrue("自然实体右键置引燃状态", first.getPersistentData().getBoolean("begin"));
+        expectTrue("自然实体右键置引燃状态", first.begin());
         expect("引燃不扣手中物品", 2, player.getMainHandItem().getCount());
         for (int tick = 0; tick < 19; tick++) first.baseTick();
-        expectTrue("引燃第十九刻仍在第一阶段", first.getPersistentData().getBoolean("begin") && !first.getPersistentData().getBoolean("begin2"));
+        expectTrue("引燃第十九刻仍在第一阶段", first.begin() && !first.begin2());
         CompoundTag saved = new CompoundTag();
         first.save(saved);
         DoubleBangFirework restored = (DoubleBangFirework) EntityType.loadEntityRecursive(saved, player.level(), entity -> entity);
-        expect("实体重读保留第一阶段刻数", 19, restored.getPersistentData().getDouble("tick"));
+        expect("实体重读保留第一阶段刻数", 19, restored.tickCount());
         restored.baseTick();
-        expectTrue("重读后第二十刻切换到二响阶段", !restored.getPersistentData().getBoolean("begin")
-                && restored.getPersistentData().getBoolean("begin2") && restored.getPersistentData().getDouble("tick") == 0);
+        expectTrue("重读后第二十刻切换到二响阶段", !restored.begin()
+                && restored.begin2() && restored.tickCount() == 0);
         expectTrue("第一响传燃一格盒范围内未点燃同类", group.stream().filter(entity -> entity != first)
-                .allMatch(entity -> entity.getPersistentData().getBoolean("begin")));
+                .allMatch(DoubleBangFirework::begin));
         first.discard();
         for (int tick = 0; tick < 19; tick++) restored.baseTick();
         expect("二响阶段每刻设置上升速度", .8, restored.getDeltaMovement().y);
@@ -127,15 +127,15 @@ final class DoubleBangFireworkCheck extends ActionCheck {
         restored = (DoubleBangFirework) EntityType.loadEntityRecursive(saved, player.level(), entity -> entity);
         restored.baseTick();
         expectTrue("二响阶段重读后第二十刻移除", restored.isRemoved());
-        expectTrue("二响完成清除来源状态", !restored.getPersistentData().getBoolean("begin2") && restored.getPersistentData().getDouble("tick") == 0);
+        expectTrue("二响完成清除来源状态", !restored.begin2() && restored.tickCount() == 0);
 
         DoubleBangFirework fixture = FestivalSetup.doubleBangType().get().create(player.level());
         fixture.moveTo(base.getX() + 8, base.getY() + 2, base.getZ(), 0, 0);
-        fixture.getPersistentData().putBoolean("begin2", true);
-        fixture.getPersistentData().putDouble("tick", 6);
+        fixture.setBegin2(true);
+        fixture.setTickCount(6);
         fixture.interact(player, InteractionHand.MAIN_HAND);
-        expectTrue("重复右键保留二响标记并重开第一阶段", fixture.getPersistentData().getBoolean("begin") && fixture.getPersistentData().getBoolean("begin2"));
-        expect("重复右键不重置共享计时", 6, fixture.getPersistentData().getDouble("tick"));
+        expectTrue("重复右键保留二响标记并重开第一阶段", fixture.begin() && fixture.begin2());
+        expect("重复右键不重置共享计时", 6, fixture.tickCount());
         expectTrue("玩家直接伤害按来源免疫", !fixture.hurt(player.damageSources().playerAttack(player), 1));
         expectTrue("摔落按来源免疫", !fixture.hurt(player.damageSources().fall(), 1));
         expectTrue("普通伤害仍接受", fixture.hurt(player.damageSources().generic(), 1));

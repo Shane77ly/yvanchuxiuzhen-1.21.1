@@ -27,6 +27,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongTracking;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongTrackingData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong05Entity;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
@@ -115,33 +116,33 @@ final class Guchong05LifecycleCheck extends SystemCheck {
         use(player);
         ordinary = nearby(player).stream().findFirst().orElseThrow(() -> new IllegalStateException("普通荧光蛊右键未释放实体"));
         expectTrue("普通荧光蛊原生右键释放并消耗一只，且不自动获得追踪目标",
-                player.getMainHandItem().isEmpty() && !ordinary.getPersistentData().getBoolean("zhuizhong")
-                        && ordinary.getPersistentData().getString("belongToMasterUUID").isEmpty());
+                player.getMainHandItem().isEmpty() && !ordinary.tracking().tracking()
+                        && ordinary.tracking().ownerUuid().isEmpty());
     }
 
     private void recoverOrdinary(ServerPlayer player) {
         unrelatedOwner = UUID.randomUUID().toString();
         if (unrelatedOwner.equals(player.getStringUUID())) unrelatedOwner = UUID.randomUUID().toString();
-        ordinary.getPersistentData().putString("belongToMasterUUID", unrelatedOwner);
+        ordinary.setTracking(ordinary.tracking().withOwnerUuid(unrelatedOwner));
         ordinary.mobInteract(player, InteractionHand.MAIN_HAND);
         ItemStack recovered = findItem(player);
         expectTrue("实体主人UUID与当前玩家不同时仍可右键回收", ordinary.isRemoved() && !recovered.isEmpty()
-                && !tag(recovered).getBoolean("zhuizhong") && tag(recovered).getString("belongToMasterUUID").equals(unrelatedOwner)
-                && !tag(recovered).contains("entitytick") && !tag(recovered).contains("entitytick2"));
+                && !GuchongTracking.get(recovered).tracking()
+                && GuchongTracking.get(recovered).ownerUuid().equals(unrelatedOwner));
         player.getInventory().clearContent();
     }
 
     private void releaseTracked(ServerPlayer player) {
         player.setItemInHand(InteractionHand.MAIN_HAND, GuchongTracking.createBound(player, destination));
         use(player);
-        trackedBeforeSave = nearby(player).stream().filter(entity -> entity.getPersistentData().getBoolean("zhuizhong"))
+        trackedBeforeSave = nearby(player).stream().filter(entity -> entity.tracking().tracking())
                 .findFirst().orElseThrow(() -> new IllegalStateException("悬赏荧光蛊右键未释放追踪实体"));
         trackedUuid = trackedBeforeSave.getUUID();
-        CompoundTag data = trackedBeforeSave.getPersistentData();
+        GuchongTrackingData data = trackedBeforeSave.tracking();
         expectTrue("悬赏荧光蛊真实物品入口保留主人与三维目标", player.getMainHandItem().isEmpty()
-                && data.getBoolean("zhuizhong") && data.getString("belongToMasterUUID").equals(player.getStringUUID())
-                && data.getDouble("zuobiaoX") == destination.getX() && data.getDouble("zuobiaoY") == destination.getY()
-                && data.getDouble("zuobiaoZ") == destination.getZ());
+                && data.tracking() && data.ownerUuid().equals(player.getStringUUID())
+                && data.targetX() == destination.getX() && data.targetY() == destination.getY()
+                && data.targetZ() == destination.getZ());
     }
 
     private boolean waitForSavePoint(int local) {
@@ -149,7 +150,7 @@ final class Guchong05LifecycleCheck extends SystemCheck {
         onServer(player -> {
             Entity entity = player.serverLevel().getEntity(trackedUuid);
             if (entity instanceof Guchong05Entity insect) {
-                tick[0] = insect.getPersistentData().getDouble("entitytick");
+                tick[0] = insect.entityTick();
                 if (tick[0] >= 12 && tick[0] < 100) player.server.tickRateManager().setFrozen(true);
             }
         });
@@ -189,14 +190,14 @@ final class Guchong05LifecycleCheck extends SystemCheck {
                 if (reloadWaitTicks > 40) throw new IllegalStateException("存档重进未恢复百刻前的追踪荧光蛊");
                 return;
             }
-            CompoundTag data = loaded.getPersistentData();
+            GuchongTrackingData data = loaded.tracking();
             expectTrue("真实退出重进恢复同一追踪实体和来源字段", loaded != trackedBeforeSave
-                    && data.getBoolean("zhuizhong") && data.getString("belongToMasterUUID").equals(player.getStringUUID())
-                    && data.getDouble("zuobiaoX") == destination.getX() && data.getDouble("zuobiaoY") == destination.getY()
-                    && data.getDouble("zuobiaoZ") == destination.getZ());
-            expectTrue("真实退出重进保留实体追踪计时", data.getDouble("entitytick") >= saveTick
-                    && data.getDouble("entitytick") < 100
-                    && data.getDouble("entitytick2") == data.getDouble("entitytick") % 5);
+                    && data.tracking() && data.ownerUuid().equals(player.getStringUUID())
+                    && data.targetX() == destination.getX() && data.targetY() == destination.getY()
+                    && data.targetZ() == destination.getZ());
+            expectTrue("真实退出重进保留实体追踪计时", loaded.entityTick() >= saveTick
+                    && loaded.entityTick() < 100
+                    && loaded.entityTick2() == loaded.entityTick() % 5);
             player.server.tickRateManager().setFrozen(false);
             checked[0] = true;
         });
@@ -207,9 +208,9 @@ final class Guchong05LifecycleCheck extends SystemCheck {
         boolean[] done = {false};
         onServer(player -> {
             Entity entity = player.serverLevel().getEntity(trackedUuid);
-            if (entity != null && !entity.isRemoved()) {
-                if (!resumedProgress && entity.getPersistentData().getDouble("entitytick") > saveTick) {
-                    expectTrue("重进后自然继续推进追踪计时", entity.getPersistentData().getDouble("entitytick") > saveTick);
+            if (entity instanceof Guchong05Entity insect && !entity.isRemoved()) {
+                if (!resumedProgress && insect.entityTick() > saveTick) {
+                    expectTrue("重进后自然继续推进追踪计时", insect.entityTick() > saveTick);
                     resumedProgress = true;
                 }
                 return;
@@ -218,15 +219,15 @@ final class Guchong05LifecycleCheck extends SystemCheck {
             if (returned.isEmpty()) {
                 throw new IllegalStateException("追踪荧光蛊百刻移除后未返还主人物品");
             }
-            CompoundTag data = tag(returned);
+            GuchongTrackingData data = GuchongTracking.get(returned);
             expectTrue("百刻返还发生在重进后计时继续推进之后", resumedProgress);
             expectTrue("追踪荧光蛊百刻返还唯一物品并保留来源身份字段", returned.getCount() == 1
-                    && data.getBoolean("zhuizhong") && data.getString("belongToMasterUUID").equals(player.getStringUUID())
-                    && data.getDouble("zuobiaoX") == destination.getX() && data.getDouble("zuobiaoY") == destination.getY()
-                    && data.getDouble("zuobiaoZ") == destination.getZ() && !data.getBoolean("guchongxvnfu")
-                    && !data.getBoolean("kanjia") && data.getDouble("homeblockX") == 0
-                    && data.getDouble("homeblockY") == 0 && data.getDouble("homeblockZ") == 0);
-            expectTrue("返还物品不复制两个实体计时器", !data.contains("entitytick") && !data.contains("entitytick2"));
+                    && data.tracking() && data.ownerUuid().equals(player.getStringUUID())
+                    && data.targetX() == destination.getX() && data.targetY() == destination.getY()
+                    && data.targetZ() == destination.getZ() && !data.tamed()
+                    && !data.cutPrice() && data.homeX() == 0
+                    && data.homeY() == 0 && data.homeZ() == 0);
+            expectTrue("返还物品不复制两个实体计时器", !tag(returned).contains("entitytick") && !tag(returned).contains("entitytick2"));
             done[0] = true;
         });
         if (!done[0] && local > 180) throw new IllegalStateException("荧光蛊百刻返还超时");

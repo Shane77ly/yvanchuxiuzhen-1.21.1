@@ -14,6 +14,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -23,10 +27,11 @@ final class Yaoshou040skill02DangShiTiGengXinKeShi {
     static void execute(LevelAccessor world, Entity entity) {
         if (world instanceof ServerLevel _level)
             _level.sendParticles(Particles.type("yaoshou_040skill_0201"), (entity.getX()), (entity.getY()), (entity.getZ()), 5, 1.8, 1.8, 1.8, 0);
-        if (!entity.getPersistentData().getBoolean("kaishi")) {
+        CreatureState state = CreatureData.state(entity);
+        if (state.startFlag() == 0) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1200, 0, (false), (false)));
-            entity.getPersistentData().putBoolean("kaishi", (true));
+            state.setStartFlag(1);
         }
         if (entity.onGround()) {
             if (world instanceof ServerLevel _level)
@@ -48,12 +53,7 @@ final class Yaoshou040skill02DangShiTiGengXinKeShi {
                         .toList();
                 for (Entity entityiterator : _entfound) {
                     if (!Relations.isFriendly(entity, entityiterator)) {
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "光" + " " + entity.getStringUUID() + " " + "false" + " " + "8" + " " + "2"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.LIGHT, entity, false, 8, 2);
                     }
                 }
             }

@@ -2,10 +2,12 @@
 topic: town
 role: entry
 status: partial
-updated: 2026-11-16
+updated: 2026-11-28
 ---
 
 # 城镇
+
+已完成建造计划与已建目录去套壳：`TownBuildPlan` 改为 11 字段强类型结构，`TownBlockEntity` 改持 `TownBuildRegistry`，并消除 `TownMenu` 中的 `split("/")` 拼接传输（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c城镇建造计划与清单去套壳)）。
 
 标识 `town`，类别：系统。职责：城镇建设、居民与建筑（[系统设计](../../development/system-design.md)）。
 

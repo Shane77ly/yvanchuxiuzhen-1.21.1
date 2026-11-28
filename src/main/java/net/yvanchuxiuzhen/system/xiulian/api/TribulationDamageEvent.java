@@ -4,19 +4,25 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.Event;
 
-/** 修炼雷劫实体筛选敌方后发出的伤害请求，命令文本保留攻击量取整与倍率。 */
+/** 雷劫实体筛选目标后发出的雷伤请求。 */
 public final class TribulationDamageEvent extends Event {
     private final ServerLevel level;
     private final LivingEntity target;
-    private final String command;
+    private final LivingEntity attacker;
+    private final double base;
+    private final double multiplier;
 
-    public TribulationDamageEvent(ServerLevel level, LivingEntity target, String command) {
+    public TribulationDamageEvent(ServerLevel level, LivingEntity target, LivingEntity attacker, double base, double multiplier) {
         this.level = level;
         this.target = target;
-        this.command = command;
+        this.attacker = attacker;
+        this.base = base;
+        this.multiplier = multiplier;
     }
 
     public ServerLevel level() { return level; }
     public LivingEntity target() { return target; }
-    public String command() { return command; }
+    public LivingEntity attacker() { return attacker; }
+    public double base() { return base; }
+    public double multiplier() { return multiplier; }
 }

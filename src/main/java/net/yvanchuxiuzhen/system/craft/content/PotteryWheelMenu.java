@@ -87,25 +87,25 @@ public final class PotteryWheelMenu extends AbstractContainerMenu {
     }
 
     public Component outputName() {
-        if (!(level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel)
-                || wheel.getPersistentData().getString("wenben1").isEmpty()) return Component.empty();
-        int selected = wheel.getPersistentData().getInt("xvanzeweizhi");
-        String itemId = wheel.getPersistentData().getString("chengpinid" + selected);
+        if (!(level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel) || wheel.text(1).isEmpty()) {
+            return Component.empty();
+        }
+        String itemId = wheel.outputId(wheel.selected());
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemId))).getHoverName();
     }
 
     public Component costLabel() {
-        if (!(level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel)
-                || wheel.getPersistentData().getString("wenben2").isEmpty()) return Component.empty();
+        if (!(level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel) || wheel.text(2).isEmpty()) {
+            return Component.empty();
+        }
         return Component.translatable("gui.yvanchuxiuzhen.craft.pottery_clay");
     }
 
     public Component costAmount() {
-        if (!(level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel)
-                || wheel.getPersistentData().getString("wenben3").isEmpty()) return Component.empty();
-        int selected = wheel.getPersistentData().getInt("xvanzeweizhi");
-        return Component.translatable("gui.yvanchuxiuzhen.craft.pottery_count",
-                wheel.getPersistentData().getInt("needitem" + selected));
+        if (!(level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel) || wheel.text(3).isEmpty()) {
+            return Component.empty();
+        }
+        return Component.translatable("gui.yvanchuxiuzhen.craft.pottery_count", wheel.needItem(wheel.selected()));
     }
 
     public boolean press(ServerPlayer player, int button) {

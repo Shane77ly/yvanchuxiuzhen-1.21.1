@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.text.DecimalFormat;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,6 +11,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.treasure.TreasureToolSettings;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureToolMenu;
 import net.yvanchuxiuzhen.system.treasure.network.TreasureToolButtonPayload;
 
@@ -66,12 +66,12 @@ public final class TreasureToolScreen extends AbstractContainerScreen<TreasureTo
         graphics.drawString(font, text("level"), 6, 79, COLOR, false);
         graphics.drawString(font, text("maximum"), 123, 115, COLOR, false);
         graphics.drawString(font, text("minimum"), 6, 115, COLOR, false);
-        CompoundTag data = TreasureToolSettings.display(minecraft.player.getMainHandItem());
-        graphics.drawString(font, data.getString("TreasureTypeBig"), 51, 25, COLOR, false);
-        graphics.drawString(font, data.getString("TreasureTypeSmall"), 51, 61, COLOR, false);
-        graphics.drawString(font, text("grade").copy().append(WHOLE.format(data.getDouble("TreasureLEVEL"))), 51, 97, COLOR, false);
-        graphics.drawString(font, text("min").copy().append(WHOLE.format(data.getDouble("minimumvalue"))), 33, 133, COLOR, false);
-        graphics.drawString(font, text("max").copy().append(WHOLE.format(data.getDouble("Maximumvalue"))), 114, 133, COLOR, false);
+        TreasureContainerConfig data = TreasureToolSettings.display(minecraft.player.getMainHandItem());
+        graphics.drawString(font, data.category(), 51, 25, COLOR, false);
+        graphics.drawString(font, data.subtype(), 51, 61, COLOR, false);
+        graphics.drawString(font, text("grade").copy().append(WHOLE.format(data.level())), 51, 97, COLOR, false);
+        graphics.drawString(font, text("min").copy().append(WHOLE.format(data.minimum())), 33, 133, COLOR, false);
+        graphics.drawString(font, text("max").copy().append(WHOLE.format(data.maximum())), 114, 133, COLOR, false);
     }
 
     @Override

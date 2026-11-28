@@ -3,11 +3,11 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameRules;
 import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 import net.yvanchuxiuzhen.system.xiulian.XiulianWorldData;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -26,7 +26,7 @@ final class CultivationCommandCheck extends SystemCheck {
             "killentitypointswater", "killentitytree", "killentitypointstree", "killentityfire",
             "killentitypointsfire", "killentitysoil", "killentitypointssoil"};
     private final Map<CultivationValue, Double> original = new EnumMap<>(CultivationValue.class);
-    private CompoundTag originalTizhi;
+    private ConstitutionState originalTizhi;
     private double originalDailyExperience;
     private int originalRootLevel;
     private boolean originalBirthSelection;
@@ -78,7 +78,7 @@ final class CultivationCommandCheck extends SystemCheck {
         rules.getRule(GameRules.RULE_DAYLIGHT).set(false, player.server);
         Cultivation.editTizhi(player, tag -> {
             originalTizhi = tag.copy();
-            tag.putDouble("jishiqi", player.serverLevel().getDayTime());
+            tag.setNumber("jishiqi", player.serverLevel().getDayTime());
         });
 
         String realm = Cultivation.get(player, CultivationText.LEVEL_NAME);
@@ -154,12 +154,8 @@ final class CultivationCommandCheck extends SystemCheck {
         rules.getRule(GameRules.RULE_DAYLIGHT).set(originalDaylight, player.server);
     }
 
-    private void restoreTag(CompoundTag tag, String key) {
-        if (originalTizhi.contains(key)) {
-            tag.put(key, originalTizhi.get(key).copy());
-        } else {
-            tag.remove(key);
-        }
+    private void restoreTag(ConstitutionState tag, String key) {
+        tag.copyKeyFrom(originalTizhi, key);
     }
 
     private static void command(ServerPlayer player, String arguments) {

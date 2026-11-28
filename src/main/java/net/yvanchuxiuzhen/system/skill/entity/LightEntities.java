@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -44,9 +43,8 @@ final class LightEntities {
     private static final class Flash implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") < 3) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() < 3) {
                 return;
             }
             ServerLevel level = (ServerLevel) self.level();
@@ -75,7 +73,7 @@ final class LightEntities {
                     SkillDelays.after(delay, () -> flashParticles(level, self));
                 }
             }
-            scratch.putDouble("tick", 0);
+            self.setSkillTick(0);
             self.discard();
         }
 

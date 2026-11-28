@@ -23,6 +23,11 @@ import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 public final class FormationArrow extends AbstractArrow implements ItemSupplier {
     private int knockback;
     private byte pierce;
+    private int arrowTick;
+    private int targetMode;
+    private int manaAttackDamage;
+    private String manaAttackUuid = "";
+    private double damageMultiplier;
 
     public FormationArrow(EntityType<? extends FormationArrow> type, Level level) { super(type, level); }
     public FormationArrow(EntityType<? extends FormationArrow> type, LivingEntity owner, Level level) {
@@ -30,22 +35,41 @@ public final class FormationArrow extends AbstractArrow implements ItemSupplier 
     }
 
     public void launchedWith(int piercing) { knockback = 2; pierce = (byte) piercing; }
+    public int targetMode() { return targetMode; }
+    public int manaAttackDamage() { return manaAttackDamage; }
+    public String manaAttackUuid() { return manaAttackUuid; }
+    public double damageMultiplier() { return damageMultiplier; }
+    public void setArrowTick(int tick) { arrowTick = tick; }
     @Override public ItemStack getItem() { return ItemStack.EMPTY; }
     @Override protected ItemStack getDefaultPickupItem() { return new ItemStack(Items.ARROW); }
     @Override protected ItemStack getPickupItem() { return ItemStack.EMPTY; }
     @Override public byte getPierceLevel() { return pierce; }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("arrow_tick", arrowTick);
+        tag.putInt("target_mode", targetMode);
+        tag.putInt("mana_attack_damage", manaAttackDamage);
+        tag.putString("mana_attack_uuid", manaAttackUuid);
+        tag.putDouble("damage_multiplier", damageMultiplier);
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         pierce = tag.getByte("PierceLevel");
+        arrowTick = tag.getInt("arrow_tick");
+        targetMode = tag.getInt("target_mode");
+        manaAttackDamage = tag.getInt("mana_attack_damage");
+        manaAttackUuid = tag.getString("mana_attack_uuid");
+        damageMultiplier = tag.getDouble("damage_multiplier");
     }
 
     @Override
     protected void doKnockback(LivingEntity entity, DamageSource damageSource) {
         if (knockback <= 0) return;
-        double resistance = Math.max(0, 1 - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-        Vec3 push = getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * .6 * resistance);
+        Vec3 push = getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * .6);
         if (push.lengthSqr() > 0) entity.push(push.x, .1, push.z);
     }
 
@@ -60,11 +84,9 @@ public final class FormationArrow extends AbstractArrow implements ItemSupplier 
         super.onHitEntity(result);
         if (level().isClientSide()) return;
         Entity target = result.getEntity();
-        int mode = getPersistentData().getInt("zhenmubiao");
         boolean sameTeam = Relations.entityTeam(this).equals(Relations.entityTeam(target));
-        if (mode == 1 ? sameTeam : mode != 2 || !sameTeam) {
-            SpellDamage.markFormationManaAttack(target, getPersistentData().getInt("ManaAttackDamage"),
-                    getPersistentData().getString("ManaAttackUUID"), getPersistentData().getDouble("Damage_multiplier"));
+        if (targetMode == 1 ? sameTeam : targetMode != 2 || !sameTeam) {
+            SpellDamage.markFormationManaAttack(target, manaAttackDamage, manaAttackUuid, damageMultiplier);
         }
     }
 
@@ -73,17 +95,17 @@ public final class FormationArrow extends AbstractArrow implements ItemSupplier 
         super.tick();
         Entity owner = getOwner();
         if (owner != null && level() instanceof ServerLevel server) {
-            CompoundTag data = getPersistentData();
-            data.putInt("tick", data.getInt("tick") + 1);
-            if (data.getInt("tick") >= 20) {
-                data.putInt("tick", 0);
+            arrowTick += 1;
+            if (arrowTick >= 20) {
+                arrowTick = 0;
                 server.getServer().getPlayerList().broadcastSystemMessage(Component.literal("应该清除"), false);
                 discard();
             }
             if (!isNoGravity()) {
                 Relations.setTeam(this, Relations.entityTeam(owner));
-                data.putInt("ManaAttackDamage", owner.getPersistentData().getInt("zhenLEVEL"));
-                data.putDouble("Damage_multiplier", .5 + owner.getPersistentData().getInt("zhenLEVEL") * .5);
+                int rank = owner instanceof FormationActor actor ? actor.zhenLevel() : 0;
+                manaAttackDamage = rank;
+                damageMultiplier = .5 + rank * .5;
                 setNoGravity(true);
             }
         }

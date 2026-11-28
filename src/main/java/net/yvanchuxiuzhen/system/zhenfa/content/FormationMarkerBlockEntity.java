@@ -38,6 +38,8 @@ public final class FormationMarkerBlockEntity extends RandomizableContainerBlock
     private final IItemHandler[] sided = new IItemHandler[6];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final String kind;
+    private String team = "";
+    private boolean childBound;
 
     public FormationMarkerBlockEntity(BlockPos pos, BlockState state) {
         super(ZhenfaBlockEntities.markerType(state), pos, state);
@@ -47,17 +49,17 @@ public final class FormationMarkerBlockEntity extends RandomizableContainerBlock
     }
 
     public boolean compass() { return kind.equals("luopan"); }
-    public String team() { return getPersistentData().getString("team"); }
-    public boolean childBound() { return getPersistentData().getBoolean("qimubiaoshezhi"); }
+    public String team() { return team; }
+    public boolean childBound() { return childBound; }
     public IItemHandler handler(Direction direction) {
         return direction == null ? unsided : sided[direction.ordinal()];
     }
     public void team(String team) {
-        getPersistentData().putString("team", team);
+        this.team = team == null ? "" : team;
         changed();
     }
     public void childBound(boolean bound) {
-        getPersistentData().putBoolean("qimubiaoshezhi", bound);
+        this.childBound = bound;
         changed();
     }
     public void animation(int animation) {
@@ -83,10 +85,14 @@ public final class FormationMarkerBlockEntity extends RandomizableContainerBlock
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        team = tag.getString("team");
+        childBound = tag.getBoolean("child_bound");
     }
     @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!team.isEmpty()) tag.putString("team", team);
+        if (childBound) tag.putBoolean("child_bound", true);
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

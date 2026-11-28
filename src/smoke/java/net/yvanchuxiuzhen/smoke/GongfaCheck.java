@@ -1,8 +1,11 @@
 package net.yvanchuxiuzhen.smoke;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -90,6 +93,22 @@ final class GongfaCheck extends SystemCheck {
                     int before = countBooks(player.getInventory().items);
                     Techniques.giveTreasureBook(player, 1);
                     expect("书架藏宝给一本功法书", before + 1, countBooks(player.getInventory().items));
+                    RandomSource seeded = RandomSource.create(20261127L);
+                    int nonEmptyList6 = 0;
+                    for (int draw = 0; draw < 120; draw++) {
+                        if (!TechniqueLibrary.roll(6, seeded).isEmpty()) nonEmptyList6++;
+                    }
+                    expect("Q26 第6表 120 次抽样均非空", 120, nonEmptyList6);
+                    int nonEmptyList7 = 0;
+                    Set<String> tier7Names = new HashSet<>();
+                    for (int draw = 0; draw < 240; draw++) {
+                        ItemStack rolled = TechniqueLibrary.roll(7, seeded);
+                        if (!rolled.isEmpty()) nonEmptyList7++;
+                        Techniques.book(rolled).ifPresent(entry -> tier7Names.add(entry.definition().name()));
+                    }
+                    expect("Q26 第7表 240 次抽样均非空", 240, nonEmptyList7);
+                    expect("Q26 第7表 12 本功法全可达", 12, tier7Names.size());
+                    expectTrue("Q26 第7表含《血魔祭魂秘法》", tier7Names.contains("血魔祭魂秘法"));
                     Techniques.setSlot(player, ItemStack.EMPTY);
                     expectTrue("取出后主修功法为空", !Cultivation.mainTechnique(player).present());
                     expect("取出后生命上限复原", healthBefore, PlayerAttributes.value(player, Stat.HEALTH_MAX));

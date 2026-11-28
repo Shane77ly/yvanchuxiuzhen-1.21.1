@@ -28,7 +28,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.npc.NpcData;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.entity.NpcFlyingShuttle;
 
 /** 显式生成08号后的真实右键乘坐、载人运动与阶段存档；不代表来源自然获取入口存在。 */
@@ -73,7 +76,7 @@ final class NpcFlyingShuttleCheck extends SystemCheck {
             case 3 -> {
                 boolean[] mounted = new boolean[1];
                 onServer(player -> mounted[0] = player.getVehicle() == shuttle(player)
-                        && shuttle(player).getPersistentData().getBoolean("jieduan"));
+                        && shuttle(player).isCutOff());
                 if (!mounted[0] || minecraft.player.getVehicle() != minecraft.level.getEntity(networkId)) {
                     if (local > 200) abort("真实右键后乘坐状态未同步到双端");
                     return false;
@@ -81,9 +84,9 @@ final class NpcFlyingShuttleCheck extends SystemCheck {
                 onServer(player -> {
                     NpcFlyingShuttle shuttle = shuttle(player);
                     expectTrue("首次真实乘坐移除初生缓降", !shuttle.hasEffect(MobEffects.SLOW_FALLING));
-                    expectTrue("NPC标签触发既有全局右键标记且不生成商店脚本", shuttle.getPersistentData().getBoolean("renwuzuopen")
-                            && shuttle.getPersistentData().getString("renwulist1").isEmpty()
-                            && shuttle.getPersistentData().getString("productlist").isEmpty());
+                    expectTrue("NPC标签触发既有全局右键标记且不生成商店脚本", NpcDefinitions.isInteractiveNpc(shuttle)
+                            && shuttle.getData(NpcData.PROFILE).script(0).isEmpty()
+                            && shuttle.getData(NpcData.PROFILE).products().isEmpty());
                     shuttle.setYRot(90);
                     shuttle.baseTick();
                     expect("载人速度保持世界坐标方向，不随朝向旋转", new Vec3(0, .1, -.1), shuttle.getDeltaMovement());
@@ -121,7 +124,7 @@ final class NpcFlyingShuttleCheck extends SystemCheck {
                     player.stopRiding();
                     player.teleportTo(player.serverLevel(), shuttle.getX() + 3, shuttle.getY() + 1, shuttle.getZ(), 90, 0);
                     CompoundTag saved = shuttle.saveWithoutId(new CompoundTag());
-                    expectTrue("阶段随实体持久数据保存", saved.getCompound("NeoForgeData").getBoolean("jieduan"));
+                    expectTrue("阶段随实体持久数据保存", saved.getBoolean("cut_off"));
                     expectTrue("来源纹理同步值不另写自定义存档字段", !saved.contains("Texture"));
                     deathBoundary(player);
                 });
@@ -135,7 +138,7 @@ final class NpcFlyingShuttleCheck extends SystemCheck {
                 onServer(player -> {
                     NpcFlyingShuttle shuttle = shuttle(player);
                     expectTrue("正常存档重进保持原08身份与阶段", BuiltInRegistries.ENTITY_TYPE.getKey(shuttle.getType()).equals(ID)
-                            && shuttle.getPersistentData().getBoolean("jieduan"));
+                            && shuttle.isCutOff());
                     expectTrue("正常重进不执行初生过程覆盖已存效果", shuttle.hasEffect(MobEffects.SLOW_FALLING));
                     shuttle.mobInteract(player, InteractionHand.MAIN_HAND);
                     shuttle.baseTick();
@@ -189,8 +192,8 @@ final class NpcFlyingShuttleCheck extends SystemCheck {
         expectTrue("来源初生过程赋予1200刻无粒子缓降", shuttle.hasEffect(MobEffects.SLOW_FALLING)
                 && shuttle.getEffect(MobEffects.SLOW_FALLING).getDuration() == 1200
                 && !shuttle.getEffect(MobEffects.SLOW_FALLING).isVisible());
-        expectTrue("不使用商人等级初始化", shuttle.getPersistentData().getString("LEVELname").isEmpty()
-                && shuttle.getPersistentData().getDouble("LEVELnumber") == 0);
+        expectTrue("不使用商人等级初始化", EntityAttributes.realmName(shuttle).isEmpty()
+                && EntityAttributes.level(shuttle) == 0);
         expectTrue("来源NPC标签身份", type.is(TagKey.create(Registries.ENTITY_TYPE,
                 ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "npcentity"))));
         expectTrue("来源没有刷怪蛋物品", !BuiltInRegistries.ITEM.containsKey(

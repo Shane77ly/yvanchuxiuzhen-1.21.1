@@ -38,8 +38,7 @@ public final class RiftBlock extends ContentBlock implements EntityBlock {
         level.scheduleTick(pos, this, 2);
         level.setBlock(pos, state.setValue(ANIMATION, 1), 3);
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof RiftBlockEntity block) {
-            block.getPersistentData().putBoolean("kaishi", true);
-            block.changed();
+            block.beginRelease();
         }
     }
 

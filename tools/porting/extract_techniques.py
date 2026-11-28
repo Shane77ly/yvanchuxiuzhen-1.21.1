@@ -5,7 +5,7 @@
 - src/main/resources/content/gongfa/techniques.json：一行一本，list 为过程序号（藏宝等级），roll 为分支的随机数值
 - src/main/resources/content/gongfa/technique_lists.json：每个过程的随机数上限 max
 
-随机数取不到的分支与取到却没有分支的数值按原样保留（行的 roll 大于 max，或 1–max 中有缺号），由运行时规则处理。
+阶段 4（Q26）在保留来源数据提取的同时将第 6/7 表上限修正为 8/12（STAGE4_MAXIMA_OVERRIDES）。
 工具可重复运行，输出只取决于来源。
 """
 from __future__ import annotations
@@ -18,6 +18,7 @@ from convert_content import SOURCES
 
 PROCEDURES = SOURCES['yvanchuxiuzhen'][0] / 'src/main/java/net/mcreator/yvanchuxiuzhen/procedures'
 OUTPUT = ROOT / 'src/main/resources/content/gongfa'
+STAGE4_MAXIMA_OVERRIDES = {6: 8, 7: 12}
 STRING_FIELDS = {'ExercisesName': 'name', 'belongTopinjietext': 'grade_text', 'belongToLeveltext': 'level_text',
                  'belongTobody': 'body', 'belongTojianjie': 'intro'}
 NUMBER_FIELDS = {'belongTopinjie': 'grade', 'belongToLevel': 'level'}
@@ -62,7 +63,7 @@ def main() -> None:
         low, high = map(int, re.search(r'Mth\.nextInt\(new Random\(\), (\d+), (\d+)\)', text).groups())
         if low != 1:
             raise ValueError(f'第 {list_number} 表的随机数下限不是 1：{low}')
-        lists.append({'list': list_number, 'max': high})
+        lists.append({'list': list_number, 'max': STAGE4_MAXIMA_OVERRIDES.get(list_number, high)})
         parts = re.split(r'suijishu == (\d+)\) \{', text)
         for index in range(1, len(parts), 2):
             rows.append(parse_branch(int(parts[index]), parts[index + 1], list_number))

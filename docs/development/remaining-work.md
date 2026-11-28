@@ -2,7 +2,7 @@
 topic: migration-remaining-work
 role: guide
 status: current
-updated: 2026-11-22
+updated: 2026-11-27
 ---
 
 # 当前实现覆盖与开放工作
@@ -17,7 +17,7 @@ updated: 2026-11-22
 
 当前工作分支自方法修订提交 `6d1db082` 接续上述玩法基线。该修订根据 Git、各系统 README、内容台账和最近 Skill 原始报告归并状态，没有重新逐条审计所有源码或运行游戏。下面是已知开放功能包的统一索引，不能据此宣称源码已无其他遗漏；各行中仍待核对的范围在所属批次展开，保持同一条目身份，避免重新全库调查。新批次未获得相应证据前不提升内容台账状态。
 
-内容台账 `docs/systems/*/ledger/content.csv` 共4939行：1714行“行为已迁移”、3146行“已注册”、67行“待处理”、12行“已验收”（2026-11-22 集成树台账检查）。这些行包含静态注册和不同粒度的内容，且不覆盖全部字段/过程，不换算成整体完成百分比。
+内容台账 `docs/systems/*/ledger/content.csv` 在 `cdcc561a` 共 4,939 行：1,802 行“行为已迁移”、3,117 行“已注册”、8 行“待处理”、12 行“已验收”（2026-11-23 重新计数）。8 行由 Q28 的 4 个注册身份与其余 4 个未确认来源入口的菜单构成；下节是 11 月 16 日的历史分布，不是当前待办数。这些行包含静态注册和不同粒度的内容，且不覆盖全部字段/过程，不换算成整体完成百分比。
 
 ## 距全量移植的差距（2026-11-16）
 
@@ -128,6 +128,81 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 ## 当前调度
 
+### 2026-11-27 架构终极收尾（去套壳与剩余配方 JSON 化）、阶段 4 全量原版 Bug 清理与黄金基线收口
+
+在阶段 1、2A、2B、3 与阶段 4 首批（13 项）合入 `port/20261123-parity-integration`（`3d3df3f1`）后，经全仓 1,696 个 Java 源文件深度体检，负责人于 2026-11-27 明确决定：**阶段 2C（妖兽 AI 选技能规则拆分）暂不实施、保留现有 Java 代码；其余体检发现的“套壳 `CompoundTag` 与剩余 4 类硬编码配方”、“阶段 4 剩余全量 1.18.2 严重玩法 Bug”以及“遗留夹具修补与仓库分支清理”全部执行**，完成后合入本地 `main` 作为后续开发自创内容（定位 B）的黄金基线（决定记录见[项目状态](../systems/project/README.md)与[项目月志](../systems/project/logs/2026-11.md#2026-11-27-架构终极收尾与阶段-4-全量原版-bug-清理方案定案)）。
+
+#### 1. 执行红线与门禁要求
+
+1. **零旧存档兼容、彻底消灭“套壳 `CompoundTag`”**：
+   - 不保留任何旧存档/旧 NBT 运行期回退分支；凡涉及内置 `.nbt` 结构模板的数据格式调整（如副本控制器 `fubenshujv`、城镇建造数据），一律通过 `tools/porting/` 下的 Python 脚本离线升级 `.nbt` 文件。
+   - 严禁为了绕过 ArchUnit 规则 7 而使用 `AttachmentType<CompoundTag>`、`record Xxx(CompoundTag data)` 或在 `BlockEntity` 中保留 `private CompoundTag state = new CompoundTag()` 万能字典（天道通用调试工具 `NbtEditorData` 除外）。
+2. **单工作树分支流转与准入门禁**：
+   - 固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 操作，以 `port/20261123-parity-integration`（`3d3df3f1`）为基线，按下方 **7 个子批次**依次检出 `refactor/*` 分支；
+   - 每个子批次完成后必须串行通过：
+     1. `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`（含 `ArchitectureTest`）
+     2. 对应系统的静音客户端 Smoke 场景（`./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景> runSmokeClient`，默认 2 GiB 堆、`soundCategory_master:0.0`）
+     3. `python -B -X utf8 tools/porting/check_ledger.py`（0 问题）、`python -B -X utf8 tools/docs/check_docs.py`（0 问题）与 `git diff --check`
+   - 验证通过后以 `git merge --no-ff` 合入 `port/20261123-parity-integration`，同步更新所属系统正文、月志、本表及[交接说明](handoff.md)。
+
+#### 2. 七大收尾子批次详细任务单
+
+| 序号与分支名 | 目标模块与解决的核心问题 | 具体重构 / 修复任务与技术标准 | 验收与闭合门禁 |
+| --- | --- | --- | --- |
+| **子批 1（阶段 5A，已完成并合入）**<br>`refactor/p5a-dungeon-zhenfa-codec-json` | **副本与阵法彻底转 `Codec` + JSON 数据驱动 & 消除套壳 `CompoundTag`**<br>覆盖 `dungeon`、`zhenfa` | 已完成 `DungeonDefinition`/`FormationRecipeDefinition` 等强类型 `record` + `Codec`、`dungeons.json`（45 份）/ `formations.json`（33 份）、5 份 `.nbt` 模板离线升级、Q81/Q109/Q04 修复以及 `DungeonData`/`DungeonBlockEntity`/`FormationBaseBlockEntity` 去套壳。 | `dungeon`、`formation,structurerelease` Smoke `0 FAIL`/`DONE`，全量编译及单测/ArchUnit 通过，已 `--no-ff` 合入集成分支。 |
+| **子批 2（阶段 5B，已完成并合入）**<br>`refactor/p5b-cooking-craft-codec-json` | **烹饪与生活制造配方全面转 `Codec` + JSON 数据驱动**<br>覆盖 `cooking`、`craft` | 已完成 `CookingRuleDefinition`/`CraftRecipeDefinition`（`Codec.dispatch`）、`content/cooking/recipes.json`（25 条）与 `content/craft/recipes.json`（68 条）数据驱动，并剥离 `CookingPotBlockEntity.inkScratch` 与 `SilkwormBoxBlockEntity.silkworm_stats` 套壳字段。 | `fulucooking,naturalsilkchain` Smoke（349 行，`0 FAIL`/`DONE`）及全量编译、单测、ArchUnit 通过，已 `--no-ff` 合入集成分支。 |
+| **子批 3（阶段 5C，已完成并合入）**<br>`refactor/p5c-unbox-compoundtag-wrappers` | **剥离任务、经济、城镇、修炼体质与炼器词条的“套壳 `CompoundTag` / 万能字典” & 升级 ArchUnit 规则 7**<br>覆盖 `quest`、`economy`、`town`、`xiulian`、`equipment`、`lianqi`、`liandan`、`guchong` | 已完成 `QuestData`、`BountyBoardBlockEntity`、`CommerceData.SESSION`、`EconomyBlockState`、`TownBuildRegistry`/`TownBuildPlan`（消除 `TownMenu.split("/")`）、`ConstitutionState`、`EquipmentRefinement.Mutable`、`HerbAnalysis`、`TaoguanJarState` 等强类型改造，并在 `ArchitectureTest` 升级规则 7 封禁套壳 `AttachmentType<CompoundTag>`、`DataComponentType<CompoundTag>`、`record` 与 `BlockEntity` `CompoundTag` 字段（仅豁免 `NbtEditorData`/`NbtEditorBlockEntity`/`SealedCorpse`）。 | `ArchitectureTest` 升级版规则 7 及全量单测通过；Batch A（445 行）、Batch B（964 行）、Batch C（193 行）共 12 组 Smoke 场景全部 `0 FAIL`/`DONE`，已 `--no-ff` 合入集成分支。 |
+| **子批 4（阶段 4B，已完成并合入）**<br>`refactor/p4b-combat-enchant-poison-fixes` | **阶段 4 续批一：战斗、命中附魔、毒药效果与死亡消息原版 Bug 清理**<br>覆盖 `Q32`、`Q33`、`Q34`、`Q45`（`combat`、`skill`、`relation`） | 已完成 Q32/Q45（毒药与锯齿时长取消误乘 20、`lingtikiller`/`liuqing` 改读自身等级、`chaos` 改用受击者世界 Z、火/冰/雷甲范围反伤豁免自身、灵纹读自身 `lingwen` 等级扣攻击者灵力并用 `copyFrom` 避免污染好友表）、Q33（`duyao_09`/`13`/`20`/`21` 与 `effect_010`/`017` 中英文说明对齐）及 Q34（`death.attack.{lingli,jingli}damage` 含 `.player`/`.player.item` 中英文键补齐）。 | `compileJava compileTestJava compileSmokeJava test` 通过；`-PsmokeOnly=combat,lingwen` 客户端 Smoke 110 行 `0 FAIL`/`DONE`；`source-survey.md`、`combat`/`skill` 文档及月志已更新并 `--no-ff` 合入集成分支。 |
+| **子批 5（阶段 4C，已完成并合入）**<br>`refactor/p4c-skill-equipment-bow-fixes` | **阶段 4 续批二：18 把弓右键蓄力射箭、淬毒炼药锅、技能冷却与神通释放原版 Bug 清理**<br>覆盖 `Q35`、`Q36`、`Q37`、`Q38`、`Q39`、`Q41`、`Q42`、`Q44`、`Q57`、`Q68`（`equipment`、`lianqi`、`skill`） | 已完成 Q57（18 把速弓/长弓经 `BowWeaponItem` 与 `items.json` 工厂接入右键蓄力/取消/松手射箭）、Q35（`PoisonCrafting.useCauldron` 统一 8 毒条件）、Q36–Q39（冷却每组重置 `delta` 与阴阳读自身、`jineng` 权限 1、`weaponTooHeavy` 读主手 `held`、Z 键与提示修正）、Q41/Q42/Q44（控火术施放者与正常伤害、巨石锤眩晕受击者、木篱 194 刻消散/回身鞭无霸体/灰木树梯 52 刻）与 Q68（04 装配页槽位改动与登出即时写回）。 | `compileJava/compileTestJava/compileSmokeJava/test`、`equipmentweapon`、`equipmentproduct`、`skillloadoutcontainer`、`skillcore,skillentity`（269 行 `0 FAIL`/`DONE`）与 `skillui`（57 行 `0 FAIL`/`DONE`）全部通过并 `--no-ff` 合入集成分支；`source-survey.md` 与所属系统文档已同步。 |
+| **子批 6（阶段 4D，已完成并合入）**<br>`refactor/p4d-cultivation-economy-dungeon-fixes` | **阶段 4 续批三：丹田本命槽吞物品、商店以物易物漏洞、副本拒入扣票与其余体验 Bug 清理**<br>覆盖 `Q19`、`Q21`、`Q22`、`Q25`、`Q72`、`Q73`、`Q88`、`Q93`、`Q94`、`Q96`、`Q103`、`Q192`、`Q214` | 已完成 Q25（丹田本命槽堆叠上限设 `1`）、Q21（体质随机 `1..12`）、Q22（法防增量符号与神识攻防标签）、Q19（好友调试字/查重/双向删除）、Q93（商店以物易物预检与精确扣减）、Q72（生存商铺限购）、Q73（图纸重量折价）、Q88（`"强筋"` 兼容）、Q94（材料商店三档均可达）、Q96（拍卖托管 `managed` 对齐）、Q103（副本准入拒入不扣票/不置冷却）、Q192（博古架全 ID 排除 `yvanchuxiuzhen:ling_16`）与 Q214（签筒 `1..36` 均匀随机）。 | `compileJava/compileTestJava/compileSmokeJava/test`、`relation,commerce,npcmanagement,tiandao_display,animateddecor`、`commerce,npcmanagement,animateddecor`（424 行）、`npcmanagement,benmingcultivation,dungeon` 与 `xiulian`（105 行 `0 FAIL`/`DONE`）全部通过，`source-survey.md` 及各系统文档已更新并 `--no-ff` 合入集成分支。 |
+| **子批 7（阶段 6，已完成并合入本地 `main`）**<br>`refactor/p6-test-fixtures-and-main-closure` | **遗留测试夹具修补、冗余 Worktree/临时分支清理与合入本地 `main` 黄金基线** | 已将 `AttributeCheck` 重生后当前生命断言对齐 `11.0`，并将 `QiankunDialogueCheck`（`q119`）与 `SmokeRun` 改为代码自举建坛；安全移除 3 个已合入的干净子工作树（`rebuild-parity-controls`、`rebuild-parity-damage`、`rebuild-parity-dialogue`）及 28 个已合入本地临时分支（`rebuild-terrain-generation-research` 因含 16 个未合入提交及未提交地形研究文件暂予保留待负责人确认）。 | `attribute,q119`（51 行 `0 FAIL`/`DONE`）及全量 `compileJava/compileTestJava/compileSmokeJava/test/jar`、`check_ledger.py`、`check_docs.py`、`git diff --check` 全通，`port/20261123-parity-integration` 已 `--no-ff` 合入本地 `main`。 |
+
+---
+
+### 2026-11-24 底层架构四大痛点重构方案与执行路线（零旧存档兼容、一步到位数据驱动）
+
+负责人于 2026-11-24 明确项目后续进入**定位 B（为自创玩法、长期维护与 JSON 数据驱动扩展做准备）**，授权先暂停新增内容，集中重构现有 1.21.1 代码库的**四大底层架构痛点**，并明确指示：**“不需要考虑任何旧存档兼容问题，直接按最优架构和路径实施”**（决定记录见[项目状态](../systems/project/README.md)与[项目月志](../systems/project/logs/2026-11.md#2026-11-24-底层架构四大痛点重构方案与执行路线定案)）。
+
+#### 1. 核心架构原则与工程红线
+
+1. **零旧存档兼容、零运行期回退胶水**：
+   - 运行时 Java 代码**彻底废除双轨制**，不保留任何旧存档/旧 NBT 的运行期读取回退或 `attachFromLegacyTag` 胶水逻辑。
+   - 项目内置的 161 个 `.nbt` 结构模板文件（如 `data/yvanchuxiuzhen/structure/*.nbt`）中预置的箱子物品与方块实体数据，一律在**构建前通过 Python 脚本（`tools/porting/convert_structures.py`）一次性离线升级为 1.21.1 原生组件格式**，确保运行时代码 100% 纯净。
+2. **结构重构与原版 Bug 清理严格解耦**：
+   - **阶段 1～3（纯架构重构）**：只替换底层数据载体、将硬编码大表/分隔符脚本抽为 `Codec` + JSON 数据驱动、消除运行期命令拼接与高频字符串查找，**不改变既有业务数值与判定语义**，确保全部单元/架构测试与 Smoke 场景零退化。
+   - **阶段 4（1.18.2 原版遗留 Bug 清理）**：在阶段 1～3 架构稳定后，专门清理 `docs/reference/legacy/source-survey.md` 中为迁就 1.18.2 行为而保留的原版 Bug（Q01–Q281），并同步更新对应测试断言与系统文档。
+3. **单工作树分支管理与合入门禁**：
+   - 固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 执行，以当前集成分支 `port/20261123-parity-integration`（或合入后的集成分支）为基线，按下方批次依次检出 `refactor/p<阶段>-<主题>` 功能分支；
+   - 每完成一个子批次，必须串行通过：
+     1. `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`（含 `ArchitectureTest`）
+     2. 对应系统的最小客户端 Smoke 场景（`./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景> runSmokeClient`，保持 `soundCategory_master:0.0` 静音）
+     3. `python -B -X utf8 tools/porting/check_ledger.py`、`python -B -X utf8 tools/docs/check_docs.py` 与 `git diff --check`
+   - 验证通过后以 `git merge --no-ff` 合入集成分支并删除临时分支；不自动推送、不擅自合并 `main`。
+
+#### 2. 四大痛点问题清单与四阶段执行路线
+
+| 阶段与子批次分支 | 解决的架构痛点与目标范围 | 具体重构任务与技术标准 | 验收与闭合门禁 |
+| --- | --- | --- | --- |
+| **阶段 1（子批 1A，已完成并合入）**<br>`refactor/p1a-production-components` | **痛点 1（消除双轨制数据载体 - 生产与符箓物品）**：<br>覆盖 `liandan`（10 文件）、`lianqi`（5 文件）、`cooking`（4 文件）、`fulu`（12 文件）共 **31 个文件**的 `DataComponents.CUSTOM_DATA`（`CustomData`）读写。 | 已完成 `WineData`、`CookingRecipeData`、`LianqiBlueprint`、`MedicineInstance`、`MedicineRecipe`、`TalismanInstance`、`FuluLearningBook`、`SealedCorpse` 组件化及跨系统调用收口（[项目月志](../systems/project/logs/2026-11.md#2026-11-24-底层架构重构阶段-1a-完成生产与符箓物品组件化)）。 | 已通过 `compileJava/compileTestJava/compileSmokeJava/test/jar`、`fulucooking..bookreading`（670 行 `0 FAIL`）与 `equipmentproduct,commerce,dungeon`（306 行 `0 FAIL`）、`check_ledger.py`、`check_docs.py` 与 `--no-ff` 合入。 |
+| **阶段 1（子批 1B，已完成并合入）**<br>`refactor/p1b-equipment-creature-components` | **痛点 1（消除双轨制数据载体 - 装备、灵兽、蛊虫、书籍与藏宝）**：<br>覆盖 `equipment`、`creature`、`guchong`、`book`、`treasure` 五系统的 `DataComponents.CUSTOM_DATA` 读写与 `attachFromLegacyTag` 清理。 | 已完成 `TreasureContainerConfig`、`CasketCommand`、`BookTextData`、`QuizOwner`、`GuchongTrackingData`、`GuchongState`、`SpiritBeastBagData`、`TAME_VALUE`、`EquipmentRefinement`、`SpatialPocketCoords`、`BloodEssenceData`、`FlyingInstrumentData`、`GECKO_ANIM` 组件化并彻底删除 `attachFromLegacyTag`（[项目月志](../systems/project/logs/2026-11.md#2026-11-24-底层架构重构阶段-1b-完成装备生物蛊虫书籍与藏宝组件化)）。 | 上述 5 个系统零 `CustomData` 引用、`attachFromLegacyTag` 清零；`compileJava/compileTestJava/compileSmokeJava/test/jar`、`spiritbeastbag..guchong01`（487/488 过）、`guchong05..benmingcultivation`（207 行 `0 FAIL`）、`bookreading,birthinitialrewards`（123 行 `0 FAIL`）、`bookquiz..treasuretool`、`check_ledger.py`、`check_docs.py` 全通并 `--no-ff` 合入。 |
+| **阶段 1（子批 1C，已完成并合入）**<br>`refactor/p1c-pure-components-and-structures` | **痛点 1（消除双轨制数据载体 - 剩余系统组件化与 161 个 `.nbt` 结构离线升级）**：<br>覆盖其余 **31 个文件**（`economy`、`decor`、`festival`、`xiulian`、`dungeon`、`town`、`npc`、`tiandao`、`world`、`quest`、`zhenfa`、`craft`、`flow`、`yihuo`、`material`）及 **161 个 `.nbt` 结构文件**。 | 已完成其余系统物品强类型 `DataComponentType<T>`、天道编辑器 `yvanchuxiuzhen:editor_tags` 与 161 个 `.nbt` 结构离线组件化升级（`leftover=0, components=22`）（[项目月志](../systems/project/logs/2026-11.md#2026-11-24-底层架构重构阶段-1c-完成剩余系统物品组件化天道编辑器组件化与-161-个-nbt-结构离线升级)）。 | `src/main/java` 运行时零 `CustomData` 引用；`compileJava/compileTestJava/compileSmokeJava/test/jar`、`check_ledger.py`、`check_docs.py` 与各批 Smoke 通过并 `--no-ff` 合入（`towntemplates` 768 MB 解码峰值留阶段 3）。 |
+| **阶段 1（子批 1D，已完成并合入）**<br>`refactor/p1d-entity-attachments-and-guard` | **痛点 1（消除双轨制数据载体 - 实体/方块实体 `getPersistentData()` 收口与 ArchUnit 封锁）**：<br>覆盖全仓实体与方块实体的 `getPersistentData()` 字符串键值读写、161 个 `.nbt` 结构实体/方块实体升级与 ArchUnit 守卫。 | 1. **方块实体与实体强类型化**：`BlockEntity` 改为强类型字段与原生序列化，实体/玩家按系统职责收口为强类型 `AttachmentType<T>`；全仓 `src/main/java` 运行时 `CustomData`/`CUSTOM_DATA`/`getPersistentData()` 清零。<br>2. **161 个 `.nbt` 结构离线升级**：`tools/porting/convert_structures.py` 完成方块实体字段、宝箱 `yvanchuxiuzhen:block_treasure_container` 与 6 类实体附件迁移（`Leftover ForgeData/NeoForgeData: 0`）。<br>3. **新增 ArchUnit 规则 7**：`ArchitectureTest.java` 新增 `gameplayPackagesBanCustomDataAndPersistentData`，永久禁止 `system`/`flow`/`panel`/`collection` 依赖双轨旧 API（[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-1d-完成全仓-getpersistentdata-清零结构实体附件升级与-archunit-规则-7)）。 | 已通过 `compileJava/compileTestJava/compileSmokeJava/test/jar`（含规则 7）、`structurerelease`/`questblockrefresh`/`renjiancorpseharvest`（`0 FAIL`，同批 `festivalfirework` 2 项因服务器卡顿触发 8 刻延迟箭袋计时漂移）与 `yaoshourecovery,yaoshouinteraction,moshou001drops,temporarybeasts`（53 行 `0 FAIL`）、`check_ledger.py`、`check_docs.py` 并 `--no-ff` 合入。 |
+| **阶段 2（子批 2A，已完成并合入）**<br>`refactor/p2a-treasure-codec-json` | **痛点 2（从硬编码转向 JSON 数据驱动 - 宝箱与宝匣奖励池）**：<br>重构全项目最大单文件 `TreasureRewardTables.java`（原 3,048 行 → 130 行）。 | 1. 新增 `TreasurePoolDefinition` 强类型规约与 `Codec`（支持权重/等级分段、固定/随机整数区间、强类型组件注入、子池委派与多物品组合 `MultiDropReward`）。<br>2. 更新 `tools/porting/extract_treasure_rewards.py` 从 1.18.2 锁定来源确定性提取 `src/main/resources/content/treasure/reward_tables.json`（29 池、24 类分派、843 条加权条目），并同步升级 `check_treasure_reward_dispatch.py`。<br>3. `TreasureRewardTables.java` 缩减为 130 行的 JSON 加载与加权抽样器，`TreasureRewards.java` 直接构造六类所有者组件与指令奖励，彻底消除奖励表的 `%`/`/` 魔法分隔符解析（[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2a-完成宝箱奖励大表转向-codec--json-数据驱动)）。 | 已通过 `check_treasure_reward_dispatch.py`（24/24、30/30）、`compileJava/compileTestJava/compileSmokeJava/test`、`treasure,treasuremedicine,treasuretool,casket`（201 行 `0 FAIL`）、`check_ledger.py`、`check_docs.py` 并 `--no-ff` 合入。 |
+| **阶段 2（子批 2B，已完成并合入）**<br>`refactor/p2b-quest-economy-codec-json` | **痛点 2（从硬编码转向 JSON 数据驱动 - 对话树、任务与商店商品表）**：<br>重构 `DialogueRuntime.java`、`QuestStructureData.java`、`CommerceGoods.java` 等依赖 `%` 和 `/` 分隔符长字符串的代码。 | 已完成提取脚本 `tools/porting/extract_quest_economy_json.py`、JSON 资源（39 商店 / 70 对话树 / 11 结构预设 / 14 份 `.nbt` 升级 / `spawn_data.json`）、`ShopCatalogDefinition`/`DialogueNodeDefinition`/`QuestTemplateDefinition`/`QuestStructurePreset` `Codec` 重构、运行期 `split("%")` / `split("/")` 清零与 7 份 Smoke 用例改造（[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)）。 | 已通过 `compileJava/compileTestJava/compileSmokeJava/test`、`check_ledger.py`、`check_docs.py` 与 `git diff --check`；`commerce`、`bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankun`、`npcmanagement`、`npc08,npcresidents` 分批 `DONE` 且 0 `FAIL`，Smoke 期间修复银行方块四选项脚本丢失与陈氏服饰说明（`525a3968`）并 `--no-ff` 合入。**`q119` 因 `renjian-q119` 存档夹具缺失未验证**，`npcvillage` 无对应场景，合跑偶发的 yanwang 气血与 `fanhuacheng03` OOM 单跑未复现、原因未查明。 |
+| **阶段 2（子批 2C，暂缓）** | 妖兽选技能规则保留现有 Java 实现，技能本体不变。 | 已对 53 个行为类做只读调查，未开始 JSON 拆分或 004 试点。 | 本批未实施、未验收，不列为当前待办。见[项目决定](../systems/project/README.md)与[摸底记录](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2c-启动妖兽选技能规则数据化摸底未改代码)。 |
+| **阶段 3（已验收）** | 清理固定业务命令，降低大结构生成内存峰值，验证跨维和保存重进。 | 保留书、宝箱、宝匣和任务的可配置命令。 | 2 GiB 正式代码通过连续六维、地灵直入及城镇十二模板；768 MiB 仅为压力对照。分项依据见[阶段 3 收口](../systems/project/logs/2026-11.md#2026-11-26-调整冒烟客户端内存)。 |
+| **阶段 4（已批准批已合入集成分支）**<br>`port/20261123-parity-integration` | 分批处理[统一问题索引](../reference/legacy/source-survey.md)中有证据的 1.18.2 版本遗留问题。 | 已改、验证并 `--no-ff` 合入本地集成分支：Q177 八档护腿、花繁城两档商品与移除三级妖兽材料未注册 `cailiao_153`（余 21 签）、Q05 一级灵石找零、六个奖励池 598 签逐签核对、Q176 烟花近景（`pao_13` 飞行弹体）、Q26 第 6/7 表上限（`max=8`/`12`）、Q71 玩家商铺领取清零及实际金额、Q84 任务维度直接比较、Q18 受击同属性功法减伤、Q29 体质防御修正、Q30 物理/法防/暴击/闪避/去重吸血/空队判伤 7 项、Q64–Q67 符箓消耗倍率/21 号生效数/46 号二阶火球交接/32 号单次分裂（[项目月志](../systems/project/logs/2026-11.md#2026-11-27-阶段-4-遗留问题分批修复合入集成分支)）。其余待裁定候选按负责人确认另行开批。 | 按问题登记已修、已验或待裁定的范围；各分批实机归档见 `build/diagnostics/` 与[经济月志](../systems/economy/logs/2026-11.md#阶段-4-续批q71-玩家商铺领取清零)、[宝箱月志](../systems/treasure/logs/2026-11.md#阶段-4-首批奖励表)、[节日月志](../systems/festival/logs/2026-11.md#q176-客户端画面交接)、[功法月志](../systems/gongfa/logs/2026-11.md#2026-11-27-阶段-4q26-功法抽样表修正)、[任务月志](../systems/quest/logs/2026-11.md#2026-11-27-阶段-4q84-维度判断修复)、[属性月志](../systems/attribute/logs/2026-11.md#2026-11-27-阶段-4q18-受击方同属性功法改为减伤)、[战斗月志](../systems/combat/logs/2026-11.md#2026-11-27-阶段-4q18q29q30-战斗与防御修复)及[符箓月志](../systems/fulu/logs/2026-11.md#2026-11-27-阶段-4q64q67-符箓修正)。 |
+
+---
+
+### 2026-11-24 双源差异 Q244–Q281 修复进展与未验边界
+
+[统一问题索引](../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)跟踪 Q244–Q281：其中 30 项已完成代码/资源/标签/语言修复（[项目月志](../systems/project/logs/2026-11.md#2026-11-24-双源差异-q244q281-批量修复与保留边界收口)），两版本实机、多人与动态表现仍待后续实测。`Q246`、`Q248`、`Q252`、`Q254`、`Q259`、`Q264`、`Q279`、`Q281` 共 8 项因已通过 Smoke 契约冲突、权限与服务端安全边界或跨块破坏风险保留当前实现、待裁定。任务四、八与六的原奖整链、Q276 带等级条件、Q277/Q278 特定地形，以及 Q280/Q281 空矿车与普通箱子实机对照仍待客户端场景验证。
+
+### 2026-11-23 两份来源的行为修复
+
+本轮限定为 `a94dea8a` 审查发现的七处玩法差异（升仙令接引、传承灵物终章、盾挡与替死符顺序、两类银行出售结算、狼食、可改绑的 Ctrl/Alt 修饰键、任务删除含水方块）和一处资源再生成缺陷（五份结构群系标签），不改变 Q28 等既定范围。实际代码已汇入本地集成分支，未合 `main`。银行两种结算的客户端检查、五份结构群系标签的清理重生成已通过。其余证据按[战斗](../systems/combat/logs/2026-11.md)、[任务](../systems/quest/logs/2026-11.md)、[烹饪](../systems/cooking/logs/2026-11.md)与[技能](../systems/skill/logs/2026-11.md)记录。1.18.2 版本实机对照与多人未执行；本批不替代其余系统的开放验收。
+
 ### 2026-11-22 全量代码优先（方案 B）单树五批次推进规划
 
 负责人于 2026-11-22 确认采用**“方案 B（代码实现优先，验收后置）＋ 保持 1.18.2 旧版 Bug 登记规则 ＋ 单一主工作树功能分支管理”**推进全量 32 个系统单元（28 个业务系统、3 个内容族、`panel` 面板及基座）的剩余移植工作（决定记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-22-全量代码优先与单工作树五批次规划定案)）：
@@ -191,7 +266,7 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 2026-11-22 花椒与八角：树苗随机刻调用顺序对齐来源，功能 `383714e2` 编译通过并以 `e1a4ee92` 合入；人工预置树体的受控采叶、骨粉成长、配方和同档重进已通过，自然生成、寻访、客户端挖掘及碰撞拾取仍待，见[植物月志](../systems/plant/logs/2026-11.md#2026-11-22-调味树受控验证入口)。
 
-2026-11-22 接续与收口：2026-11-22 已完成全量分支与 worktree 清理收口，将有效增量合入主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（分支 `port/batch0-integration-20261117`），其余 136 个冗余 worktree 与 325 个历史分支归档至 `D:/yuanchuxiuzhen-1.21.1-port/archive/cleanup-20261122/` 后清除；原 11-18 三模块并行 worktree 已不再保留为活动工作树，详见[交接](handoff.md#当前交接2026-11-22-收口干净状态)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-接手验收合并与工作树收口)。蛊笛战斗平地夹具待串行复跑 `guchongflute`，详见[蛊虫月志](../systems/guchong/logs/2026-11.md#2026-11-22-蛊笛战斗平地夹具)。
+2026-11-22 接续与收口：2026-11-22 已完成全量分支与 worktree 清理收口，将有效增量合入主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（分支 `port/batch0-integration-20261117`），其余 136 个冗余 worktree 与 325 个历史分支归档至 `D:/yuanchuxiuzhen-1.21.1-port/archive/cleanup-20261122/` 后清除；原 11-18 三模块并行 worktree 已不再保留为活动工作树，详见[交接](handoff.md#历史交接2026-11-22-收口干净状态)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-接手验收合并与工作树收口)。蛊笛战斗平地夹具待串行复跑 `guchongflute`，详见[蛊虫月志](../systems/guchong/logs/2026-11.md#2026-11-22-蛊笛战斗平地夹具)。
 
 精炼与合成金属：六种锭的修理消费已接通，六种工具原生铁砧结果取出与耗材通过；鼎炼与合成前置的生存链仍开放。见[装备月志](../systems/equipment/logs/2026-11.md#2026-11-21-精炼与合成锭修复消费)。
 

@@ -10,7 +10,24 @@ import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 
 /** 阳一临时发射体：第一刻沿视线发射，十刻后移除。 */
 public final class FormationLauncher extends FormationActor {
+    private int launchTick;
+    private boolean fired;
+
     public FormationLauncher(EntityType<? extends FormationLauncher> type, Level level) { super(type, level); }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("launch_tick", launchTick);
+        tag.putBoolean("fired", fired);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        launchTick = tag.getInt("launch_tick");
+        fired = tag.getBoolean("fired");
+    }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
@@ -21,14 +38,13 @@ public final class FormationLauncher extends FormationActor {
     @Override
     public void baseTick() {
         super.baseTick();
-        CompoundTag data = getPersistentData();
-        if (!data.getString("jinengname").equals("阳1")) return;
-        data.putInt("tick", data.getInt("tick") + 1);
-        if (data.getInt("tick") >= 10) {
-            data.putInt("tick", 0);
+        if (!skillName().equals("阳1")) return;
+        launchTick += 1;
+        if (launchTick >= 10) {
+            launchTick = 0;
             if (!level().isClientSide()) discard();
         }
-        if (!data.getBoolean("jinengshifangfou")) {
+        if (!fired) {
             if (!level().isClientSide()) {
                 FormationArrow arrow = new FormationArrow(ZhenfaSetup.<FormationArrow>entityType("projectile_zhenyang_01").get(), level());
                 arrow.setOwner(this);
@@ -39,7 +55,7 @@ public final class FormationLauncher extends FormationActor {
                 arrow.shoot(getLookAngle().x, getLookAngle().y, getLookAngle().z, 1, 0);
                 level().addFreshEntity(arrow);
             }
-            data.putBoolean("jinengshifangfou", true);
+            fired = true;
         }
     }
 }

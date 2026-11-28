@@ -21,8 +21,7 @@ public final class WorldCommands {
                 if (value.equals("true")) player.displayClientMessage(Component.literal("已关闭结构随机生成。"), false);
             }
         } else if (action.equals("unlock") && subject.equals("sealrelease")) {
-            StructureReleases.release(source.getLevel(), source.getPosition(), value);
-            if (feedback.equals("true")) player.displayClientMessage(Component.literal("§6解锁结构" + value), false);
+            StructureReleases.release(source.getLevel(), player, value, feedback.equals("true"));
         }
     }
 }

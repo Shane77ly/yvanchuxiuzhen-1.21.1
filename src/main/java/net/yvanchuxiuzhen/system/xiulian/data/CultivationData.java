@@ -8,20 +8,20 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.api.BenmingProgress;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.api.MainTechnique;
 
 /**
  * 玩家的修炼档案：境界、修为、灵力与神识、灵根与阴阳、罡煞与功德、雷劫、血脉、属性点、寿元、出身与体质、
- * 闭关天数，本命法宝槽（来源 {@code benmingfabao}），以及体质与修正值的键值存储（来源隐藏载体 {@code tizhiitem} 的物品标签，
+ * 闭关天数，本命法宝槽（来源 {@code benmingfabao}），以及体质与修正值的强类型键值表（原隐藏载体 {@code tizhiitem}，
  * 键见 {@code docs/systems/xiulian/ledger/tizhiitem_keys.csv}），属性成长（来源写入基础属性字段的累计量，提交给 attribute），
  * gongfa 提交的主修功法信息，以及 equipment 提交的本命培养进度。存档只写与初始值不同的项。
  * 对象可变，修改后由调用方 {@code syncData} 同步给本人。
@@ -47,7 +47,7 @@ public final class CultivationData {
             Codec.unboundedMap(TEXT_CODEC, Codec.STRING).fieldOf("texts").forGetter(CultivationData::changedTexts),
             Codec.BOOL.fieldOf("thunder_open").forGetter(CultivationData::thunderOpen),
             ItemStack.OPTIONAL_CODEC.fieldOf("benming").forGetter(CultivationData::benming),
-            CompoundTag.CODEC.fieldOf("tizhi").forGetter(CultivationData::tizhi),
+            ConstitutionState.CODEC.fieldOf("tizhi").forGetter(CultivationData::tizhi),
             Codec.unboundedMap(STAT_CODEC, Codec.DOUBLE).fieldOf("growth").forGetter(CultivationData::growth),
             MainTechnique.CODEC.fieldOf("main_technique").forGetter(CultivationData::mainTechnique),
             BenmingProgress.CODEC.fieldOf("benming_progress").forGetter(CultivationData::benmingProgress)
@@ -58,17 +58,17 @@ public final class CultivationData {
     private final Map<CultivationText, String> texts = new EnumMap<>(CultivationText.class);
     private boolean thunderOpen;
     private ItemStack benming;
-    private final CompoundTag tizhi;
+    private final ConstitutionState tizhi;
     private final Map<Stat, Double> growth = new EnumMap<>(Stat.class);
     private MainTechnique mainTechnique;
     private BenmingProgress benmingProgress;
 
     public CultivationData() {
-        this(Map.of(), Map.of(), false, ItemStack.EMPTY, new CompoundTag(), Map.of(), MainTechnique.NONE, BenmingProgress.NONE);
+        this(Map.of(), Map.of(), false, ItemStack.EMPTY, new ConstitutionState(), Map.of(), MainTechnique.NONE, BenmingProgress.NONE);
     }
 
     private CultivationData(Map<CultivationValue, Double> values, Map<CultivationText, String> texts, boolean thunderOpen, ItemStack benming,
-                            CompoundTag tizhi, Map<Stat, Double> growth, MainTechnique mainTechnique, BenmingProgress benmingProgress) {
+                            ConstitutionState tizhi, Map<Stat, Double> growth, MainTechnique mainTechnique, BenmingProgress benmingProgress) {
         for (CultivationValue value : CultivationValue.values()) {
             this.values.put(value, values.getOrDefault(value, value.initial()));
         }
@@ -156,8 +156,8 @@ public final class CultivationData {
         this.benmingProgress = benmingProgress;
     }
 
-    /** 体质与修正值；键与类型沿用来源，未写入的键读作 0、false 或空串。 */
-    public CompoundTag tizhi() {
+    /** 体质与修正值；未写入的键按 {@code 0}、{@code false} 或 {@code ""} 读取。 */
+    public ConstitutionState tizhi() {
         return tizhi;
     }
 }

@@ -33,7 +33,9 @@ final class GuchongCheck extends ActionCheck {
     private void openJar(ServerPlayer player) {
         player.closeContainer();
         player.setGameMode(GameType.SURVIVAL);
+        player.getInventory().selected = 0;
         player.setItemInHand(InteractionHand.MAIN_HAND, item("taoguan_01item"));
+        player.inventoryMenu.broadcastChanges();
         useJar(player);
     }
 
@@ -59,7 +61,7 @@ final class GuchongCheck extends ActionCheck {
 
     private void closeAndReopen(ServerPlayer player) {
         player.closeContainer();
-        CompoundTag packed = player.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag packed = GuchongJarData.read(player.getMainHandItem());
         expectTrue("关罐将蛊虫身份和当前生命写入物品",
                 packed.getString("guchongid0").equals("yvanchuxiuzhen:guchong_03") && packed.getDouble("health_Num0") == 7);
         useJar(player);
@@ -67,7 +69,7 @@ final class GuchongCheck extends ActionCheck {
 
     private void checkRestoredJar(ServerPlayer player) {
         ItemStack restored = player.containerMenu.slots.getFirst().getItem();
-        CompoundTag data = restored.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag data = GuchongJarData.read(restored);
         expectTrue("重开蛊罐恢复虫身份与来源生命字段",
                 restored.is(item("guchong_03item").getItem()) && data.getDouble("health_Max") == 10
                         && !data.contains("health_Num"));

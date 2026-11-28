@@ -15,6 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.book.BookReadingText;
+import net.yvanchuxiuzhen.system.book.api.BookQuizzes;
+import net.yvanchuxiuzhen.system.book.api.BookTextData;
+import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.book.client.BookReadingScreen;
 import net.yvanchuxiuzhen.system.book.content.BookReadingMenu;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
@@ -22,8 +25,15 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.gongfa.data.GongfaData;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
+import net.yvanchuxiuzhen.system.skill.data.SkillData;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 
 /** 公共书自然阅读检查覆盖文本行持久化、阅读分派、无槽库存和双端显示。 */
@@ -33,7 +43,6 @@ final class BookReadingCheck extends ActionCheck {
     private int selected;
     private boolean sneaking;
     private boolean shift;
-    private boolean hadAnswers;
     private double answers;
 
     BookReadingCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -45,42 +54,38 @@ final class BookReadingCheck extends ActionCheck {
             selected = player.getInventory().selected;
             sneaking = player.isShiftKeyDown();
             shift = minecraft.options.keyShift.isDown();
-            hadAnswers = player.getPersistentData().contains("daduishuliang");
-            answers = player.getPersistentData().getDouble("daduishuliang");
-            player.getPersistentData().putDouble("daduishuliang", 5);
+            answers = BookQuizzes.answerCount(player);
+            BookQuizzes.setAnswerCount(player, 5);
             player.getInventory().clearContent();
             Techniques.setSlot(player, ItemStack.EMPTY);
             player.setShiftKeyDown(false);
             minecraft.execute(() -> minecraft.options.keyShift.setDown(false));
-            CompoundTag data = new CompoundTag();
-            data.putString("textdisplay", "甲".repeat(22) + "乙".repeat(22) + "丙");
-            data.putString("TreasureTypeBig", "书架");
-            data.putString("TreasureTypeSmall", "技能书");
-            data.putDouble("TreasureLEVEL", 1);
-            data.putString("text11", "旧行");
-            data.putString("text12", "旧十二行");
-            stage(player, dataBook("book_020", data).copyWithCount(2));
+            ItemStack firstBook = book("book_020").copyWithCount(2);
+            BookTexts.set(firstBook, new BookTextData("甲".repeat(22) + "乙".repeat(22) + "丙",
+                    List.of("", "", "", "", "", "", "", "", "", "", "旧行", "旧十二行")));
+            TreasureContainers.setConfig(firstBook, new TreasureContainerConfig("书架", "技能书", 1, 0, 0));
+            stage(player, firstBook);
         }));
         actions.add(new Action(10, player -> use()));
         actions.add(new Action(8, player -> {
             if (!checkMenu(player, "文本书自然右键打开中文阅读页且不消费整栈")) return;
-            CompoundTag data = data(player.getMainHandItem());
-            expect("每二十二字符切第一行", "甲".repeat(22), data.getString("text01"));
-            expect("每二十二字符切第二行", "乙".repeat(22), data.getString("text02"));
+            BookTextData text = BookTexts.get(player.getMainHandItem());
+            expect("每二十二字符切第一行", "甲".repeat(22), text.line(1));
+            expect("每二十二字符切第二行", "乙".repeat(22), text.line(2));
             expect("尾行与十一行清理", List.of("丙", "", "旧十二行"),
-                    List.of(data.getString("text03"), data.getString("text11"), data.getString("text12")));
+                    List.of(text.line(3), text.line(11), text.line(12)));
             expect("文本书整栈数量", 2, player.getMainHandItem().getCount());
             minecraft.execute(() -> screenshots.take("book_reading_text.png"));
         }));
         actions.add(new Action(5, player -> {
-            CompoundTag data = new CompoundTag();
-            data.putString("textdisplay", "甲".repeat(242) + "尾行");
-            stage(player, dataBook("book_032", data));
+            ItemStack longBook = book("book_032");
+            BookTexts.set(longBook, new BookTextData("甲".repeat(242) + "尾行", List.of()));
+            stage(player, longBook);
         }));
         actions.add(new Action(8, player -> use()));
         actions.add(new Action(5, player -> {
             if (!checkMenu(player, "长文本仍只有十一可见行")) return;
-            expect("第十二行照来源持久化", "尾行", data(player.getMainHandItem()).getString("text12"));
+            expect("第十二行照来源持久化", "尾行", BookTexts.get(player.getMainHandItem()).line(12));
             expect("可见行数", 11, BookReadingText.lines(player).size());
             stage(player, techniqueBook());
         }));
@@ -121,16 +126,14 @@ final class BookReadingCheck extends ActionCheck {
             }));
         }
         actions.add(new Action(5, player -> {
-            CompoundTag data = new CompoundTag();
-            data.putString("fabaotype", "武器");
-            data.putString("tuzhiname", "青锋图纸");
-            data.putString("item_level", "下品");
-            data.putString("fabaoshuoming", "炼器材料说明");
+            List<LianqiBlueprint.Ingredient> ingredients = new ArrayList<>(9);
             for (int slot = 0; slot < 9; slot++) {
-                data.putString("cailiao0" + slot + "name", "材料" + slot);
-                data.putDouble("cailiao0" + slot + "num", slot + 1);
+                ingredients.add(new LianqiBlueprint.Ingredient("", "材料" + slot, "", slot + 1));
             }
-            stage(player, dataBook("book_031", data));
+            ItemStack book = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "book_031")));
+            Lianqi.setBlueprint(book, new LianqiBlueprint("青锋图纸", "", "", "", "炼器材料说明", "",
+                    "武器", "下品", 0, "", ingredients));
+            stage(player, book);
         }));
         actions.add(new Action(8, player -> use()));
         actions.add(new Action(8, player -> {
@@ -141,11 +144,11 @@ final class BookReadingCheck extends ActionCheck {
             minecraft.execute(() -> screenshots.take("book_reading_blueprint.png"));
         }));
         actions.add(new Action(5, player -> {
-            CompoundTag data = new CompoundTag();
-            data.putString("danyaoname", "清心丹方");
-            data.putString("danfangshuoming", "炼丹材料说明");
-            for (int slot = 1; slot <= 8; slot++) data.putString("cailiao0" + slot + "name", "药草" + slot);
-            stage(player, dataBook("book_021", data));
+            List<MedicineRecipe.Ingredient> ingredients = new ArrayList<>(8);
+            for (int slot = 1; slot <= 8; slot++) ingredients.add(new MedicineRecipe.Ingredient("", "药草" + slot));
+            ItemStack book = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "book_021")));
+            Liandan.setRecipe(book, new MedicineRecipe("清心丹方", "炼丹材料说明", "", "", 0, "", ingredients));
+            stage(player, book);
         }));
         actions.add(new Action(8, player -> use()));
         actions.add(new Action(8, player -> {
@@ -153,7 +156,7 @@ final class BookReadingCheck extends ActionCheck {
             List<String> lines = BookReadingText.lines(player);
             expect("丹方标题说明首尾药草", List.of("§6清心丹方", "§3炼丹材料说明", "药草1", "药草8", ""),
                     List.of(lines.get(0), lines.get(1), lines.get(2), lines.get(9), lines.get(10)));
-            expect("阅读全程保留答题计数", 5, player.getPersistentData().getDouble("daduishuliang"));
+            expect("阅读全程保留答题计数", 5, BookQuizzes.answerCount(player));
             minecraft.execute(() -> screenshots.take("book_reading_recipe.png"));
         }));
         script(actions.toArray(Action[]::new));
@@ -188,14 +191,8 @@ final class BookReadingCheck extends ActionCheck {
         return true;
     }
 
-    private static ItemStack dataBook(String item, CompoundTag data) {
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, item)));
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        return stack;
-    }
-
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    private static ItemStack book(String item) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, item)));
     }
 
     private static ItemStack techniqueBook() {
@@ -205,7 +202,7 @@ final class BookReadingCheck extends ActionCheck {
     }
 
     private static ItemStack skillBook(SkillKind kind, ServerPlayer player) {
-        ItemStack stack = dataBook("book_006", new CompoundTag());
+        ItemStack stack = book("book_006");
         stack.set(SkillData.SKILL.get(), new SkillBook(kind, "阅读检查技能", 1, 1, "无", "阅读检查简介", Optional.of(player.getUUID()),
                 player.getDisplayName().getString(), Map.of("jinengmanaatt", 2.0, "jinengshanghai", 3.0, "jinengxiaohao", 4.0,
                 "Goldcolddown", 2.0, "Watercolddown", -3.0, "Goldcoldignore", 5.0, "yinyangcoldignore", 6.0),
@@ -221,8 +218,7 @@ final class BookReadingCheck extends ActionCheck {
         player.getInventory().selected = selected;
         player.setShiftKeyDown(sneaking);
         Techniques.setSlot(player, technique);
-        if (hadAnswers) player.getPersistentData().putDouble("daduishuliang", answers);
-        else player.getPersistentData().remove("daduishuliang");
+        BookQuizzes.setAnswerCount(player, answers);
         player.inventoryMenu.broadcastChanges();
         minecraft.execute(() -> {
             minecraft.player.getInventory().selected = selected;

@@ -1,8 +1,8 @@
 package net.yvanchuxiuzhen.system.relation.api;
 
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -41,11 +41,11 @@ public final class Relations {
 
     /** 来源本体实体 teamwork；副本维度进入与结束只操作这一份字段。 */
     public static String entityTemporaryTeam(Entity entity) {
-        return entity.getPersistentData().getString("teamwork");
+        return entity.getData(RelationAttachments.ENTITY_TEMPORARY_TEAM);
     }
 
     public static void setEntityTemporaryTeam(Entity entity, String team) {
-        entity.getPersistentData().putString("teamwork", team);
+        entity.setData(RelationAttachments.ENTITY_TEMPORARY_TEAM, team);
     }
 
     /** {@code judge} 是否把 {@code other} 视为友方。 */
@@ -105,19 +105,9 @@ public final class Relations {
     public record IceCast(int attackDamage, String attacker, int multiplier, int direction) {
     }
 
-    /** 读取实体友表；旧目标版本的实体根友表仅在新附件尚无攻击字段时迁入。 */
+    /** 读取实体友表。 */
     public static IceCast iceCast(Entity entity) {
         Allegiance friends = entityAllegiance(entity);
-        CompoundTag data = entity.getPersistentData();
-        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
-                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("jiaodu")
-                && data.contains("friendlist", 10)) {
-            CompoundTag old = data.getCompound("friendlist");
-            friends.setFriendInt("AttackDamage", old.getInt("AttackDamage"));
-            friends.setFriendString("AttackUUID", old.getString("AttackUUID"));
-            friends.setFriendInt("Damage_multiplier", old.getInt("Damage_multiplier"));
-            friends.setFriendInt("jiaodu", old.getInt("jiaodu"));
-        }
         return new IceCast(friends.friendInt("AttackDamage"), friends.friendString("AttackUUID"),
                 friends.friendInt("Damage_multiplier"), friends.friendInt("jiaodu"));
     }
@@ -178,12 +168,6 @@ public final class Relations {
     /** 读取技能实体当前友表中的来源字段。 */
     public static FriendCast friendCast(Entity target) {
         Allegiance friends = entityAllegiance(target);
-        CompoundTag data = target.getPersistentData();
-        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
-                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("damagetype")
-                && !friends.hasFriendKey("jinengName") && data.contains("friendlist", 10)) {
-            friends.shareFromBlock(data, friends.team());
-        }
         return new FriendCast(friends.friendInt("AttackDamage"), friends.friendString("AttackUUID"),
                 friends.friendInt("Damage_multiplier"), friends.friendString("damagetype"), friends.friendString("jinengName"));
     }
@@ -234,22 +218,22 @@ public final class Relations {
         }
     }
 
-    /** 地上蛊罐把友方标签引用交给虫，虫的团队值来自该虫物品实例。 */
-    public static void shareBlockAllegiance(CompoundTag blockData, Entity target, String team) {
-        entityAllegiance(target).shareFromBlock(blockData, team);
+    /** 地上蛊罐把友方团队列表交给虫，虫的团队值来自该虫物品实例。 */
+    public static void shareBlockAllegiance(List<String> friendTeams, Entity target, String team) {
+        entityAllegiance(target).replace(team, Set.copyOf(friendTeams));
     }
 
-    /** 放置蛊罐时共享主人的友方标签；方块单独持久化，重载后与主人分离。 */
-    public static void shareAllegianceToBlock(Entity owner, CompoundTag blockData) {
-        allegiance(owner).shareToBlock(blockData);
+    /** 放置蛊罐时拍摄主人友方团队列表；方块单独持久化，重载后与主人分离。 */
+    public static List<String> friendTeamsForBlock(Entity owner) {
+        return allegiance(owner).friendlyTeamList();
     }
 
-    /** 灵纹生成时把施放者的好友子表交给特效实体，保留运行期引用共享。 */
+    /** 灵纹生成时复制施放者的团队与友方列表，避免把灵纹计数与主人标识写回攻击者的好友表（Q45）。 */
     public static void initializeRune(Entity owner, Entity target, int enchantmentLevel) {
         Allegiance friends = entityAllegiance(target);
-        friends.shareSourceFrom(allegiance(owner));
+        friends.copyFrom(allegiance(owner));
         friends.setFriendInt("friendnumber", enchantmentLevel);
-        friends.setFriendInt("lingwennum", friends.friendInt("lingwennum") + 1);
+        friends.setFriendInt("lingwennum", 1);
         friends.setFriendString("belongToMasterUUID", owner.getStringUUID());
     }
 

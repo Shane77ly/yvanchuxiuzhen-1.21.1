@@ -9,7 +9,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -78,7 +77,7 @@ final class KailingMaterialCheck extends ActionCheck {
             setBlock(player, site, sample.block().defaultBlockState());
             phase(machine, "prepare", player.getStringUUID());
             machine.tick();
-            String actual = machine.getPersistentData().getString("jinxing");
+            String actual = machine.phase();
             expectTrue(kind.id() + "来源材质准备判定" + BuiltInRegistries.BLOCK.getKey(sample.block()),
                     actual.equals(sample.accepted() ? "mine" : "finish")
                             && player.serverLevel().getBlockState(site).is(sample.block()));
@@ -96,7 +95,7 @@ final class KailingMaterialCheck extends ActionCheck {
         for (int tick = 0; tick < 5; tick++) machine.tick();
         expectTrue(kind.id() + "主人不在本维度时完成等待但保留方块",
                 player.serverLevel().getBlockState(site).is(block)
-                        && machine.getPersistentData().getString("jinxing").equals("finish")
+                        && machine.phase().equals("finish")
                         && drops(player, block, player.getBoundingBox().inflate(3)) == ownerDrops
                         && drops(player, block, new AABB(site).inflate(2)) == targetDrops);
         phase(machine, "mine", player.getStringUUID());
@@ -105,12 +104,12 @@ final class KailingMaterialCheck extends ActionCheck {
         expectTrue(kind.id() + "前四采掘刻保留方块", player.serverLevel().getBlockState(site).is(block));
         machine.tick();
         expectTrue(kind.id() + "第五采掘刻消费来源允许方块", player.serverLevel().getBlockState(site).isAir()
-                && machine.getPersistentData().getString("jinxing").equals("finish")
+                && machine.phase().equals("finish")
                 && drops(player, block, player.getBoundingBox().inflate(3)) == ownerDrops + 1
                 && drops(player, block, new AABB(site).inflate(2)) == targetDrops);
         setBlock(player, site, block.defaultBlockState());
         phase(machine, "mining", "");
-        machine.getPersistentData().putDouble("xiaoshitick2", 4);
+        machine.setActionTicks(4);
         machine.tick();
         expectTrue(kind.id() + "空主人在目标位置交付一件掉落", player.serverLevel().getBlockState(site).isAir()
                 && drops(player, block, new AABB(site).inflate(2)) == targetDrops + 1);
@@ -141,7 +140,7 @@ final class KailingMaterialCheck extends ActionCheck {
             player.serverLevel().setBlock(control, player.serverLevel().getBlockState(control)
                     .setValue(BlockStateProperties.MOISTURE, 7), 3);
             phase(machine, "mining", UUID.randomUUID().toString());
-            machine.getPersistentData().putDouble("xiaoshitick2", 4);
+            machine.setActionTicks(4);
             machine.tick();
             BlockState actual = player.serverLevel().getBlockState(site);
             expectTrue("开灵锄上方来源植物规则" + BuiltInRegistries.BLOCK.getKey(sample.block()),
@@ -163,10 +162,10 @@ final class KailingMaterialCheck extends ActionCheck {
             machine.moveTo(site.getX() + .5, site.getY(), site.getZ() + .5, 0, 0);
             machine.setDeltaMovement(Vec3.ZERO);
             phase(machine, "path", player.getStringUUID());
-            machine.getPersistentData().putDouble("mubiaoX", site.getX() + 4);
+            machine.setTargetX(site.getX() + 4);
             machine.tick();
             expectTrue("开灵斧附近叶片检测" + BuiltInRegistries.BLOCK.getKey(sample.block()),
-                    machine.getPersistentData().getString("jinxing").equals(sample.accepted() ? "clear_leaves" : "path"));
+                    machine.phase().equals(sample.accepted() ? "clear_leaves" : "path"));
             machine.moveTo(site.getX() + .5, site.getY(), site.getZ() + .5, 0, 0);
             machine.setDeltaMovement(Vec3.ZERO);
             phase(machine, "clear_leaves", player.getStringUUID());
@@ -183,19 +182,16 @@ final class KailingMaterialCheck extends ActionCheck {
         created.add(machine);
         machine.setNoAi(true);
         machine.moveTo(site.getX() + .5, site.getY() + 2, site.getZ() + .5, 0, 0);
-        machine.getPersistentData().putDouble("fumodengji", 1);
-        machine.getPersistentData().putDouble("xiaoshitickMax", 10000);
+        machine.setEnchantLevel(1);
+        machine.setMaxLifeTicks(10000);
         return machine;
     }
 
     private void phase(ToolMachineEntity machine, String phase, String owner) {
-        CompoundTag data = machine.getPersistentData();
-        data.putString("jinxing", phase);
-        data.putString("zhurenuuid", owner);
-        data.putDouble("xiaoshitick2", 0);
-        data.putDouble("mubiaoX", site.getX());
-        data.putDouble("mubiaoY", site.getY());
-        data.putDouble("mubiaoZ", site.getZ());
+        machine.setPhase(phase);
+        machine.setOwnerUuid(owner);
+        machine.setActionTicks(0);
+        machine.setTarget(site.getX(), site.getY(), site.getZ());
     }
 
     private void setBlock(ServerPlayer player, BlockPos pos, BlockState state) {

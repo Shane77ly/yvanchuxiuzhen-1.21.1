@@ -35,6 +35,7 @@ public final class LoomBlockEntity extends RandomizableContainerBlockEntity impl
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private double blockTick;
 
     public LoomBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.LOOM.get(), pos, state);
@@ -49,17 +50,27 @@ public final class LoomBlockEntity extends RandomizableContainerBlockEntity impl
         level.setBlock(worldPosition, getBlockState().setValue(LoomBlock.ANIMATION, animation), Block.UPDATE_ALL);
     }
 
+    public double blockTick() {
+        return blockTick;
+    }
+
+    public void setBlockTick(double value) {
+        blockTick = value;
+    }
+
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        blockTick = tag.getDouble("blocktick");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (blockTick != 0) tag.putDouble("blocktick", blockTick);
     }
 
     @Override

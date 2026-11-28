@@ -22,8 +22,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
+import net.yvanchuxiuzhen.collection.decor.DecorData;
+import net.yvanchuxiuzhen.collection.decor.PlaqueInscription;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -265,10 +266,10 @@ final class InscribedDecorCheck extends SystemCheck {
             player.setShiftKeyDown(false);
             ItemStack recovered = player.getInventory().items.stream().filter(stack -> stack.is(item(variant.itemId()))).findFirst().orElse(ItemStack.EMPTY).copy();
             expectTrue("空手潜行收回同木种单件并移除方块 " + variant.id(), player.level().isEmptyBlock(pos(index)) && recovered.getCount() == 1);
-            CompoundTag tag = recovered.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            PlaqueInscription inscription = recovered.getOrDefault(DecorData.PLAQUE_INSCRIPTION.get(), PlaqueInscription.EMPTY);
             expect("收回物品保留自定义名称 " + variant.id(), text(index), recovered.getHoverName().getString());
-            expect("收回物品保留文字 " + variant.id(), text(index), tag.getString("plaquetxt"));
-            expectTrue("Q212收回不复制颜色与发光 " + variant.id(), !tag.contains("rgbcolour") && !tag.contains("faguang"));
+            expect("收回物品保留文字 " + variant.id(), text(index), inscription.text());
+            expectTrue("Q212收回不复制颜色与发光 " + variant.id(), recovered.get(DataComponents.CUSTOM_DATA) == null);
             player.getInventory().clearContent();
             place(player, index, recovered, 90);
             expect("回收后再放仍有文字 " + variant.id(), text(index), data(player, index).getString("plaquetxt"));
@@ -287,7 +288,7 @@ final class InscribedDecorCheck extends SystemCheck {
             if (drops.isEmpty()) continue;
             ItemStack dropped = drops.getFirst().getItem().copy();
             drops.forEach(ItemEntity::discard);
-            expectTrue("普通破坏不带编辑文字 " + variant.id(), !dropped.has(DataComponents.CUSTOM_DATA));
+            expectTrue("普通破坏不带编辑文字 " + variant.id(), !dropped.has(DecorData.PLAQUE_INSCRIPTION.get()));
             place(player, index, dropped, 180);
             expectTrue("掉落物可再放且新实例文字为空 " + variant.id(), data(player, index).getString("plaquetxt").isEmpty());
         }
@@ -295,8 +296,8 @@ final class InscribedDecorCheck extends SystemCheck {
     private void clientData(String phase) {
         for (int index = 0; index < VARIANTS.size(); index++) expect(phase + "客户端完整文字字段 " + VARIANTS.get(index).id(), savedText.get(index), clientData(index));
     }
-    private CompoundTag clientData(int index) { return minecraft.level.getBlockEntity(pos(index)).getPersistentData(); }
-    private CompoundTag data(ServerPlayer player, int index) { return player.level().getBlockEntity(pos(index)).getPersistentData(); }
+    private CompoundTag clientData(int index) { return minecraft.level.getBlockEntity(pos(index)).saveWithoutMetadata(minecraft.level.registryAccess()); }
+    private CompoundTag data(ServerPlayer player, int index) { return player.level().getBlockEntity(pos(index)).saveWithoutMetadata(player.registryAccess()); }
     private BlockPos pos(int index) { return origin.offset((index % 6) * 4, 0, (index / 6) * 4); }
     private static Item item(String path) { return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)); }
     private void place(ServerPlayer player, int index, ItemStack stack, float rotation) {

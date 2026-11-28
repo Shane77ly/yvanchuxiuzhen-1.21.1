@@ -47,10 +47,9 @@ public final class AttributeTotals {
     }
 
     /**
-     * 受击方的功法五行项：功法五行值 × 功法层数 / 4，加到伤害上。
-     * 来源的功法五行值全为正，所以受击方主修与伤害同属性的功法时受到的伤害增加（Q18，负责人 2026-11-03 指示保持来源行为）。
+     * 受击方的功法五行项：-(功法五行值 × 功法层数 / 4)，作为同属性减伤加到法术攻击量上（Q18 改为减伤）。
      */
     public static double receivedElementBonus(double gongfaElement, double gongfaLevel) {
-        return gongfaElement * gongfaLevel / 4;
+        return -(gongfaElement * gongfaLevel / 4);
     }
 }

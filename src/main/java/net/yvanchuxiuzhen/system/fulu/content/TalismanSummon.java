@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -35,6 +36,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -51,11 +53,35 @@ public final class TalismanSummon extends PathfinderMob {
     public static final String THUNDERSTORM = "雷暴符";
     public static final String AIRBURST = "空爆符";
 
+    private double grade;
+    private String talismanName = "";
+    private String masterUuid = "";
+    private double tickCount;
+    private double shotTick;
+
     public TalismanSummon(EntityType<? extends TalismanSummon> type, Level level) {
         super(type, level);
         xpReward = 0;
         setNoAi(false);
         moveControl = new FlyingMoveControl(this, 10, true);
+    }
+
+    public void configure(double grade, String talismanName, String masterUuid) {
+        this.grade = grade;
+        this.talismanName = talismanName;
+        this.masterUuid = masterUuid;
+    }
+
+    public double grade() {
+        return grade;
+    }
+
+    public String talismanName() {
+        return talismanName;
+    }
+
+    public String masterUuid() {
+        return masterUuid;
     }
 
     public static AttributeSupplier.Builder attributes() {
@@ -115,12 +141,32 @@ public final class TalismanSummon extends PathfinderMob {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("fululevel", grade);
+        tag.putString("fuluname", talismanName);
+        tag.putString("belongToMasterUUID", masterUuid);
+        tag.putDouble("tick", tickCount);
+        tag.putDouble("tick2", shotTick);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        grade = tag.getDouble("fululevel");
+        talismanName = tag.getString("fuluname");
+        masterUuid = tag.getString("belongToMasterUUID");
+        tickCount = tag.getDouble("tick");
+        shotTick = tag.getDouble("tick2");
+    }
+
+    @Override
     public void baseTick() {
         super.baseTick();
         if (!(level() instanceof ServerLevel level)) {
             return;
         }
-        switch (getPersistentData().getString("fuluname")) {
+        switch (talismanName) {
             case FLOAT -> floatTick(level);
             case THUNDERSTORM -> thunderstormTick(level);
             case AIRBURST -> airburstTick(level);
@@ -143,13 +189,12 @@ public final class TalismanSummon extends PathfinderMob {
             BlockPos spot = level.clip(new ClipContext(eye, eye.add(getViewVector(1f).scale(distance)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, this)).getBlockPos();
             level.sendParticles(ParticleTypes.CLOUD, spot.getX(), spot.getY(), spot.getZ(), 2, 0, 0, 0, 0);
         }
-        double ticks = getPersistentData().getDouble("tick") + 1;
-        getPersistentData().putDouble("tick", ticks);
+        double ticks = ++tickCount;
         if (ticks >= 40) {
             for (int index = 0; index < 60; index++) {
                 spray(level, ParticleTypes.CLOUD, getX() + Mth.nextInt(random, -6, 6), getY() + 1, getZ() + Mth.nextInt(random, -6, 6), 0, 1, 0);
             }
-            double lift = 1 + getPersistentData().getDouble("fululevel");
+            double lift = 1 + grade;
             for (Entity target : nearby(level, position(), 6)) {
                 if (!Relations.isFriendly(this, target)) {
                     if (target instanceof LivingEntity living) {
@@ -158,51 +203,44 @@ public final class TalismanSummon extends PathfinderMob {
                     target.setDeltaMovement(new Vec3(0, lift, 0));
                 }
             }
-            getPersistentData().putDouble("tick", 0);
+            tickCount = 0;
             discard();
         }
     }
 
     private void thunderstormTick(ServerLevel level) {
-        double shot = getPersistentData().getDouble("tick2") + 1;
-        if (shot >= 5) {
-            Lightning.command(level, new Vec3(getX() + Mth.nextInt(random, -10, 10), getY(), getZ() + Mth.nextInt(random, -10, 10)),
-                    "lightninglanding " + 20 * getPersistentData().getDouble("fululevel") + " " + getPersistentData().getString("belongToMasterUUID")
-                            + " 1 " + Relations.team(this) + " 4 紫色 独立");
-            shot = 0;
+        if (++shotTick >= 5) {
+            Lightning.castSaved(level, new Vec3(getX() + Mth.nextInt(random, -10, 10), getY(), getZ() + Mth.nextInt(random, -10, 10)),
+                    masterUuid, 20 * grade, 1, Relations.team(this), 4, "紫色", true);
+            shotTick = 0;
         }
-        getPersistentData().putDouble("tick2", shot);
-        double ticks = getPersistentData().getDouble("tick") + 1;
-        getPersistentData().putDouble("tick", ticks);
-        if (ticks >= 160) {
-            getPersistentData().putDouble("tick", 0);
+        if (++tickCount >= 160) {
+            tickCount = 0;
             discard();
         }
     }
 
     private void airburstTick(ServerLevel level) {
-        double ticks = getPersistentData().getDouble("tick");
+        double ticks = tickCount;
         double radius = 7 - ticks * 0.3;
-        getPersistentData().putDouble("jvli", radius);
-        ticks += 1;
-        getPersistentData().putDouble("tick", ticks);
+        tickCount = ticks + 1;
         double angle = 0;
         for (int index = 0; index < 30; index++) {
             level.sendParticles(Particles.type("cailiao_233particle"), getX() + radius * Math.cos(Math.toRadians(angle)), getY() + 0.5,
                     getZ() + radius * Math.sin(Math.toRadians(angle)), 1, 0, 0, 0, 0);
             angle += 12;
         }
-        if (ticks >= 20) {
+        if (tickCount >= 20) {
             level.playSound(null, BlockPos.containing(getX(), getY() + 0.5, getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 2, 1);
             level.sendParticles(ParticleTypes.CLOUD, getX(), getY() + 0.5, getZ(), 40, 0, 0, 0, 1);
             level.sendParticles(ParticleTypes.EXPLOSION, getX(), getY() + 0.5, getZ(), 1, 0, 0, 0, 0);
-            double damage = getPersistentData().getDouble("fululevel") * 20;
+            double damage = grade * 20;
             for (Entity target : nearby(level, position(), 5)) {
                 if (!Relations.isFriendly(this, target) && target instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 风 " + getPersistentData().getString("belongToMasterUUID") + " true " + damage + " 1");
+                    SpellDamage.dealSaved(level, living, DamageCategory.WIND, masterUuid, true, damage, 1);
                 }
             }
-            getPersistentData().putDouble("tick", 0);
+            tickCount = 0;
             discard();
         }
     }

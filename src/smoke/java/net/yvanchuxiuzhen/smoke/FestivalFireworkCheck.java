@@ -49,13 +49,27 @@ final class FestivalFireworkCheck extends ActionCheck {
     private BlockPos pao12;
     private Pao13Entity projectile;
     private int rocketJoins;
+    private final List<Long> rocketTicks = new ArrayList<>();
 
-    FestivalFireworkCheck(List<String> report, String levelId) {
+    FestivalFireworkCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("节日方块烟花", report, levelId);
-        script(new Action(2, this::prepare), new Action(2, this::place), new Action(2, this::ignite),
+        script(new Action(2, this::prepare), new Action(12, this::place),
+                new Action(3, player -> minecraft.execute(() -> screenshots.take("festival_firework_models.png"))),
+                new Action(2, this::ignite),
                 new Action(17, player -> { }), new Action(1, this::observeLaunch),
                 new Action(8, player -> { }), new Action(1, this::observeFirstDelay),
-                new Action(8, player -> { }), new Action(1, this::observeSecondDelay));
+                new Action(8, player -> { }), new Action(1, this::observeSecondDelay),
+                new Action(36, player -> { }), new Action(3, player -> {
+                    expect("四枚火箭的服务端生成记录 " + rocketTicks, 4, rocketTicks.size());
+                    minecraft.execute(() -> screenshots.take("festival_firework_burning.png"));
+                }), new Action(1, player -> place(player, "pao_12", base.east(6), pao12)),
+                new Action(65, player -> {
+                    entity(player, pao12).ignite();
+                    player.connection.teleport(base.getX() + 6.5, base.getY() + 1, base.getZ() - 4, 0, -16);
+                }), new Action(3, player -> minecraft.execute(() -> screenshots.take("festival_firework_battery.png"))),
+                new Action(15, player -> { }),
+                new Action(1, this::aimAtFlyingShell),
+                new Action(1, player -> minecraft.execute(() -> screenshots.take("festival_firework_pao13.png"))));
     }
 
     private void prepare(ServerPlayer player) {
@@ -81,7 +95,7 @@ final class FestivalFireworkCheck extends ActionCheck {
             blocks.put(key, player.level().getBlockState(key));
             player.level().setBlock(key, pos.getY() == base.getY() ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState(), 3);
         }
-        player.connection.teleport(base.getX() + .5, base.getY() + 1, base.getZ() - 3, 0, 0);
+        player.connection.teleport(base.getX() + 3.5, base.getY() + 1, base.getZ() - 4, 0, 12);
         NeoForge.EVENT_BUS.addListener(joined);
     }
 
@@ -112,27 +126,24 @@ final class FestivalFireworkCheck extends ActionCheck {
             InteractionResult result = player.gameMode.useItemOn(player, player.level(), ItemStack.EMPTY, InteractionHand.MAIN_HAND,
                     new BlockHitResult(Vec3.atCenterOf(entry.getValue()), Direction.UP, entry.getValue(), false));
             expectTrue(entry.getKey() + " 空手点燃入口返回成功", accepted(result));
-            expectTrue(entry.getKey() + " 写入 begin", entity(player, entry.getValue()).getPersistentData().getBoolean("begin"));
+            expectTrue(entry.getKey() + " 写入 begin", entity(player, entry.getValue()).begin());
         }
 
         BlockFireworkBlockEntity firecracker = entity(player, pao10);
         for (int tick = 0; tick < 20; tick++) firecracker.scheduledTick(player.serverLevel());
-        expectTrue("Pao10 延迟二十刻进入第二阶段", firecracker.getPersistentData().getBoolean("begin2")
-                && !firecracker.getPersistentData().getBoolean("begin"));
-        firecracker.getPersistentData().putDouble("tick", 599);
+        expectTrue("Pao10 延迟二十刻进入第二阶段", firecracker.begin2() && !firecracker.begin());
+        firecracker.setTick(599);
         firecracker.scheduledTick(player.serverLevel());
-        expectTrue("Pao10 燃尽时传燃相邻爆竹", entity(player, pao10Neighbor).getPersistentData().getBoolean("begin"));
+        expectTrue("Pao10 燃尽时传燃相邻爆竹", entity(player, pao10Neighbor).begin());
         expectTrue("Pao10 燃尽后清除方块", player.level().getBlockState(pao10).isAir());
 
         BlockFireworkBlockEntity fountain = entity(player, pao11);
         for (int tick = 0; tick < 20; tick++) fountain.scheduledTick(player.serverLevel());
-        expectTrue("Pao11 延迟二十刻进入第二阶段", fountain.getPersistentData().getBoolean("begin2")
-                && !fountain.getPersistentData().getBoolean("begin"));
+        expectTrue("Pao11 延迟二十刻进入第二阶段", fountain.begin2() && !fountain.begin());
 
         BlockFireworkBlockEntity battery = entity(player, pao12);
         for (int tick = 0; tick < 2; tick++) battery.scheduledTick(player.serverLevel());
-        expectTrue("Pao12 两次计划刻后进入第二阶段", battery.getPersistentData().getBoolean("begin2")
-                && !battery.getPersistentData().getBoolean("begin"));
+        expectTrue("Pao12 两次计划刻后进入第二阶段", battery.begin2() && !battery.begin());
         int before = pao13(player).size();
         battery.scheduledTick(player.serverLevel());
         List<Pao13Entity> launched = pao13(player);
@@ -147,7 +158,7 @@ final class FestivalFireworkCheck extends ActionCheck {
         projectile = new Pao13Entity(FestivalSetup.pao13Type().get(), player.level());
         projectile.moveTo(base.east(3).north(3).getX() + .5, base.getY() + 3, base.getZ() + .5, 0, 0);
         projectile.setNoGravity(true);
-        projectile.getPersistentData().putInt("firetype", 5);
+        projectile.setFireType(5);
         spawned.add(projectile.getUUID());
         player.serverLevel().addFreshEntity(projectile);
     }
@@ -165,9 +176,29 @@ final class FestivalFireworkCheck extends ActionCheck {
         expect("Pao13 十六刻延迟队列再加入一枚", 3, rocketJoins);
     }
 
+    private void aimAtFlyingShell(ServerPlayer player) {
+        Pao13Entity target = pao13(player).stream()
+                .filter(shell -> shell.tickCount >= 2 && shell.tickCount <= 12)
+                .max((a, b) -> Double.compare(a.getY(), b.getY()))
+                .orElse(pao13(player).stream().findFirst().orElse(null));
+        expectTrue("找到高空飞行的 Pao13 弹体用于近景取景", target != null);
+        if (target == null) return;
+        Vec3 predicted = target.position().add(target.getDeltaMovement());
+        double camX = predicted.x;
+        double camEyeY = predicted.y;
+        double camZ = predicted.z - 2.0;
+        player.setNoGravity(true);
+        player.connection.teleport(camX, camEyeY - player.getEyeHeight(), camZ, 0, 0);
+    }
+
     private void joined(EntityJoinLevelEvent event) {
-        if (event.getLevel().isClientSide() || !(event.getEntity() instanceof FireworkRocketEntity rocket)) return;
+        if (event.getLevel().isClientSide()) return;
+        if (event.getEntity() instanceof Pao13Entity shell && shell.position().distanceToSqr(Vec3.atCenterOf(pao12)) < 16) {
+            spawned.add(shell.getUUID());
+        }
+        if (!(event.getEntity() instanceof FireworkRocketEntity rocket)) return;
         rocketJoins++;
+        rocketTicks.add(event.getLevel().getGameTime());
         rockets.add(rocket.getUUID());
     }
 
@@ -189,6 +220,8 @@ final class FestivalFireworkCheck extends ActionCheck {
 
     @Override
     protected void cleanup(ServerPlayer player) {
+        player.setNoGravity(false);
+        NeoForge.EVENT_BUS.unregister(joined);
         for (UUID uuid : spawned) {
             Entity entity = player.serverLevel().getEntity(uuid);
             if (entity != null) entity.discard();

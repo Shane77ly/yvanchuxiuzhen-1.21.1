@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.town.content;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
@@ -25,14 +24,7 @@ public final class TownMenu extends AbstractContainerMenu {
         }
         for (int column = 0; column < 9; column++) addSlot(new Slot(inventory, column, 8 + column * 18, 142));
         if (page == 3 && inventory.player instanceof ServerPlayer && inventory.player.level().getBlockEntity(pos) instanceof TownBlockEntity town) {
-            CompoundTag build = town.getPersistentData().getCompound("town_build");
-            if (!build.getString("build_list").isEmpty()) {
-                for (String entry : build.getString("build_list").split("/")) {
-                    String type = build.getString(entry + "_type").replace("txt.yvanchuxitong.build", "txt.yvanchuxiuzhen.build");
-                    build.putInt(type, build.getInt(type) + 1);
-                }
-            }
-            town.getPersistentData().put("town_build", build);
+            town.setTownBuild(town.townBuild().recountTypes());
             town.sync();
         }
     }

@@ -53,7 +53,7 @@ public final class FormationFalling extends FormationActor implements GeoEntity,
             boolean allowed = false;
             for (Entity target : level().getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(1.5)).stream()
                     .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
-                double mode = getPersistentData().getDouble("zhenmubiao");
+                int mode = targetMode();
                 if (mode == 1 && this != target) {
                     if (Relations.entityTeam(this).equals(Relations.entityTeam(target))) allowed = true;
                 } else if (mode == 2 && this != target) {
@@ -63,7 +63,7 @@ public final class FormationFalling extends FormationActor implements GeoEntity,
                 }
                 if (allowed) {
                     setDeltaMovement(0, -.4, 0);
-                    SpellDamage.markFormationFallingAttack(target, getPersistentData().getDouble("zhenLEVEL"));
+                    SpellDamage.markFormationFallingAttack(target, zhenLevel());
                 }
             }
             if (level().isEmptyBlock(BlockPos.containing(getX(), getY() - 1, getZ()))) discard();

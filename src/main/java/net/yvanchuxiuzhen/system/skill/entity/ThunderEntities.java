@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,12 +47,11 @@ final class ThunderEntities {
                 break;
             }
         }
-        String input = "lightninglanding " + book.manaAttack() + " " + caster.getStringUUID() + " " + book.damageMultiplier()
-                + " " + Relations.team(caster) + " 4 白色";
+        String team = Relations.team(caster);
         for (BlockPos offset : book.name().equals("五雷轰顶")
                 ? new BlockPos[]{BlockPos.ZERO, new BlockPos(3, 0, 0), new BlockPos(-3, 0, 0), new BlockPos(0, 0, 3), new BlockPos(0, 0, -3)}
                 : new BlockPos[]{BlockPos.ZERO}) {
-            Lightning.command(level, Vec3.atLowerCornerOf(target.offset(offset)), input);
+            Lightning.cast(level, Vec3.atLowerCornerOf(target.offset(offset)), caster, book.manaAttack(), book.damageMultiplier(), team, 4, "白色", false);
         }
     }
 
@@ -99,14 +97,13 @@ final class ThunderEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
             Vec3 center = self.position().add(0, 0.5, 0);
             if (self.skillName().equals("地滚雷")) {
                 double yaw = Math.toRadians(self.getYRot());
                 double pitch = Math.toRadians(self.getXRot());
                 self.setDeltaMovement(new Vec3(-0.1 * Math.sin(yaw), -0.1 * Math.sin(pitch), 0.1 * Math.cos(yaw)));
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 200) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 200) {
                     for (Entity other : ProjectileSupport.around(level, center, 5)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, "smallexplosionpurple", other.getBbHeight() / 2);
@@ -114,15 +111,15 @@ final class ThunderEntities {
                             wound(other);
                         }
                     }
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                     self.discard();
                 }
                 for (Entity other : ProjectileSupport.around(level, center, 1.5)) {
                     if (!Relations.team(other).equals(Relations.team(self))) {
-                        scratch.putBoolean("kaishi", true);
+                        self.setStarted(true);
                     }
                 }
-                if (scratch.getBoolean("kaishi")) {
+                if (self.started()) {
                     for (Entity other : ProjectileSupport.around(level, center, 5)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, "smallexplosionpurple", other.getBbHeight() / 2);
@@ -133,11 +130,11 @@ final class ThunderEntities {
                     self.discard();
                 }
             } else {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") > 8) {
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() > 8) {
+                    self.setSkillTick(0);
                     self.discard();
-                } else if (scratch.getDouble("tick") >= 4 && !scratch.getBoolean("kaishi")) {
+                } else if (self.skillTick() >= 4 && !self.started()) {
                     for (Entity other : ProjectileSupport.around(level, center, 1.5)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, "smallexplosionpurple", other.getBbHeight() / 2);
@@ -146,7 +143,7 @@ final class ThunderEntities {
                                 living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_002"), 100, 0));
                             }
                         }
-                        scratch.putBoolean("kaishi", true);
+                        self.setStarted(true);
                     }
                 }
             }
@@ -163,45 +160,43 @@ final class ThunderEntities {
     private static final class ThunderField implements EntitySkill {
         @Override
         public void spawned(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            if (scratch.getString("zhuangtai").isEmpty()) {
+            if (self.skillState().isEmpty()) {
                 self.setAnimation("animation.skillThunder10.start");
-                scratch.putString("zhuangtai", "开始");
+                self.setSkillState("开始");
             }
         }
 
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            String state = scratch.getString("zhuangtai");
+            String state = self.skillState();
             if (state.equals("开始")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 20) {
-                    scratch.putString("zhuangtai", "进行");
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 20) {
+                    self.setSkillState("进行");
+                    self.setSkillTick(0);
                 }
             } else if (state.equals("进行")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 600) {
-                    scratch.putString("zhuangtai", "结束");
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 600) {
+                    self.setSkillState("结束");
                     self.setAnimation("animation.skillThunder10.close");
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 20) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 20) {
                     for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 3)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, "smallexplosionyellow", other.getBbHeight() / 2);
                             SkillEntities.strikeRounded(self, other);
                         }
                     }
-                    scratch.putDouble("tick2", 0);
+                    self.setSkillTick2(0);
                 }
             } else if (state.equals("结束")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 16) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 16) {
                     self.discard();
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
             }
         }

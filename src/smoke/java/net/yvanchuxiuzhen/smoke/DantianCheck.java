@@ -105,8 +105,17 @@ final class DantianCheck extends SystemCheck {
                 expect("页码", 1.0, Cultivation.tizhiDouble(minecraft.player, "tizhipagenum"));
                 expect("元婴名", "tizhiopen_201", Cultivation.tizhiString(minecraft.player, "yvanyingname"));
                 expectTrue("本命显示标记", Cultivation.tizhiBoolean(minecraft.player, "benmingxianshi"));
+                expect("本命槽上限为 1（Q25）", 1, minecraft.player.containerMenu.getSlot(0).getMaxStackSize());
                 screenshots.take("xiulian_dantian.png");
-                onServer(player -> player.containerMenu.getSlot(0).set(ItemStack.EMPTY));
+                onServer(player -> {
+                    player.containerMenu.getSlot(0).set(ItemStack.EMPTY);
+                    player.getInventory().setItem(0, new ItemStack(item("cailiao_183"), 3));
+                    player.containerMenu.quickMoveStack(player, 28);
+                    expect("Q25 Shift放入堆叠妖丹仅取 1 个", 1, player.containerMenu.getSlot(0).getItem().getCount());
+                    expect("Q25 背包保留余下 2 个妖丹", 2, player.getInventory().getItem(0).getCount());
+                    player.getInventory().setItem(0, ItemStack.EMPTY);
+                    player.containerMenu.getSlot(0).set(ItemStack.EMPTY);
+                });
                 PacketDistributor.sendToServer(new XiulianButtonPayload(12));
             }
             case 5 -> {

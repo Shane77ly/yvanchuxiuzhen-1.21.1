@@ -97,8 +97,8 @@ public final class EquipmentAttributes {
             event.add(switch (event.key()) {
                 case "attack_Def" -> stats.physicalDefense();
                 case "soul_Def" -> stats.soulDefense();
-                // 来源伤害链的法术护甲项实际读取 mana_Att，不能替换成 mana_Def。
-                case "mana_Att" -> stats.spellAttack();
+                // Q30 修正：法术护甲防御项改读 mana_Def（原 1.18.2 误读 mana_Att）。
+                case "mana_Def" -> stats.spellDefense();
                 default -> throw new IllegalArgumentException("护甲查询项：" + event.key());
             });
         }
@@ -108,6 +108,8 @@ public final class EquipmentAttributes {
         if (event.key().equals("lianqizong.item_level_num")) {
             EquipmentProduct product = event.weapon().get(EquipmentData.PRODUCT.get());
             if (product != null) event.add(product.level());
+        } else if (event.key().equals("lianqizong.weightnum")) {
+            event.add(Equipment.weight(event.weapon()));
         } else if (event.key().equals("mana_Att")) {
             event.add(Equipment.properties(event.weapon()).number("mana_Att"));
         }
@@ -115,6 +117,11 @@ public final class EquipmentAttributes {
 
     static void modifiers(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
+        if (stack.is(tag("yispear"))) {
+            event.addModifier(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "equipment/yispear_attack_range"),
+                    2.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        }
         EquipmentStats stats = stack.get(EquipmentData.STATS.get());
         if (stats == null) return;
         for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {

@@ -62,6 +62,8 @@ public final class FriendScreen extends AbstractContainerScreen<FriendMenu> {
         addButton(213, -22, 20, 20, "imagebutton_friendpailie03", 13);
         addButton(213, 3, 20, 20, "imagebutton_friendpailie05", 14);
         addButton(213, 76, 20, 20, "imagebutton_friendpailie07", 15);
+        addRenderableWidget(new TextureButton(leftPos + 232, topPos + 198, 20, 20,
+                texture("atlas/imagebutton_friendpailie09"), 20, 40, pressed -> { }));
     }
 
     private void addButton(int x, int y, int width, int height, String name, int button) {

@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.guchong.entity;
 
-import java.text.DecimalFormat;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,13 +15,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongRuntimeState;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarRuntime;
+import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 
 /** 蛊虫 UUID 目标指令、地上回罐和死亡清槽的来源生命周期。 */
 public final class GuchongBehavior {
@@ -31,30 +32,30 @@ public final class GuchongBehavior {
     private GuchongBehavior() { }
 
     public static void tick(GuchongEntity entity) {
-        CompoundTag data = entity.getPersistentData();
-        data.putDouble("guchongtick", data.getDouble("guchongtick") + 1);
-        if (data.getDouble("guchongtick") < 20) return;
-        String targetId = data.getString("gongjimubiao");
+        entity.setGuchongTick(entity.guchongTick() + 1);
+        if (entity.guchongTick() < 20) return;
+        GuchongRuntimeState state = entity.getData(GuchongData.RUNTIME);
+        String targetId = state.commandTargetUuid();
         if (!targetId.isEmpty()) {
             if (entity.level() instanceof ServerLevel level && findEntity(level, targetId) instanceof LivingEntity living) entity.setTarget(living);
-            data.putString("gongjimubiao", "");
+            entity.setData(GuchongData.RUNTIME, state.withCommandTargetUuid(""));
         }
-        if (data.getBoolean("kanjia")) {
+        if (state.guarding()) {
             boolean first = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath().equals("guchong_01");
             boolean returning = entity.getTarget() == null && !first;
             if (first) {
-                data.putDouble("guchongtick2", data.getDouble("guchongtick2") + 1);
-                if (data.getDouble("guchongtick2") >= 5) {
+                entity.setGuchongTick2(entity.guchongTick2() + 1);
+                if (entity.guchongTick2() >= 5) {
                     returning = true;
-                    data.putDouble("guchongtick2", 0);
+                    entity.setGuchongTick2(0);
                 }
             }
             if (returning && entity.level() instanceof ServerLevel level) {
-                updateHomeCount(level, entity, false);
+                updateHomeCount(level, entity, state, false);
                 entity.discard();
             }
         }
-        data.putDouble("guchongtick", 0);
+        entity.setGuchongTick(0);
     }
 
     public static Entity findEntity(ServerLevel level, String uuid) {
@@ -67,21 +68,21 @@ public final class GuchongBehavior {
 
     public static void died(GuchongEntity entity) {
         if (!(entity.level() instanceof ServerLevel level)) return;
-        CompoundTag data = entity.getPersistentData();
-        if (!data.getBoolean("guchongxvnfu")) return;
-        if (data.getBoolean("kanjia")) {
-            updateHomeCount(level, entity, true);
+        GuchongRuntimeState state = entity.getData(GuchongData.RUNTIME);
+        if (!state.tamed()) return;
+        if (state.guarding()) {
+            updateHomeCount(level, entity, state, true);
             return;
         }
         for (Player player : level.players()) {
-            if (!data.getString("belongToMasterUUID").equals(player.getStringUUID())) continue;
+            if (!state.ownerUuid().equals(player.getStringUUID())) continue;
             IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
             if (inventory == null) continue;
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack jar = inventory.getStackInSlot(slot).copy();
                 CompoundTag item = GuchongJarData.read(jar);
-                if (!jar.is(JARS) || !item.getString("guguanuuid").equals(data.getString("guguanuuid"))) continue;
-                String suffix = new DecimalFormat("0").format(data.getDouble("guguanweizhi"));
+                if (!jar.is(JARS) || !item.getString("guguanuuid").equals(state.jarUuid())) continue;
+                String suffix = Integer.toString(state.jarSlot());
                 GuchongJarData.clear(item, suffix);
                 item.putString("guguanuuid" + suffix, "");
                 decrement(item);
@@ -93,15 +94,13 @@ public final class GuchongBehavior {
         }
     }
 
-    private static void updateHomeCount(ServerLevel level, GuchongEntity entity, boolean clearSlot) {
-        CompoundTag data = entity.getPersistentData();
-        BlockPos home = BlockPos.containing(data.getDouble("homeblockX"), data.getDouble("homeblockY"), data.getDouble("homeblockZ"));
-        BlockEntity jar = level.getBlockEntity(home);
-        if (jar == null) return;
-        decrement(jar.getPersistentData());
+    private static void updateHomeCount(ServerLevel level, GuchongEntity entity, GuchongRuntimeState state, boolean clearSlot) {
+        BlockPos home = state.homePos();
+        if (!(level.getBlockEntity(home) instanceof TaoguanBlockEntity jar)) return;
+        jar.jarData().decrementReleased();
         if (clearSlot) {
             IItemHandler inventory = level.getCapability(Capabilities.ItemHandler.BLOCK, home, null);
-            if (inventory instanceof IItemHandlerModifiable modifiable) modifiable.setStackInSlot((int) data.getDouble("guguanweizhi"), ItemStack.EMPTY);
+            if (inventory instanceof IItemHandlerModifiable modifiable) modifiable.setStackInSlot(state.jarSlot(), ItemStack.EMPTY);
         }
         jar.setChanged();
         level.sendBlockUpdated(home, jar.getBlockState(), jar.getBlockState(), 3);

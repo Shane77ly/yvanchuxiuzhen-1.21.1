@@ -24,6 +24,8 @@ public final class RabbitCageBlockEntity extends RandomizableContainerBlockEntit
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private boolean forcedOpen;
+    private int openTicks;
 
     public RabbitCageBlockEntity(BlockPos pos, BlockState state) {
         super(RabbitCageBlockEntities.OPEN.get(), pos, state);
@@ -31,6 +33,10 @@ public final class RabbitCageBlockEntity extends RandomizableContainerBlockEntit
     }
 
     public IItemHandler handler(Direction direction) { return isRemoved() ? null : direction == null ? unsided : sided[direction.ordinal()]; }
+    public boolean forcedOpen() { return forcedOpen; }
+    public void setForcedOpen(boolean value) { forcedOpen = value; }
+    public int openTicks() { return openTicks; }
+    public void setOpenTicks(int value) { openTicks = value; }
 
     public void sync() {
         setChanged();
@@ -41,11 +47,15 @@ public final class RabbitCageBlockEntity extends RandomizableContainerBlockEntit
         super.loadAdditional(data, registries);
         if (!tryLoadLootTable(data)) items = NonNullList.withSize(1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(data, items, registries);
+        forcedOpen = data.getBoolean("qiangzhi");
+        openTicks = data.getInt("longzitick");
     }
 
     @Override protected void saveAdditional(CompoundTag data, HolderLookup.Provider registries) {
         super.saveAdditional(data, registries);
         if (!trySaveLootTable(data)) ContainerHelper.saveAllItems(data, items, registries);
+        if (forcedOpen) data.putBoolean("qiangzhi", true);
+        if (openTicks != 0) data.putInt("longzitick", openTicks);
     }
 
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }

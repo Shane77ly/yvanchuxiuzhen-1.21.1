@@ -1,10 +1,8 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
 import java.util.List;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -53,7 +52,7 @@ public final class SkillArrows {
                                           boolean fullCharge, boolean infinity) {
         SkillProjectile arrow = SkillSetup.<SkillProjectile>entityType(id(kind)).get().create(owner.serverLevel()).launchedWith(knockback, pierce);
         arrow.setOwner(owner);
-        arrow.getPersistentData().putBoolean("infinity", infinity);
+        arrow.setInfinity(infinity);
         Cultivation.setTizhiBoolean(owner, "arrowskill", true);
         Cultivation.setTizhiBoolean(owner, "manxvli", fullCharge);
         return arrow;
@@ -61,13 +60,12 @@ public final class SkillArrows {
 
     private record Behavior(int kind) implements ProjectileSkill {
         private static String mode(SkillProjectile arrow) {
-            return arrow.getPersistentData().getString("jinengName");
+            return arrow.skillName();
         }
 
         private void initialize(SkillProjectile arrow, Entity owner) {
-            CompoundTag data = arrow.getPersistentData();
             // 来源第 02 箭只推进重力与寿命，不消费玩家的箭种施放标记。
-            if (kind == 2 || data.getBoolean("jilu")) {
+            if (kind == 2 || arrow.initialized()) {
                 return;
             }
             if (owner instanceof ServerPlayer player && Cultivation.tizhiBoolean(player, "arrowskill")) {
@@ -85,7 +83,7 @@ public final class SkillArrows {
                     case 9 -> control ? "暗流" : alt ? "漩涡" : "";
                     default -> throw new IllegalStateException("技能箭类型：" + kind);
                 };
-                data.putString("jinengName", selected);
+                arrow.setSkillName(selected);
                 if ((kind == 1 || kind == 10) && selected.equals("增伤")
                         || selected.equals("飓风箭") || selected.equals("漩涡")) {
                     arrow.setBaseDamage(arrow.getBaseDamage() * 1.5);
@@ -96,11 +94,11 @@ public final class SkillArrows {
                 } else if (selected.equals("震爆")) {
                     player.setDeltaMovement(player.getLookAngle().scale(-1));
                 }
-                data.putBoolean("diaoluo", true);
+                arrow.setCanDrop(true);
                 Cultivation.setTizhiBoolean(player, "arrowskill", false);
                 Cultivation.setTizhiBoolean(player, "manxvli", false);
             }
-            data.putBoolean("jilu", true);
+            arrow.markInitialized();
         }
 
         @Override
@@ -111,9 +109,8 @@ public final class SkillArrows {
                 case 2 -> {
                     arrow.setNoGravity(true);
                     ProjectileSupport.particles(level, Particles.type("lingqi"), arrow.position(), 2, .02, .02, .02, 0);
-                    CompoundTag data = arrow.getPersistentData();
-                    int ticks = data.getInt("xiaoshitick") + 1;
-                    data.putInt("xiaoshitick", ticks >= 20 ? 0 : ticks);
+                    int ticks = arrow.ticks() + 1;
+                    arrow.setTicks(ticks >= 20 ? 0 : ticks);
                     if (ticks >= 20) {
                         ProjectileSupport.particles(level, Particles.type("lingqi"), arrow.position(), 20, 0, 0, 0, 1);
                         arrow.discard();
@@ -162,21 +159,20 @@ public final class SkillArrows {
 
         private static void waterFlight(SkillProjectile arrow) {
             ServerLevel level = (ServerLevel) arrow.level();
-            CompoundTag data = arrow.getPersistentData();
             if (level.isRaining() || arrow.isInWater()) {
                 ProjectileSupport.particles(level, ParticleTypes.BUBBLE_POP, arrow.position(), 5, .2, .2, .2, 0);
-                if (!data.getBoolean("bishui")) {
-                    data.putBoolean("bishui", true);
+                if (!arrow.inRainOrWater()) {
+                    arrow.setInRainOrWater(true);
                     arrow.setNoGravity(true);
                 }
-                int ticks = data.getInt("flytick") + 1;
-                data.putInt("flytick", ticks >= 100 ? 0 : ticks);
+                int ticks = arrow.waterTicks() + 1;
+                arrow.setWaterTicks(ticks >= 100 ? 0 : ticks);
                 if (ticks >= 100) {
                     arrow.discard();
                 }
-            } else if (data.getBoolean("bishui")) {
+            } else if (arrow.inRainOrWater()) {
                 ProjectileSupport.particles(level, ParticleTypes.RAIN, arrow.position(), 10, .5, 0, .5, 0);
-                data.putBoolean("bishui", false);
+                arrow.setInRainOrWater(false);
                 arrow.setNoGravity(false);
             }
         }
@@ -216,8 +212,7 @@ public final class SkillArrows {
                 }
                 case 6 -> {
                     if (enemy) {
-                        double defense = target instanceof Player player ? PlayerAttributes.value(player, Stat.ATTACK_DEF)
-                                : target.getPersistentData().getDouble("attack_Def");
+                        double defense = EntityAttributes.stat(target, Stat.ATTACK_DEF);
                         if (arrow.getBaseDamage() > defense) {
                             target.hurt(target.damageSources().source(DamageTypes.FELL_OUT_OF_WORLD, owner), (float) (arrow.getBaseDamage() - defense));
                         }
@@ -241,7 +236,6 @@ public final class SkillArrows {
                 }
                 case 8 -> {
                     if (enemy) {
-                        target.getPersistentData().putDouble("Damage_multiplier", mode.equals("增伤") ? 1.2 : .8);
                         if (target instanceof LivingEntity living) StatusEffects.add(living, "duyao_11", 600, 1);
                         ProjectileSupport.burst(arrow, "smallexplosionblack");
                         damage(arrow, target, owner, "暗", multiplier);
@@ -278,11 +272,10 @@ public final class SkillArrows {
                 case 5 -> fireArea(arrow, owner);
                 case 6 -> { if (mode(arrow).equals("震爆")) shock(arrow, owner); }
                 case 7 -> earthArea(arrow, owner);
-                case 8 -> darkCloud(arrow);
                 default -> { }
             }
             rain(arrow, owner);
-            if (kind != 2 && !arrow.getPersistentData().getBoolean("infinity") && arrow.getPersistentData().getBoolean("diaoluo")) {
+            if (kind != 2 && !arrow.infinity() && arrow.canDrop()) {
                 ItemStack stack = kind == 10 ? new ItemStack(Items.SPECTRAL_ARROW) : new ItemStack(BuiltInRegistries.ITEM.get(
                         ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "skill_arrow_%02d".formatted(kind))));
                 ItemEntity item = new ItemEntity(arrow.level(), arrow.getX(), arrow.getY(), arrow.getZ(), stack);
@@ -388,14 +381,5 @@ public final class SkillArrows {
             }
         }
 
-        private static void darkCloud(SkillProjectile arrow) {
-            ServerLevel level = (ServerLevel) arrow.level();
-            CommandSourceStack source = level.getServer().createCommandSourceStack().withLevel(level)
-                    .withPosition(arrow.position().add(0, .5, 0)).withPermission(4).withSuppressedOutput();
-            // 保留来源命令：Potion 的命名空间值未加引号，SNBT 解析失败，不生成药水云。
-            level.getServer().getCommands().performPrefixedCommand(source,
-                    "summon minecraft:area_effect_cloud ~ ~1 ~ {CustomNameVisible:0b,Potion:minecraft:bad_luck,WaitTime:0,ReapplicationDelay:20,Age:0,"
-                            + "Duration:60,DurationOnUse:100,Particle:spell,Color:5242960,Radius:2,RadiusOnUse:0,RadiusPerTick:0}");
-        }
     }
 }

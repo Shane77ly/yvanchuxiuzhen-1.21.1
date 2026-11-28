@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.treasure.content.TreasureRewardItem;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureMenus;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureToolItem;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureToolProjectile;
+import net.yvanchuxiuzhen.system.treasure.data.TreasureData;
 
 /**
  * 宝箱系统的启动装配，只在 Mod 构造时调用一次。
@@ -46,6 +47,7 @@ public final class TreasureSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        TreasureData.register(modBus);
         TreasureBlockEntities.register(modBus);
         TreasureMenus.register(modBus);
         TreasureCaskets.register();

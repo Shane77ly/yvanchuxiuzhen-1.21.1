@@ -121,6 +121,6 @@
       "sha256": "24e365611dc21f38c173c52d8db36605777b21a6ef1eba1b652e5e0ff27353db"
     }
   ],
-  "output": "src/main/java/net/yvanchuxiuzhen/system/treasure/TreasureRewardTables.java",
-  "output_sha256": "259d5d4ba460b64696dc343237479204ca601b8f10f7853bd23e7bc5dbfe974c"
+  "output": "src/main/resources/content/treasure/reward_tables.json",
+  "output_sha256": "c3356353e843c52572be1b911410215f8fdab5cc53102cc799bcccf14774603d"
 }

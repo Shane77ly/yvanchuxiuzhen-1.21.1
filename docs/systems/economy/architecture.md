@@ -2,7 +2,7 @@
 topic: economy
 role: architecture
 status: partial
-updated: 2026-11-22
+updated: 2026-11-26
 ---
 
 # 货币、银行、商店与现场拍卖
@@ -12,7 +12,7 @@ updated: 2026-11-22
 
 `B:BankcunchuProcedure:30–90` 从银行菜单索引10存入玩家 `bank` 中的 `lingshi01…09`，菜单实际有11个自定义槽。银行显示缓存和购买会话还写在隐藏 `renwuitem`；账户金额与界面内容不能混成一份快照。
 
-商店解析语言 `txt.shoplist.*`，同时处理 1/10/100/1000 钱币及有级差的灵石。`ShopBuyProcedure:264–266` 存在 money01 已计算却使用 money02 给 lingshi01 找零的变量不一致，需作为明确行为差异裁定。
+商店解析语言 `txt.shoplist.*`，同时处理 1/10/100/1000 钱币及有级差的灵石。`ShopBuyProcedure:264–266` 存在 money01 已计算却使用 money02 给 lingshi01 找零的变量不一致，1.21.1 版本的处理见下文 R13-E01。
 
 `PaimaiblockGengXinYouXiKeProcedure:30–120` 按装置自身 tick 与 `paimaijindu` 推进准备、导入 NPC/商品、轮次、竞价、挑衅与清理。`paiitem{i}/paiblockX/Y/Z{i}` 属于现场装置；参与玩家的目标坐标放在其隐藏数据载体中。
 
@@ -91,7 +91,7 @@ updated: 2026-11-22
 
 ### 币值与估价
 
-金银四种币值为1、10、100、1000；实物找零由高到低floor拆分，最低级转int。银行灵石权重为1、4、16、64、256、1024、4096、16384、65536；商品购买仍先从低级账户余额消耗，不能用背包实物灵石替代账户付款。来源`ShopBuy`一级找零变量不一致保留，见R13-E01。
+金银四种币值为1、10、100、1000；实物找零由高到低floor拆分，最低级转int。银行灵石权重为1、4、16、64、256、1024、4096、16384、65536；商品购买仍先从低级账户余额消耗，不能用背包实物灵石替代账户付款。来源`ShopBuy`一级找零变量不一致已修正，见R13-E01。
 
 收购优先级为物品自带`money`、书、武器/法宝/四防具、丹药罐、符箓、饰品、药草、材料。来源40档功法表、50档装备表、50档材料表、41档材料商店表、40档饰品表与80个丹药效果正负判定由`extract_economy_commerce.py`提取，避免用单一增长公式替换。功法书按技能书价×2；图纸价按`9×4^min(8, floor((等级−1)/5))×图纸倍率`，来源重量读取异常使有效折价因子为1。装备仅无主人且等级有效时收购，并保留重量折价分支；符箓保留基础等级档、逐ID系数及ceil；药草逐ID读取，材料按等级、品质+1和倍率估价，灵石与火焰走独立固定级差。
 
@@ -109,17 +109,17 @@ updated: 2026-11-22
 
 | 编号／集中索引 | 入口与来源实际效果 | 当前处理及未完成边界 |
 | --- | --- | --- |
-| R13-E01／Q05 | `B:ShopBuy:264–266`已计算money01，却把money02加入lingshi01，一级找零数额随二级找零改变 | 保留来源变量语义；没有将索引中“明确修正输入与结果”的评审主题当作修正批准 |
-| R13-E02／Q71 | `B:Shopblockqvchu:37–90`不清cunchulingshi，可重复入账；反馈在计算前读取局部值，显示0 | 两项均保留来源；运行对照和修改待裁定 |
-| R13-E03／Q72 | `B:ShopblockGuigoumai:798–801`写getCompound返回值；生存放置无playerxiangou时写入临时tag，创意刷新会初始化 | 保留有/无compound差异，不补回put |
-| R13-E04 | `B:ShopblockGuigoumai`仅Inventory.contains为真才核需求数；整类需求缺失时仍能购买 | 保留来源检查顺序；待集中裁定 |
-| R13-E05 | 同过程需求不足栈先shrink为0，再减getCount，后续所需数不减少 | 保留来源扣料顺序；待集中裁定 |
-| R13-E06／Q73 | `B:Tuzhizhongliang`读取材料串索引1的attribute作为数字，得到0；自然图纸折价因子恒1 | 按实际读数实现，不按过程名改成材料重量 |
-| R13-E07 | `B:Cailiaoshop01/02`先判断>=20，再判断>=50，后档不可达 | 保留分支顺序 |
+| R13-E01／Q05 | `B:ShopBuy:264–266` 已计算 money01，却将 money02 计入一级账户 | `CommerceTrading.buyStones` 按实际一级余款入账；来源中错误的结果不保留。有限场景见[经济月志](logs/2026-11.md#阶段-4-首批商店找零)。 |
+| R13-E02／Q71 | `B:Shopblockqvchu:37–90`不清cunchulingshi，可重复入账；反馈在计算前读取局部值，显示0 | 已修复并验证：`ShopTrading.claim` 入账前将 `cunchulingshi` 清零并输出实际金额（`gongfa,commerce,questjournal` 烟测验证首次入账 25、暂存归 0、二次打开不重复入账，见[经济月志](logs/2026-11.md#阶段-4-续批q71-玩家商铺领取清零)） |
+| R13-E03／Q72 | `B:ShopblockGuigoumai:798–801`写getCompound返回值；生存放置无playerxiangou时写入临时tag，创意刷新会初始化 | 已修复并验证：`EconomyBlockState.ShopState` 随方块实体创建与序列化始终初始化 `playerPurchases` 映射，生存商铺限购可正常拦截二次购买，已通过 `CommerceCheck` 烟测验证 |
+| R13-E04 | `B:ShopblockGuigoumai`仅Inventory.contains为真才核需求数；整类需求缺失时仍能购买 | 已修复并验证：`ShopTrading.buy` 移除 `contains` 跳过分支，对 1..3 槽全部需求作模拟扣减预检，缺失或不足均拒绝购买；已通过 `CommerceCheck` 烟测验证 |
+| R13-E05 | 同过程需求不足栈先shrink为0，再减getCount，后续所需数不减少 | 已修复并验证：`ShopTrading.buy` 预检全部满足后再按 `Math.min(candidate.getCount(), need)` 精确扣减，不吞材料；已通过 `CommerceCheck` 烟测验证 |
+| R13-E06／Q73 | `B:Tuzhizhongliang`读取材料串索引1的attribute作为数字，得到0；自然图纸折价因子恒1 | 已修复并验证：`CommerceValuation.blueprintWeightDiscount` 改读材料定义 `fixedWeight` 累计图纸重量并应用来源折价曲线（105..150 分段折价），已通过 `CommerceCheck` 烟测验证 |
+| R13-E07 | `B:Cailiaoshop01/02`先判断>=20，再判断>=50，后档不可达 | 已修复并验证：`EconomyCatalogs.materialShop` 修正为先判 `roll >= 50`（6 档）再判 `roll >= 20`（11 档），低/中/高三段均可达；已通过 `CommerceCheck` 烟测验证 |
 | R13-E08 | `B:Shougouselljisuan`的饰品21–30级价段重复低档 | 提取逐级表保留原价，不使用递增公式替代 |
 | R13-E09／Q69 | `B:Goodsdaoru`缺语言定义时扫描不能终止 | 已批准启动前拒绝；不执行来源挂起分支 |
 | R13-E10／Q69 | `B:PaimaiDaorunpc`仅34级定义，筑基/结丹筛选无候选时不能终止；元婴重复同NPC | 已批准仅无候选时拒绝；有效候选重复规则保留 |
-| R13-E11 | `B:PaimaiTuoguananniu`创意操作写paimaimoshi的全自动/自营，显示却读tuoguan | 保留字段错位，不补造托管切换 |
+| R13-E11 | `B:PaimaiTuoguananniu`创意操作写paimaimoshi的全自动/自营，显示却读tuoguan | 已修复并验证：`Auctions.button` 操作 `0` 改为切换 `state.managed`，不覆盖 `state.auctionMode`，与显示和自动托管读取字段一致；已通过 `CommerceCheck` 烟测验证 |
 | R13-E12 | `B:PaimaihangScreen`11按钮空回调，源状态机无玩家竞价与成交结算入口 | 保留空操作，完整成交未实现且不补造 |
 | R13-E13 | `B:PaimaichairZaiFangKuaiShangYouJian`不校验令牌身份即可移椅并减计数，未同步台内坐标和计数 | 保留来源；待裁定，不以令牌归属名义加限制 |
 | R13-E14 | 银行/交易菜单构造器有手和实体能力绑定分支，但已知打开调用只传坐标 | 保留已知方块/独立绑定；未发现实际消费者的额外分支继续待核，不宣称全路径对齐 |
@@ -133,9 +133,11 @@ updated: 2026-11-22
 
 ### 资源与验证登记
 
-七页原生页面复用来源纹理、尺寸、槽位、标签和按钮；Minecraft客户端采用原生组件，适用的布局与可访问性规范参考shadcn技能，不引入React。`language_zh_cn.json`保存本包动态键和界面键，注册脚本只把运行期键写语言片段，来源GUI键由菜单转换器生成，避免重复合并。天地银行Geo/动画/纹理及实体椅子纹理单独加入资产输入。
+七页原生页面按来源提取布局；其中三页的普通按钮与底图未迁全（Q245）；Minecraft客户端采用原生组件，适用的布局与可访问性规范参考shadcn技能，不引入React。`language_zh_cn.json`保存本包动态键和界面键，注册脚本只把运行期键写语言片段，来源GUI键由菜单转换器生成，避免重复合并。天地银行Geo/动画/纹理及实体椅子纹理单独加入资产输入。
 
 主线已完成定向内容/资产转换、生产及smoke编译、6项架构测试和`commerce`必要客户端单项；Q69由`construction`现场入座检查覆盖。真实银行四选项、商店整额账户购买、普通玉不足/成功购买、基础出售和正常保存重进已有有限证据，具体原件只在本月记录登记。七页手/实体能力绑定、跨其他系统延后槽映射、玩家商铺、灵石收购、非整额找零、全部估价与食用、有效拍卖、专服、多人、1.18.2版本实机和两版本对照仍开放；来源静态数值表完整不等于运行验收。
+
+2026-11-23 双源对照发现对话“基础出售”应进入两槽灵石收购页，而“凡物出售”进入单槽钱币页；当前 `EconomyMenus.open` 已分别映射到 `STONE_SALE` 与 `BASIC_SALE`。既有 commerce Smoke 扩展为从银行第四项进入灵石页，再显式调用“凡物出售”入口，验证本人通宝玉售出后灵石入账，以及凡物卖价、钱币找零与灵石余额不变。目标版本 `commerce` 客户端已验证上述两页的结算与重进。
 
 `CommerceScreen`的财神商店商品标签不再显示服务端生成的内部物品名：客户端从当前商品槽的本地化名称读取商品名，并按`shoppage * 60 + slot * 5 + 3`从同步商品列表取价；其余经济页面继续使用各自会话标签。该实现及受控购买/重进证据见[财神商店月志](logs/2026-11.md#2026-11-22-财神商店红包购买与保存重进)。
 
@@ -154,3 +156,17 @@ updated: 2026-11-22
 来源提示写“右键可以破开石头取出灵石”，但九个物品都是右键空气触发；共享过程不接收目标方块、未检查或破坏方块，只执行原矿到灵石的转换。本批保持来源提示和实际过程，文本与来源行为的差异登记待统一复核，不据提示补造挖矿机制。
 
 `spiritstone` Smoke 扩展为同时检查九级灵石服用与九档原矿右键开封；开封检查覆盖同数量、等级、品阶、整组消耗及满背包掉落。静态源码与目标调用边界已核对；主线编译及原矿50项必要检查通过，证据见本月原矿记录，完整自然获取与两版本对照未验。
+
+### Q245 三个经济页面缺少普通按钮与底图
+
+这是操作入口缺失，不是 Q102 的小窗口裁切。1.18.2 版本 B 的 `ShopblockGuiScreen.init` 有 1 个购买按钮，`ShopblockGuisetScreen.init` 有 18 个普通按钮与 1 个图片按钮，`PaimaifangkuaiguiScreen.init` 有 6 个普通按钮。入口包括购买、设置、回收商店、托管与拍卖模式切换。三页 `renderBg` 分别绘制 `shopblock_gui.png`、`shopblock_guiset.png`（均 176×166）、`paimaifangkuaigui.png`（230×230），源 PNG 均有非透明像素。
+
+1.21.1 版本 `extract_economy_commerce.py:50–68` 只提取 `new ImageButton` 和内联资源位置；`economy/screens.json` 三页按钮数量成了 0、1、0，没有上述主底图。`CommerceScreen.init/renderBg` 依表创建图片按钮和背景层，未另建普通按钮；`CommerceMenu.button` 保留服务端交易分派，不能代替客户端点击。确认 25 个来源普通按钮未呈现，不表示有 25 个不同服务端缺陷。未修、未作本轮实机。复核：用买家打开玩家商铺、店主潜行打开设置、打开拍卖方块设置，在相同 GUI 缩放下点击购买/设置/模式，核对画面、库存与方块数据；不要用直接发包或 NPC 财神商店代替。
+
+### Q256 玩家商铺材料不足反馈次数不同
+
+B `ShopblockGuigoumaiProcedure:121–146,232` 在首项不足时置拒绝标志，后项受门控；目标 `ShopTrading:126–141` 遍历各需求槽，对每个不足槽发一次提示。有货、灵石价 0、需 2 石头和 2 泥土，各带 1：来源仅报第一项，目标服务端分派可报两项，两者均不发货、不扣料。完全未带材料是既有 Q93；直接服务端分派和 Q245 导致玩家无购买按钮也是两件事。未实机。
+
+### Q266 替换拍卖椅方块时扩大了座椅实体清理范围
+
+B `PaimaichairBlock:112–122` 只在玩家破坏或爆炸时清除小范围内的全部实体椅；令牌收椅或收台走 `PaimaichairZaiFangKuaiShangYouJian:56–67` / `PaimaiblockZaiFangKuaiShangYouJian:62–77`，只选最近的一把。目标 `AuctionChairBlock.onRemove:24–27` 在任何不同方块替换时都发 `REMOVE_ALL`，`AuctionSeats:29–35` 清掉范围内所有实体椅。令牌显式请求 `REMOVE` 不会限制额外的全清。复核：用令牌建一椅，以普通 `/setblock … air` 替换方块（不用 destroy），立即数原坐标的实体椅；再对照玩家直接拆椅。与 Q98 的令牌身份、台账计数无关。

@@ -2,10 +2,12 @@
 topic: treasure
 role: entry
 status: partial
-updated: 2026-11-15
+updated: 2026-11-26
 ---
 
 # 宝箱
+
+阶段 4 已修正 Q177 护腿命令与抽签表提取漏项，并按裁定移除三级妖兽材料池未注册的 `cailiao_153`（余 21 签）；六池逐签复核通过，见[宝箱月志](logs/2026-11.md#阶段-4-首批奖励表)。
 
 标识 `treasure`，类别：系统。职责：宝箱分级、奖励生成（[系统设计](../../development/system-design.md)）。
 

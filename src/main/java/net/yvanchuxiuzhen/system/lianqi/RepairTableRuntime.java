@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.lianqi;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -44,7 +43,7 @@ public final class RepairTableRuntime {
 
     public static void opened(RepairTableBlockEntity table) {
         if (table.getItem(0).isEmpty()) {
-            table.getPersistentData().putString("needcailiao", "请把需要修理的物品放入上面的物品槽位中。");
+            table.setRequirement("请把需要修理的物品放入上面的物品槽位中。");
             table.changed();
         }
     }
@@ -59,24 +58,24 @@ public final class RepairTableRuntime {
         ItemStack stack = table.getItem(0);
         boolean flying = stack.is(FLYING);
         if (!flying && EQUIPMENT.stream().noneMatch(stack::is)) return;
-        int cached = table.getPersistentData().getInt("needcailiaolevel");
+        int cached = table.requiredLevel();
         if (cached < 1 || !flying && cached != Equipment.refiningLevel(stack)) {
             refresh(table);
             return;
         }
         refresh(table);
-        MaterialInstance material = consumeMaterial(player, table.getPersistentData().getInt("needcailiaolevel"));
+        MaterialInstance material = consumeMaterial(player, table.requiredLevel());
         if (material == null) {
-            table.getPersistentData().putString("needcailiao", "您的身上没有携带对应等级的材料，无法修理。");
+            table.setRequirement("您的身上没有携带对应等级的材料，无法修理。");
         } else {
             if (flying) Equipment.repairFlyingInstrument(stack, 100);
             else stack.setDamageValue((int) (stack.getDamageValue() - Math.pow(material.level(), 2) * 20));
-            table.getPersistentData().putString("needcailiao", "修理一次！");
+            table.setRequirement("修理一次！");
             ServerLevel level = player.serverLevel();
             BlockPos pos = table.getBlockPos();
             LianqiDelays.run(40, () -> {
                 if (level.getBlockEntity(pos) instanceof RepairTableBlockEntity current) {
-                    current.getPersistentData().putString("needcailiao", "");
+                    current.setRequirement("");
                     refresh(current);
                 }
             });
@@ -87,32 +86,31 @@ public final class RepairTableRuntime {
     /** 刷新不清除无级或不支持物品的旧需求；满耐久分支才清空需求和类型。 */
     public static void refresh(RepairTableBlockEntity table) {
         ItemStack stack = table.getItem(0);
-        CompoundTag data = table.getPersistentData();
         if (stack.is(FLYING)) {
             if (Equipment.flyingInstrumentNeedsRepair(stack)) {
                 int minimum = BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(
                         ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "flyinginstrument_0801")) ? 11 : 1;
-                data.putString("needcailiao", "每修理100点耐久，需要任意" + minimum + "到" + (minimum + 4) + "级材料一个。");
-                data.putInt("needcailiaolevel", minimum);
-                data.putString("xiulileixing", "飞行法器");
-            } else clearRequirement(data);
+                table.setRequirement("每修理100点耐久，需要任意" + minimum + "到" + (minimum + 4) + "级材料一个。");
+                table.setRequiredLevel(minimum);
+                table.setRepairType("飞行法器");
+            } else clearRequirement(table);
         } else if (EQUIPMENT.stream().anyMatch(stack::is)) {
             int level = Equipment.refiningLevel(stack);
             if (level < 1) {
-                data.putString("needcailiao", "请放置有等级的武器、法宝、护甲。");
+                table.setRequirement("请放置有等级的武器、法宝、护甲。");
             } else if (stack.getDamageValue() > 0) {
-                data.putString("needcailiao", "需要" + level + "到" + ((long) level + 4) + "级的材料才可修复");
-                data.putInt("needcailiaolevel", level);
-                data.putString("xiulileixing", "武器法宝护甲");
-            } else clearRequirement(data);
-        } else data.putString("needcailiao", "此物无法由修理台修理。");
+                table.setRequirement("需要" + level + "到" + ((long) level + 4) + "级的材料才可修复");
+                table.setRequiredLevel(level);
+                table.setRepairType("武器法宝护甲");
+            } else clearRequirement(table);
+        } else table.setRequirement("此物无法由修理台修理。");
         table.changed();
     }
 
-    private static void clearRequirement(CompoundTag data) {
-        data.putString("needcailiao", "无需修理。");
-        data.putInt("needcailiaolevel", 0);
-        data.putString("xiulileixing", "");
+    private static void clearRequirement(RepairTableBlockEntity table) {
+        table.setRequirement("无需修理。");
+        table.setRequiredLevel(0);
+        table.setRepairType("");
     }
 
     private static MaterialInstance consumeMaterial(ServerPlayer player, int minimum) {

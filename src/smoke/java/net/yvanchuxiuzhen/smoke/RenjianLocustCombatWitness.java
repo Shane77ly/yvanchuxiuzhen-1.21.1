@@ -15,6 +15,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong03Entity;
 
 /** 观察同一只放出飞蝗、同一只原版动物及原罐的服务端战斗和维护刻。 */
@@ -69,7 +70,7 @@ final class RenjianLocustCombatWitness {
         this.savedSlot = savedSlot.copy();
         releasedAt = level.getGameTime();
         lastFlyAge = fly.tickCount;
-        lastMaintenanceTick = fly.getPersistentData().getDouble("guchongtick");
+        lastMaintenanceTick = fly.guchongTick();
         report.add("INFO REPLAY_LOCUST_COMBAT_TRACK released=" + fly.getUUID() + " target=" + prey.getUUID()
                 + " jar=" + jarId + " slot=0 gameTime=" + releasedAt + " flyNoAI=" + fly.isNoAi());
     }
@@ -81,7 +82,7 @@ final class RenjianLocustCombatWitness {
     }
 
     private void observeCommand() {
-        if (!acceptedTarget && fly.getTarget() == prey && fly.getPersistentData().getString("gongjimubiao").isEmpty()) {
+        if (!acceptedTarget && fly.getTarget() == prey && fly.getData(GuchongData.RUNTIME).commandTargetUuid().isEmpty()) {
             acceptedTarget = true;
             report.add("INFO REPLAY_LOCUST_COMBAT_UUID_CONSUMED gameTime=" + level.getGameTime()
                     + " flyAge=" + fly.tickCount + " released=" + fly.getUUID() + " target=" + prey.getUUID());
@@ -123,7 +124,7 @@ final class RenjianLocustCombatWitness {
         if (fly == null || done || event.getLevel() != level) return;
         observeCommand();
         long now = level.getGameTime();
-        double maintenanceTick = fly.getPersistentData().getDouble("guchongtick");
+        double maintenanceTick = fly.guchongTick();
         // 以实体自身的维护计数归零为准，区块未推进时不计入周期。
         if (removedAt >= 0 && fly.tickCount != lastFlyAge && lastMaintenanceTick > 0 && maintenanceTick == 0) {
             maintenanceCycles++;
@@ -148,10 +149,10 @@ final class RenjianLocustCombatWitness {
     }
 
     private void observeOutcome(long now) {
-        boolean matchingJar = level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().getString("guguanuuid"));
+        boolean matchingJar = level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().uuid);
         boolean slotUnchanged = ItemStack.matches(savedSlot, jar.getItem(0));
-        double active = jar.jarData().getDouble("shifangnum");
-        boolean releasing = jar.jarData().getBoolean("shifangguchong");
+        double active = jar.jarData().releasedCount;
+        boolean releasing = jar.jarData().released;
         String result;
         if (matchingJar && slotUnchanged && fly.getTarget() == null && fly.getRemovalReason() == Entity.RemovalReason.DISCARDED
                 && active == 0 && !releasing) {
@@ -180,8 +181,8 @@ final class RenjianLocustCombatWitness {
         return "released=" + fly.getUUID() + " flyAge=" + fly.tickCount + " flyRemoval=" + fly.getRemovalReason()
                 + " target=" + (target == null ? "none" : target.getUUID()) + " targetAlive=" + (target != null && target.isAlive())
                 + " targetRemoved=" + (target != null && target.isRemoved()) + " jar=" + jarId
-                + " sameJar=" + (level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().getString("guguanuuid")))
-                + " active=" + jar.jarData().getDouble("shifangnum") + " releasing=" + jar.jarData().getBoolean("shifangguchong")
+                + " sameJar=" + (level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().uuid))
+                + " active=" + jar.jarData().releasedCount + " releasing=" + jar.jarData().released
                 + " slotUnchanged=" + ItemStack.matches(savedSlot, jar.getItem(0));
     }
 }

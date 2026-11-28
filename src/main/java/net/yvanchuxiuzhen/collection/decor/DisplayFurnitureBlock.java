@@ -3,7 +3,9 @@ package net.yvanchuxiuzhen.collection.decor;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -24,13 +26,15 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.BlockDisplayLock;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 
-/** 展示柜开三槽菜单；博古架右键换件、潜行依来源保存并切换形态。 */
+/** 展示柜开三槽菜单；博古架右键换件（按完整注册 ID 排除物品锁，Q192）、潜行依来源保存并切换形态。 */
 public class DisplayFurnitureBlock extends ContentBlock implements EntityBlock {
+    private static final ResourceLocation DISPLAY_LOCK = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "ling_16");
     private final DisplayFurnitureVariant variant;
 
     public DisplayFurnitureBlock(BlockTraits traits, DisplayFurnitureVariant variant) { super(traits); this.variant = variant; }
@@ -71,15 +75,16 @@ public class DisplayFurnitureBlock extends ContentBlock implements EntityBlock {
             ((DisplayFurnitureBlockEntity) level.getBlockEntity(pos)).loadWithComponents(saved, level.registryAccess());
         } else {
             ItemStack held = player.getMainHandItem();
+            boolean excluded = BuiltInRegistries.ITEM.getKey(held.getItem()).equals(DISPLAY_LOCK);
             ItemStack previous = display.handler(null).getStackInSlot(0).copy();
-            if (!held.isEmpty()) {
+            if (!held.isEmpty() && !excluded) {
                 if (!previous.isEmpty()) {
                     ItemHandlerHelper.giveItemToPlayer(player, previous.copyWithCount(1));
                     display.setItem(0, ItemStack.EMPTY);
                 }
                 display.setItem(0, held.copyWithCount(1));
                 held.shrink(1);
-            } else if (!previous.isEmpty()) {
+            } else if (!excluded && !previous.isEmpty()) {
                 ItemHandlerHelper.giveItemToPlayer(player, previous.copyWithCount(1));
                 display.setItem(0, ItemStack.EMPTY);
             }

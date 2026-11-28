@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.quest;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
@@ -9,7 +8,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
 import net.yvanchuxiuzhen.system.quest.content.QuestTriggerEditorMenu;
 
-/** 任务方块编辑页只更新本系统持有的脚本和商店配置。 */
+/** 任务方块编辑页只更新本系统持有的模板 ID 与商店 ID 配置。 */
 public final class QuestTriggerEditorRuntime {
     private QuestTriggerEditorRuntime() {
     }
@@ -26,21 +25,22 @@ public final class QuestTriggerEditorRuntime {
     public static void apply(ServerPlayer player, DisguisedQuestBlockEntity block, String state) {
         player.displayClientMessage(Component.literal("设置任务事件"), false);
         if (block == null) return;
-        CompoundTag data = block.getPersistentData();
         String[] entries = state.split(",");
         for (int row = 1; row <= 10; row++) {
-            String script = value(entries, "renwulist" + row + ":");
-            if (!script.isEmpty()) {
-                String prefix = value(entries, "gaojirenwu" + row + "-").equals("1") ? "renwulist" : "tasklist";
-                data.putString(prefix + row, script);
+            String questId = value(entries, "renwulist" + row + ":");
+            if (!questId.isEmpty()) {
+                if (value(entries, "gaojirenwu" + row + "-").equals("1")) block.setAdvancedQuest(row, questId);
+                else block.setOrdinaryQuest(row, questId);
             }
             String information = value(entries, "shopinformation" + row + ":");
+            String productId = value(entries, "productlist" + row + ":");
             if (!information.isEmpty()) {
-                data.putString("shopinformation" + row, information);
-                data.putString("productlist" + row, value(entries, "productlist" + row + ":"));
+                block.setShopId(row, productId.isEmpty() ? information : productId);
+            } else if (!productId.isEmpty()) {
+                block.setShopId(row, productId);
             }
         }
-        if (value(entries, "lizi-").equals("1")) data.putBoolean("lizixianshi", true);
+        if (value(entries, "lizi-").equals("1")) block.setShowParticles(true);
         block.setChanged();
         player.serverLevel().sendBlockUpdated(block.getBlockPos(), block.getBlockState(), block.getBlockState(), 3);
     }

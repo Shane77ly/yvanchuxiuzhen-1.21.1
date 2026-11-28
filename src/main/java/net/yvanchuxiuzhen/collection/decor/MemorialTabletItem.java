@@ -3,13 +3,10 @@ package net.yvanchuxiuzhen.collection.decor;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,17 +25,16 @@ public final class MemorialTabletItem extends ContentItem {
             BlockState state = InscribedDecorContent.block(itemId.substring(0, itemId.length() - 4)).defaultBlockState()
                     .setValue(BlockStateProperties.HORIZONTAL_FACING, context.getPlayer().getDirection().getOpposite());
             level.setBlock(pos, state, 3);
-            CompoundTag saved = context.getItemInHand().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            if (!saved.getString("plaquetxt").isEmpty()) {
+            PlaqueInscription inscription = context.getItemInHand().getOrDefault(DecorData.PLAQUE_INSCRIPTION.get(), PlaqueInscription.EMPTY);
+            if (!inscription.text().isEmpty()) {
                 InscribedDecorBlockEntity block = (InscribedDecorBlockEntity) level.getBlockEntity(pos);
-                CompoundTag data = block.getPersistentData();
-                data.putString("plaquetxt", saved.getString("plaquetxt"));
-                data.putInt("zishu", saved.getInt("zishu"));
-                data.putString("fangxiang", InscribedDecor.direction(context.getPlayer().getDirection().getOpposite()));
-                for (int index = 0; index < saved.getInt("zishu"); index++) {
-                    data.putString("zidi" + index, saved.getString("zidi" + index));
-                    data.putDouble("ziweizhi" + index, saved.getDouble("ziweizhi" + index));
+                List<String> chars = new java.util.ArrayList<>(inscription.glyphs().size());
+                List<Double> offsets = new java.util.ArrayList<>(inscription.glyphs().size());
+                for (PlaqueInscription.Glyph glyph : inscription.glyphs()) {
+                    chars.add(glyph.glyph());
+                    offsets.add(glyph.offset());
                 }
+                block.setGlyphs(inscription.text(), InscribedDecor.direction(context.getPlayer().getDirection().getOpposite()), chars, offsets);
                 block.syncText();
             }
             context.getItemInHand().shrink(1);

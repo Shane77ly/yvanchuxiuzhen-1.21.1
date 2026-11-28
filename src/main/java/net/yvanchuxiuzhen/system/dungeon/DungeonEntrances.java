@@ -3,14 +3,11 @@ package net.yvanchuxiuzhen.system.dungeon;
 import java.util.Comparator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -19,6 +16,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonPlayerData;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonWorldData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -30,91 +28,94 @@ public final class DungeonEntrances {
     }
 
     public static void initialize(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
-        data.putString("fubenname", "花妖连战");
-        data.putString("fubenid", "fuben002");
-        data.putString("text01", "这是一个放置传送门就自动生成的");
-        data.putString("text02", "副本。");
-        data.putString("fubenjiangli", "无呀");
-        data.putString("fubenshujv", DungeonSourceData.DEFAULT);
-        data.putDouble("fubenminlevel", 0);
-        data.putDouble("fubenmaxlevel", 40);
-        data.putDouble("fubenpeoplemax", 10);
-        data.putDouble("fubenyvlan", 5);
-        data.putDouble("fubenjieshujishiMax", 240);
+        block.setDungeonName("花妖连战");
+        block.setTemplateId("fuben002");
+        block.setTextLine(1, "这是一个放置传送门就自动生成的");
+        block.setTextLine(2, "副本。");
+        block.setRewardSummary("无呀");
+        block.setDefinitionId(DungeonDefinitions.DEFAULT_ID);
+        block.setMinLevel(0);
+        block.setMaxLevel(40);
+        block.setMaxPeople(10);
+        block.setPreview(5);
+        block.setCooldownMax(240);
         block.changed();
     }
 
     public static void tick(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
-        if (data.getBoolean("fubenbegin")) {
-            data.putDouble("fubenjieshujishi", data.getDouble("fubenjieshujishi") + 1);
-            if (data.getDouble("fubenjieshujishi") >= data.getDouble("fubenjieshujishiMax")) {
-                data.putBoolean("fubenbegin", false);
-                data.putDouble("fubenjieshujishi", 0);
+        if (block.onCooldown()) {
+            block.setCooldownTicks(block.cooldownTicks() + 1);
+            if (block.cooldownTicks() >= block.cooldownMax()) {
+                block.setOnCooldown(false);
+                block.setCooldownTicks(0);
             }
-        } else if (data.getDouble("fubenjieshujishi") != 0) data.putDouble("fubenjieshujishi", 0);
+        } else if (block.cooldownTicks() != 0) {
+            block.setCooldownTicks(0);
+        }
         block.changed();
     }
 
     public static void enter(ServerPlayer leader, DungeonBlockEntity block) {
-        CompoundTag entrance = block.getPersistentData();
         ServerLevel origin = leader.serverLevel();
-        boolean refused = false;
-        int people = 0;
-        if (!entrance.getBoolean("fubenbegin")) {
-            if (!Relations.temporaryTeam(leader).isEmpty()) {
-                for (ServerPlayer member : nearby(leader, block.getBlockPos(), 16)) {
-                    people++;
-                    double level = Cultivation.get(member, CultivationValue.LEVEL_NUMBER);
-                    if (level < entrance.getDouble("fubenminlevel") || level > entrance.getDouble("fubenmaxlevel")) {
-                        leader.displayClientMessage(Component.literal("§4您的队伍中有人的等级不在承受等级区间，无法进入！"), false);
-                        refused = true;
-                        break;
-                    }
-                }
-            }
-            if (people > entrance.getDouble("fubenpeoplemax")) {
-                leader.displayClientMessage(Component.literal("§4您的队伍人数超过承受人数上限，无法进入！"), false);
-                refused = true;
-            }
-            ItemStack ticket = block.getItem(0);
-            if (!ticket.isEmpty() && !pay(leader, ticket)) {
-                leader.displayClientMessage(Component.literal("§4您没有足够的" + ticket.getDisplayName().getString() + "，无法进入！"), false);
-                refused = true;
-            }
-        } else {
-            leader.displayClientMessage(Component.literal("§4副本冷却中，请静待" + (entrance.getDouble("fubenjieshujishiMax") - entrance.getDouble("fubenjieshujishi")) + "秒"), false);
-            refused = true;
+        if (block.onCooldown()) {
+            leader.displayClientMessage(Component.literal("§4副本冷却中，请静待" + (block.cooldownMax() - block.cooldownTicks()) + "秒"), false);
+            return;
         }
-        if (refused) return;
-        entrance.putBoolean("fubenbegin", true);
-        block.changed();
         if (!DungeonPlayers.supported(origin.dimension())) {
             leader.displayClientMessage(Component.literal("§4当前维度并不支持此功能"), false);
             return;
         }
-        CompoundTag state = leader.getData(DungeonData.PLAYER);
-        DungeonPlayers.coordinates(state, "chuansong", block.getBlockPos().getX(), block.getBlockPos().getY(), block.getBlockPos().getZ());
-        for (String prefix : new String[]{"fubenzuobiao", "fubenplayer"}) {
-            for (String axis : new String[]{"X", "Y", "Z"}) state.putDouble(prefix + axis, entrance.getDouble(prefix + axis));
-        }
-        if (block.getItem(1).isEmpty()) {
-            state.putBoolean("needfubenshengcheng", true);
-            block.setItem(1, new ItemStack(Items.FLINT));
-            if (entrance.getString("fubenid").equals("fuben002")) {
-                double x = DungeonWorldData.get(leader.server).instanceX();
-                DungeonPlayers.coordinates(entrance, "fubenzuobiao", x, 98, -100);
-                DungeonPlayers.coordinates(entrance, "fubenplayer", x + 16, 100, -96);
+        int people = 0;
+        if (!Relations.temporaryTeam(leader).isEmpty()) {
+            for (ServerPlayer member : nearby(leader, block.getBlockPos(), 16)) {
+                people++;
+                double level = Cultivation.get(member, CultivationValue.LEVEL_NUMBER);
+                if (level < block.minLevel() || level > block.maxLevel()) {
+                    leader.displayClientMessage(Component.literal("§4您的队伍中有人的等级不在承受等级区间，无法进入！"), false);
+                    return;
+                }
+            }
+        } else {
+            people = 1;
+            double level = Cultivation.get(leader, CultivationValue.LEVEL_NUMBER);
+            if (level < block.minLevel() || level > block.maxLevel()) {
+                leader.displayClientMessage(Component.literal("§4您的队伍中有人的等级不在承受等级区间，无法进入！"), false);
+                return;
             }
         }
-        for (String key : new String[]{"fubenname", "fubenshujv", "fubenid"}) state.putString(key, entrance.getString(key));
-        state.putBoolean("fubenstate", true);
-        state.putDouble("daojishi", 6);
+        if (people > block.maxPeople()) {
+            leader.displayClientMessage(Component.literal("§4您的队伍人数超过承受人数上限，无法进入！"), false);
+            return;
+        }
+        ItemStack ticket = block.getItem(0);
+        if (!ticket.isEmpty() && !pay(leader, ticket)) {
+            leader.displayClientMessage(Component.literal("§4您没有足够的" + ticket.getDisplayName().getString() + "，无法进入！"), false);
+            return;
+        }
+        block.setOnCooldown(true);
+        block.changed();
+        DungeonPlayerData state = leader.getData(DungeonData.PLAYER)
+                .withReturnPos(block.getBlockPos())
+                .withControllerPos(BlockPos.containing(block.entranceControllerX(), block.entranceControllerY(), block.entranceControllerZ()))
+                .withEntryPos(block.entrancePlayerX(), block.entrancePlayerY(), block.entrancePlayerZ());
+        if (block.getItem(1).isEmpty()) {
+            state = state.withNeedGenerate(true);
+            block.setItem(1, new ItemStack(Items.FLINT));
+            if (block.templateId().equals("fuben002")) {
+                double x = DungeonWorldData.get(leader.server).instanceX();
+                block.setEntranceControllerPos(x, 98, -100);
+                block.setEntrancePlayerPos(x + 16, 100, -96);
+            }
+        }
+        state = state.withEnteredInfo(block.dungeonName(), block.definitionId(), block.templateId(), true, 6);
         // 来源妖魂分支重复判断主世界，妖魂进入时保留此前的回程维度字段。
-        if (!origin.dimension().location().getPath().equals("dimensionyaohun")) state.putString("chuansongid", origin.dimension().location().toString());
+        if (!origin.dimension().location().getPath().equals("dimensionyaohun")) {
+            state = state.withReturnDimension(origin.dimension().location().toString());
+        }
+        leader.setData(DungeonData.PLAYER, state);
         for (ServerPlayer member : nearby(leader, block.getBlockPos(), 16)) {
-            member.getData(DungeonData.PLAYER).putString("gamemoshi", modeName(member.gameMode.getGameModeForPlayer()));
+            member.setData(DungeonData.PLAYER, member.getData(DungeonData.PLAYER)
+                    .withPreviousGameMode(modeName(member.gameMode.getGameModeForPlayer())));
             member.setGameMode(GameType.ADVENTURE);
             DungeonPlayers.travel(member, DungeonPlayers.PAINTING, -32, 100, -32);
         }
@@ -125,7 +126,7 @@ public final class DungeonEntrances {
     }
 
     private static boolean pay(ServerPlayer player, ItemStack ticket) {
-        String identity = ticket.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("fubenitem");
+        String identity = ticket.getOrDefault(DungeonData.TICKET_ID.get(), "");
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         int total = 0;
         if (inventory != null) {
@@ -150,7 +151,7 @@ public final class DungeonEntrances {
     }
 
     private static boolean matches(ItemStack stack, ItemStack ticket, String identity) {
-        return stack.is(ticket.getItem()) && (identity.isEmpty() || stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("fubenitem").equals(identity));
+        return stack.is(ticket.getItem()) && (identity.isEmpty() || stack.getOrDefault(DungeonData.TICKET_ID.get(), "").equals(identity));
     }
 
     static List<ServerPlayer> nearby(ServerPlayer leader, BlockPos pos, double radius) {

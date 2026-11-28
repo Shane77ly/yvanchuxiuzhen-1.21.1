@@ -23,6 +23,9 @@ import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou031Projectiles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.SkillSummons;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 
 /** 048号妖兽来源的完整逐刻技能闭包。 */
 final class Yaoshou048Behavior {
@@ -45,122 +48,122 @@ final class Yaoshou048Behavior {
         double buchong = 0;
         double damage = 0;
         if (entity.isAlive()) {
-            entity.getPersistentData().putDouble("entitytick", (entity.getPersistentData().getDouble("entitytick") + 1));
-            if ((entity.getPersistentData().getString("jineng")).equals("")) {
-                if (!(entity.getPersistentData().getString("gongjizhe")).equals(entity.getPersistentData().getString("linshigongjizhe"))) {
-                    entity.getPersistentData().putString("gongjizhe", (entity.getPersistentData().getString("linshigongjizhe")));
+            CreatureData.state(entity).setTick((CreatureData.state(entity).tick() + 1));
+            if ((CreatureData.state(entity).skill()).equals("")) {
+                if (!(CreatureData.state(entity).attackerUuid()).equals(CreatureData.state(entity).tempAttackerUuid())) {
+                    CreatureData.state(entity).setAttackerUuid((CreatureData.state(entity).tempAttackerUuid()));
                 }
             }
-            if (!(entity.getPersistentData().getString("gongjizhe")).equals("")) {
+            if (!(CreatureData.state(entity).attackerUuid()).equals("")) {
                 linshientity = Yaoshou037054Support.target(world, entity);
             }
             if (!(linshientity == null)) {
                 if (linshientity.isAlive()) {
-                    if ((entity.getPersistentData().getString("jineng")).equals("")) {
-                        if ((entity.getPersistentData().getString("yvdingjineng")).equals("")) {
+                    if ((CreatureData.state(entity).skill()).equals("")) {
+                        if ((CreatureData.state(entity).queuedSkill()).equals("")) {
                             jvli1 = Math.sqrt(Math.pow(entity.getX() - linshientity.getX(), 2) + Math.pow(entity.getY() - linshientity.getY(), 2) + Math.pow(entity.getZ() - linshientity.getZ(), 2));
                             jvli2 = jvli1 - (entity.getBbWidth() / 2 + linshientity.getBbWidth() / 2);
                             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
                             shunxvjishu = 0;
                             if (entity.isPassenger()) {
                                 shunxvjishu = shunxvjishu + 1;
-                                entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "挣脱");
-                                entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 100);
+                                CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "挣脱");
+                                CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 100);
                             }
                             if (!entity.isPassenger()) {
                                 if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("effect_002")) : false)
                                         && !(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("effect_033")) : false)) {
                                     if (jvli2 < 8) {
                                         shunxvjishu = shunxvjishu + 1;
-                                        entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "激流");
-                                        entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                        entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 30);
+                                        CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "激流");
+                                        CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                        CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 30);
                                         shunxvjishu = shunxvjishu + 1;
-                                        entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "滚动");
-                                        entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                        entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 30);
+                                        CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "滚动");
+                                        CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                        CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 30);
                                     }
                                     if (jvli2 > 3) {
                                         shunxvjishu = shunxvjishu + 1;
-                                        entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "靠近");
-                                        entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 5);
-                                        entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 10);
+                                        CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "靠近");
+                                        CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 5);
+                                        CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 10);
                                     } else {
                                         shunxvjishu = shunxvjishu + 1;
-                                        entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "普攻");
-                                        entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                        entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 20);
+                                        CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "普攻");
+                                        CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                        CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 20);
                                         shunxvjishu = shunxvjishu + 1;
-                                        entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "缩壳");
-                                        entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                        entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 30);
+                                        CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "缩壳");
+                                        CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                        CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 30);
                                         shunxvjishu = shunxvjishu + 1;
-                                        entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "水球术");
-                                        entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                        entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 50);
+                                        CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "水球术");
+                                        CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                        CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 50);
                                     }
                                 }
                                 if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("effect_033")) : false) && jvli2 < 3) {
                                     shunxvjishu = shunxvjishu + 1;
-                                    entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) shunxvjishu)), "普攻");
-                                    entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) shunxvjishu)), 10);
-                                    entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) shunxvjishu)), 30);
+                                    CreatureData.state(entity).setCandidateSkill((int) (shunxvjishu), "普攻");
+                                    CreatureData.state(entity).setCandidateTimer((int) (shunxvjishu), 10);
+                                    CreatureData.state(entity).setCandidateWeight((int) (shunxvjishu), 30);
                                 }
                             }
                             xvnhuan = 1;
                             for (int index0 = 0; index0 < (int) (shunxvjishu); index0++) {
-                                qvanzhongmax = qvanzhongmax + entity.getPersistentData().getDouble(("jinengqvanzhong" + Integer.toString((int) xvnhuan)));
+                                qvanzhongmax = qvanzhongmax + CreatureData.state(entity).candidateWeight((int) (xvnhuan));
                                 xvnhuan = xvnhuan + 1;
                             }
                             suijishu = Yaoshou037054Support.randomInt(1, (int) qvanzhongmax);
                             xvnhuan2 = 1;
                             for (int index1 = 0; index1 < (int) (shunxvjishu); index1++) {
-                                qvanzhongdiejia = qvanzhongdiejia + entity.getPersistentData().getDouble(("jinengqvanzhong" + Integer.toString((int) xvnhuan2)));
+                                qvanzhongdiejia = qvanzhongdiejia + CreatureData.state(entity).candidateWeight((int) (xvnhuan2));
                                 if (qvanzhongdiejia >= suijishu) {
-                                    entity.getPersistentData().putString("yvdingjineng", (entity.getPersistentData().getString(("linshijineng" + Integer.toString((int) xvnhuan2)))));
-                                    entity.getPersistentData().putDouble("yvdingjinengjishi", (entity.getPersistentData().getDouble(("jinengjishi" + Integer.toString((int) xvnhuan2)))));
+                                    CreatureData.state(entity).setQueuedSkill((CreatureData.state(entity).candidateSkill((int) (xvnhuan2))));
+                                    CreatureData.state(entity).setQueuedTimer((CreatureData.state(entity).candidateTimer((int) (xvnhuan2))));
                                     break;
                                 }
                                 xvnhuan2 = xvnhuan2 + 1;
                             }
-                            entity.getPersistentData().putDouble("jinengshuliang", shunxvjishu);
-                        } else if (entity.getPersistentData().getDouble("entitytick") >= entity.getPersistentData().getDouble("yvdingjinengjishi")) {
-                            entity.getPersistentData().putString("jineng", (entity.getPersistentData().getString("yvdingjineng")));
-                            entity.getPersistentData().putString("yvdingjineng", "");
-                            entity.getPersistentData().putDouble("yvdingjinengjishi", 0);
-                            entity.getPersistentData().putDouble("entitytick", 0);
+                            CreatureData.state(entity).setCandidateCount(shunxvjishu);
+                        } else if (CreatureData.state(entity).tick() >= CreatureData.state(entity).queuedTimer()) {
+                            CreatureData.state(entity).setSkill((CreatureData.state(entity).queuedSkill()));
+                            CreatureData.state(entity).setQueuedSkill("");
+                            CreatureData.state(entity).setQueuedTimer(0);
+                            CreatureData.state(entity).setTick(0);
                             xvnhuan = 1;
-                            for (int index2 = 0; index2 < (int) (entity.getPersistentData().getDouble("jinengshuliang")); index2++) {
-                                entity.getPersistentData().putString(("linshijineng" + Integer.toString((int) xvnhuan)), "");
-                                entity.getPersistentData().putDouble(("jinengjishi" + Integer.toString((int) xvnhuan)), 0);
-                                entity.getPersistentData().putDouble(("jinengqvanzhong" + Integer.toString((int) xvnhuan)), 0);
+                            for (int index2 = 0; index2 < (int) (CreatureData.state(entity).candidateCount()); index2++) {
+                                CreatureData.state(entity).setCandidateSkill((int) (xvnhuan), "");
+                                CreatureData.state(entity).setCandidateTimer((int) (xvnhuan), 0);
+                                CreatureData.state(entity).setCandidateWeight((int) (xvnhuan), 0);
                                 xvnhuan = xvnhuan + 1;
                             }
-                            entity.getPersistentData().putDouble("jinengshuliang", 0);
+                            CreatureData.state(entity).setCandidateCount(0);
                         }
                     } else {
-                        if ((entity.getPersistentData().getString("jineng")).equals("靠近")) {
-                            if ((entity.getPersistentData().getString("jinengjinxing")).equals("")) {
+                        if ((CreatureData.state(entity).skill()).equals("靠近")) {
+                            if ((CreatureData.state(entity).phase()).equals("")) {
                                 entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
                                 if (entity instanceof Mob _entity)
                                     _entity.getNavigation().moveTo((linshientity.getX()), (linshientity.getY()), (linshientity.getZ()), 1.5);
-                                entity.getPersistentData().putString("jinengjinxing", "移动中");
-                            } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("移动中") && entity.getPersistentData().getDouble("entitytick") >= 40) {
+                                CreatureData.state(entity).setPhase("移动中");
+                            } else if ((CreatureData.state(entity).phase()).equals("移动中") && CreatureData.state(entity).tick() >= 40) {
                                 Yaoshou037054Support.finish(entity);
                             }
-                        } else if ((entity.getPersistentData().getString("jineng")).equals("挣脱")) {
+                        } else if ((CreatureData.state(entity).skill()).equals("挣脱")) {
                             Yaoshou037054Support.escape(entity);
-                        } else if ((entity.getPersistentData().getString("jineng")).equals("普攻")) {
-                            if ((entity.getPersistentData().getString("jinengjinxing")).equals("")) {
-                                entity.getPersistentData().putString("jinengjinxing", "准备");
+                        } else if ((CreatureData.state(entity).skill()).equals("普攻")) {
+                            if ((CreatureData.state(entity).phase()).equals("")) {
+                                CreatureData.state(entity).setPhase("准备");
                                 if (!entity.level().isClientSide) {
                                     if (Yaoshou037054Support.isKind(entity, "yaoshou_048")) {
                                         ((YaoshouEntity) entity).setAnimation("animation.yaoshou048.attack");
                                     }
                                 }
                                 entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
-                            } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("准备") && entity.getPersistentData().getDouble("entitytick") >= 1) {
+                            } else if ((CreatureData.state(entity).phase()).equals("准备") && CreatureData.state(entity).tick() >= 1) {
                                 buchong = entity.getBbWidth() / 2;
                                 shijiaoX = entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale((1.5 + buchong))), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity))
                                         .getBlockPos().getX();
@@ -176,7 +179,7 @@ final class Yaoshou048Behavior {
                                         if (!Relations.isFriendly(entity, entityiterator)) {
                                             if (world instanceof ServerLevel _level)
                                                 _level.sendParticles(ParticleTypes.CRIT, (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 5, 0, 0, 0, 0.5);
-                                            damage = entity.getPersistentData().getDouble("attack_Num");
+                                            damage = EntityAttributes.stat(entity, Stat.ATTACK);
                                             if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffects.WEAKNESS) : false) {
                                                 damage = damage - ((entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.WEAKNESS) ? _livEnt.getEffect(MobEffects.WEAKNESS).getAmplifier() : 0) + 1) * 4;
                                             }
@@ -190,30 +193,30 @@ final class Yaoshou048Behavior {
                                         }
                                     }
                                 }
-                                entity.getPersistentData().putString("jinengjinxing", "攻击");
-                            } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("攻击") && entity.getPersistentData().getDouble("entitytick") >= 8) {
+                                CreatureData.state(entity).setPhase("攻击");
+                            } else if ((CreatureData.state(entity).phase()).equals("攻击") && CreatureData.state(entity).tick() >= 8) {
                                 Yaoshou037054Support.finish(entity);
                             }
-                        } else if ((entity.getPersistentData().getString("jineng")).equals("激流")) {
+                        } else if ((CreatureData.state(entity).skill()).equals("激流")) {
                             Yaoshou048jiliu(world, entity);
-                        } else if ((entity.getPersistentData().getString("jineng")).equals("滚动")) {
+                        } else if ((CreatureData.state(entity).skill()).equals("滚动")) {
                             Yaoshou048gundong(world, entity);
-                        } else if ((entity.getPersistentData().getString("jineng")).equals("缩壳")) {
+                        } else if ((CreatureData.state(entity).skill()).equals("缩壳")) {
                             Yaoshou048suoke(world, entity);
-                        } else if ((entity.getPersistentData().getString("jineng")).equals("水球术")) {
+                        } else if ((CreatureData.state(entity).skill()).equals("水球术")) {
                             Yaoshou048shuiqiushu(world, entity);
                         }
                     }
                 } else {
-                    entity.getPersistentData().putString("gongjizhe", "");
-                    entity.getPersistentData().putString("linshigongjizhe", "");
+                    CreatureData.state(entity).setAttackerUuid("");
+                    CreatureData.state(entity).setTempAttackerUuid("");
                     Yaoshou037054Support.finish(entity);
                 }
             } else {
-                if (entity.getPersistentData().getDouble("entitytick") >= 40) {
+                if (CreatureData.state(entity).tick() >= 40) {
                     if (entity instanceof Mob _entity)
                         _entity.getNavigation().moveTo((entity.getX() + Yaoshou037054Support.randomInt(-3, 3)), (entity.getY()), (entity.getZ() + Yaoshou037054Support.randomInt(-3, 3)), 1);
-                    entity.getPersistentData().putDouble("entitytick", 0);
+                    CreatureData.state(entity).setTick(0);
                 }
             }
         }
@@ -223,22 +226,22 @@ final class Yaoshou048Behavior {
     static void Yaoshou048shuiqiushu(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
         linshientity = Yaoshou037054Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("")) {
+        if ((CreatureData.state(entity).phase()).equals("")) {
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
             if (!entity.level().isClientSide) {
                 if (Yaoshou037054Support.isKind(entity, "yaoshou_048")) {
                     ((YaoshouEntity) entity).setAnimation("animation.yaoshou048.attack");
                 }
             }
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 2) {
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 2) {
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
             if (world instanceof ServerLevel projectileLevel) {
                 SkillSummons.shootWater03(entity, new Vec3(entity.getX(), entity.getY() + entity.getBbHeight() / 2, entity.getZ()),
                         entity.getLookAngle().add(0, 0.1, 0), 3, 0);
             }
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 8) {
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 8) {
             Yaoshou037054Support.finish(entity);
         }
     }
@@ -248,21 +251,21 @@ final class Yaoshou048Behavior {
         Entity linshientity = null;
         double jvli = 0;
         linshientity = Yaoshou037054Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("")) {
+        if ((CreatureData.state(entity).phase()).equals("")) {
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
             entity.setShiftKeyDown((true));
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 400) {
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力")) {
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 400) {
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力")) {
             jvli = Math.abs(Math.abs(entity.getX()) - Math.abs(linshientity.getX())) + Math.abs(Math.abs(entity.getY()) - Math.abs(linshientity.getZ())) + Math.abs(Math.abs(entity.getZ()) - Math.abs(linshientity.getY()));
             if (jvli >= 16) {
-                entity.getPersistentData().putString("jinengjinxing", "结束");
+                CreatureData.state(entity).setPhase("结束");
                 Yaoshou037054Support.finish(entity);
                 entity.setShiftKeyDown((false));
-                entity.getPersistentData().putString("gongjizhe", "");
+                CreatureData.state(entity).setAttackerUuid("");
             }
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 40) {
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 40) {
             entity.setShiftKeyDown((false));
             Yaoshou037054Support.finish(entity);
         }
@@ -273,17 +276,17 @@ final class Yaoshou048Behavior {
         Entity linshientity = null;
         double damage = 0;
         linshientity = Yaoshou037054Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("")) {
+        if ((CreatureData.state(entity).phase()).equals("")) {
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
             if (!entity.level().isClientSide) {
                 if (Yaoshou037054Support.isKind(entity, "yaoshou_048")) {
                     ((YaoshouEntity) entity).setAnimation("animation.yaoshou048.skill02");
                 }
             }
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 88) {
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 8) {
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 88) {
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 8) {
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
                     _level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou048skill02"), SoundSource.HOSTILE, 1, 1);
@@ -291,21 +294,21 @@ final class Yaoshou048Behavior {
                     _level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou048skill02"), SoundSource.HOSTILE, 1, 1, false);
                 }
             }
-            entity.getPersistentData().putDouble("entitytick2", (entity.getPersistentData().getDouble("entitytick2") + 1));
-            if (entity.getPersistentData().getDouble("entitytick2") >= 20) {
+            CreatureData.state(entity).setTick2((CreatureData.state(entity).tick2() + 1));
+            if (CreatureData.state(entity).tick2() >= 20) {
                 entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-                entity.getPersistentData().putDouble("fangxiangX", (entity.getLookAngle().x * 0.4));
-                entity.getPersistentData().putDouble("fangxiangZ", (entity.getLookAngle().z * 0.4));
-                entity.getPersistentData().putDouble("entitytick2", 0);
+                CreatureData.state(entity).setDirX((entity.getLookAngle().x * 0.4));
+                CreatureData.state(entity).setDirZ((entity.getLookAngle().z * 0.4));
+                CreatureData.state(entity).setTick2(0);
             }
-            entity.setDeltaMovement(new Vec3((entity.getPersistentData().getDouble("fangxiangX")), 0, (entity.getPersistentData().getDouble("fangxiangZ"))));
+            entity.setDeltaMovement(new Vec3((CreatureData.state(entity).dirX()), 0, (CreatureData.state(entity).dirZ())));
             {
                 final Vec3 _center = new Vec3((entity.getX()), (entity.getY()), (entity.getZ()));
                 List<Entity> _entfound = world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(4 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center)))
                         .toList();
                 for (Entity entityiterator : _entfound) {
                     if (!Relations.isFriendly(entity, entityiterator)) {
-                        damage = entity.getPersistentData().getDouble("attack_Num");
+                        damage = EntityAttributes.stat(entity, Stat.ATTACK);
                         if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffects.WEAKNESS) : false) {
                             damage = damage - ((entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.WEAKNESS) ? _livEnt.getEffect(MobEffects.WEAKNESS).getAmplifier() : 0) + 1) * 4;
                         }
@@ -319,7 +322,7 @@ final class Yaoshou048Behavior {
                     }
                 }
             }
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 29) {
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 29) {
             Yaoshou037054Support.finish(entity);
         }
     }
@@ -328,9 +331,9 @@ final class Yaoshou048Behavior {
     static void Yaoshou048jiliu(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
         linshientity = Yaoshou037054Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("")) {
+        if ((CreatureData.state(entity).phase()).equals("")) {
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY() + linshientity.getBbHeight() / 2), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
             if (!entity.level().isClientSide) {
                 if (Yaoshou037054Support.isKind(entity, "yaoshou_048")) {
                     ((YaoshouEntity) entity).setAnimation("animation.yaoshou048.skill01");
@@ -338,12 +341,12 @@ final class Yaoshou048Behavior {
             }
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 96, 1, (false), (false)));
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 100) {
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 20) {
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 100) {
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 20) {
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putDouble("entitytick2", (entity.getPersistentData().getDouble("entitytick2") + 1));
-            if (entity.getPersistentData().getDouble("entitytick2") >= 3) {
+            CreatureData.state(entity).setTick2((CreatureData.state(entity).tick2() + 1));
+            if (CreatureData.state(entity).tick2() >= 3) {
                 if (world instanceof Level _level) {
                     if (!_level.isClientSide()) {
                         _level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou048skill01"), SoundSource.HOSTILE, 1, 1);
@@ -357,9 +360,9 @@ final class Yaoshou048Behavior {
                     _entityToSpawn.shoot((entity.getLookAngle().x), (entity.getLookAngle().y + 0.15), (entity.getLookAngle().z), 1, 10);
                     projectileLevel.addFreshEntity(_entityToSpawn);
                 }
-                entity.getPersistentData().putDouble("entitytick2", 0);
+                CreatureData.state(entity).setTick2(0);
             }
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 44) {
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 44) {
             Yaoshou037054Support.finish(entity);
         }
     }

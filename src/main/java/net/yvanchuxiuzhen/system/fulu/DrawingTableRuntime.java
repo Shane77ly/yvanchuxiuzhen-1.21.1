@@ -3,26 +3,23 @@ package net.yvanchuxiuzhen.system.fulu;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
+import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 
 /** 画符台共享选择、职业等级快照与制作；玩家知识和职业经验经所属公开操作读写。 */
 public final class DrawingTableRuntime {
-    private static final String[] SELECTIONS = {"futou", "tiandizhu", "fudan"};
     private static final String[] EMPTY_MESSAGES = {"§4您还未掌握任何一种符头！", "§4您还未掌握任何一种天地柱！", "§4您还未掌握任何一种符胆！"};
     private static final String[] USAGE = {
             "画符台是用于绘制符箓的工作台。",
@@ -49,7 +46,7 @@ public final class DrawingTableRuntime {
     public static void rightClick(PlayerInteractEvent.RightClickBlock event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || event.getHand() != player.getUsedItemHand()) return;
         if (event.getLevel().getBlockEntity(event.getPos()) instanceof DrawingTableBlockEntity table) {
-            table.getPersistentData().putDouble("RuneLEVEL", Professions.level(player, Profession.RUNE));
+            table.setRuneLevel(Professions.level(player, Profession.RUNE));
             table.changed();
         }
     }
@@ -69,29 +66,43 @@ public final class DrawingTableRuntime {
             case 1 -> knowledge.pillars();
             default -> knowledge.cores();
         };
-        CompoundTag state = table.getPersistentData();
-        String field = SELECTIONS[category];
-        int position = state.getInt(field + "weizhi");
+        int position = switch (category) {
+            case 0 -> table.headIndex();
+            case 1 -> table.pillarIndex();
+            default -> table.coreIndex();
+        };
         if (choices.isEmpty()) message(player, EMPTY_MESSAGES[category]);
         else {
             position += up ? 1 : -1;
             if (up && position > choices.size()) position = 1;
             else if (!up && position < 1) position = choices.size();
-            state.putInt(field, choices.get(position - 1));
+            int selected = choices.get(position - 1);
+            switch (category) {
+                case 0 -> {
+                    table.setHead(selected);
+                    table.setHeadIndex(position);
+                }
+                case 1 -> {
+                    table.setPillar(selected);
+                    table.setPillarIndex(position);
+                }
+                default -> {
+                    table.setCore(selected);
+                    table.setCoreIndex(position);
+                }
+            }
             refresh(table);
         }
-        state.putInt(field + "weizhi", position);
         table.changed();
     }
 
     /** 先清旧预览，再取有序表中符头和符胆的首个匹配；天地柱只决定品阶。 */
     public static void refresh(DrawingTableBlockEntity table) {
-        CompoundTag state = table.getPersistentData();
-        state.putInt("needmotiao", 0);
-        state.putString("fuluname", "");
-        DrawingRecipes.find(state.getInt("futou"), state.getInt("fudan")).ifPresent(recipe -> {
-            state.putInt("needmotiao", recipe.ink());
-            state.putString("fuluname", recipe.item().toString());
+        table.setNeedInk(0);
+        table.setFuluName("");
+        DrawingRecipes.find(table.head(), table.core()).ifPresent(recipe -> {
+            table.setNeedInk(recipe.ink());
+            table.setFuluName(recipe.item().toString());
         });
     }
 
@@ -105,15 +116,14 @@ public final class DrawingTableRuntime {
             message(player, "§4缺少符纸！");
             return;
         }
-        CompoundTag state = table.getPersistentData();
-        Optional<DrawingRecipes.Recipe> match = DrawingRecipes.find(state.getInt("futou"), state.getInt("fudan"));
+        Optional<DrawingRecipes.Recipe> match = DrawingRecipes.find(table.head(), table.core());
         if (match.isEmpty()) return;
         DrawingRecipes.Recipe recipe = match.get();
         player.displayClientMessage(Component.literal("符箓：").append(DrawingRecipes.name(recipe.item())), false);
-        int grade = state.getInt("tiandizhu");
+        int grade = table.pillar();
         ItemStack ink = grade >= 1 && grade <= 4 ? new ItemStack(BuiltInRegistries.ITEM.get(id(String.format(Locale.ROOT, "motiao_%02d", grade)))) : ItemStack.EMPTY;
         if (ink.isEmpty()) grade = 0;
-        if (state.getInt("RuneLEVEL") + 1 < grade) {
+        if ((int) table.runeLevel() + 1 < grade) {
             message(player, "§4您的画符等级不足以绘制此等级的符箓！您可以降低天地柱等级或多画一些低级符箓提升自身等级。");
             return;
         }
@@ -126,12 +136,10 @@ public final class DrawingTableRuntime {
             return;
         }
         ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(recipe.item()));
-        CompoundTag data = new CompoundTag();
-        data.putInt("fululevel", grade);
-        data.putString("fululeveltxt", grade == 0 ? "" : knowledgeKey("tiandizhu", grade));
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        String levelText = grade == 0 ? "" : knowledgeKey("tiandizhu", grade);
+        Fulu.setTalisman(result, new TalismanInstance(grade, levelText, 0, 0));
         if (!previous.isEmpty()) {
-            if (previous.is(result.getItem()) && previous.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("fululevel") == grade) {
+            if (previous.is(result.getItem()) && Fulu.talisman(previous).level() == grade) {
                 result.setCount(previous.getCount() + 1);
             } else ItemHandlerHelper.giveItemToPlayer(player, previous.copy());
         }

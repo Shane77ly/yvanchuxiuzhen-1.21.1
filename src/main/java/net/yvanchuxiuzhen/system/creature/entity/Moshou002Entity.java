@@ -23,6 +23,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 
 /** 002号魔兽的飞行追击、四十刻冲刺、来源资质和无重力生命周期。 */
 public final class Moshou002Entity extends MoshouEntity {
@@ -89,22 +93,23 @@ public final class Moshou002Entity extends MoshouEntity {
 
     @Override
     protected void initializeSourceData() {
-        if (getPersistentData().getString("LEVELname").isEmpty()) {
+        if (EntityAttributes.realmName(this).isEmpty()) {
             CreatureSourceStats.initialize(this, 20, false,
                     "强劲", "平庸", "平庸", "勉强", "贫弱", "贫弱", "勉强", "强劲", "勉强", "强劲", "贫弱", "平庸", "绝佳");
-            getAttribute(Attributes.FLYING_SPEED).setBaseValue(getPersistentData().getDouble("speed_number") * 3);
+            getAttribute(Attributes.FLYING_SPEED).setBaseValue(EntityAttributes.stat(this, Stat.MOVE_SPEED) * 3);
         }
     }
 
     @Override
     protected void sourceTick() {
         if (isAlive() && getTarget() != null) {
-            double tick = getPersistentData().getDouble("entitytick") + 1;
+            CreatureState state = CreatureData.state(this);
+            double tick = state.tick() + 1;
             if (tick >= 40) {
                 setDeltaMovement(getLookAngle());
                 tick = 0;
             }
-            getPersistentData().putDouble("entitytick", tick);
+            state.setTick(tick);
         }
     }
 

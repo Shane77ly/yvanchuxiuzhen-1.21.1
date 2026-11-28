@@ -35,6 +35,9 @@ public final class BlockFireworkBlockEntity extends RandomizableContainerBlockEn
     private NonNullList<ItemStack> items = NonNullList.withSize(0, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[6];
+    private boolean begin;
+    private boolean begin2;
+    private double tick;
 
     public BlockFireworkBlockEntity(BlockFireworkKind kind, BlockPos pos, BlockState state) {
         super(BlockFireworks.type(kind), pos, state);
@@ -43,43 +46,45 @@ public final class BlockFireworkBlockEntity extends RandomizableContainerBlockEn
     }
 
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : sided[direction.ordinal()]; }
+    public boolean begin() { return begin; }
+    public boolean begin2() { return begin2; }
+    public void setTick(double value) { tick = value; changed(); }
 
     public void ignite() {
-        getPersistentData().putBoolean("begin", true);
+        begin = true;
         changed();
     }
 
     public void scheduledTick(ServerLevel level) {
-        CompoundTag data = getPersistentData();
-        if (data.getBoolean("begin")) {
-            data.putDouble("tick", data.getDouble("tick") + 1);
+        if (begin) {
+            tick += 1;
             double height = kind == BlockFireworkKind.BATTERY ? 2 : kind == BlockFireworkKind.FOUNTAIN ? .7 : 0;
             level.sendParticles(ParticleTypes.SMOKE, worldPosition.getX() + .5, worldPosition.getY() + height,
                     worldPosition.getZ() + .5, 5, 0, 0, 0, kind == BlockFireworkKind.BATTERY ? 0 : .1);
-            if (data.getDouble("tick") >= (kind == BlockFireworkKind.BATTERY ? 2 : 20)) {
+            if (tick >= (kind == BlockFireworkKind.BATTERY ? 2 : 20)) {
                 if (kind == BlockFireworkKind.FIRECRACKER) level.playSound(null, worldPosition,
                         BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "pao1001")), SoundSource.NEUTRAL, 2, 1);
-                data.putBoolean("begin", false);
-                data.putBoolean("begin2", true);
-                data.putDouble("tick", 0);
+                begin = false;
+                begin2 = true;
+                tick = 0;
             }
             changed();
-        } else if (data.getBoolean("begin2")) {
+        } else if (begin2) {
             switch (kind) {
                 case FIRECRACKER -> firecracker(level);
                 case FOUNTAIN -> fountain(level);
                 case BATTERY -> battery(level);
             }
-            data.putDouble("tick", data.getDouble("tick") + 1);
-            if (data.getDouble("tick") >= (kind == BlockFireworkKind.BATTERY ? 60 : 600)) {
-                data.putBoolean("begin2", false);
+            tick += 1;
+            if (tick >= (kind == BlockFireworkKind.BATTERY ? 60 : 600)) {
+                begin2 = false;
                 if (kind == BlockFireworkKind.FIRECRACKER) {
                     for (int x = -1; x <= 1; x++) for (int y = -1; y <= 1; y++) for (int z = -1; z <= 1; z++) {
                         if (level.getBlockEntity(worldPosition.offset(x, y, z)) instanceof BlockFireworkBlockEntity next
                                 && next.kind == BlockFireworkKind.FIRECRACKER) next.ignite();
                     }
                 }
-                data.putDouble("tick", 0);
+                tick = 0;
                 changed();
                 level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             } else changed();
@@ -131,6 +136,15 @@ public final class BlockFireworkBlockEntity extends RandomizableContainerBlockEn
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(0, ItemStack.EMPTY);
+        begin = tag.getBoolean("begin");
+        begin2 = tag.getBoolean("begin2");
+        tick = tag.getDouble("tick");
+    }
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        if (begin) tag.putBoolean("begin", true);
+        if (begin2) tag.putBoolean("begin2", true);
+        if (tick != 0) tag.putDouble("tick", tick);
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

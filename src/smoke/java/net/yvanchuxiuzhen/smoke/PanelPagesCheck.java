@@ -46,8 +46,6 @@ final class PanelPagesCheck extends SystemCheck {
     private float originalPitch;
     private float originalHealth;
     private boolean originalNoGravity;
-    private boolean originalCollectionPresent;
-    private double originalCollection;
     private double originalAlcohol;
     private int originalPage;
 
@@ -233,8 +231,6 @@ final class PanelPagesCheck extends SystemCheck {
         originalNoGravity = player.isNoGravity();
         originalPage = player.getData(PanelNavigation.PAGE);
         originalAlcohol = Alcohol.amount(player);
-        originalCollectionPresent = player.getPersistentData().contains("collection_LEVEL");
-        originalCollection = player.getPersistentData().getDouble("collection_LEVEL");
         player.setData(XiulianAttachments.CULTIVATION, new CultivationData());
         player.setData(AttributeAttachments.ATTRIBUTES, AttributeData.EMPTY);
         VanillaAttributes.apply(player, AttributeData.EMPTY.totals());
@@ -298,8 +294,6 @@ final class PanelPagesCheck extends SystemCheck {
         player.syncData(ProfessionAttachments.PROGRESS);
         player.setData(PanelNavigation.PAGE, originalPage);
         Alcohol.add(player, originalAlcohol - Alcohol.amount(player));
-        if (originalCollectionPresent) player.getPersistentData().putDouble("collection_LEVEL", originalCollection);
-        else player.getPersistentData().remove("collection_LEVEL");
         player.removeAllEffects();
         originalEffects.forEach(player::addEffect);
         player.setNoGravity(originalNoGravity);

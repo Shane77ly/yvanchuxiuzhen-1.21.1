@@ -2,18 +2,20 @@
 topic: attribute
 role: entry
 status: partial
-updated: 2026-11-15
+updated: 2026-11-28
 ---
 
 # 属性
 
+2026-11-28 阶段 6 将 `AttributeCheck` 重生后当前生命断言从 `30.0` 对齐为当前 `Rebirth` 二成回血机制实测值 `11.0`，随 `-PsmokeOnly=attribute,q119` 通过（[本月记录](logs/2026-11.md#2026-11-28-阶段-6attributecheck-重生生命夹具对齐)）。
+
 标识 `attribute`，类别：系统。职责：基础属性、贡献汇总、派生值，含灵根与功法的五行加成和抗性（[系统设计](../../development/system-design.md)）。
 
-当前阶段：公开操作、贡献汇总、玩家附件与原版属性写入已实现（`system/attribute`），JUnit 算例与开发客户端实机检查通过（2026-11-03）。提交贡献的xiulian、gongfa、equipment、fulu与economy已有各自来源路径，具体实现和验证归所属系统正文；属性重算粒子的来源入口映射仍未接，2026-11-15精确触发边界见[架构正文](architecture.md#属性重算粒子入口边界2026-11-15)，本批只有静态调查。
+当前阶段：公开操作、贡献汇总、玩家附件与原版属性写入已实现（`system/attribute`），JUnit 算例与开发客户端实机检查通过（2026-11-03）；2026-11-27 阶段 4 已按批准裁定把 Q18 `receivedElementBonus` 改为负向减伤（见[本月记录](logs/2026-11.md)）。提交贡献的xiulian、gongfa、equipment、fulu与economy已有各自来源路径，具体实现和验证归所属系统正文；属性重算粒子的来源入口映射仍未接，2026-11-15精确触发边界见[架构正文](architecture.md#属性重算粒子入口边界2026-11-15)，本批只有静态调查。
 
 - [架构与调查正文](architecture.md)：来源事实、归属阅读、目标实现、验证与裁定事项。
 - 候选归属 9 个元素已全部读完：3 个归属本系统（其中 `Playershuxingjisuan` 为空过程），其余归 equipment、xiulian、creature。本系统没有来源注册，因此没有内容台账。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
-- 裁定：Q17 实际属性计入炼器数值、与显示一致（2026-11-03）；Q18 暂按来源行为、之后再议（2026-11-03）。见[架构与调查正文](architecture.md)“来源问题”。
+- 裁定：Q17 实际属性计入炼器数值、与显示一致（2026-11-03）；Q18 阶段 4 已裁定改为减伤并修正（2026-11-27）。见[架构与调查正文](architecture.md)“来源问题”。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 - [本月记录](logs/2026-11.md)登记完整重算粒子入口的静态复核与验证边界。
 
@@ -29,7 +31,7 @@ updated: 2026-11-15
 | 查询基础值 | `baseValue(玩家, Stat)`：初始值加基础层贡献（来源中不带 `_display` 的字段） | combat（`DamageIntegration` 读 `mana_Att`、`EntityBeforeHurt` 读 `attack_Def`）、skill（技能箭读 `attack_Num`）、equipment（`Fabao010` 读 `mana_Att`）、xiulian（资质检测） |
 | 提交贡献 | `setContribution(玩家, 来源键, Contribution(层, 各属性加值))`；同一来源键覆盖上次的值。基础层：xiulian（境界与修为成长、单项提升、灵根）、fulu（浮生丹重置）、economy（血灵晶）；加成层：gongfa（主修功法加成与五行、层数）、equipment（防具与武器的炼器数值、饰品、附魔） | 同左 |
 | 清除贡献 | `clearContribution(玩家, 来源键)` | 同上；卸下装备、取消主修、重置时 |
-| 五行系数 | `elementCoefficient(攻击方, DamageElement)` = 灵根值 × 0.1（阴阳用 `yinyang`，非玩家为 0）；`receivedElementBonus(受击方, DamageElement)` = 功法五行值 × 功法层数 / 4（阴、阳与非玩家为 0） | combat 伤害结算 |
+| 五行系数 | `elementCoefficient(攻击方, DamageElement)` = 灵根值 × 0.1（阴阳用 `yinyang`，非玩家为 0）；`receivedElementBonus(受击方, DamageElement)` = −(功法五行值 × 功法层数 / 4)（同属性抗性减伤；阴、阳与非玩家为 0） | combat 伤害结算 |
 
 约定：
 

@@ -30,10 +30,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.api.SealedCorpse;
+import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -134,19 +143,19 @@ final class FuluCorpseCheck extends SystemCheck {
         corpse.tame(player);
         corpse.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
         Relations.setTeam(corpse, "sealed_team");
-        CompoundTag state = corpse.getPersistentData();
-        state.putDouble("caijinumber", 4.25);
-        state.putDouble("experience", 17.5);
-        state.putDouble("health_Max", 1234);
-        state.putDouble("attack_Num", 90);
-        state.putDouble("speed_number", 0.9);
-        state.putString("character", "谨慎");
-        state.putDouble("character_def", 1.5);
-        state.putDouble("character_att", 0.5);
-        state.putDouble("character_interval", 1.5);
-        state.putDouble("character_resist", 1.3);
-        state.putBoolean("yaodandiaoluo", true);
-        state.putString("jineng", "不应封存");
+        CreatureState state = CreatureData.state(corpse);
+        state.setHarvestCount(4.25);
+        EntityAttributes.update(corpse, stats -> stats.withExperience(17.5)
+                .withStat(Stat.HEALTH_MAX, 1234)
+                .withStat(Stat.ATTACK, 90)
+                .withStat(Stat.MOVE_SPEED, 0.9));
+        state.setCharacter("谨慎");
+        state.setCharacterDef(1.5);
+        state.setCharacterAtt(0.5);
+        state.setCharacterInterval(1.5);
+        state.setCharacterResist(1.3);
+        state.setBeastCoreDropped(true);
+        state.setSkill("不应封存");
         corpse.setHealth(0);
         player.setShiftKeyDown(true);
         interact(player, corpse, InteractionHand.MAIN_HAND);
@@ -196,9 +205,7 @@ final class FuluCorpseCheck extends SystemCheck {
         expectTrue("来源优先物品阻断收纳", !corpse.isRemoved());
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE));
         player.setGameMode(GameType.CREATIVE);
-        CompoundTag grade = new CompoundTag();
-        grade.putInt("fululevel", 2);
-        player.getInventory().getItem(8).set(DataComponents.CUSTOM_DATA, CustomData.of(grade));
+        Fulu.setTalisman(player.getInventory().getItem(8), new TalismanInstance(2, "", 0, 0));
         corpse.getAttribute(YaoshouAttributes.SKIN).setBaseValue(5);
         interact(player, corpse, InteractionHand.MAIN_HAND);
         expectTrue("创造携带有品阶空符仍收纳", corpse.isRemoved());
@@ -238,20 +245,21 @@ final class FuluCorpseCheck extends SystemCheck {
     }
 
     private void verify(YaoshouEntity corpse, String phase) {
-        CompoundTag state = corpse.getPersistentData();
-        expectTrue(phase + "保留零生命与境界", corpse.getHealth() == 0 && !state.getString("LEVELname").isEmpty());
-        expect(phase + "保留采集次数", 4.25, state.getDouble("caijinumber"));
-        expect(phase + "保留经验", 17.5, state.getDouble("experience"));
+        CreatureState state = CreatureData.state(corpse);
+        EntityStats stats = EntityAttributes.get(corpse);
+        expectTrue(phase + "保留零生命与境界", corpse.getHealth() == 0 && !stats.realmName().isEmpty());
+        expect(phase + "保留采集次数", 4.25, state.harvestCount());
+        expect(phase + "保留经验", 17.5, stats.experience());
         expect(phase + "恢复最大生命属性", 1234, corpse.getAttributeBaseValue(Attributes.MAX_HEALTH));
         expect(phase + "恢复皮肤和尺寸", 3, corpse.getAttributeBaseValue(YaoshouAttributes.SKIN));
         expect(phase + "恢复尺寸", 1.7, corpse.getAttributeBaseValue(YaoshouAttributes.SIZE));
-        expect(phase + "恢复性格参数", 1.3, state.getDouble("character_resist"));
-        expect(phase + "攻击数值仍只存自由字段", 90, state.getDouble("attack_Num"));
+        expect(phase + "恢复性格参数", 1.3, state.characterResist());
+        expect(phase + "攻击数值仍只存实体属性", 90, stats.stat(Stat.ATTACK));
         expect(phase + "不从自由字段恢复攻击属性", defaultAttack, corpse.getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
         expect(phase + "不从自由字段恢复速度属性", defaultSpeed, corpse.getAttributeBaseValue(Attributes.MOVEMENT_SPEED));
         expect(phase + "团队为空", "", Relations.entityTeam(corpse));
         expectTrue(phase + "不带回驯服、装备、采丹和技能状态", !corpse.isTame() && corpse.getMainHandItem().isEmpty()
-                && !state.getBoolean("yaodandiaoluo") && state.getString("jineng").isEmpty());
+                && !state.beastCoreDropped() && state.skill().isEmpty());
     }
 
     private YaoshouEntity released(ServerPlayer player) {
@@ -279,7 +287,7 @@ final class FuluCorpseCheck extends SystemCheck {
     }
 
     private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        return stack.getOrDefault(FuluData.SEALED_CORPSE.get(), SealedCorpse.EMPTY).corpse();
     }
 
     private void cleanup(ServerPlayer player) {

@@ -31,15 +31,30 @@ import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import java.util.EnumMap;
+import java.util.Map;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.npc.NpcData;
+import net.yvanchuxiuzhen.system.npc.NpcDialogueProfile;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 商人及大管家的来源实例生命周期；交易、对话与玩家档案由各数据所有者维护。 */
 public class NpcMob extends PathfinderMob {
+    private static final String[] RATING_KEYS = {
+            "health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL", "power_Rec_LEVEL", "soul_Max_LEVEL", "soul_Rec_LEVEL",
+            "attack_Num_LEVEL", "attack_Def_LEVEL", "mana_Att_LEVEL", "mana_Def_LEVEL", "soul_Att_LEVEL", "soul_Def_LEVEL", "speed_LEVEL"
+    };
     private final CompoundTag profile;
+    private double skillTick;
+    private double skillSubTick;
+    private String activeSkill = "";
+    private String skillPhase = "";
 
     public NpcMob(EntityType<? extends NpcMob> type, Level level, CompoundTag profile) {
         super(type, level);
@@ -95,14 +110,36 @@ public class NpcMob extends PathfinderMob {
 
     protected void sourceHurt() { }
 
+    protected final boolean hasActiveSkill() { return !activeSkill.isEmpty(); }
+
+    protected final void clearSkillState() {
+        skillTick = 0;
+        skillSubTick = 0;
+        activeSkill = "";
+        skillPhase = "";
+    }
+
     @Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData data) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, reason, data);
-        CompoundTag state = getPersistentData();
-        if (state.getString("LEVELname").isEmpty()) {
-            if (state.getDouble("LEVELnumber") < 1) state.putDouble("LEVELnumber", profile.getDouble("level"));
-            state.merge(profile.getCompound("state"));
-            CompoundTag localized = profile.getCompound("localized");
-            for (String key : localized.getAllKeys()) state.putString(key, Component.translatable(localized.getString(key)).getString());
+        if (EntityAttributes.realmName(this).isEmpty()) {
+            CompoundTag state = profile.getCompound("state");
+            Map<Stat, String> ratings = new EnumMap<>(Stat.class);
+            for (int index = 0; index < RATING_KEYS.length; index++) {
+                String value = state.getString(RATING_KEYS[index]);
+                if (!value.isEmpty()) ratings.put(EntityAttributes.COMBAT_STATS.get(index), value);
+            }
+            EntityAttributes.update(this, stats -> {
+                double nextLevel = stats.level() < 1 ? profile.getDouble("level") : stats.level();
+                return stats.withLevel(nextLevel).withRatings(ratings);
+            });
+            NpcDialogueProfile dialogueProfile = getData(NpcData.PROFILE);
+            String dialogueId = state.getString("dialogue_id");
+            String shopId = state.getString("shop_id");
+            if (!dialogueId.isEmpty()) dialogueProfile = dialogueProfile.withScript(0, dialogueId);
+            if (!shopId.isEmpty()) dialogueProfile = dialogueProfile.withShopId(shopId);
+            if (state.getBoolean("npcset")) dialogueProfile = dialogueProfile.withFixed(true);
+            setData(NpcData.PROFILE, dialogueProfile);
+            if (state.getBoolean("renwuzuopen")) NpcDefinitions.setInteractiveNpc(this, true);
             NpcStats.calculate(this);
             String team = BuiltInRegistries.ENTITY_TYPE.getKey(getType()).toString().replace(':', '_');
             Relations.setTeam(this, team);
@@ -116,15 +153,15 @@ public class NpcMob extends PathfinderMob {
     @Override public void baseTick() {
         super.baseTick();
         if (level().isClientSide()) return;
-        CompoundTag data = getPersistentData();
-        if (refreshesShop() && (data.getDouble("shopshuaxintick") + 24000 <= level().getDayTime()
-                || data.getDouble("shopshuaxintick") > level().getDayTime())) {
+        NpcDialogueProfile dialogueProfile = getData(NpcData.PROFILE);
+        if (refreshesShop() && (dialogueProfile.shopRefreshTick() + 24000 <= level().getDayTime()
+                || dialogueProfile.shopRefreshTick() > level().getDayTime())) {
             setRefreshScore();
-            data.putDouble("shopshuaxintick", level().getDayTime());
+            setData(NpcData.PROFILE, dialogueProfile.withShopRefreshTick(level().getDayTime()));
         }
         if (kind().equals("businessman_04") && isAlive()) {
-            data.putDouble("entitytick", data.getDouble("entitytick") + 1);
-            if (data.getDouble("entitytick") >= (getTarget() == null ? 20 : 100)) data.putDouble("entitytick", 0);
+            skillTick += 1;
+            if (skillTick >= (getTarget() == null ? 20 : 100)) skillTick = 0;
         }
     }
 

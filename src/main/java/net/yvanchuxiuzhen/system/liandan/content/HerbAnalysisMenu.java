@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.yvanchuxiuzhen.platform.content.LegacyContainerMove;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +13,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.yvanchuxiuzhen.system.liandan.LiandanHerbAnalysis;
@@ -30,9 +32,9 @@ public final class HerbAnalysisMenu extends AbstractContainerMenu {
         super(LiandanMenus.HERB_ANALYSIS.get(), id);
         this.openedAt = openedAt;
         Player owner = inventory.player;
-        IItemHandler blockItems = owner.level().isClientSide ? null
+        IItemHandler blockItems = owner.level().isClientSide || owner.level().getBlockEntity(openedAt) == null ? null
                 : owner.level().getCapability(Capabilities.ItemHandler.BLOCK, openedAt, null);
-        bound = blockItems != null;
+        bound = blockItems instanceof IItemHandlerModifiable;
         input = bound ? blockItems : new ItemStackHandler(1) {
             @Override
             public int getSlotLimit(int slot) {
@@ -96,35 +98,9 @@ public final class HerbAnalysisMenu extends AbstractContainerMenu {
         return original;
     }
 
-    /** 来源合并已有堆叠时仍检查槽位过滤，空槽插入一次后停止。 */
     @Override
     protected boolean moveItemStackTo(ItemStack stack, int start, int end, boolean reverse) {
-        boolean moved = false;
-        int step = reverse ? -1 : 1;
-        if (stack.isStackable()) {
-            for (int index = reverse ? end - 1 : start; !stack.isEmpty() && index >= start && index < end; index += step) {
-                Slot slot = slots.get(index);
-                ItemStack existing = slot.getItem();
-                if (!slot.mayPlace(existing) || existing.isEmpty() || !ItemStack.isSameItemSameComponents(stack, existing)) continue;
-                int count = Math.min(stack.getCount(), Math.min(slot.getMaxStackSize(), stack.getMaxStackSize()) - existing.getCount());
-                if (count > 0) {
-                    stack.shrink(count);
-                    existing.grow(count);
-                    slot.set(existing);
-                    moved = true;
-                }
-            }
-        }
-        for (int index = reverse ? end - 1 : start; !stack.isEmpty() && index >= start && index < end; index += step) {
-            Slot slot = slots.get(index);
-            if (slot.getItem().isEmpty() && slot.mayPlace(stack)) {
-                slot.set(stack.split(Math.min(stack.getCount(), slot.getMaxStackSize())));
-                slot.setChanged();
-                moved = true;
-                break;
-            }
-        }
-        return moved;
+        return LegacyContainerMove.moveItemStackTo(slots, stack, start, end, reverse);
     }
 
     @Override

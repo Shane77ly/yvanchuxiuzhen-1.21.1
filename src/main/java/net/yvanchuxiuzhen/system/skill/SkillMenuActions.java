@@ -1,10 +1,8 @@
 package net.yvanchuxiuzhen.system.skill;
 
 import java.text.DecimalFormat;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -15,7 +13,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -29,6 +26,7 @@ import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 技能界面的自爆、神识扫描和召唤丹火。境界、资源、寿元及物品产出全部由服务端判断并写入。 */
 public final class SkillMenuActions {
@@ -44,11 +42,7 @@ public final class SkillMenuActions {
             message(player, "§4灵力不足" + whole(cost) + "点，无法召唤丹火。丹火用于炼丹炼器，但对于作战帮助不大。");
         } else {
             player.serverLevel().sendParticles(ParticleTypes.FLAME, player.getX(), middleY(player), player.getZ(), 10, .2, 0, .2, 0);
-            ItemStack fire = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "danhuo")));
-            CompoundTag data = new CompoundTag();
-            data.putDouble("power", cost);
-            data.putString("ManaAttackUUID", player.getStringUUID());
-            fire.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            ItemStack fire = Yihuo.createDanFire(player.getStringUUID(), cost);
             Cultivation.add(player, CultivationValue.POWER, -cost);
             ItemHandlerHelper.giveItemToPlayer(player, fire);
             player.closeContainer();

@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.liandan.content;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -85,13 +84,14 @@ public final class AlchemyMenu extends AbstractContainerMenu {
         return pos;
     }
 
-    public CompoundTag data() {
-        return level.getBlockEntity(pos) instanceof AlchemyBlockEntity furnace ? furnace.getPersistentData() : new CompoundTag();
+    public AlchemyBlockEntity furnace() {
+        return level.getBlockEntity(pos) instanceof AlchemyBlockEntity furnace ? furnace : null;
     }
 
     public String furnaceName() {
-        if (!(level.getBlockEntity(pos) instanceof AlchemyBlockEntity)) return "";
-        String name = data().getString("alchemyName");
+        AlchemyBlockEntity furnace = furnace();
+        if (furnace == null) return "";
+        String name = furnace.alchemyName();
         return name.isEmpty() ? new ItemStack(level.getBlockState(pos).getBlock()).getDisplayName().getString() : name;
     }
 
@@ -100,7 +100,8 @@ public final class AlchemyMenu extends AbstractContainerMenu {
     }
 
     public int progress() {
-        return level.getBlockState(pos).is(FURNACES) ? data().getInt("lianzhijindu") : 0;
+        AlchemyBlockEntity furnace = furnace();
+        return level.getBlockState(pos).is(FURNACES) && furnace != null ? furnace.brewProgressInt() : 0;
     }
 
     private void claim(Player player) {

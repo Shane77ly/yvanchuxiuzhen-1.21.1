@@ -80,10 +80,10 @@ public final class GuchongJarRuntime {
             jar.setItem(decoration, held.copyWithCount(1));
             held.shrink(1);
         } else if (ModifierKeys.ctrl(player) || ModifierKeys.alt(player)) {
-            if (!jar.jarData().getBoolean("shifangguchong")) {
+            if (!jar.jarData().released) {
                 ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "taoguan_0" + jar.grade() + "item")));
                 CompoundTag data = new CompoundTag();
-                data.putString("guguanuuid", jar.jarData().getString("guguanuuid"));
+                data.putString("guguanuuid", jar.jarData().uuid);
                 for (int slot = 0; slot < jar.insectSlots(); slot++) {
                     ItemStack insect = jar.getItem(slot).copy();
                     if (!insect.isEmpty()) {
@@ -137,15 +137,15 @@ public final class GuchongJarRuntime {
 
     public static void release(ServerLevel level, BlockPos pos) {
         if (!(level.getBlockEntity(pos) instanceof TaoguanBlockEntity jar)) return;
-        CompoundTag data = jar.jarData();
-        if (data.getBoolean("shifangguchong")) return;
+        TaoguanJarState data = jar.jarData();
+        if (data.released) return;
         Vec3 center = Vec3.atCenterOf(pos);
         List<Entity> targets = level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(8), entity -> true)
                 .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
         boolean releasing = false;
         BlockState floor = level.getBlockState(pos.below());
         for (Entity target : targets) {
-            if (target.isAlive() && !Relations.entityTeam(target).equals(data.getString("team")) && matches(floor, target)) releasing = true;
+            if (target.isAlive() && !Relations.entityTeam(target).equals(data.team) && matches(floor, target)) releasing = true;
             if (!releasing) continue;
             level.sendParticles(ParticleTypes.SMOKE, pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, 10, 0, 0, 0, .1);
             int released = 0;
@@ -155,8 +155,8 @@ public final class GuchongJarRuntime {
                 GuchongLifecycle.releaseGroundJar(level, pos, data, insectData, slot, target);
                 released++;
             }
-            data.putInt("shifangnum", released);
-            if (released >= 1) data.putBoolean("shifangguchong", true);
+            data.releasedCount = released;
+            if (released >= 1) data.released = true;
         }
         jar.sync();
     }

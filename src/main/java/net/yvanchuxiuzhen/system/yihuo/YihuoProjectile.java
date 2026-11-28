@@ -27,11 +27,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 异火材料投掷物：无重力飞行八刻，命中实体灼烧，命中方块放置或补充火块。 */
 public final class YihuoProjectile extends AbstractArrow implements ItemSupplier {
@@ -140,20 +142,18 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
         if (target instanceof ServerPlayer player) {
             Cultivation.setTizhiString(player, "fireteam", team);
             Cultivation.setTizhiString(player, "fireAttackUUID", attacker);
-        } else {
-            target.getPersistentData().putString("fireteam", team);
-            target.getPersistentData().putString("fireAttackUUID", attacker);
         }
+        Yihuo.markBurnTarget(target, team, attacker);
+        level.sendParticles(Particles.type("cailiao_" + material + "particle"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
         if (!(target instanceof LivingEntity living)) {
             return;
         }
         int grade = material % 10 - 1;
-        SpellDamage.command(level, living, "shanghai 火 " + attacker + " false " + (3 * (grade + 1)) + " 1.5");
+        SpellDamage.dealSaved(level, living, DamageCategory.FIRE, attacker, false, 3 * (grade + 1), 1.5);
         String effect = material < 230 ? "effect_023" : "effect_024";
         MobEffectInstance previous = living.getEffect(StatusEffects.holder(effect));
         int duration = previous == null ? 200 : previous.getDuration() + 200;
         living.addEffect(new MobEffectInstance(StatusEffects.holder(effect), duration, grade, true, true));
-        level.sendParticles(Particles.type("cailiao_" + material + "particle"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
         if (delayedReset(material)) {
             YihuoEffects.resetInvulnerabilityNextTick(living);
         } else {
@@ -179,13 +179,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
         level.sendParticles(Particles.type("cailiao_" + material + "particle"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
         for (BlockPos position : new BlockPos[] {hit, hit.above(), hit.below()}) {
             if (level.getBlockState(position).is(FIRE)) {
-                BlockEntity block = level.getBlockEntity(position);
-                if (block != null) {
-                    CompoundTag data = block.getPersistentData();
-                    data.putDouble("power", data.getDouble("power") + fuel);
-                    block.setChanged();
-                    level.sendBlockUpdated(position, block.getBlockState(), block.getBlockState(), Block.UPDATE_ALL);
-                }
+                Yihuo.addPower(level.getBlockEntity(position), fuel);
                 break;
             }
         }

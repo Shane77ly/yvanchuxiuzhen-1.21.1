@@ -2,7 +2,7 @@
 topic: particle
 role: entry
 status: partial
-updated: 2026-11-07
+updated: 2026-11-25
 ---
 
 # 粒子库
@@ -17,6 +17,8 @@ updated: 2026-11-07
 ## 公开操作
 
 `system/particle/api/Particles.type(目标路径)` 返回 `SimpleParticleType`。服务端是否广播、发给谁、数量、位置和速度由调用者按来源通过原生入口决定；客户端本地生成使用 `ClientLevel.addParticle`。粒子库不回读玩法系统、玩家附件或技能书。
+
+`Particles.directed` 发出数量为零的普通定向粒子包；`Particles.distantCloud` 按实体半高发出同维度远距云雾。两者保留数字原先经命令解析时的有效范围，实体半高的相对原点不经过绝对坐标解析。
 
 两个来源的 `lingqi` 不能合并：原初修真保留 `lingqi`（重力0、每刻旋转1弧度），原初系统使用已有台账映射 `lingqi_xitong`（重力−0.05、不旋转），均为30刻、八帧、每四刻推进。两者共用相同图案，提供器和参数仍独立。
 

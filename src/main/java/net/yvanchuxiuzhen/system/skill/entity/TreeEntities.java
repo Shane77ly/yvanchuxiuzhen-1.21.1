@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -182,7 +181,7 @@ final class TreeEntities {
             }
             SkillEntity hedge = SkillEntities.summon(level, caster, "skill_tree_05", "水", book.manaAttack(), book.damageMultiplier(), book.name());
             hedge.moveTo(x, y, z, level.getRandom().nextFloat() * 360F, 0);
-            SkillEntities.spawn(level, hedge, false);
+            SkillEntities.spawn(level, hedge, true);
             angle += 15;
         }
     }
@@ -216,7 +215,7 @@ final class TreeEntities {
         SkillEntity vine = vine(caster, book);
         SkillEntities.place(level, vine, Vec3.atLowerCornerOf(target), caster, 0);
         vine.setAnimation("animation.skillTree06.start");
-        vine.getPersistentData().putString("zhuangtai", STARTING);
+        vine.setSkillState(STARTING);
         SkillEntities.spawn(level, vine, false);
     }
 
@@ -269,66 +268,65 @@ final class TreeEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            double tick = scratch.getDouble("tick");
+            self.setSkillTick(self.skillTick() + 1);
+            double tick = self.skillTick();
             switch (self.skillName()) {
                 case "乱枝正常" -> {
-                    scratch.putDouble("tick2", scratch.getDouble("tick2") - 1);
+                    self.setSkillTick2(self.skillTick2() - 1);
                     if (tick >= 140) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 10, 0.5, 3, 0.5, 0.2);
                         self.discard();
                     }
-                    if (scratch.getDouble("tick2") <= 0) {
+                    if (self.skillTick2() <= 0) {
                         for (Entity other : ProjectileSupport.around(level, self.position(), 1)) {
                             if (!ProjectileSupport.friendly(self, other)) {
                                 slow(other, 10, 10);
                             }
                         }
-                        scratch.putDouble("tick2", 10);
+                        self.setSkillTick2(10);
                     }
                 }
                 case "灰木剑正常" -> {
-                    String stage = scratch.getString("jieduan");
+                    String stage = self.stage();
                     if (tick >= 20) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
                     } else if (tick >= 12 && stage.equals("第二下")) {
                         strikeAround(self, ahead(self, 4.5), 4.5, 0.2);
-                        scratch.putString("jieduan", ENDING);
+                        self.setStage(ENDING);
                     } else if (tick >= 6 && stage.isEmpty()) {
                         strikeAround(self, ahead(self, 4.5), 4.5, 0.2);
-                        scratch.putString("jieduan", "第二下");
+                        self.setStage("第二下");
                     }
                 }
                 case "灰木剑潜行" -> {
                     if (tick >= 25) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
-                    } else if (tick >= 10 && !scratch.getBoolean("kaishi")) {
+                    } else if (tick >= 10 && !self.started()) {
                         strikeAndLift(self, ahead(self, 3), 3.75, 1, 0.5);
-                        scratch.putBoolean("kaishi", true);
+                        self.setStarted(true);
                     }
                 }
                 case "灰木剑ctrl" -> {
                     if (tick >= 20) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
-                    } else if (tick >= 8 && !scratch.getBoolean("kaishi")) {
+                    } else if (tick >= 8 && !self.started()) {
                         strikeAndLift(self, ahead(self, 2.5), 2.5, 0, 1);
                         strikeAndLift(self, ahead(self, 7.5), 2.5, 0, 1.3);
-                        scratch.putBoolean("kaishi", true);
+                        self.setStarted(true);
                     }
                 }
                 case "灰木剑alt" -> {
                     if (tick >= 20) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
-                    } else if (tick >= 4 && !scratch.getBoolean("kaishi")) {
+                    } else if (tick >= 4 && !self.started()) {
                         strikeAround(self, ahead(self, 1.5), 1.75, 1);
                         strikeAround(self, ahead(self, 4.5), 1.75, 1);
                         strikeAround(self, ahead(self, 7.5), 1.75, 1);
-                        scratch.putBoolean("kaishi", true);
+                        self.setStarted(true);
                     }
                 }
                 case "乱木之种" -> {
@@ -363,8 +361,7 @@ final class TreeEntities {
                     }
                 }
                 case "灰木树梯" -> {
-                    scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                    if (scratch.getDouble("tick") >= 52) {
+                    if (self.skillTick() >= 52) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 0, 0, 0, 1);
                         self.discard();
                     }
@@ -379,35 +376,33 @@ final class TreeEntities {
     private static final class Hedge implements EntitySkill {
         @Override
         public void spawned(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            if (scratch.getString("zhuangtai").isEmpty()) {
+            if (self.skillState().isEmpty()) {
                 self.setAnimation("animation.skillTree05.start");
-                scratch.putString("zhuangtai", STARTING);
+                self.setSkillState(STARTING);
             }
         }
 
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            String state = scratch.getString("zhuangtai");
+            self.setSkillTick(self.skillTick() + 1);
+            String state = self.skillState();
             if (state.equals(STARTING)) {
                 level.sendParticles(ParticleTypes.END_ROD, self.getX(), self.getY(), self.getZ(), 10, 1, 1, 1, 0.1);
-                if (scratch.getDouble("tick") >= 14) {
-                    scratch.putDouble("tick", 0);
-                    scratch.putString("zhuangtai", RUNNING);
+                if (self.skillTick() >= 14) {
+                    self.setSkillTick(0);
+                    self.setSkillState(RUNNING);
                 }
             } else if (state.equals(RUNNING)) {
-                if (scratch.getDouble("tick") >= 160) {
+                if (self.skillTick() >= 160) {
                     self.setAnimation("animation.skillTree05.close");
-                    scratch.putDouble("tick", 0);
-                    scratch.putString("zhuangtai", ENDING);
+                    self.setSkillTick(0);
+                    self.setSkillState(ENDING);
                 }
             } else if (state.equals(ENDING)) {
                 level.sendParticles(ParticleTypes.END_ROD, self.getX(), self.getY(), self.getZ(), 10, 1, 1, 1, 0.1);
-                if (scratch.getDouble("tick") >= 20) {
-                    scratch.putDouble("tick", 0);
+                if (self.skillTick() >= 20) {
+                    self.setSkillTick(0);
                     level.sendParticles(ParticleTypes.END_ROD, self.getX(), self.getY(), self.getZ(), 20, 0, 0, 0, 0.5);
                     self.discard();
                 }
@@ -423,7 +418,7 @@ final class TreeEntities {
 
     /**
      * 藤鞭。毒蔓鞭：第 3 刻对朝前 1.5 格处（水平 4 格、垂直 1 格范围）的非友方实体出手，30% 中毒 600 刻（等级为攻击量），第 16 刻消失；
-     * 回身鞭：第 4 刻对朝前 3 格处 2 格内的非友方实体出手，只把带霸体的目标沿相反视线方向抛起（来源如此，Q44），第 16 刻消失；
+     * 回身鞭：第 4 刻对朝前 3 格处 2 格内的非友方实体出手，仅抛起无霸体的目标（Q44），第 16 刻消失；
      * 地蔓鞭：展开 17 刻后持续 160 刻，按“一、二、三、四、五”的节拍（各 4、8、9、9、9 刻）向前、后、右、左各出手一次（2.5 格外 2.5 格范围，一轮后回到“一”），
      * 收起 12 刻后消失。
      */
@@ -431,10 +426,9 @@ final class TreeEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            double tick = scratch.getDouble("tick");
-            String state = scratch.getString("zhuangtai");
+            self.setSkillTick(self.skillTick() + 1);
+            double tick = self.skillTick();
+            String state = self.skillState();
             switch (self.skillName()) {
                 case "毒蔓鞭" -> {
                     if (state.isEmpty() && tick >= 3) {
@@ -446,7 +440,7 @@ final class TreeEntities {
                                 }
                             }
                         }
-                        scratch.putString("zhuangtai", LASH);
+                        self.setSkillState(LASH);
                     } else if (state.equals(LASH) && tick >= 16) {
                         self.discard();
                     }
@@ -456,12 +450,12 @@ final class TreeEntities {
                         for (Entity other : ProjectileSupport.around(level, ahead(self, 3), 2)) {
                             if (!ProjectileSupport.friendly(self, other)) {
                                 sting(self, other);
-                                if (other instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08")) {
+                                if (SkillEntities.movable(other)) {
                                     other.setDeltaMovement(new Vec3(-self.getLookAngle().x, 0.5, -self.getLookAngle().z));
                                 }
                             }
                         }
-                        scratch.putString("zhuangtai", LASH);
+                        self.setSkillState(LASH);
                     } else if (state.equals(LASH) && tick >= 16) {
                         self.discard();
                     }
@@ -469,21 +463,21 @@ final class TreeEntities {
                 case "地蔓鞭" -> {
                     if (state.equals(STARTING)) {
                         if (tick >= 17) {
-                            scratch.putString("zhuangtai", RUNNING);
-                            scratch.putString("shunxv", "一");
-                            scratch.putDouble("tick", 0);
+                            self.setSkillState(RUNNING);
+                            self.setSequence("一");
+                            self.setSkillTick(0);
                         }
                     } else if (state.equals(RUNNING)) {
-                        scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                        if (scratch.getDouble("tick2") >= 160) {
+                        self.setSkillTick2(self.skillTick2() + 1);
+                        if (self.skillTick2() >= 160) {
                             self.setAnimation("animation.skillTree06.close");
-                            scratch.putDouble("tick", 0);
-                            scratch.putDouble("tick2", 0);
-                            scratch.putString("zhuangtai", ENDING);
+                            self.setSkillTick(0);
+                            self.setSkillTick2(0);
+                            self.setSkillState(ENDING);
                         }
-                        tickBeat(self, level, scratch);
+                        tickBeat(self, level);
                     } else if (state.equals(ENDING) && tick >= 12) {
-                        scratch.putDouble("tick", 0);
+                        self.setSkillTick(0);
                         self.discard();
                     }
                 }
@@ -492,30 +486,30 @@ final class TreeEntities {
             }
         }
 
-        private static void tickBeat(SkillEntity self, ServerLevel level, CompoundTag scratch) {
-            String beat = scratch.getString("shunxv");
-            double tick = scratch.getDouble("tick");
+        private static void tickBeat(SkillEntity self, ServerLevel level) {
+            String beat = self.sequence();
+            double tick = self.skillTick();
             double angle;
             if (beat.equals("一") && tick >= 4) {
                 angle = self.getYRot();
-                scratch.putString("shunxv", "二");
+                self.setSequence("二");
             } else if (beat.equals("二") && tick >= 8) {
                 angle = self.getYRot() + 180;
-                scratch.putString("shunxv", "三");
+                self.setSequence("三");
             } else if (beat.equals("三") && tick >= 9) {
                 angle = self.getYRot() + 90;
-                scratch.putString("shunxv", "四");
+                self.setSequence("四");
             } else if (beat.equals("四") && tick >= 9) {
                 angle = self.getYRot() - 90;
-                scratch.putString("shunxv", "五");
+                self.setSequence("五");
             } else {
                 if (beat.equals("五") && tick >= 9) {
-                    scratch.putString("shunxv", "一");
-                    scratch.putDouble("tick", 0);
+                    self.setSequence("一");
+                    self.setSkillTick(0);
                 }
                 return;
             }
-            scratch.putDouble("tick", 0);
+            self.setSkillTick(0);
             Vec3 center = new Vec3(self.getX() + 2.5 * Math.cos(Math.toRadians(angle)), self.getY(), self.getZ() + 2.5 * Math.sin(Math.toRadians(angle)));
             for (Entity other : ProjectileSupport.around(level, center, 2.5)) {
                 if (!ProjectileSupport.friendly(self, other)) {

@@ -2,10 +2,12 @@
 topic: guchong
 role: entry
 status: partial
-updated: 2026-11-22
+updated: 2026-11-28
 ---
 
 # 蛊虫
+
+已完成地上蛊罐方块状态去套壳：`TaoguanBlockEntity.jarData` 改持强类型 `TaoguanJarState`，并通过 `Relations.friendTeamsForBlock` 与 `Relations.shareBlockAllegiance(List<String>, ...)` 同步团队名单（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c地上蛊罐状态去套壳)）。
 
 2026-11-22蛊笛战斗诊断显示空中无重力夹具使虫猪分离且未进入伤害流程；现改用可寻路平地，修正后待实机复验，见[本月记录](logs/2026-11.md#2026-11-22-蛊笛战斗平地夹具)。
 

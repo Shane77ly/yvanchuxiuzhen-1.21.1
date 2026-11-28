@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -81,7 +82,7 @@ public final class Yaoshou026huoyanEntity extends AbstractArrow implements ItemS
         Entity owner = getOwner();
         if (owner != null && result.getEntity() instanceof LivingEntity target && level() instanceof ServerLevel server
                 && !Relations.isFriendly(owner, target)) {
-            SpellDamage.command(server, target, "shanghai 火 " + owner.getStringUUID() + " false 5 1");
+            SpellDamage.deal(server, target, DamageCategory.FIRE, owner, false, 5, 1);
         }
     }
 

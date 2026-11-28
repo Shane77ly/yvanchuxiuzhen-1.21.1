@@ -30,11 +30,21 @@ import net.yvanchuxiuzhen.platform.ModId;
 
 /** 二踢脚实体：右键引燃，第一响传燃近邻，第二阶段上升后二响移除。 */
 public final class DoubleBangFirework extends PathfinderMob {
+    private boolean begin;
+    private boolean begin2;
+    private double tick;
+
     public DoubleBangFirework(EntityType<? extends DoubleBangFirework> type, Level level) {
         super(type, level);
         xpReward = 0;
         setNoAi(false);
     }
+
+    public boolean begin() { return begin; }
+    public boolean begin2() { return begin2; }
+    public double tickCount() { return tick; }
+    public void setBegin2(boolean value) { begin2 = value; }
+    public void setTickCount(double value) { tick = value; }
 
     public static AttributeSupplier.Builder attributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, .3).add(Attributes.MAX_HEALTH, 10)
@@ -44,20 +54,18 @@ public final class DoubleBangFirework extends PathfinderMob {
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         super.mobInteract(player, hand);
-        getPersistentData().putBoolean("begin", true);
+        begin = true;
         return InteractionResult.sidedSuccess(level().isClientSide());
     }
 
     @Override
     public void baseTick() {
         super.baseTick();
-        CompoundTag data = getPersistentData();
-        if (data.getBoolean("begin")) {
+        if (begin) {
             if (level() instanceof ServerLevel server) {
                 server.sendParticles(ParticleTypes.SMOKE, getX(), getY(), getZ(), 3, 0, 0, 0, .1);
             }
-            double tick = data.getDouble("tick") + 1;
-            data.putDouble("tick", tick);
+            tick += 1;
             if (tick >= 20) {
                 if (level() instanceof ServerLevel server) {
                     server.sendParticles(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
@@ -67,16 +75,14 @@ public final class DoubleBangFirework extends PathfinderMob {
                 Vec3 center = position();
                 for (DoubleBangFirework neighbor : level().getEntitiesOfClass(DoubleBangFirework.class, new AABB(center, center).inflate(1))
                         .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
-                    CompoundTag other = neighbor.getPersistentData();
-                    if (!other.getBoolean("begin") && !other.getBoolean("begin2")) other.putBoolean("begin", true);
+                    if (!neighbor.begin && !neighbor.begin2) neighbor.begin = true;
                 }
-                data.putBoolean("begin", false);
-                data.putBoolean("begin2", true);
-                data.putDouble("tick", 0);
+                begin = false;
+                begin2 = true;
+                tick = 0;
             }
-        } else if (data.getBoolean("begin2")) {
-            double tick = data.getDouble("tick") + 1;
-            data.putDouble("tick", tick);
+        } else if (begin2) {
+            tick += 1;
             setDeltaMovement(new Vec3(0, .8, 0));
             if (tick >= 20) {
                 if (level() instanceof ServerLevel server) {
@@ -85,11 +91,27 @@ public final class DoubleBangFirework extends PathfinderMob {
                     server.sendParticles(ParticleTypes.LARGE_SMOKE, getX(), getY(), getZ(), 20, 0, 0, 0, .1);
                 }
                 sound("pao0903", 2);
-                data.putBoolean("begin2", false);
-                data.putDouble("tick", 0);
+                begin2 = false;
+                tick = 0;
                 if (!level().isClientSide()) discard();
             }
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("begin", begin);
+        tag.putBoolean("begin2", begin2);
+        tag.putDouble("tick", tick);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        begin = tag.getBoolean("begin");
+        begin2 = tag.getBoolean("begin2");
+        tick = tag.getDouble("tick");
     }
 
     private void sound(String id, float volume) {

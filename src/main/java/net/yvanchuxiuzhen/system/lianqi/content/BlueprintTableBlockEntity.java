@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
@@ -18,16 +19,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 
 /** 天道图纸台保存十三个操作槽与二百一十个材料目录槽；目录槽可取出而不能插入。 */
 public final class BlueprintTableBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> items = NonNullList.withSize(223, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private EquipmentRefinement previewData = EquipmentRefinement.EMPTY;
 
     public BlueprintTableBlockEntity(BlockPos pos, BlockState state) {
         super(LianqiBlockEntities.BLUEPRINT_TABLE.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public EquipmentRefinement previewData() {
+        return previewData;
+    }
+
+    public void setPreviewData(EquipmentRefinement value) {
+        previewData = value == null ? EquipmentRefinement.EMPTY : value;
     }
 
     /** 发布完整库存和预览数值快照。 */
@@ -45,12 +56,20 @@ public final class BlueprintTableBlockEntity extends RandomizableContainerBlockE
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(223, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        previewData = tag.contains("zong")
+                ? EquipmentRefinement.CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), tag.get("zong"))
+                        .result().orElse(EquipmentRefinement.EMPTY)
+                : EquipmentRefinement.EMPTY;
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!previewData.isEmpty()) {
+            EquipmentRefinement.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), previewData)
+                    .result().ifPresent(nbt -> tag.put("zong", nbt));
+        }
     }
 
     @Override

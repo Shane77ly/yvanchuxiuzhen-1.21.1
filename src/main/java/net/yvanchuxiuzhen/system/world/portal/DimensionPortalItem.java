@@ -36,7 +36,7 @@ public final class DimensionPortalItem extends ContentItem {
             return InteractionResult.FAIL;
         }
         DimensionPortalBlock.portalSpawn(level, pos, spec);
-        stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
+        stack.hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND
                 ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         return InteractionResult.SUCCESS;
     }

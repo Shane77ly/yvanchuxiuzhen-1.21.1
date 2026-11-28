@@ -9,6 +9,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,6 +33,8 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.system.town.TownRuntime;
 import net.yvanchuxiuzhen.system.town.client.TownBuildScreen;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntity;
+import net.yvanchuxiuzhen.system.town.data.TownBuildPlan;
+import net.yvanchuxiuzhen.system.town.data.TownData;
 
 /** 三类城镇建筑十二个模板的真实建造、材料结算与保存重进检查。 */
 final class TownTemplatePlacementCheck extends SystemCheck {
@@ -57,6 +61,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
     private Vec3 originalPosition;
     private int originalSelected;
     private boolean originalFlying;
+    private boolean originalVinesSpread;
 
     TownTemplatePlacementCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("城镇十二模板真实建造", report, levelId);
@@ -117,6 +122,10 @@ final class TownTemplatePlacementCheck extends SystemCheck {
     }
 
     private void prepare(ServerPlayer player) {
+        // 建造后与重进后比较的是模板初态，排除等待期间藤蔓的自然生长。
+        var vines = player.serverLevel().getGameRules().getRule(GameRules.RULE_DO_VINES_SPREAD);
+        originalVinesSpread = vines.get();
+        vines.set(false, player.server);
         originalPosition = player.position();
         originalSelected = player.getInventory().selected;
         originalFlying = player.getAbilities().flying;
@@ -127,6 +136,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         }
         player.getInventory().clearContent();
         player.getInventory().selected = 8;
+        player.connection.send(new ClientboundSetCarriedItemPacket(8));
         BlockPos start = player.blockPosition().offset(128, 0, 128);
         firstOrigin = new BlockPos(start.getX(), Math.max(96, player.blockPosition().getY() + 24), start.getZ());
     }
@@ -150,22 +160,13 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         level.setBlock(plan.below(), Blocks.STONE.defaultBlockState(), 3);
         level.setBlock(plan, planningBlock.defaultBlockState(), 3);
         TownBlockEntity town = (TownBlockEntity) level.getBlockEntity(plan);
-        CompoundTag build = TownRuntime.centerScroll().get(DataComponents.CUSTOM_DATA).copyTag().getCompound("build_data");
-        build.putString("build_type", BUILD_TYPES[type]);
-        build.putString("build_name", BUILD_TYPES[type]);
-        build.putString("build_direction", DIRECTIONS[direction]);
-        build.putInt("construction_need_log", 5);
-        build.putInt("construction_need_stone", 6);
-        build.putInt("construction_need_wool", 2);
-        town.getPersistentData().put("build_data", build);
-        CompoundTag data = town.getPersistentData();
-        data.putInt("shiftingX", core.getX());
-        data.putInt("shiftingY", core.getY());
-        data.putInt("shiftingZ", core.getZ());
-        data.putInt("lengthofX", template.getSize().getX());
-        data.putInt("lengthofY", template.getSize().getY());
-        data.putInt("lengthofZ", template.getSize().getZ());
-        data.putString("team", "");
+        TownBuildPlan build = TownRuntime.centerScroll().getOrDefault(TownData.BUILD_PLAN.get(), TownBuildPlan.EMPTY)
+                .withIdentity(BUILD_TYPES[type], BUILD_TYPES[type], DIRECTIONS[direction])
+                .withNeeds(5, 6, 2);
+        town.setBuildPlan(build);
+        town.setShifting(core.getX(), core.getY(), core.getZ());
+        town.setLengthOf(template.getSize().getX(), template.getSize().getY(), template.getSize().getZ());
+        town.setTeam("");
         town.setItem(0, fixture(Items.OAK_LOG, 4, index, "log-0"));
         town.setItem(1, fixture(Items.OAK_LOG, 3, index, "log-1"));
         town.setItem(2, fixture(Items.COBBLESTONE, 2, index, "stone-0"));
@@ -190,27 +191,26 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         }
         int type = index / SUFFIXES.length;
         int direction = index % SUFFIXES.length;
-        CompoundTag data = town.getPersistentData();
-        CompoundTag build = data.getCompound("build_data");
+        TownBuildPlan build = town.buildPlan();
         Block expectedCore = BuiltInRegistries.BLOCK.get(id(type == 0 ? "chengzhen_antai" : "chengzhen_buildblock"));
         expect(templateName + " 实际核心方块", id(type == 0 ? "chengzhen_antai" : "chengzhen_buildblock"),
                 BuiltInRegistries.BLOCK.getKey(level.getBlockState(plan).getBlock()));
         expect(templateName + " 核心容器槽数", type == 0 ? 1 : 18, town.getContainerSize());
-        expect(templateName + " 完工状态", true, data.getBoolean("construction_completed"));
-        expect(templateName + " 建筑类型元数据", BUILD_TYPES[type], build.getString("build_type"));
-        expect(templateName + " 建筑方向元数据", DIRECTIONS[direction], build.getString("build_direction"));
-        expect(templateName + " 保存团队字段", "", data.getString("team"));
-        expect(templateName + " 核心偏移X", cores[index].getX(), data.getInt("shiftingX"));
-        expect(templateName + " 核心偏移Y", cores[index].getY(), data.getInt("shiftingY"));
-        expect(templateName + " 核心偏移Z", cores[index].getZ(), data.getInt("shiftingZ"));
+        expect(templateName + " 完工状态", true, town.completed());
+        expect(templateName + " 建筑类型元数据", BUILD_TYPES[type], build.buildType());
+        expect(templateName + " 建筑方向元数据", DIRECTIONS[direction], build.buildDirection());
+        expect(templateName + " 保存团队字段", "", town.team());
+        expect(templateName + " 核心偏移X", cores[index].getX(), town.shiftingX());
+        expect(templateName + " 核心偏移Y", cores[index].getY(), town.shiftingY());
+        expect(templateName + " 核心偏移Z", cores[index].getZ(), town.shiftingZ());
 
         StructureTemplate template = level.getStructureManager().getOrCreate(id(templateName));
-        expect(templateName + " 保存结构宽度", template.getSize().getX(), data.getInt("lengthofX"));
-        expect(templateName + " 保存结构高度", template.getSize().getY(), data.getInt("lengthofY"));
-        expect(templateName + " 保存结构深度", template.getSize().getZ(), data.getInt("lengthofZ"));
-        expect(templateName + " 保存木材需求", 5, build.getInt("construction_need_log"));
-        expect(templateName + " 保存石材需求", 6, build.getInt("construction_need_stone"));
-        expect(templateName + " 保存羊毛需求", 2, build.getInt("construction_need_wool"));
+        expect(templateName + " 保存结构宽度", template.getSize().getX(), town.lengthOfX());
+        expect(templateName + " 保存结构高度", template.getSize().getY(), town.lengthOfY());
+        expect(templateName + " 保存结构深度", template.getSize().getZ(), town.lengthOfZ());
+        expect(templateName + " 保存木材需求", 5, build.needLog());
+        expect(templateName + " 保存石材需求", 6, build.needStone());
+        expect(templateName + " 保存羊毛需求", 2, build.needWool());
         int blockMismatches = 0;
         int blockEntityMismatches = 0;
         List<String> mismatchDetails = new ArrayList<>();
@@ -281,9 +281,11 @@ final class TownTemplatePlacementCheck extends SystemCheck {
     }
 
     private void restorePlayer(ServerPlayer player) {
+        player.serverLevel().getGameRules().getRule(GameRules.RULE_DO_VINES_SPREAD).set(originalVinesSpread, player.server);
         player.getInventory().clearContent();
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot).copy());
         player.getInventory().selected = originalSelected;
+        player.connection.send(new ClientboundSetCarriedItemPacket(originalSelected));
         player.getAbilities().flying = originalFlying;
         player.onUpdateAbilities();
         player.connection.teleport(originalPosition.x, originalPosition.y, originalPosition.z, 0, 0);
@@ -304,7 +306,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         BlockPos plan = plans[index];
         if (minecraft.player.distanceToSqr(Vec3.atCenterOf(plan)) < 16
                 && minecraft.level.getBlockEntity(plan) instanceof TownBlockEntity town
-                && town.getPersistentData().getCompound("build_data").getString("build_name")
+                && town.buildPlan().buildName()
                         .equals(BUILD_TYPES[index / SUFFIXES.length])) return true;
         if (local > 400) {
             fail(templateNames[index] + " 客户端尚未同步玩家传送、规划方块或受控建造数据");

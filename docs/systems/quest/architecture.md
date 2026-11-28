@@ -2,7 +2,7 @@
 topic: quest
 role: architecture
 status: partial
-updated: 2026-11-14
+updated: 2026-11-26
 ---
 
 # 任务、对话动作、悬赏与成就
@@ -76,7 +76,7 @@ Q11为已确认分支矛盾：`PlayerTickxitongProcedure:47` 首分支条件为 
 
 ### Q84 当前维度字符串拼接
 
-确认来源缺陷，当前保留。B `DuihuashijiantwoProcedure:452–470`“判断当前维度”分支将`ResourceKey[minecraft:dimension / ]`与维度ID及`]`连接，多出括号；正常维度文本比较失败。目标保留相同字符串和失败分支，不因目标ResourceKey API可直接比较而修正。实际脚本消费者与两版本实机仍待。
+1.18.2 `B:DuihuashijiantwoProcedure:452–470`“判断当前维度”分支拼接 `"ResourceKey[minecraft:dimension / ]" + id + "]"` 多出右括号导致维度匹配恒失败。阶段 4 已在 `DialogueRuntime.matchesDimension`（被 `DialogueRuntime` 与 `QuestChatRuntime` 共用）改用 `ResourceLocation.tryParse` 直接比对 `player.level().dimension().location()`（保留非常规完整 `ResourceKey` 字符串精确回退）；在 `QuestJournalCheck` 补充 `minecraft:overworld` 与 `minecraft:the_nether` 受控分支校验，随 `gongfa,commerce,questjournal` 烟测通过（当前生成的 `dialogues.json` 暂未包含 `check_dimension` 节点）。
 
 ### Q85 带NBT扣料与跨栈索引
 
@@ -169,6 +169,20 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 
 剧情法术/精神动作只交付ManaAttackDamage/SoulAttackDamage、对应UUID、damagetype和Damage_multiplier；来源另一版消费过程无调用者，Q31保持开放，不能把字段登记写成已完成实际伤害结算。运行与未验范围只在本月记录维护。
 
+## 对话效果节点
+
+两种解释器共用原版实体目标参数解析，从玩家位置、无施法实体的上下文按显示名选目标，未匹配不改效果。加效果接受 1 至 1000000 秒、0 至 255 级；普通效果换算为刻，瞬时效果直接使用秒数参数作为刻数。其他操作按 ID 只清指定效果，不使用等级和时长；未生效也推进游标。该动作不执行命令分发，作者配置的命令节点仍按原文执行。
+
+## 升仙令与传承灵物自然任务入口（2026-11-23）
+
+原初系统 `PlayerrightclickwithitemProcedure:24,64–93` 先过滤使用手，再读主手物品。升仙令分支在潜行判断之外；传承灵物必须潜行，且交互前主手栈的 `getInt("yikaiqi") == 30`。修真物品的 `use` 排在全局右键事件之后：从 29 领到 30 的那次不启动任务，之后再潜行使用才启动。`DialogueActions.request` 只设置会话，下一个服务端 tick 打开首个文字页。
+
+- `sxling`：9 页文字后原样执行 `execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`，再扣一枚主手所持类型的升仙令并结束。保留 `@p`，不是强制选定使用者。
+- `chuanchenglingwurenwu`：12 页文字后执行裸命令 `futouget 3`。`DuihuashijianProcedure:718–732` 用玩家位置、权限 4、无实体的命令源原样分派第二段，不加前缀，不依赖命令成功才推进。两份来源的 Java 注册均未找到该命令根；`YvanchuGoProcedure` 的 `unlock futou` 是另一入口。保留这个断链：不代发符头，接着标为“完成”、储存进度 16 并结束。
+- 普通任务的“删除方块”按 `DuihuashijianthreeProcedure:84–115` 的每组三坐标写入 `Blocks.AIR`，更新标志 3。与 `removeBlock` 不同，含水方块被删除的当刻不会留下水源。
+
+`birthitemdialogue` 是单人新档的定向 Smoke：服务端实际使用物品，经 tick 打开首页、逐页点击菜单；区分 29→30、未潜行、潜行和 double 30.5 的整型读取，检查目录与符头不变。升仙令检查副手负例、站立和潜行启动、无需过门到达人间并扣一枚。删除动作用单独的普通对话一次处理含水半砖和石块，立即检查两处空气及会话结束。上述目标客户端场景已通过；未进行来源版本实机验证。
+
 ## 连续聊天任务与选择命令（2026-11-15）
 
 `DialogueRuntime`在没有启动标志、tasksustained为真且xvanxiang为假时累计tasktick，每60刻调用`QuestChatRuntime`并清零计时。来源首分支仍先消费renwubegin/taskbegin，Q11保持。文字推进后仅允许第二、第三扩展过程动作在本次继续，下一条文字等待下一节拍；选项暂停。动作覆盖文字、自发文字、原始tellraw选项、条件/物品/任务/坐标/维度判断、库存、NPC控制、传送、效果/命令、跳转、目录/头部修改、裂隙解封、删除方块与结束清理。法术/精神动作仅登记字段，Q31没有因此闭合。
@@ -178,6 +192,8 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 ### Q169 连续选项命令参数错位
 
 B `Taskduihuashijian:91–92`生成`/taskduihua <显示名> renwuweizhi <序号>`，而`TaskduihuaCommand:26–65`注册名字后直接接数字；名字使用MessageArgument读取剩余输入，下级数字不可稳定到达。目标改为单个greedy参数解析末尾数字和可选`renwuweizhi`标记，兼容来源点击字符串、带空格显示名和带引号显示名；保留原命令无权限限制及当前维度显示名匹配。静态修复完成，必要客户端命令点击仍待运行补核。
+
+选项内容依来源直接嵌入组件参数，按会话显示名解析玩家并直接发系统消息；解析失败不清除选择锁。目标 `renwuweizhi` 只在不存在时创建为整数 dummy 并命名“任务选项位置”，关闭命令反馈仍在其后执行。
 
 ### Q170 内嵌选项命令缺少参数
 
@@ -194,3 +210,21 @@ B `TaskXvanzehouProcedure`可将记分板选择转为`playerxvanze`并继续解�
 ### Q173 任务列表固定画布裁切
 
 来源任务列表保持500×500画布。1.21.1版本本轮854×480截图可见八行和中文，但顶部、左侧及右侧说明超出可视范围；与来源固定尺寸有关，不能据按钮/存档通过宣称完整视觉认可。当前保持来源布局，后续集中处理；完整来源实机和两版本视觉对照未执行。
+
+### Q255 连续聊天传送后指令使用旧坐标
+
+B `TaskduihuashijianProcedure:555–608,619,642–646` 在执行指令时取玩家当时位置；目标 `QuestChatRuntime:28–39,102–111,167–170` 在本轮解释开始时记住坐标。连续聊天同一轮执行 `改变坐标/100/70/100%指令/setblock ~ ~-1 ~ minecraft:gold_block%结束`，比较金块出现在传送前还是传送后位置。不外推到普通对话或下一轮解释；未证明已有自然任务含此组合，未实机。
+
+### Q275 乾坤道人奖励的五行基础和灵步不能研习
+
+B `PlayerRightClickBlockProcedure:262,274` 的任务四发 `book_022`，写 `ExercisesName=五行基础`；任务八发 `book_033`，写 `shenfaName=灵步`。`DuihuashijiantwoProcedure:106,150` 写入书的根标签并发给玩家。A `Book022Item:28`、`Book033Item:28` 均进入 `BookRightClickProcedure:134–147,251–260`：潜行使用未绑定的原书时按这些名字识别；研习成功写玩家 UUID，功法书另写层数 1。
+
+1.21.1 版本 `QiankunDialogue:71,75` 保留奖励字段，但 `DialogueRuntime.changeItems:326–347` 只写通用自定义数据和显示名；两本书都注册为 `book:study_book`。`StudyBookItem:58–59,92–109` 潜行研习只通过 `Techniques.book:21–23` 和 `Skills.book:38–40` 读取各自专用组件。任务没有创建这两个组件，导致原书在识别阶段就退出，与 Q28 排除的小游戏无关；不外推到由功法或技能系统发放的其他书。
+
+复核：在两个版本中分别用 30 枚一级灵石换任务四的书、跟随任务八对话领取身法书；合乎条件的角色用主手持原书潜行右键，比较能否识别和绑定、功法层数及灵步后续能否装备。不要用命令生成的同名书替代。已静态核对，未修、未实机。
+
+### Q276 任务按等级验收和扣除材料时读不到材料等级
+
+A `ItemhechengProcedure:61–69` 将五枚二级灵石合成三级灵石 `cailiao_193`，写材料等级 15；`ZhibujiZaiFangKuaiShangYouJianProcedure:39–48` 将棉制成 `cailiao_171`，写等级 4。B `DuihuashijiantwoProcedure:191–235,283–330` 在带字段的扣物和计数分支读取同一根标签。1.21.1 版本 `MaterialSetup:82,92`、`LoomRuntime:24,57,99` 经 `MaterialLibrary` 写材料专用组件；`DialogueRuntime:357–377,393–417` 却只从通用自定义数据读 `cailiaolevel`。这是正常生产的材料被任务读取时的差异，不是 Q253 的饰品赋值问题。
+
+复核：背包只放一件上述产物，用同 ID 和匹配的显示名执行高级判断，附 `cailiaolevel/int/15`（布料用 `4`）；源码推导分别计 1、0。另用同一等级条件要求扣两件、实际只有一件，分别扣 1、0；此例避开 Q85 的足量栈扣除次序。乾坤道人任务五收花瓣、任务七收三级灵石都只验 ID，不受此条件影响。不据此断言有内置任务在此处卡住。未修、未实机。

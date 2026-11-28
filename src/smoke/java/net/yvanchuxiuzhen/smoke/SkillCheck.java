@@ -18,6 +18,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.SkillCasting;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
@@ -135,9 +137,17 @@ final class SkillCheck extends SystemCheck {
                 SkillSelection.clear(player);
                 expect("B 取消选择", "", selectedName(player));
                 StatusEffects.add(player, "effect_002", 100, 0);
+                SkillSelection.select(player, 1);
+                expect("沉默时选择第 1 键无效（Q39）", "", selectedName(player));
                 SkillSelection.select(player, 2);
                 expect("沉默时选择第 2 键无效", "", selectedName(player));
                 StatusEffects.remove(player, "effect_002");
+                StatusEffects.add(player, "skilleffect_09", 100, 0);
+                SkillSelection.select(player, 1);
+                expect("禁施时选择第 1 键无效（Q39）", "", selectedName(player));
+                SkillSelection.select(player, 2);
+                expect("禁施时选择第 2 键无效（Q39）", "", selectedName(player));
+                StatusEffects.remove(player, "skilleffect_09");
                 SkillSelection.select(player, 1);
                 expect("沉默解除后重选第 1 键", "金芒术", selectedName(player));
                 SkillSelection.toggleCombo(player);
@@ -190,6 +200,31 @@ final class SkillCheck extends SystemCheck {
                 player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
                 SkillCasting.onRightClick(player);
                 expect("剑类技能手持斧不能施放", 100 - cost, Cultivation.get(player, CultivationValue.POWER));
+
+                ItemStack heavySword = new ItemStack(Items.GOLDEN_SWORD);
+                EquipmentRefinement.Mutable weight = EquipmentRefinement.EMPTY.toMutable();
+                weight.putInt("weightnum", 121);
+                heavySword.set(EquipmentData.REFINEMENT.get(), weight.toImmutable());
+                player.setItemInHand(InteractionHand.MAIN_HAND, heavySword);
+                Cultivation.set(player, CultivationValue.POWER, 100);
+                player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
+                SkillCasting.onRightClick(player);
+                expect("手持武器炼器重量超 120 不能施放（Q38）", 100.0, Cultivation.get(player, CultivationValue.POWER));
+
+                ItemStack yinyang = studied(player, book(SkillKind.SPELL,
+                        "yvanchuxiuzhen:book_003 阴阳测试 1 1 金 测试。 无 1 1 1 0 5 0 0 0 0 6 10 0 0 0 0 10"));
+                Skills.setSpell(player, 4, yinyang);
+                SkillSelection.clear(player);
+                SkillSelection.select(player, 4);
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
+                player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY.with(SkillElement.SOIL, 500));
+                SkillCasting.onRightClick(player);
+                expect("阴阳组冷却上限读自身而非土组（Q36）", 120.0, player.getData(SkillData.COOLDOWNS).get(SkillElement.YINYANG));
+                player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY.with(SkillElement.YINYANG, 300));
+                SkillCasting.onRightClick(player);
+                expect("冷却增量各组重置不沿用上组金组（Q36）", 300.0, player.getData(SkillData.COOLDOWNS).get(SkillElement.YINYANG));
+                Skills.setSpell(player, 4, ItemStack.EMPTY);
+                SkillSelection.clear(player);
             });
             case 3 -> onServer(player -> {
                 Cultivation.set(player, CultivationValue.POWER, 100);
@@ -262,6 +297,10 @@ final class SkillCheck extends SystemCheck {
                 expect("书架藏宝给一本技能书", before + 1, countBooks(player.getInventory().items));
                 player.getInventory().clearContent();
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+
+                CommandSourceStack low = player.createCommandSourceStack().withSuppressedOutput().withPermission(0);
+                player.server.getCommands().performPrefixedCommand(low, "jineng " + GOLD_BOOK);
+                expect("/jineng 无权限不掉落技能书（Q37）", 0, droppedBooks(player).size());
 
                 CommandSourceStack source = player.createCommandSourceStack().withSuppressedOutput().withPermission(4);
                 player.server.getCommands().performPrefixedCommand(source, "jineng " + GOLD_BOOK);

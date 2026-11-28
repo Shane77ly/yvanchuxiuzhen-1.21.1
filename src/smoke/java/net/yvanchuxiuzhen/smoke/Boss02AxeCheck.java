@@ -17,7 +17,11 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.boss.Boss0201Entity;
 import net.yvanchuxiuzhen.system.creature.entity.boss.Boss02Entity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -96,8 +100,8 @@ final class Boss02AxeCheck extends SystemCheck {
         anchor(boss);
         anchor(target);
         Relations.addFriendlyTeam(boss, "smoke_boss02_ally");
-        boss.getPersistentData().putDouble("attack_Num", 10);
-        boss.getPersistentData().putString("jineng", "飞斧");
+        EntityAttributes.setStat(boss, Stat.ATTACK, 10);
+        CreatureData.state(boss).setSkill("飞斧");
         NeoForge.EVENT_BUS.addListener(joinListener);
         NeoForge.EVENT_BUS.addListener(tickListener);
         NeoForge.EVENT_BUS.addListener(deathListener);
@@ -113,12 +117,11 @@ final class Boss02AxeCheck extends SystemCheck {
 
     private void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel() != level || !(event.getEntity() instanceof Boss0201Entity axe)) return;
-        CompoundTag data = axe.getPersistentData();
-        if (!data.getString("AttackUUID").equals(boss.getStringUUID())) return;
+        if (!axe.attackUuid().equals(boss.getStringUUID())) return;
         axes.add(axe);
-        expect("飞斧由首领技能第8刻原生生成", 8, boss.getPersistentData().getDouble("entitytick"));
-        expect("飞斧攻击值", 12, data.getDouble("AttackDamage"));
-        expect("飞斧模式", "飞斧", data.getString("jinengname"));
+        expect("飞斧由首领技能第8刻原生生成", 8, CreatureData.state(boss).tick());
+        expect("飞斧攻击值", 12, axe.attackDamage());
+        expect("飞斧模式", "飞斧", axe.skillName());
         expect("飞斧继承团队", Relations.entityTeam(boss), Relations.entityTeam(axe));
         expect("飞斧继承友方表", Relations.friendlyTeams(boss), Relations.friendlyTeams(axe));
         expectTrue("来源出生队名保持在飞斧友方表，首领不是命中目标", Relations.isFriendly(axe, boss));
@@ -134,11 +137,11 @@ final class Boss02AxeCheck extends SystemCheck {
             if (boss.deathTime == 79 && !boss.isRemoved()) deathSeventyNine = true;
             if (skillFrames >= 20) return;
             skillFrames++;
-            CompoundTag data = boss.getPersistentData();
+            CreatureState data = CreatureData.state(boss);
             if (skillFrames == 1) prepared = phase(data);
             if (skillFrames == 8) thrown = phase(data);
             if (skillFrames == 20) reset = phase(data);
-        } else if (axes.contains(entity) && entity.getPersistentData().getDouble("jinengtick") == 19 && !entity.isRemoved()) {
+        } else if (entity instanceof Boss0201Entity axe && axes.contains(axe) && axe.skillTick() == 19 && !axe.isRemoved()) {
             axeNineteen = true;
         }
     }
@@ -148,9 +151,9 @@ final class Boss02AxeCheck extends SystemCheck {
         if (axes.contains(event.getEntity())) axeDeaths++;
     }
 
-    private String phase(CompoundTag data) {
-        return data.getString("jineng") + "/" + data.getString("jinengjinxing") + "/" + data.getDouble("entitytick")
-                + "/" + data.getBoolean("donghua") + "/" + axes.size() + "/" + target.isAlive();
+    private String phase(CreatureState data) {
+        return data.skill() + "/" + data.phase() + "/" + data.tick()
+                + "/" + data.animated() + "/" + axes.size() + "/" + target.isAlive();
     }
 
     private boolean finishFlight() {
@@ -161,7 +164,7 @@ final class Boss02AxeCheck extends SystemCheck {
         expect("首领第20刻清空技能与计时", "//0.0/false/1/true", reset);
         expect("单次只生成一柄飞斧", 1, axes.size());
         expectTrue("飞斧第19刻仍在、第20刻非死亡退场", axeNineteen
-                && axe.getPersistentData().getDouble("jinengtick") == 20 && axe.getRemovalReason() == Entity.RemovalReason.DISCARDED);
+                && axe.skillTick() == 20 && axe.getRemovalReason() == Entity.RemovalReason.DISCARDED);
         expect("飞斧退场不发死亡事件", 0, axeDeaths);
         expectTrue("首领走原生致死伤害入口",
                 boss.hurt(boss.damageSources().genericKill(), Float.MAX_VALUE) && boss.isDeadOrDying());

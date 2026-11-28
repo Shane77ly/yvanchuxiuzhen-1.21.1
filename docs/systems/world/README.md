@@ -2,16 +2,18 @@
 topic: world
 role: entry
 status: partial
-updated: 2026-11-20
+updated: 2026-11-26
 ---
 
 # 世界
+
+768 MB 客户端已通过地府内置模板核对、替换模板首入，以及原溢出种子的门户往返与实际重进。连续多维回归仍有地府首入及后续跨维的内存峰值，见[跨维时间线](logs/2026-11.md#2026-11-26-地府入场与后续跨维时间线)。
 
 31种矿物和霓裳草已按来源恢复全群系共享地物入口；已加载群系与维度排序通过静音检查，实际自然生成仍待验证，见[世界正文](architecture.md#全群系矿物与霓裳草入口2026-11-20)。
 
 人间道冬季冰湖改用来源湖泊算法；生产编译通过，自然新区块生成未验，见[世界月志](logs/2026-11.md#2026-11-20-人间道冬季冰湖)。
 
-人间道新档的原生门户往返、固定首入与同档重进已通过：目标门和POI复用，首次场景生成，重进不重复生成。见[固定首入实机记录](logs/2026-11.md#2026-11-18-人间道固定首入与保存重进)。
+人间道新档的原生门户往返、固定首入与同档重进已通过：目标门和POI复用，首次场景生成，重进不重复生成。小尸王场景改用目标版本离线升级产物后，固定首入专项复验通过。见[固定首入实机记录](logs/2026-11.md#2026-11-18-人间道固定首入与保存重进)。
 
 人间道随机结构01、03、04已通过一次真实新区块放置及同档读回复验；仅闭合限定样点，01跨区块裁切和自然分布仍待核。见[世界月志](logs/2026-11.md#2026-11-18-人间道随机结构自然样点与重进)。
 
@@ -55,7 +57,7 @@ updated: 2026-11-20
 
 `StructureSearch.search(ServerLevel, Vec3, String)`供Quest调用遗迹搜索；World独占28目录/主世界共享已寻进度，盘、光环、裂隙及来源两命令复用同一入口。规则与Q116–Q119见[自然遗迹链](architecture.md#寻灵盘与自然遗迹链2026-11-14)，本批结果见[月志](logs/2026-11.md#2026-11-14-寻灵盘光环与自然裂隙)。
 
-`StructureReleases.release(ServerLevel, Vec3, String)`是World内部固定结构释放写入口；公开`StructureReleasedEvent(level, structureName)`在来源40/60/100刻后同步通知内容所有者。Quest、NPC、Dungeon只处理自身数据，World不反向依赖消费者。实际管理命令语法见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)。
+`StructureReleases.release(ServerLevel, ServerPlayer, String, boolean)`是World内部固定结构释放写入口；公开`StructureReleasedEvent(level, structureName)`在来源40/60/100刻后同步通知内容所有者。Quest、NPC、Dungeon只处理自身数据，World不反向依赖消费者。实际管理命令语法见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)。
 
 其他系统通过原生服务端查找`yvanchuxiuzhen:xvkong`、`dimensionrenjian`、`dimensionyaohun`、`fabao_009weidu`及本批`dimensiontianqve`。六组天道门户通过`DimensionPortalBlock`和`DimensionPortalItem`公开接入，门户方块、POI、出口建门和`DimensionTransition`由World独占。人间道/妖魂道既有往返与保存证据复用；天阙首次入场回程及真实重进后门户/POI保存见[天阙正文](architecture.md#天阙七群系与门户接收2026-11-18)。修罗/无归/地灵仍只沿用资源缺失时拒绝的有限证据，历史原主树四道候选不计当前集成。画里乾坤、虚空及两道历史样点的边界保持各自正文；全分布、自然地物/出生和多人仍待验收。
 
@@ -71,3 +73,5 @@ updated: 2026-11-20
 已对照 `typed_field_accesses.csv`：`XvkongDimension`、`XvkongqvnxiBiome`没有玩家或世界持久字段读写；技能裂隙的返回编号`tizhiitem.weidu`仍由xiulian公开操作管理。随机结构字段包含`Suijijiegou01FuJiaDeShengChengTiaoJianProcedure`一次条件读取，以及`YvanchuGoProcedure`的unlock/lock两次写入，分别由六个地物查询与管理命令调用World拥有者承担。其余世界状态、结构操作与外部字段访问随对应批次列出；world不写玩家档案。
 
 本轮变化记录在[本系统月志](logs/2026-11.md)与[项目月志](../project/logs/2026-11.md)。
+
+数据重转由世界转换器恢复五份来源结构群系标签。

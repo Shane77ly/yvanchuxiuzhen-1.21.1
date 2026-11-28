@@ -39,7 +39,6 @@ public final class PlayerRespawnFlow {
         ServerPlayer player = (ServerPlayer) event.getEntity();
         ServerLevel entryLevel = player.serverLevel();
         Cultivation.rebirth(player);
-        Cultivation.syncLegacyLevelMirror(player);
         Dungeons.restoreRespawnGameMode(player);
         returnToHumanRealm(player);
         NeoForge.EVENT_BUS.addListener(ServerTickEvent.Post.class, new AttributeRecalculation(entryLevel, player));

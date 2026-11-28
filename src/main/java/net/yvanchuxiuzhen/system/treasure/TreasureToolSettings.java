@@ -1,10 +1,9 @@
 package net.yvanchuxiuzhen.system.treasure;
 
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 
 /** 天道宝箱工具的十个来源按钮只修改操作发生时的主手物品，保留独立的客户端显示默认值。 */
 public final class TreasureToolSettings {
@@ -23,71 +22,72 @@ public final class TreasureToolSettings {
     private TreasureToolSettings() {
     }
 
-    public static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    public static TreasureContainerConfig config(ItemStack stack) {
+        return TreasureContainers.config(stack);
     }
 
     public static boolean action(ItemStack stack, int button) {
         if (button < 0 || button > 9) return false;
-        CompoundTag data = data(stack);
+        TreasureContainerConfig current = config(stack);
+        String big = current.category();
+        String small = current.subtype();
+        double level = current.level();
+        double minimum = current.minimum();
+        double maximum = current.maximum();
         int direction = button % 2 == 0 ? -1 : 1;
-        int category = CATEGORIES.indexOf(data.getString("TreasureTypeBig"));
+        int category = CATEGORIES.indexOf(big);
         switch (button / 2) {
             case 0 -> {
                 if (category >= 0) {
                     int next = Math.floorMod(category + direction, CATEGORIES.size());
-                    data.putString("TreasureTypeBig", CATEGORIES.get(next));
-                    data.putString("TreasureTypeSmall", FIRST_SUBTYPES.get(next));
+                    big = CATEGORIES.get(next);
+                    small = FIRST_SUBTYPES.get(next);
                 }
             }
             case 1 -> {
                 if (category >= 0) {
                     List<String> values = SUBTYPES.get(category);
-                    int subtype = values.indexOf(data.getString("TreasureTypeSmall"));
-                    if (subtype >= 0) data.putString("TreasureTypeSmall", values.get(Math.floorMod(subtype + direction, values.size())));
+                    int subtype = values.indexOf(small);
+                    if (subtype >= 0) small = values.get(Math.floorMod(subtype + direction, values.size()));
                 }
             }
             case 2 -> {
-                double value = data.getDouble("TreasureLEVEL") + direction;
-                if (direction > 0 && value > 8) value = 1;
-                if (direction < 0 && value <= 0) value = 8;
-                data.putDouble("TreasureLEVEL", value);
+                level += direction;
+                if (direction > 0 && level > 8) level = 1;
+                if (direction < 0 && level <= 0) level = 8;
             }
             case 3 -> {
-                double value = data.getDouble("minimumvalue") + direction;
-                if (direction > 0 && value > 64) value = 1;
-                if (direction < 0 && value < 0) value = 64;
-                data.putDouble("minimumvalue", value);
-                alignMaximum(data);
+                minimum += direction;
+                if (direction > 0 && minimum > 64) minimum = 1;
+                if (direction < 0 && minimum < 0) minimum = 64;
+                maximum = alignMaximum(minimum, maximum);
             }
             case 4 -> {
-                double value = data.getDouble("Maximumvalue") + direction;
-                if (direction > 0 && value > 64) value = 1;
-                if (direction < 0 && value <= 0) value = 64;
-                data.putDouble("Maximumvalue", value);
-                alignMaximum(data);
+                maximum += direction;
+                if (direction > 0 && maximum > 64) maximum = 1;
+                if (direction < 0 && maximum <= 0) maximum = 64;
+                maximum = alignMaximum(minimum, maximum);
             }
             default -> throw new IllegalStateException("未知宝箱设置按钮 " + button);
         }
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        TreasureContainers.setConfig(stack, new TreasureContainerConfig(big, small, level, minimum, maximum));
         return true;
     }
 
-    private static void alignMaximum(CompoundTag data) {
-        if (data.getDouble("minimumvalue") > data.getDouble("Maximumvalue")) {
-            data.putDouble("Maximumvalue", data.getDouble("minimumvalue"));
-        }
+    private static double alignMaximum(double minimum, double maximum) {
+        return minimum > maximum ? minimum : maximum;
     }
 
     /** 来源五个显示过程只在客户端渲染时写默认值；这些值不作为请求传回服务端。 */
-    public static CompoundTag display(ItemStack stack) {
-        CompoundTag data = data(stack);
-        if (data.getString("TreasureTypeBig").isEmpty()) data.putString("TreasureTypeBig", "书架");
-        if (data.getString("TreasureTypeSmall").isEmpty()) data.putString("TreasureTypeSmall", "书桶");
-        if (data.getDouble("TreasureLEVEL") <= 0) data.putDouble("TreasureLEVEL", 1);
-        if (data.getDouble("minimumvalue") <= 0) data.putDouble("minimumvalue", 1);
-        if (data.getDouble("Maximumvalue") <= 0) data.putDouble("Maximumvalue", 3);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        return data;
+    public static TreasureContainerConfig display(ItemStack stack) {
+        TreasureContainerConfig current = config(stack);
+        String big = current.category().isEmpty() ? "书架" : current.category();
+        String small = current.subtype().isEmpty() ? "书桶" : current.subtype();
+        double level = current.level() <= 0 ? 1 : current.level();
+        double minimum = current.minimum() <= 0 ? 1 : current.minimum();
+        double maximum = current.maximum() <= 0 ? 3 : current.maximum();
+        TreasureContainerConfig updated = new TreasureContainerConfig(big, small, level, minimum, maximum);
+        TreasureContainers.setConfig(stack, updated);
+        return updated;
     }
 }

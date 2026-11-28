@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.guchong.content.TaoguanItem;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanMenu;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongMenus;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseItem;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -48,10 +49,12 @@ public final class GuchongSetup {
             CONTENT.itemFactory("guchong:" + id + "item", (properties, tooltip) -> new GuchongReleaseItem(properties, tooltip, id));
         }
         CONTENT.register(modBus);
+        GuchongData.register(modBus);
         GuchongBlockEntities.register(modBus);
         GuchongMenus.register(modBus);
         NeoForge.EVENT_BUS.addListener(GuchongGrowth::onDeath);
         NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Post event) -> {
+            if (event.getEntity().level().isClientSide()) return;
             if (event.getEntity().containerMenu instanceof TaoguanMenu menu
                     && TaoguanItem.grade(event.getEntity().getMainHandItem()) != menu.grade()) event.getEntity().closeContainer();
             if (event.getEntity().containerMenu instanceof GuchongReleaseMenu

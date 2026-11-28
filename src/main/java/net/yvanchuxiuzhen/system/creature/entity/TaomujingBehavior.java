@@ -4,54 +4,40 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
-/** 桃木精来源逐刻技能与受击流程；原生主手物品以CUSTOM_DATA承载阶段，按来源写回数量一的副本。 */
+/** 桃木精来源逐刻技能与受击流程；由实体自身 AI 状态承载阶段。 */
 final class TaomujingBehavior {
     private TaomujingBehavior() { }
 
     static void tick(TaomujingEntity entity) {
         LevelAccessor world = entity.level();
         Entity linshientity = null;
-        ItemStack mainhand = ItemStack.EMPTY;
-        ItemStack linshiitem = ItemStack.EMPTY;
-        CompoundTag state = new CompoundTag();
+        CompoundTag state = entity.aiState();
         double jvli1 = 0;
         double suiji = 0;
         if (entity.isAlive()) {
-            if (entity.getMainHandItem().copy().getItem() == (ItemStack.EMPTY).getItem()) {
-                {
-                    final ItemStack _setstack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_201")));
-                    _setstack.setCount(1);
-                    entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
-                }
-            }
-            linshiitem = entity.getMainHandItem().copy();
-        state = linshiitem.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             state.putDouble("entitytick", (state.getDouble("entitytick") + 1));
             if (!(state.getString("gongjizhe")).equals(state.getString("linshigongjizhe"))) {
                 state.putString("gongjizhe", (state.getString("linshigongjizhe")));
@@ -118,12 +104,7 @@ final class TaomujingBehavior {
                                             if (world instanceof ServerLevel _level)
                                                 _level.sendParticles(Particles.type("smallexplosiondarkgreen"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2),
                                                         (entityiterator.getZ()), 1, 0, 0, 0, 0);
-                                            {
-                                                Entity _ent = entityiterator;
-                                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                                            ("shanghai" + " " + "木" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1"));
-                                            }
+                                            SpellDamage.deal(entityiterator, DamageCategory.TREE, entity, false, 2, 1);
                                         }
                                     }
                                 }
@@ -157,12 +138,7 @@ final class TaomujingBehavior {
                                                 if (world instanceof ServerLevel _level)
                                                     _level.sendParticles(Particles.type("smallexplosiondarkgreen"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2),
                                                             (entityiterator.getZ()), 1, 0, 0, 0, 0);
-                                                {
-                                                    Entity _ent = entityiterator;
-                                                    if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                                        _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                                                ("shanghai" + " " + "木" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1"));
-                                                }
+                                                SpellDamage.deal(entityiterator, DamageCategory.TREE, entity, false, 2, 1);
                                             }
                                         }
                                     }
@@ -203,7 +179,7 @@ final class TaomujingBehavior {
                                             if (!Relations.isFriendly(entity, entityiterator)) {
                                                 if (world instanceof ServerLevel _level)
                                                     _level.sendParticles(ParticleTypes.CRIT, (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 10, 0, 0, 0, 0.5);
-                                                entityiterator.hurt((entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity)), (float) entity.getPersistentData().getDouble("attack_Num"));
+                                                entityiterator.hurt((entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity)), (float) EntityAttributes.stat(entity, Stat.ATTACK));
                                             }
                                         }
                                     }
@@ -249,49 +225,25 @@ final class TaomujingBehavior {
                     state.putDouble("entitytick", 0);
                 }
             }
-            {
-                linshiitem = copyWithState(linshiitem, state);
-                final ItemStack _setstack = (linshiitem.copy());
-                _setstack.setCount(1);
-                entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
-            }
         }
     }
 
     static void hurt(TaomujingEntity entity, Entity sourceentity) {
         if (sourceentity == null) return;
-        ItemStack linshiitem = ItemStack.EMPTY;
-        CompoundTag state = new CompoundTag();
         if (entity.isAlive()) {
+            CompoundTag state = entity.aiState();
             if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
-                linshiitem = entity.getMainHandItem().copy();
-        state = linshiitem.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
                 if (!(state.getString("jineng")).equals("")) {
-                    if (entity instanceof TaomujingEntity) {
-                        ((TaomujingEntity) entity).setAnimation("empty");
-                    }
+                    entity.setAnimation("empty");
                     state.putString("jineng", "");
                     state.putString("jinengjinxing", "");
                     state.putDouble("entitytick", 0);
                     state.putDouble("entitytick2", 0);
                 }
-                if (entity instanceof TaomujingEntity) {
-                    ((TaomujingEntity) entity).setAnimation("animation.taoshujing.attacked");
-                }
+                entity.setAnimation("animation.taoshujing.attacked");
             }
             state.putString("linshigongjizhe", (sourceentity.getStringUUID()));
-            {
-                linshiitem = copyWithState(linshiitem, state);
-                final ItemStack _setstack = (linshiitem.copy());
-                _setstack.setCount(1);
-                entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
-            }
         }
-    }
-    private static ItemStack copyWithState(ItemStack stack, CompoundTag state) {
-        ItemStack result = stack.copy();
-        if (!result.isEmpty()) result.set(DataComponents.CUSTOM_DATA, CustomData.of(state));
-        return result;
     }
 
     private static Entity find(TaomujingEntity entity, String id) {

@@ -1,7 +1,7 @@
 package net.yvanchuxiuzhen.system.dungeon.content;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
@@ -12,8 +12,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.system.dungeon.DungeonSettings;
 import net.yvanchuxiuzhen.system.dungeon.api.Dungeons;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonMenuSnapshot;
 
-/** 普通入口和控制器仅展示来源库存；管理入口开放门票槽，占位符没有库存槽。 */
+/** 普通入口和控制器仅展示库存；管理入口开放门票槽，占位符没有库存槽，快照使用强类型流编码。 */
 public final class DungeonMenu extends AbstractContainerMenu {
     public static final int OPEN = 0;
     public static final int MANAGE = 1;
@@ -21,19 +22,19 @@ public final class DungeonMenu extends AbstractContainerMenu {
     public static final int MARKER = 3;
     private final BlockPos position;
     private final DungeonBlockEntity block;
-    private final CompoundTag initial;
+    private final DungeonMenuSnapshot initial;
     private final int kind;
     private final int customSlots;
 
     public DungeonMenu(int id, Inventory inventory, RegistryFriendlyByteBuf buffer) {
-        this(id, inventory, buffer.readBlockPos(), buffer.readVarInt(), buffer.readNbt());
+        this(id, inventory, buffer.readBlockPos(), buffer.readVarInt(), DungeonMenuSnapshot.STREAM_CODEC.decode(buffer));
     }
 
     public DungeonMenu(int id, Inventory inventory, BlockPos pos, int kind) {
-        this(id, inventory, pos, kind, new CompoundTag());
+        this(id, inventory, pos, kind, DungeonMenuSnapshot.EMPTY);
     }
 
-    private DungeonMenu(int id, Inventory inventory, BlockPos pos, int kind, CompoundTag initial) {
+    private DungeonMenu(int id, Inventory inventory, BlockPos pos, int kind, DungeonMenuSnapshot initial) {
         super(DungeonMenus.type(kind), id);
         this.position = pos;
         this.kind = kind;
@@ -65,15 +66,20 @@ public final class DungeonMenu extends AbstractContainerMenu {
     }
 
     public int kind() { return kind; }
-    public CompoundTag data() { return block == null || block.getPersistentData().isEmpty() ? initial : block.getPersistentData(); }
 
-    public void action(ServerPlayer player, String value, boolean attack) {
+    public DungeonMenuSnapshot snapshot() {
+        if (block == null) return initial;
+        DungeonMenuSnapshot current = block.menuSnapshot();
+        return current.equals(DungeonMenuSnapshot.EMPTY) && !initial.equals(DungeonMenuSnapshot.EMPTY) ? initial : current;
+    }
+
+    public void action(ServerPlayer player, List<String> values, boolean attack) {
         if (!player.level().hasChunkAt(position) || player.level().getBlockEntity(position) != block || block == null) return;
         switch (kind) {
             case OPEN -> Dungeons.enter(player, position);
-            case MANAGE -> DungeonSettings.entrance(block, value);
-            case CONTROLLER -> DungeonSettings.controller(block, value);
-            case MARKER -> DungeonSettings.marker(block, value, attack);
+            case MANAGE -> DungeonSettings.entrance(block, values);
+            case CONTROLLER -> DungeonSettings.controller(block, values);
+            case MARKER -> DungeonSettings.marker(block, values, attack);
             default -> { }
         }
     }

@@ -70,9 +70,9 @@ public final class LoomBlock extends WaterloggedContentBlock implements EntityBl
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.getBlockEntity(pos) instanceof LoomBlockEntity loom
-                && loom.getPersistentData().getDouble("blocktick") >= 1) {
-            loom.getPersistentData().putDouble("blocktick", 0);
+        if (level.getBlockEntity(pos) instanceof LoomBlockEntity loom && loom.blockTick() >= 1) {
+            loom.setBlockTick(0);
+            loom.setChanged();
             level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
         }
     }

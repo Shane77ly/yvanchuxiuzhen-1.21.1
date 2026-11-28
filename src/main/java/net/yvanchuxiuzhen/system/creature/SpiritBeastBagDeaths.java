@@ -11,12 +11,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.scores.Objective;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** 来源Lingshoudaiqingkong：同维度主人首个同UUID袋重建，以及召唤物死亡粒子与移除。 */
@@ -49,9 +50,11 @@ public final class SpiritBeastBagDeaths {
     }
 
     private static void clearLinkedBag(ServerLevel level, Entity entity) {
-        String bagUuid = entity.getPersistentData().getString("lingshoudaiuuid");
+        CreatureState state = CreatureData.existingState(entity).orElse(null);
+        if (state == null) return;
+        String bagUuid = state.bagUuid();
         if (bagUuid.isEmpty()) return;
-        String ownerUuid = entity.getPersistentData().getString("belongToMasterUUID");
+        String ownerUuid = state.masterUuid();
         for (Player player : level.players()) {
             if (!player.getStringUUID().equals(ownerUuid)) continue;
             // 来源Player仅在存活时提供空朝向物品能力；该能力依次包含主背包、护甲与副手。
@@ -64,8 +67,7 @@ public final class SpiritBeastBagDeaths {
         if (inventory == null) return;
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack previous = inventory.getStackInSlot(slot);
-            if (!previous.is(BAGS) || !previous.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
-                    .getString("lingshoudaiuuid").equals(bagUuid)) continue;
+            if (!previous.is(BAGS) || !SpiritBeastBagRuntime.bagUuid(previous).equals(bagUuid)) continue;
             ItemStack replacement = new ItemStack(previous.getItem());
             String name = previous.getDisplayName().getString().replace("[", "").replace("]", "");
             replacement.set(DataComponents.CUSTOM_NAME, Component.literal(name));

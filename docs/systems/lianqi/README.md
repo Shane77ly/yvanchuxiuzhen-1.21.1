@@ -2,10 +2,14 @@
 topic: lianqi
 role: entry
 status: partial
-updated: 2026-11-17
+updated: 2026-11-28
 ---
 
 # 炼器
+
+阶段 4 续批（子批 5）已完成 **Q35（淬毒炼药锅 8 毒条件统一）**：`PoisonCrafting.useCauldron` 统一为仅在主手武器尚未拥有该毒药附魔时淬毒 1 级并消耗毒锅（[Q35 修复记录](logs/2026-11.md#2026-11-28-阶段-4q35-淬毒炼药锅八毒条件统一)）。
+
+已完成鼎炉、图纸预览与原料计算的去套壳改造：`LianqiBlueprint.toRefinement()` 直接构建 `EquipmentRefinement`，`TripodBlockEntity.plannedItem` 改为直接存储 `ItemStack`，`BlueprintTableBlockEntity` 移除 `CompoundTag` 预览中转（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c炼器方块与图纸预览去套壳)）。
 
 标识 `lianqi`，类别：系统。职责：鼎炉、图纸、熔炼、精炼、修理（[系统设计](../../development/system-design.md)）。
 

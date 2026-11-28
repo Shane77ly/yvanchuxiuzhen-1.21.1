@@ -22,11 +22,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -89,13 +90,13 @@ public abstract class MoshouEntity extends Monster implements GeoEntity, Animate
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (isAlive() && !StatusEffects.has(this, "skilleffect_08")) {
-            CompoundTag data = getPersistentData();
-            if (!data.getString("jineng").isEmpty()) {
+            CreatureState state = CreatureData.state(this);
+            if (!state.skill().isEmpty()) {
                 setAnimation("empty");
-                data.putDouble("entitytick", 0);
-                data.putString("jineng", "");
-                data.putString("jinengjinxing", "");
-                data.putDouble("entitytick2", 0);
+                state.setTick(0);
+                state.setSkill("");
+                state.setPhase("");
+                state.setTick2(0);
             }
             setAnimation("animation." + animationName + ".attacked");
         }

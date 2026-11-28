@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 
 /** 在一次性人间道存档中核对水生四族真实死亡后跨重进的采集次数与产物。 */
@@ -77,7 +78,7 @@ final class AquaticCorpseCheck extends SystemCheck {
                 continue;
             }
             collect(player, type, mob, 1, 2);
-            samples.add(new Sample(type, mob.getUUID(), mob.getPersistentData().getBoolean("yaodandiaoluo")));
+            samples.add(new Sample(type, mob.getUUID(), CreatureData.state(mob).beastCoreDropped()));
         }
         expect("重进前有四种尸体", 4, samples.size());
     }
@@ -91,8 +92,8 @@ final class AquaticCorpseCheck extends SystemCheck {
                 fail(sample.type() + " 重进后未找到同 UUID、同类型的尸体 " + sample.id());
                 continue;
             }
-            expect(sample.type() + " 重进后采集次数", 2, mob.getPersistentData().getDouble("caijinumber"));
-            expect(sample.type() + " 重进后妖丹标记", sample.core(), mob.getPersistentData().getBoolean("yaodandiaoluo"));
+            expect(sample.type() + " 重进后采集次数", 2, CreatureData.state(mob).harvestCount());
+            expect(sample.type() + " 重进后妖丹标记", sample.core(), CreatureData.state(mob).beastCoreDropped());
             collect(player, sample.type(), mob, 3, 5);
         }
     }
@@ -106,7 +107,7 @@ final class AquaticCorpseCheck extends SystemCheck {
             player.interactOn(mob, InteractionHand.MAIN_HAND);
             var items = level.getEntitiesOfClass(ItemEntity.class, box, item -> !existing.contains(item.getUUID()));
             expectTrue(type + " 第" + n + "次采集，新增落物=" + items.stream().map(item -> item.getItem().toString()).toList(),
-                    items.size() == 1 && !items.getFirst().getItem().isEmpty() && mob.getPersistentData().getDouble("caijinumber") == n);
+                    items.size() == 1 && !items.getFirst().getItem().isEmpty() && CreatureData.state(mob).harvestCount() == n);
             expectTrue(type + " 第" + n + "次后的移除状态", n == 5 ? mob.getRemovalReason() == Entity.RemovalReason.DISCARDED : !mob.isRemoved());
         }
     }

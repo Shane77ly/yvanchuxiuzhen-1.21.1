@@ -24,7 +24,7 @@ import net.yvanchuxiuzhen.system.gongfa.data.GongfaData;
 
 /**
  * 藏宝功法表（来源 {@code Gongfalist01}–{@code 08}，数据 {@code content/gongfa/techniques.json} 与 {@code technique_lists.json}）：
- * 第 n 表按 1–max 的随机数取一本功法书。随机数没有对应分支时不给书（第 6 表的 9、10）；超出 max 的分支取不到（第 7 表的 12）（Q26）。
+ * 第 n 表按 1–max 的随机数取一本功法书；阶段 4（Q26）已将第 6 表上限由 10 修正为 8（消除 9/10 空抽）、第 7 表上限由 11 修正为 12（使第 12 本可达）。
  */
 public final class TechniqueLibrary {
     private record Row(int list, int roll, TechniqueDefinition definition) {

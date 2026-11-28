@@ -15,6 +15,8 @@ public final class CookingAttachments {
     public static final Supplier<AttachmentType<Double>> ALCOHOL = TYPES.register("alcohol", () -> AttachmentType
             .builder(() -> 0.0).serialize(Codec.DOUBLE).copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.DOUBLE).build());
+    public static final Supplier<AttachmentType<Double>> FASTING_TICKS = TYPES.register("fasting_ticks", () -> AttachmentType
+            .builder(() -> 0.0).serialize(Codec.DOUBLE).build());
 
     private CookingAttachments() {
     }

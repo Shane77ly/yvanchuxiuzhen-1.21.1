@@ -21,6 +21,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 
 /** 029号妖兽的独立编号身份、来源移动、声音、动画与生命周期。 */
 public final class Yaoshou029Entity extends YaoshouEntity {
@@ -67,7 +69,7 @@ public final class Yaoshou029Entity extends YaoshouEntity {
     @Override
     protected void sourceSpawn(ServerLevelAccessor level) {
         if (YaoshouShared.initialize(this, 14, "勉强", "勉强", "平庸", "勉强", "勉强", "贫弱", "勉强", "勉强", "强劲", "勉强", "勉强", "勉强", "平庸")) {
-            getAttribute(NeoForgeMod.SWIM_SPEED).setBaseValue(getPersistentData().getDouble("speed_number") * 6.5);
+            getAttribute(NeoForgeMod.SWIM_SPEED).setBaseValue(EntityAttributes.stat(this, Stat.MOVE_SPEED) * 6.5);
         }
     }
 

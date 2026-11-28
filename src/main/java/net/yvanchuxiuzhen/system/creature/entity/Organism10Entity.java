@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -37,6 +38,8 @@ public final class Organism10Entity extends PathfinderMob implements GeoEntity, 
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedureAnimation = "empty";
+    private String moodState = "";
+    private double stateTimer;
 
     public Organism10Entity(EntityType<? extends Organism10Entity> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -77,54 +80,65 @@ public final class Organism10Entity extends PathfinderMob implements GeoEntity, 
     public void baseTick() {
         super.baseTick();
         if (level().isClientSide()) return;
-        var data = getPersistentData();
-        String state = data.getString("xiangfa");
         AABB area = new AABB(position(), position()).inflate(4);
         if (level().getEntitiesOfClass(Player.class, area).stream().sorted((a, b) -> Double.compare(a.distanceToSqr(position()), b.distanceToSqr(position()))).findFirst().isPresent()) {
-            data.putString("xiangfa", "飞行");
-            state = "飞行";
+            moodState = "飞行";
         }
-        if (state.equals("飞行") || state.equals("降落")) setAnimation("animation.organism10.fly");
-        if (state.equals("休息1") || state.isEmpty()) {
-            double tick = data.getDouble("jishitick") + 1;
+        if (moodState.equals("飞行") || moodState.equals("降落")) setAnimation("animation.organism10.fly");
+        if (moodState.equals("休息1") || moodState.isEmpty()) {
+            double tick = stateTimer + 1;
             if (tick >= 46) {
-                if (Math.random() < 0.1) data.putString("xiangfa", "飞行");
-                else if (Math.random() < 0.4) data.putString("xiangfa", "开始休息2");
-                else data.putString("xiangfa", "开始休息3");
+                if (Math.random() < 0.1) moodState = "飞行";
+                else if (Math.random() < 0.4) moodState = "开始休息2";
+                else moodState = "开始休息3";
                 tick = 0;
             }
-            data.putDouble("jishitick", tick);
-        } else if (state.equals("开始休息2")) {
+            stateTimer = tick;
+        } else if (moodState.equals("开始休息2")) {
             setAnimation("animation.organism10.idle2");
-            data.putString("xiangfa", "休息冷却");
-        } else if (state.equals("开始休息3")) {
+            moodState = "休息冷却";
+        } else if (moodState.equals("开始休息3")) {
             setAnimation("animation.organism10.idle3");
-            data.putString("xiangfa", "休息冷却");
-        } else if (state.equals("休息冷却")) {
-            double tick = data.getDouble("jishitick") + 1;
+            moodState = "休息冷却";
+        } else if (moodState.equals("休息冷却")) {
+            double tick = stateTimer + 1;
             if (tick >= 60) {
-                data.putString("xiangfa", "休息1");
+                moodState = "休息1";
                 tick = 0;
             }
-            data.putDouble("jishitick", tick);
-        } else if (state.equals("飞行")) {
+            stateTimer = tick;
+        } else if (moodState.equals("飞行")) {
             double yaw = getYRot() * (3.14 / 180);
             setDeltaMovement(new Vec3(-0.5 * Math.sin(yaw), 0.2, 0.5 * Math.cos(yaw)));
-            double tick = data.getDouble("jishitick") + 1;
-            if (tick >= 30) { data.putString("xiangfa", "降落"); tick = 0; }
-            data.putDouble("jishitick", tick);
-        } else if (state.equals("降落")) {
+            double tick = stateTimer + 1;
+            if (tick >= 30) { moodState = "降落"; tick = 0; }
+            stateTimer = tick;
+        } else if (moodState.equals("降落")) {
             double yaw = getYRot() * (3.14 / 180);
             setDeltaMovement(new Vec3(-0.5 * Math.sin(yaw), -0.2, 0.5 * Math.cos(yaw)));
-            double tick = data.getDouble("jishitick") + 1;
+            double tick = stateTimer + 1;
             if (tick >= 30) {
                 setAnimation("empty");
-                data.putString("xiangfa", "休息1");
+                moodState = "休息1";
                 tick = 0;
             }
-            data.putDouble("jishitick", tick);
+            stateTimer = tick;
         }
         refreshDimensions();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("xiangfa", moodState);
+        tag.putDouble("jishitick", stateTimer);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        moodState = tag.getString("xiangfa");
+        stateTimer = tag.getDouble("jishitick");
     }
 
     @Override

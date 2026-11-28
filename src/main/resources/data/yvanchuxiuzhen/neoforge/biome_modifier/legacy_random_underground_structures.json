@@ -1,0 +1,8 @@
+{
+  "type": "yvanchuxiuzhen:add_missing_biome_features",
+  "features": [
+    "yvanchuxiuzhen:suijijiegou_05",
+    "yvanchuxiuzhen:suijijiegou_06"
+  ],
+  "step": "underground_structures"
+}

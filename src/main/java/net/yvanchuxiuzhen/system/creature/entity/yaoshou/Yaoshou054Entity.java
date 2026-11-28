@@ -17,6 +17,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 
 /** 054号妖兽：来源编号身份、初始化、逐刻技能、声音、动画及死亡清袋。 */
 public final class Yaoshou054Entity extends YaoshouEntity {
@@ -41,13 +42,13 @@ public final class Yaoshou054Entity extends YaoshouEntity {
     protected void sourceHurt(DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (!isAlive() || attacker == null || Relations.isFriendly(this, attacker)) return;
-        getPersistentData().putString("linshigongjizhe", attacker.getStringUUID());
-        if (getPersistentData().getBoolean("beidaduan")) {
+        CreatureData.state(this).setTempAttackerUuid(attacker.getStringUUID());
+        if (CreatureData.state(this).interrupted()) {
             setAnimation("empty");
             setShiftKeyDown(false);
-            getPersistentData().putBoolean("beidaduan", false);
+            CreatureData.state(this).setInterrupted(false);
         }
-        if (getPersistentData().getString("jineng").isEmpty() && !level().isClientSide()) {
+        if (CreatureData.state(this).skill().isEmpty() && !level().isClientSide()) {
             setAnimation("animation.yaoshou054.attacked");
         }
     }

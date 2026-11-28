@@ -1,12 +1,10 @@
 package net.yvanchuxiuzhen.system.economy;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,11 +18,14 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.economy.api.BankAccount;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankCards;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
+import net.yvanchuxiuzhen.system.economy.api.EconomyItems;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 
-/** 商品分页、两种货币购买及普通/灵石收购；保留来源扣款顺序与一级找零变量。 */
+/** 商品分页、两种货币购买及普通/灵石收购；灵石按面额从低到高扣款。 */
 public final class CommerceTrading {
     public static final GameRules.Key<GameRules.BooleanValue> SHOP_SELL = GameRules.register("shopsell", GameRules.Category.MISC, GameRules.BooleanValue.create(true));
     private CommerceTrading() { }
@@ -37,68 +38,57 @@ public final class CommerceTrading {
     }
 
     public static void opened(ServerPlayer player) {
-        CompoundTag state = EconomyMenus.snapshot(player);
-        state.putInt("shoppage", 0);
-        player.setData(CommerceData.SESSION, state);
+        player.setData(CommerceData.SESSION, EconomyMenus.snapshot(player).toBuilder().shopPage(0).build());
         refreshShop(player);
         BankAccounts.refresh(player);
     }
 
     public static void page(ServerPlayer player, int direction) {
-        CompoundTag state = EconomyMenus.snapshot(player);
-        int maximum = products(state).size() / 5 / 12;
-        int page = state.getInt("shoppage");
+        CommerceSession state = EconomyMenus.snapshot(player);
+        int maximum = EconomyMenus.shopCatalog(player).products().size() / 12;
+        int page = state.shopPage();
         page = direction > 0 ? page < maximum ? page + 1 : 0 : page > 0 ? page - 1 : maximum;
-        state.putInt("shoppage", page);
-        player.setData(CommerceData.SESSION, state);
+        player.setData(CommerceData.SESSION, state.toBuilder().shopPage(page).build());
         refreshShop(player);
     }
 
-    private static List<String> products(CompoundTag state) {
-        return Arrays.asList(CommerceCatalog.translated(state.getString("productlist")).split("%"));
-    }
-
     public static void refreshShop(ServerPlayer player) {
-        CompoundTag state = EconomyMenus.snapshot(player);
-        String[] information = CommerceCatalog.translated(state.getString("shopinformation")).split("%");
-        state.putString("storename", information[0]);
-        state.putString("storeowner", information[1]);
-        state.putString("storedescription", information[2]);
+        CommerceSession state = EconomyMenus.snapshot(player);
+        CommerceSession.Builder builder = state.toBuilder();
+        ShopCatalogDefinition catalog = EconomyMenus.shopCatalog(player);
+        ShopCatalogDefinition.ShopInfo info = catalog.info();
+        builder.storeName(info.storeName()).storeOwner(info.ownerName()).storeDescription(info.description());
         for (int index = 0; index < 12; index++) {
             Slot target = slot(player, index);
             if (target != null) target.set(ItemStack.EMPTY);
-            state.putString("shopjiagetxt" + suffix(index), "");
-            state.putString("shopnametxt" + suffix(index), "");
+            builder.shopPriceText(index, "").shopNameText(index, "");
         }
-        List<String> products = products(state);
-        int page = Math.max(0, state.getInt("shoppage"));
-        int count = Math.min(12, products.size() / 5 - page * 12);
+        List<ShopCatalogDefinition.Product> products = catalog.products();
+        int page = Math.max(0, state.shopPage());
+        int count = Math.min(12, Math.max(0, products.size() - page * 12));
         for (int index = 0; index < count; index++) {
-            int offset = page * 60 + index * 5;
-            ItemStack item = CommerceGoods.create(products.get(offset), products.get(offset + 1), products.get(offset + 4));
+            ShopCatalogDefinition.Product product = products.get(page * 12 + index);
+            ItemStack item = EconomyItems.create(product);
             Slot target = slot(player, index);
             if (target != null) target.set(item);
-            state.putString("shopnametxt" + suffix(index), item.getDisplayName().getString() + "(" + products.get(offset + 3) + ")");
-            state.putString("shopjiagetxt" + suffix(index), priceText(CommerceGoods.number(products.get(offset + 3)), products.get(offset + 2).equals("灵石"), true));
+            builder.shopNameText(index, item.getDisplayName().getString() + "(" + format(product.price()) + ")")
+                    .shopPriceText(index, priceText(product.price(), product.currency().isStones(), true));
         }
         player.containerMenu.broadcastChanges();
-        player.setData(CommerceData.SESSION, state);
+        player.setData(CommerceData.SESSION, builder.build());
     }
 
     public static void buy(ServerPlayer player, int selection) {
-        CompoundTag state = EconomyMenus.snapshot(player);
-        state.putInt("playerxvanze", selection);
-        List<String> products = products(state);
-        int offset = selection * 5 + state.getInt("shoppage") * 60;
-        if (offset <= products.size() - 1) {
-            String currency = products.get(offset + 2);
-            double price = CommerceGoods.number(products.get(offset + 3));
-            if (currency.equals("金银")) buyCoins(player, selection, price);
-            else if (currency.equals("灵石")) buyStones(player, selection, price);
+        CommerceSession state = EconomyMenus.snapshot(player);
+        player.setData(CommerceData.SESSION, state.toBuilder().playerChoice(selection).build());
+        List<ShopCatalogDefinition.Product> products = EconomyMenus.shopCatalog(player).products();
+        int offset = selection + state.shopPage() * 12;
+        if (offset >= 0 && offset < products.size()) {
+            ShopCatalogDefinition.Product product = products.get(offset);
+            if (product.currency().isStones()) buyStones(player, selection, product.price());
+            else buyCoins(player, selection, product.price());
         } else message(player, "空");
-        CompoundTag current = EconomyMenus.snapshot(player);
-        current.putInt("playerxvanze", 0);
-        player.setData(CommerceData.SESSION, current);
+        player.setData(CommerceData.SESSION, EconomyMenus.snapshot(player).toBuilder().playerChoice(0).build());
     }
 
     private static void buyCoins(ServerPlayer player, int selection, double price) {
@@ -132,17 +122,15 @@ public final class CommerceTrading {
             account = account.withBalance(tier, 0);
             if (available >= price) {
                 double change = available - price;
-                double second = 0;
                 for (int lower = tier; lower >= 2; lower--) {
                     int unit = BankAccount.weight(lower);
                     if (change >= unit) {
                         double count = Math.floor(change / unit);
                         change -= count * unit;
                         account = account.withBalance(lower, (int) (account.balance(lower) + count));
-                        if (lower == 2) second = count;
                     }
                 }
-                if (change >= 1) account = account.withBalance(1, (int) (account.balance(1) + second));
+                if (change >= 1) account = account.withBalance(1, (int) (account.balance(1) + change));
                 break;
             }
             price -= available;
@@ -156,24 +144,23 @@ public final class CommerceTrading {
     }
 
     public static void refreshSale(ServerPlayer player, boolean stones) {
-        CompoundTag state = EconomyMenus.snapshot(player);
+        CommerceSession.Builder state = EconomyMenus.snapshot(player).toBuilder();
         Slot target = slot(player, stones ? 1 : 0);
         ItemStack goods = target == null ? ItemStack.EMPTY : target.getItem();
         if (stones) {
-            state.putString("bankceshi1", goods.isEmpty() ? "......" : "");
-            state.putString("bankceshi2", "");
+            state.bankTest1(goods.isEmpty() ? "......" : "").bankTest2("");
             if (!goods.isEmpty()) {
                 double value = CommerceValuation.value(player.serverLevel(), goods, state);
-                if (value >= 1) state.putString("bankceshi2", "总价值：" + priceText(value, true, false));
-                else { state.putString("bankceshi1", "此物无法在此卖出。"); state.putString("bankceshi2", ""); }
+                if (value >= 1) state.bankTest2("总价值：" + priceText(value, true, false));
+                else { state.bankTest1("此物无法在此卖出。").bankTest2(""); }
             }
         } else if (!goods.isEmpty()) {
             double price = CommerceCatalog.basicPrice(BuiltInRegistries.ITEM.getKey(goods.getItem()).toString());
             double value = price * goods.getCount();
-            state.putString("bankceshi1", price == 0 ? "“我们不收这种物品。”" : goods.getDisplayName().getString() + "单价" + format(price) + "文，总价值为" + format(value) + "文。");
-            state.putString("bankceshi2", price == 0 ? "" : "相当于" + basicSaleText(value));
+            state.bankTest1(price == 0 ? "“我们不收这种物品。”" : goods.getDisplayName().getString() + "单价" + format(price) + "文，总价值为" + format(value) + "文。")
+                    .bankTest2(price == 0 ? "" : "相当于" + basicSaleText(value));
         }
-        player.setData(CommerceData.SESSION, state);
+        player.setData(CommerceData.SESSION, state.build());
     }
 
     public static void sell(ServerPlayer player, boolean stones) {
@@ -181,7 +168,7 @@ public final class CommerceTrading {
         Slot target = slot(player, stones ? 1 : 0);
         ItemStack goods = target == null ? ItemStack.EMPTY : target.getItem();
         if (goods.isEmpty()) { if (stones) message(player, "§4请先放置需要卖出的物品！"); return; }
-        CompoundTag state = EconomyMenus.snapshot(player);
+        CommerceSession.Builder state = EconomyMenus.snapshot(player).toBuilder();
         double value = stones ? CommerceValuation.value(player.serverLevel(), goods, state)
                 : CommerceCatalog.basicPrice(BuiltInRegistries.ITEM.getKey(goods.getItem()).toString()) * goods.getCount();
         if (value < 1) return;

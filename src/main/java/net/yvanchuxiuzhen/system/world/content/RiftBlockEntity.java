@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
@@ -40,6 +39,11 @@ public final class RiftBlockEntity extends RandomizableContainerBlockEntity impl
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] handlers = new IItemHandler[6];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private String structureName = "";
+    private String mobList = "";
+    private String playerName = "";
+    private boolean releasing;
+    private double releaseTicks;
 
     public RiftBlockEntity(BlockPos pos, BlockState state) {
         super(WorldBlockEntities.RIFT.get(), pos, state);
@@ -47,35 +51,44 @@ public final class RiftBlockEntity extends RandomizableContainerBlockEntity impl
     }
 
     public IItemHandler handler(Direction direction) { return isRemoved() ? null : direction == null ? unsided : handlers[direction.ordinal()]; }
+    public String structureName() { return structureName; }
+    public String mobList() { return mobList; }
+    public String playerName() { return playerName; }
+    public boolean releasing() { return releasing; }
+    public double releaseTicks() { return releaseTicks; }
+
+    public void beginRelease() {
+        this.releasing = true;
+        changed();
+    }
+
     public void changed() {
         setChanged();
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
     public void structure(String name, String mobs) {
-        getPersistentData().putString("jiegouname", name);
-        getPersistentData().putString("moblist", mobs);
+        this.structureName = name == null ? "" : name;
+        this.mobList = mobs == null ? "" : mobs;
         changed();
     }
 
     public void playerName(String name) {
-        getPersistentData().putString("playername", name);
+        this.playerName = name == null ? "" : name;
         changed();
     }
 
     public void tickRelease(ServerLevel level) {
         level.sendParticles(Particles.type("flyskill_06"), worldPosition.getX() + 0.5, worldPosition.getY(), worldPosition.getZ() + 0.5, 5, 0, 0, 0, 1);
-        CompoundTag data = getPersistentData();
-        if (data.getBoolean("kaishi")) {
-            data.putDouble("MobcomeTick", data.getDouble("MobcomeTick") + 1);
-            if (data.getDouble("MobcomeTick") >= 40) {
-                data.putBoolean("kaishi", false);
-                data.putDouble("MobcomeTick", 0);
+        if (releasing) {
+            releaseTicks += 1;
+            if (releaseTicks >= 40) {
+                releasing = false;
+                releaseTicks = 0;
             }
             changed();
         } else {
-            StructureExploration.release(level, new Vec3(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()),
-                    data.getString("playername"), data.getString("jiegouname"));
+            StructureExploration.release(level, playerName, structureName);
             level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), 3);
         }
     }
@@ -96,10 +109,20 @@ public final class RiftBlockEntity extends RandomizableContainerBlockEntity impl
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(0, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        structureName = tag.getString("jiegouname");
+        mobList = tag.getString("moblist");
+        playerName = tag.getString("playername");
+        releasing = tag.getBoolean("kaishi");
+        releaseTicks = tag.getDouble("MobcomeTick");
     }
     @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        tag.putString("jiegouname", structureName);
+        tag.putString("moblist", mobList);
+        tag.putString("playername", playerName);
+        tag.putBoolean("kaishi", releasing);
+        tag.putDouble("MobcomeTick", releaseTicks);
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

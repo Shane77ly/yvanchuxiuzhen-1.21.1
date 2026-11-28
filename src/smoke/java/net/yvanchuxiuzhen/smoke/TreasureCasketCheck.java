@@ -35,6 +35,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureCasketBlockEntity;
 
 /** 通过原生服务端玩家右键验证来源宝匣配置、成品消费、库存保存及五个真实结束刻的移除。 */
@@ -72,7 +73,7 @@ final class TreasureCasketCheck extends SystemCheck {
                 expect("首次开启后第五个全服结束刻移除", List.of(true, true, true, true, false), lifecycle);
                 expect("来源延迟移除覆盖途中替换的方块", List.of(true, true, true, true, false), replacementLifecycle);
                 expectTrue("空配置未开启且延迟后仍保留", level.getBlockEntity(emptyPos) instanceof TreasureCasketBlockEntity empty
-                        && !empty.getPersistentData().getBoolean("yikaiqi"));
+                        && !empty.opened());
                 List<ItemEntity> rewards = drops(productPos);
                 expect("延迟移除不会重复发放成品", 1, rewards.size());
                 expectTrue("成品槽清空后宝匣移除没有额外库存掉落", rewards.stream().allMatch(drop ->
@@ -112,7 +113,7 @@ final class TreasureCasketCheck extends SystemCheck {
         use(player, productPos.below(), Direction.UP);
         TreasureCasketBlockEntity casket = (TreasureCasketBlockEntity) level.getBlockEntity(productPos);
         expectTrue("顶面空位放置复制指令并只扣一个", casket != null && player.getMainHandItem().getCount() == 1
-                && casket.getPersistentData().getString("zhiling").equals(PRODUCT_COMMAND));
+                && casket.command().equals(PRODUCT_COMMAND));
         expectTrue("放置方向与来源一致且初始不含水", casket.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)
                 == player.getDirection().getOpposite() && !casket.getBlockState().getValue(BlockStateProperties.WATERLOGGED));
         expect("宝匣保留生成Java不可破坏硬度", -1, casket.getBlockState().getDestroySpeed(level, productPos));
@@ -121,17 +122,17 @@ final class TreasureCasketCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, configured("", 1));
         use(player, emptyPos.below(), Direction.UP);
         use(player, emptyPos, Direction.UP);
-        expectTrue("空配置自然右键不打开", !((TreasureCasketBlockEntity) level.getBlockEntity(emptyPos)).getPersistentData().getBoolean("yikaiqi"));
+        expectTrue("空配置自然右键不打开", !((TreasureCasketBlockEntity) level.getBlockEntity(emptyPos)).opened());
 
         player.setItemInHand(InteractionHand.MAIN_HAND, configured("不存在的宝匣指令", 1));
         use(player, replacedPos.below(), Direction.UP);
         use(player, replacedPos, Direction.UP);
-        expectTrue("无效指令仍写入一次性开启标志", ((TreasureCasketBlockEntity) level.getBlockEntity(replacedPos)).getPersistentData().getBoolean("yikaiqi"));
+        expectTrue("无效指令仍写入一次性开启标志", ((TreasureCasketBlockEntity) level.getBlockEntity(replacedPos)).opened());
         level.setBlock(replacedPos, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
 
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, observer);
         use(player, productPos, Direction.UP);
-        expectTrue("首次自然开启执行成品并清空中转槽", casket.getPersistentData().getBoolean("yikaiqi") && casket.getItem(0).isEmpty());
+        expectTrue("首次自然开启执行成品并清空中转槽", casket.opened() && casket.getItem(0).isEmpty());
         List<ItemEntity> rewards = drops(productPos);
         expect("首次开启只有一件实际成品掉落", 1, rewards.size());
         expectTrue("来源NPC成品指令生成可消费装备实例", rewards.size() == 1
@@ -142,8 +143,8 @@ final class TreasureCasketCheck extends SystemCheck {
         expect("同刻重复开启不重复发奖", 1, drops(productPos).size());
         CompoundTag saved = casket.saveWithFullMetadata(player.registryAccess());
         TreasureCasketBlockEntity restored = (TreasureCasketBlockEntity) BlockEntity.loadStatic(productPos, casket.getBlockState(), saved, player.registryAccess());
-        expectTrue("开启标志及配置真实序列化重读", restored.getPersistentData().getBoolean("yikaiqi")
-                && restored.getPersistentData().getString("zhiling").equals(PRODUCT_COMMAND));
+        expectTrue("开启标志及配置真实序列化重读", restored.opened()
+                && restored.command().equals(PRODUCT_COMMAND));
     }
 
     private void inventory(ServerPlayer player, TreasureCasketBlockEntity casket) {
@@ -159,7 +160,7 @@ final class TreasureCasketCheck extends SystemCheck {
         TreasureCasketBlockEntity restored = (TreasureCasketBlockEntity) BlockEntity.loadStatic(productPos, casket.getBlockState(),
                 casket.saveWithFullMetadata(player.registryAccess()), player.registryAccess());
         expectTrue("持久库存和未开配置真实序列化重读", restored.getItem(0).is(Items.DIAMOND) && restored.getItem(0).getCount() == 18
-                && restored.getPersistentData().getString("zhiling").equals(PRODUCT_COMMAND) && !restored.getPersistentData().getBoolean("yikaiqi"));
+                && restored.command().equals(PRODUCT_COMMAND) && !restored.opened());
         casket.setItem(0, ItemStack.EMPTY);
     }
 
@@ -181,11 +182,7 @@ final class TreasureCasketCheck extends SystemCheck {
     }
 
     private static ItemStack configured(String command, int count) {
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(id("baoxiaitem")), count);
-        CompoundTag data = new CompoundTag();
-        data.putString("zhiling", command);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        return stack;
+        return Caskets.create(command).copyWithCount(count);
     }
 
     private static void use(ServerPlayer player, BlockPos pos, Direction face) {

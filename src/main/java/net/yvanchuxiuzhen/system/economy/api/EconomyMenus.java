@@ -3,10 +3,8 @@ package net.yvanchuxiuzhen.system.economy.api;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
@@ -14,11 +12,12 @@ import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.economy.network.CommerceButtonPayload;
 
-/** 对话和NPC只经此入口设置商品会话、打开来源页面；账户操作由经济系统执行。 */
+/** 对话和NPC只经此入口设置强类型商品会话、打开来源页面；账户操作由经济系统执行。 */
 public final class EconomyMenus {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
     public static final Supplier<MenuType<CommerceMenu>> SHOP = MENUS.register("shop_gui", () -> IMenuTypeExtension.create(CommerceMenu::shop));
@@ -37,18 +36,15 @@ public final class EconomyMenus {
                 CommerceButtonPayload.TYPE, CommerceButtonPayload.STREAM_CODEC, CommerceButtonPayload::handle));
     }
 
-    public static CompoundTag snapshot(Player player) { return player.getData(CommerceData.SESSION).copy(); }
+    public static CommerceSession snapshot(Player player) { return player.getData(CommerceData.SESSION); }
 
-    public static void setProductList(ServerPlayer player, String productList) {
-        CompoundTag state = snapshot(player);
-        state.putString("productlist", productList);
-        player.setData(CommerceData.SESSION, state);
+    public static void setShopCatalog(ServerPlayer player, ShopCatalogDefinition catalog) {
+        ShopCatalogDefinition value = catalog == null ? ShopCatalogDefinition.EMPTY : catalog;
+        player.setData(CommerceData.SESSION, snapshot(player).toBuilder().shopCatalog(value).build());
     }
 
-    public static void setShopInformation(ServerPlayer player, String information) {
-        CompoundTag state = snapshot(player);
-        state.putString("shopinformation", information);
-        player.setData(CommerceData.SESSION, state);
+    public static ShopCatalogDefinition shopCatalog(Player player) {
+        return player.getData(CommerceData.SESSION).shopCatalog();
     }
 
     public static void open(ServerPlayer player, BlockPos pos, String sourceName) {
@@ -56,8 +52,8 @@ public final class EconomyMenus {
         if (sourceName.equals("免登银行")) { BankMenus.openBank(player, pos); return; }
         CommerceMenu.Kind kind = switch (sourceName) {
             case "商店" -> CommerceMenu.Kind.SHOP;
-            case "出售" -> CommerceMenu.Kind.STONE_SALE;
-            case "基础出售", "凡物出售" -> CommerceMenu.Kind.BASIC_SALE;
+            case "出售", "基础出售" -> CommerceMenu.Kind.STONE_SALE;
+            case "凡物出售" -> CommerceMenu.Kind.BASIC_SALE;
             default -> throw new IllegalArgumentException("未知经济页面：" + sourceName);
         };
         open(player, pos, kind);

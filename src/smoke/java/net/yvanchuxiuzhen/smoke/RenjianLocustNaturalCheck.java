@@ -33,6 +33,8 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao01701Entity;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong03Entity;
@@ -167,8 +169,8 @@ final class RenjianLocustNaturalCheck extends SystemCheck {
     private void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel() != renjian || event.loadedFromDisk() || event.isCanceled()) return;
         if (event.getEntity() instanceof Fabao01701Entity projectile
-                && observer.getStringUUID().equals(projectile.getPersistentData().getString("belongToMasterUUID"))
-                && "摄虫网".equals(projectile.getPersistentData().getString("skill"))) {
+                && observer.getStringUUID().equals(projectile.masterUuid())
+                && "摄虫网".equals(projectile.skill())) {
             net = projectile;
             return;
         }
@@ -178,23 +180,22 @@ final class RenjianLocustNaturalCheck extends SystemCheck {
             report.add("INFO REPLAY_LOCUST_JOIN uuid=" + insect.getUUID() + " finalize=NATURAL loadedFromDisk=false"
                     + " pos=" + insect.blockPosition() + " gameTime=" + gameTime
                     + " countedWindow=" + (gameTime == lastCountedWindowTick)
-                    + " level=" + insect.getPersistentData().getDouble("LEVELnumber"));
+                    + " level=" + EntityAttributes.level(insect));
         }
     }
 
     private void onLeave(EntityLeaveLevelEvent event) {
         if (captured != null || event.getLevel() != renjian || !(event.getEntity() instanceof Guchong03Entity insect)
                 || born.get(insect.getUUID()) != insect || insect.getRemovalReason() != Entity.RemovalReason.DISCARDED
-                || net == null || net.isRemoved() || net.getPersistentData().getDouble("tick1") != 36
+                || net == null || net.isRemoved() || net.timer1() != 36
                 || !net.getBoundingBox().inflate(2).intersects(insect.getBoundingBox()) || insectCount(observer) != 1) return;
-        var wild = insect.getPersistentData();
         for (int slot = 0; slot < observer.getInventory().getContainerSize(); slot++) {
             ItemStack stack = observer.getInventory().getItem(slot);
             if (!itemId(stack).equals(LOCUST_ITEM)) continue;
             var data = GuchongJarData.read(stack);
             if (data.getString("guchongid").equals(id("guchong_03").toString()) && !data.getBoolean("guchongxvnfu")
-                    && data.getDouble("LEVELnumber") == wild.getDouble("LEVELnumber")
-                    && data.getDouble("attack_Num") == wild.getDouble("attack_Num")
+                    && data.getDouble("LEVELnumber") == EntityAttributes.level(insect)
+                    && data.getDouble("attack_Num") == EntityAttributes.stat(insect, Stat.ATTACK)
                     && data.getDouble("health_Num") == insect.getHealth()) {
                 captured = insect.getUUID();
                 report.add("INFO REPLAY_CAPTURE wild=" + captured + " net=" + net.getUUID() + " netAge=36 slot=" + slot + " count=0->1");

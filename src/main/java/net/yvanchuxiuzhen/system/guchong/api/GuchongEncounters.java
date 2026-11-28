@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.MobSpawnType;
 import net.neoforged.neoforge.event.EventHooks;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.guchong.GuchongSetup;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong04Entity;
 
@@ -18,7 +19,7 @@ public final class GuchongEncounters {
         ServerLevel level = player.serverLevel();
         Guchong04Entity insect = GuchongSetup.<Guchong04Entity>entityType("guchong_04").get().create(level);
         insect.moveTo(player.getX(), player.getY(), player.getZ(), level.getRandom().nextFloat() * 360F, 0F);
-        insect.getPersistentData().putDouble("LEVELnumber", new Random().nextInt(1, 36));
+        EntityAttributes.setLevel(insect, new Random().nextInt(1, 36));
         EventHooks.finalizeMobSpawn(insect, level, level.getCurrentDifficultyAt(insect.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(insect);
     }

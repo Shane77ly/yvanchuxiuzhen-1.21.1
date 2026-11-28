@@ -14,6 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.yvanchuxiuzhen.system.combat.api.ArmorPierceMarkEvent;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -27,9 +28,9 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
  *
  * <p>召唤其他系统实体的三个附魔不在这里：{@code qishi}（召唤 skill 的阴灵）、{@code lingwen}（召唤 skill 的灵纹）、
  * {@code starsky}（发射 fulu 的星空箭）由对应系统订阅 {@link net.yvanchuxiuzhen.system.combat.api.HitEvent} 执行。
- * 粒子类型、纹理与客户端提供器由 particle 系统维护。来源的疑似错误保持原样（Q32）：
- * {@code lingtikiller} 取 {@code zhongshang} 的等级，{@code liuqing} 的时长使用 {@code iceexplosion} 分支才赋值的等级，
- * {@code chaos} 的范围中心把视线方向的 z 分量当作 z 坐标。
+ * 粒子类型、纹理与客户端提供器由 particle 系统维护。已按阶段 4 裁定修正 Q32：
+ * {@code lingtikiller}/{@code liuqing} 各自读取自身附魔等级，{@code chaos} 使用受击者世界坐标 Z，
+ * {@code firearmor}/{@code icearmor}/{@code discharge} 范围反伤始终豁免穿戴者自身。
  */
 final class HitEnchantments {
     private static final double AREA = 5 / 2d;
@@ -41,8 +42,8 @@ final class HitEnchantments {
         armor(level, victim, attacker);
         weapon(level, victim, attacker);
         iceExplosion(level, victim, attacker);
-        if (Enchants.mainHand(attacker, Enchants.key("liuqing")) != 0 && victim.isAlive()) {
-            int mercy = Enchants.mainHand(attacker, Enchants.key("iceexplosion"));
+        int mercy = Enchants.mainHand(attacker, Enchants.key("liuqing"));
+        if (mercy != 0 && victim.isAlive()) {
             victim.addEffect(new MobEffectInstance(StatusEffects.holder("effect_036"), mercy * 40, 0));
         }
         control(victim, attacker, "threaten", 10, null);
@@ -62,7 +63,7 @@ final class HitEnchantments {
             level.sendParticles(ParticleTypes.FLAME, wearer.getX(), wearer.getY() + 0.3, wearer.getZ(), 20, 1.5, 0, 1.5, 0);
             areaParticles(level, wearer, wearer.getX(), wearer.getY() + 1, wearer.getZ(), "smallexplosionred");
             for (LivingEntity target : around(level, wearer.getX(), wearer.getY() + 1, wearer.getZ())) {
-                if (!Relations.isFriendly(wearer, target)) {
+                if (target != wearer && !Relations.isFriendly(wearer, target)) {
                     Shanghai.deal(level, target, new Shanghai.Request(DamageCategory.FIRE, wearer.getUUID(), true, fire * 2, 1));
                 }
             }
@@ -73,7 +74,7 @@ final class HitEnchantments {
             level.sendParticles(Particles.type("flash_ice"), wearer.getX(), wearer.getY() + 0.3, wearer.getZ(), 20, 1.5, 0, 1.5, 0);
             areaParticles(level, wearer, wearer.getX(), wearer.getY() + 1, wearer.getZ(), "smallexplosionlightblue");
             for (LivingEntity target : around(level, wearer.getX(), wearer.getY() + 1, wearer.getZ())) {
-                if (!Relations.isFriendly(wearer, target)) {
+                if (target != wearer && !Relations.isFriendly(wearer, target)) {
                     Shanghai.deal(level, target, new Shanghai.Request(DamageCategory.ICE, wearer.getUUID(), true, ice * 2, 1));
                     target.setTicksFrozen(target.getTicksFrozen() + 10);
                 }
@@ -86,7 +87,7 @@ final class HitEnchantments {
             new DelayedParticle(level, wearer, 20).start();
             areaParticles(level, wearer, wearer.getX(), wearer.getY() + 1, wearer.getZ(), "smallexplosiondeeppurple");
             for (LivingEntity target : around(level, wearer.getX(), wearer.getY() + 1, wearer.getZ())) {
-                if (!Relations.isFriendly(wearer, target)) {
+                if (target != wearer && !Relations.isFriendly(wearer, target)) {
                     Shanghai.deal(level, target, new Shanghai.Request(DamageCategory.THUNDER, wearer.getUUID(), true, discharge * 2, 1));
                 }
             }
@@ -104,14 +105,14 @@ final class HitEnchantments {
             level.sendParticles(ParticleTypes.FLAME, victim.getX(), victim.getY() + victim.getBbHeight() / 2, victim.getZ(), 10, 0, 0, 0, 0.5);
             burst(level, victim, attacker, DamageCategory.FIRE, burning, ParticleTypes.FLAME);
         }
-        if (Enchants.mainHand(attacker, Enchants.key("pojia")) != 0 && victim.isAlive() && victim.getPersistentData().getDouble("caijinumber") < 1) {
-            victim.getPersistentData().putDouble("caijinumber", 1);
+        if (Enchants.mainHand(attacker, Enchants.key("pojia")) != 0 && victim.isAlive()) {
+            NeoForge.EVENT_BUS.post(new ArmorPierceMarkEvent(victim));
         }
         control(victim, attacker, "yvnxvan", 10, "effect_001");
         control(victim, attacker, "chenmo", 10, "effect_002");
         int killer = Enchants.mainHand(attacker, Enchants.key("lingtikiller"));
         if (killer != 0 && !Relations.isFriendly(attacker, victim) && victim.isAlive()) {
-            victim.setHealth((float) (victim.getHealth() - Enchants.mainHand(attacker, Enchants.key("zhongshang")) * 2));
+            victim.setHealth((float) (victim.getHealth() - killer * 2));
         }
         control(victim, attacker, "jvtong", 10, "effect_003");
         control(victim, attacker, "zhongshang", 10, "effect_007");
@@ -140,14 +141,14 @@ final class HitEnchantments {
         }
     }
 
-    /** 混沌气息：范围中心的 z 取受击者视线方向的 z 分量（来源如此，Q32），范围内非友好生物虚弱并禁空。 */
+    /** 混沌气息：以受击者当前位置为中心，范围内非友好生物虚弱并禁空（Q32 已修正 Z 坐标）。 */
     private static void chaos(ServerLevel level, LivingEntity victim, LivingEntity attacker) {
         int chaos = Enchants.mainHand(attacker, Enchants.key("chaos"));
         if (chaos == 0) {
             return;
         }
-        level.sendParticles(Particles.type("smokedeeporange"), victim.getX(), victim.getY(), victim.getLookAngle().z, 20, 3, 1, 3, 0);
-        for (LivingEntity target : around(level, victim.getX(), victim.getY(), victim.getLookAngle().z)) {
+        level.sendParticles(Particles.type("smokedeeporange"), victim.getX(), victim.getY(), victim.getZ(), 20, 3, 1, 3, 0);
+        for (LivingEntity target : around(level, victim.getX(), victim.getY(), victim.getZ())) {
             if (!Relations.isFriendly(attacker, target)) {
                 target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, chaos * 10, chaos));
                 target.addEffect(new MobEffectInstance(StatusEffects.holder("effect_035"), chaos * 10, chaos));
@@ -183,7 +184,7 @@ final class HitEnchantments {
         level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(AREA), entity -> true).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center)))
                 .forEach(entity -> {
-                    if (!Relations.isFriendly(wearer, entity)) {
+                    if (entity != wearer && !Relations.isFriendly(wearer, entity)) {
                         level.sendParticles(Particles.type(particle), entity.getX(), entity.getY() + entity.getBbHeight() / 2,
                                 entity.getZ(), 1, 0, 0, 0, 0);
                     }

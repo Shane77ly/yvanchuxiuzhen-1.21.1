@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -18,19 +19,33 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.economy.Auctions;
+import net.yvanchuxiuzhen.system.economy.CommerceTrading;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
+import net.yvanchuxiuzhen.system.economy.ShopTrading;
 import net.yvanchuxiuzhen.system.economy.api.BankAccount;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankCards;
 import net.yvanchuxiuzhen.system.economy.api.BankDisplay;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
+import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.client.BankLoginScreen;
 import net.yvanchuxiuzhen.system.economy.client.CommerceScreen;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
+import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
 import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplates;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -42,8 +57,8 @@ final class CommerceCheck extends SystemCheck {
     private final List<ItemStack> savedInventory = new ArrayList<>();
     private BankAccount account;
     private BankDisplay display;
-    private CompoundTag dialogue;
-    private CompoundTag commerce;
+    private QuestDialogueSession dialogue;
+    private CommerceSession commerce;
     private Vec3 position;
     private float yaw;
     private float pitch;
@@ -62,11 +77,23 @@ final class CommerceCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
-        if (step == 35) return reopened(local);
-        if (step == 36) return inWorld(local);
+        if (step == 39) return reopened(local);
+        if (step == 40) return inWorld(local);
         if (local < 10) return false;
         switch (step) {
-            case 0 -> onServer(this::prepare);
+            case 0 -> onServer(player -> {
+                for (ShopCatalogDefinition shop : EconomyCatalogs.allList()) {
+                    var encoded = ShopCatalogDefinition.CODEC.encodeStart(NbtOps.INSTANCE, shop).getOrThrow();
+                    var decoded = ShopCatalogDefinition.CODEC.parse(NbtOps.INSTANCE, encoded).getOrThrow();
+                    expect("商店目录 Codec 往返：" + shop.id(), shop, decoded);
+                }
+                for (QuestTemplateDefinition template : QuestTemplates.allList()) {
+                    var encoded = QuestTemplateDefinition.CODEC.encodeStart(NbtOps.INSTANCE, template).getOrThrow();
+                    var decoded = QuestTemplateDefinition.CODEC.parse(NbtOps.INSTANCE, encoded).getOrThrow();
+                    expect("对话模板 Codec 往返：" + template.id(), template, decoded);
+                }
+                prepare(player);
+            });
             case 1, 6, 10, 17, 24 -> useBank();
             case 2, 7, 11, 18, 25 -> {
                 if (!waitDialogue(local, false, "欢迎使用通宝商盟")) return false;
@@ -75,11 +102,11 @@ final class CommerceCheck extends SystemCheck {
             case 3 -> {
                 if (!waitDialogue(local, true, "办理什么业务")) return false;
                 onServer(player -> {
-                    CompoundTag state = DialogueActions.snapshot(player);
-                    expect("第一选项中文", "逛逛商店", state.getString("daantxt1"));
-                    expect("第二选项中文", "打开银行", state.getString("daantxt2"));
-                    expect("第三选项中文", "购买新通宝玉", state.getString("daantxt3"));
-                    expect("第四选项中文", "出售", state.getString("daantxt4"));
+                    var state = DialogueActions.snapshot(player);
+                    expect("第一选项中文", "逛逛商店", state.choiceText(1));
+                    expect("第二选项中文", "打开银行", state.choiceText(2));
+                    expect("第三选项中文", "购买新通宝玉", state.choiceText(3));
+                    expect("第四选项中文", "出售", state.choiceText(4));
                     expect("本人对话投影同步", state, DialogueActions.snapshot(minecraft.player));
                 });
                 screenshots.take("commerce_bank_choices.png");
@@ -160,24 +187,49 @@ final class CommerceCheck extends SystemCheck {
                 dialogueButton(3);
             }
             case 27 -> {
+                if (!waitCommerce(local, CommerceMenu.Kind.STONE_SALE)) return false;
+                onServer(player -> {
+                    expect("银行出售页为两槽加玩家库存", 38, player.containerMenu.slots.size());
+                    ItemStack card = item("ling_12");
+                    BankCards.bind(player, card);
+                    player.containerMenu.getSlot(0).set(card);
+                    player.containerMenu.getSlot(1).set(item("cailiao_191").copyWithCount(3));
+                    player.containerMenu.broadcastChanges();
+                });
+                commerceButton(3);
+            }
+            case 28 -> {
+                onServer(player -> expectTrue("三枚灵石估价", EconomyMenus.snapshot(player).bankTest2().contains("一级灵石3枚")));
+                commerceButton(2);
+            }
+            case 29 -> {
+                onServer(player -> {
+                    expect("出售所得存入本人通宝玉账户", 3, BankAccounts.balance(player, 1));
+                    expectTrue("售出后货物槽已清空", player.containerMenu.getSlot(1).getItem().isEmpty());
+                    expect("灵石收购不发钱币", 0, count(player, "money_01"));
+                });
+                minecraft.player.closeContainer();
+            }
+            case 30 -> onServer(player -> EconomyMenus.open(player, player.blockPosition().above(), "凡物出售"));
+            case 31 -> {
                 if (!waitCommerce(local, CommerceMenu.Kind.BASIC_SALE)) return false;
                 onServer(player -> {
-                    expect("自然出售页为一槽加玩家库存", 37, player.containerMenu.slots.size());
+                    expect("凡物出售页为一槽加玩家库存", 37, player.containerMenu.slots.size());
                     player.getInventory().setItem(9, new ItemStack(Items.STONE, 37));
                     player.containerMenu.broadcastChanges();
                 });
             }
-            case 28 -> inventoryClick(1, ClickType.QUICK_MOVE);
-            case 29 -> {
+            case 32 -> inventoryClick(1, ClickType.QUICK_MOVE);
+            case 33 -> {
                 onServer(player -> expect("真实快速移动将37石头放入出售槽", 37, player.containerMenu.getSlot(0).getItem().getCount()));
                 commerceButton(1);
             }
-            case 30 -> {
-                onServer(player -> expectTrue("基础收购中文估价按来源石头单价一文", EconomyMenus.snapshot(player).getString("bankceshi1").contains("单价1文，总价值为37文")));
+            case 34 -> {
+                onServer(player -> expectTrue("基础收购中文估价按来源石头单价一文", EconomyMenus.snapshot(player).bankTest1().contains("单价1文，总价值为37文")));
                 screenshots.take("commerce_basic_sale.png");
                 commerceButton(0);
             }
-            case 31 -> {
+            case 35 -> {
                 onServer(player -> {
                     expectTrue("基础出售清空实际输入", player.containerMenu.getSlot(0).getItem().isEmpty());
                     expect("37文拆成三枚十文钱币", 3, count(player, "money_02"));
@@ -187,23 +239,129 @@ final class CommerceCheck extends SystemCheck {
                     player.containerMenu.broadcastChanges();
                 });
             }
-            case 32 -> inventoryClick(1, ClickType.QUICK_MOVE);
-            case 33 -> minecraft.player.closeContainer();
-            case 34 -> {
+            case 36 -> inventoryClick(1, ClickType.QUICK_MOVE);
+            case 37 -> minecraft.player.closeContainer();
+            case 38 -> {
                 onServer(player -> {
                     expect("关闭出售页归还三块未售玻璃", 3, player.getInventory().countItem(Items.GLASS));
                     for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) savedInventory.add(player.getInventory().getItem(slot).copy());
                 });
                 leaveWorld();
             }
-            case 37 -> {
+            case 41 -> {
                 onServer(player -> {
+                    expect("正常保存重进保留灵石出售入账", 3, BankAccounts.balance(player, 1));
                     expect("正常保存重进保留扣款后账户", 1, BankAccounts.balance(player, 9));
                     for (int slot = 0; slot < savedInventory.size(); slot++) {
                         expectTrue("正常重进保留购买/找零/余料库存槽" + slot,
                                 ItemStack.matches(savedInventory.get(slot), player.getInventory().getItem(slot)));
                     }
                     expectTrue("登录清除普通对话会话", DialogueActions.snapshot(player).isEmpty());
+                    EconomyMenus.setShopCatalog(player, EconomyCatalogs.catalog("preset_n51_64_n320"));
+                    BankAccounts.setBalance(player, 1, 1170);
+                    EconomyMenus.open(player, player.blockPosition(), CommerceMenu.Kind.SHOP);
+                });
+            }
+            case 42 -> {
+                if (!waitCommerce(local, CommerceMenu.Kind.SHOP)) return false;
+                commerceButton(10);
+            }
+            case 43 -> {
+                onServer(player -> expect("罩甲护腿扣除270灵石", 900, BankAccounts.balance(player, 1)));
+                commerceButton(2);
+            }
+            case 44 -> {
+                onServer(player -> {
+                    expect("铁胄甲护腿扣除900灵石", 0, BankAccounts.balance(player, 1));
+                    List<ItemStack> bought = player.getInventory().items.stream().filter(stack -> !Caskets.command(stack).isEmpty())
+                            .map(Caskets::command).filter(command -> command.startsWith("lianqi "))
+                            .map(command -> Equipment.createProduct(player.registryAccess(), List.of(command.substring(7).split(" ")))).toList();
+                    for (int tier = 1; tier <= 2; tier++) {
+                        var leggings = item("armor_0" + tier + "_leggings").getItem();
+                        expect("实购宝匣可产出护腿" + tier, 1L, bought.stream().filter(stack -> stack.is(leggings) && Equipment.product(stack).isPresent()).count());
+                    }
+                    player.closeContainer();
+                    player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("shopblock_01")).defaultBlockState(), 3);
+                    EconomyBlockEntity shop = (EconomyBlockEntity) player.level().getBlockEntity(bank);
+                    ShopTrading.placed(player, shop);
+                    shop.state().shop().storedStones = 25;
+                    int beforeClaim = totalBalance(player);
+                    ShopTrading.interact(player, shop);
+                    expect("Q71 首次领取商铺灵石总价值入账", beforeClaim + 25, totalBalance(player));
+                    expect("Q71 领取后清零历史暂存", 0, shop.state().shop().storedStones);
+                    player.closeContainer();
+                    ShopTrading.interact(player, shop);
+                    expect("Q71 再次打开商铺不重复入账", beforeClaim + 25, totalBalance(player));
+
+                    player.setGameMode(GameType.SURVIVAL);
+                    player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("shopblock_01")).defaultBlockState(), 3);
+                    EconomyBlockEntity survivalShop = (EconomyBlockEntity) player.level().getBlockEntity(bank);
+                    ShopTrading.placed(player, survivalShop);
+                    survivalShop.state().shop().tiandao = false;
+                    survivalShop.setItem(0, new ItemStack(Items.DIAMOND, 4));
+                    survivalShop.setItem(1, new ItemStack(Items.APPLE, 3));
+                    survivalShop.setItem(2, new ItemStack(Items.GOLD_INGOT, 2));
+                    survivalShop.state().shop().remainingStock = 4;
+                    survivalShop.state().shop().perPlayerLimit = 1;
+                    survivalShop.state().shop().stonesNeeded = 0;
+                    player.getInventory().clearContent();
+                    ShopTrading.button(player, bank, false, 0);
+                    expect("Q93 缺材料不可白嫖", 0, player.getInventory().countItem(Items.DIAMOND));
+                    player.getInventory().setItem(0, new ItemStack(Items.APPLE, 2));
+                    player.getInventory().setItem(1, new ItemStack(Items.GOLD_INGOT, 2));
+                    ShopTrading.button(player, bank, false, 0);
+                    expectTrue("Q93 数量不足不发商品且不吞材料", player.getInventory().countItem(Items.DIAMOND) == 0
+                            && player.getInventory().countItem(Items.APPLE) == 2
+                            && player.getInventory().countItem(Items.GOLD_INGOT) == 2);
+                    player.getInventory().setItem(0, new ItemStack(Items.APPLE, 3));
+                    ShopTrading.button(player, bank, false, 0);
+                    expectTrue("Q93 足额以物易物扣料发货", player.getInventory().countItem(Items.DIAMOND) == 1
+                            && player.getInventory().countItem(Items.APPLE) == 0
+                            && player.getInventory().countItem(Items.GOLD_INGOT) == 0);
+                    player.getInventory().setItem(2, new ItemStack(Items.APPLE, 3));
+                    player.getInventory().setItem(3, new ItemStack(Items.GOLD_INGOT, 2));
+                    ShopTrading.button(player, bank, false, 0);
+                    expectTrue("Q72 生存商铺限购拦截二次购买", player.getInventory().countItem(Items.DIAMOND) == 1
+                            && player.getInventory().countItem(Items.APPLE) == 3);
+
+                    boolean bandLow = false;
+                    boolean bandMid = false;
+                    boolean bandHigh = false;
+                    for (int round = 0; round < 6; round++) {
+                        for (ShopCatalogDefinition.Product product : EconomyCatalogs.materialShop(1, ShopCatalogDefinition.ShopInfo.EMPTY).products()) {
+                            int lv = ((ShopCatalogDefinition.MaterialPayload) product.payload()).level();
+                            bandLow |= lv >= 1 && lv <= 5;
+                            bandMid |= lv >= 6 && lv <= 10;
+                            bandHigh |= lv >= 11 && lv <= 15;
+                        }
+                    }
+                    expectTrue("Q94 一档材料商店三段等级均可达", bandLow && bandMid && bandHigh);
+
+                    player.setGameMode(GameType.CREATIVE);
+                    player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("paimaiblock")).defaultBlockState(), 3);
+                    EconomyBlockEntity auction = (EconomyBlockEntity) player.level().getBlockEntity(bank);
+                    auction.state().auction().auctionMode = "仅玩家";
+                    Auctions.button(player, bank, 0);
+                    expectTrue("Q96 托管按钮切换 managed 且不覆盖 auctionMode",
+                            auction.state().auction().managed && auction.state().auction().auctionMode.equals("仅玩家"));
+                    Auctions.button(player, bank, 0);
+                    expectTrue("Q96 托管按钮可切回自营",
+                            !auction.state().auction().managed && auction.state().auction().auctionMode.equals("仅玩家"));
+
+                    EconomyMenus.open(player, bank, CommerceMenu.Kind.STONE_SALE);
+                    ItemStack lightBlueprint = item("book_003");
+                    Lianqi.setBlueprint(lightBlueprint, new LianqiBlueprint("轻图纸", "", "轻", "yvanchuxiuzhen:weaponsword_01",
+                            "", "", "剑", "凡品", 6, "", List.of(new LianqiBlueprint.Ingredient("cailiao_001", "材", "", 1))));
+                    player.containerMenu.getSlot(1).set(lightBlueprint);
+                    CommerceTrading.refreshSale(player, true);
+                    String lightText = EconomyMenus.snapshot(player).bankTest2();
+                    ItemStack heavyBlueprint = item("book_003");
+                    Lianqi.setBlueprint(heavyBlueprint, new LianqiBlueprint("重图纸", "", "重", "yvanchuxiuzhen:weaponsword_01",
+                            "", "", "剑", "凡品", 6, "", List.of(new LianqiBlueprint.Ingredient("cailiao_001", "材", "", 20))));
+                    player.containerMenu.getSlot(1).set(heavyBlueprint);
+                    CommerceTrading.refreshSale(player, true);
+                    String heavyMsg = EconomyMenus.snapshot(player).bankTest1();
+                    expectTrue("Q73 重图纸触发重量折价", !lightText.isEmpty() && heavyMsg.equals("此物无法在此卖出。"));
                     cleanup(player);
                 });
                 finish();
@@ -256,7 +414,7 @@ final class CommerceCheck extends SystemCheck {
     private boolean waitDialogue(int local, boolean choices, String text) {
         if (!waitScreen(local, minecraft.screen instanceof DialogueScreen && minecraft.player.containerMenu instanceof DialogueMenu menu
                 && menu.choices == choices, "对话：" + text)) return false;
-        String actual = DialogueActions.snapshot(minecraft.player).getString("TXTxianshi");
+        String actual = DialogueActions.snapshot(minecraft.player).displayText();
         if (actual.contains(text)) return true;
         if (local > 200) {
             fail("对话文本不符，期望含“" + text + "”，实际“" + actual + "”");
@@ -301,6 +459,13 @@ final class CommerceCheck extends SystemCheck {
 
     private void inventoryClick(int slot, ClickType type) {
         minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, slot, 0, type, minecraft.player);
+    }
+
+    private static int totalBalance(ServerPlayer player) {
+        BankAccount snapshot = BankAccounts.snapshot(player);
+        int sum = 0;
+        for (int tier = 1; tier <= 9; tier++) sum += snapshot.balance(tier) * BankAccount.weight(tier);
+        return sum;
     }
 
     private static int count(ServerPlayer player, String name) {

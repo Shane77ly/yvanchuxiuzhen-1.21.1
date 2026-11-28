@@ -28,9 +28,14 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
+import net.yvanchuxiuzhen.system.cooking.api.Cooking;
+import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.cooking.client.WoodenStillScreen;
 import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.WoodenStillMenu;
+import net.yvanchuxiuzhen.system.plant.PlantData;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 import net.yvanchuxiuzhen.system.craft.content.SilkwormBoxBlockEntity;
@@ -67,7 +72,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -77,10 +81,12 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.yvanchuxiuzhen.collection.tiandao.NbtEditorData;
 import net.yvanchuxiuzhen.system.craft.client.CarpentryScreen;
 import net.yvanchuxiuzhen.system.craft.content.CarpentryBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.CarpentryMenu;
 import net.yvanchuxiuzhen.system.craft.content.SilkReelBlockEntity;
+import net.yvanchuxiuzhen.system.craft.data.CraftData;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.entity.EntityTypeTest;
@@ -107,6 +113,9 @@ import net.yvanchuxiuzhen.system.craft.content.StoneMillMenu;
 import net.yvanchuxiuzhen.system.craft.content.LoomBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.FuluRanged;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
@@ -116,10 +125,12 @@ import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.ExplosiveTalismanBlock;
+import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
+import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.plant.GourdBlock;
@@ -155,7 +166,8 @@ final class FuluCookingCheck extends ActionCheck {
     private BlockPos inheritancePos;
     private final Map<BlockPos, BlockState> inheritanceBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
-    private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
+    private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "FuluConsumeJingli", "FuluConsumeJingliPercentage",
+            "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
             "fulu24level", "fulu24tick", "fuluxiaoguo13", "fulu13level", "fulu13tick", "fulu1301tick", "fululevel46", "fuluxiaoguo17",
             "fulu17level", "fulu17tick", "fulu1701tick", "fuluxiaoguo21", "fulu21level", "fulu21tick", "fuluxiaoguo39", "fulu39level", "fulu39tick");
     private GameType gameMode;
@@ -203,7 +215,7 @@ final class FuluCookingCheck extends ActionCheck {
 
     private BlockPos wineStillPos;
     private BlockPos wineJarPos;
-    private CompoundTag wineTizhiBefore;
+    private ConstitutionState wineTizhiBefore;
     private final Map<CultivationValue, Double> wineValuesBefore = new LinkedHashMap<>();
     private final List<MobEffectInstance> wineEffectsBefore = new ArrayList<>();
     private final CompoundTag wineFoodBefore = new CompoundTag();
@@ -342,10 +354,14 @@ final class FuluCookingCheck extends ActionCheck {
                     pot.setItem(4, item("fuluzhushaitem", 3));
                     pot.changed();
                 }),
-                new Action(6, p -> useBlock(potPos)),
+                new Action(120, p -> useBlock(potPos), () -> minecraft.player.containerMenu instanceof CookingPotMenu
+                        && minecraft.screen instanceof CookingPotScreen),
                 new Action(6, p -> {
-                    expectTrue("真实右键铁锅打开双方 14 槽菜单与原生界面", p.containerMenu instanceof CookingPotMenu
-                            && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
+                    boolean opened = p.containerMenu instanceof CookingPotMenu serverPot && serverPot.slots.size() == 14 + 36
+                            && minecraft.player.containerMenu instanceof CookingPotMenu clientPot && clientPot.slots.size() == 14 + 36
+                            && minecraft.screen instanceof CookingPotScreen;
+                    expectTrue("真实右键铁锅打开双方 14 槽菜单与原生界面", opened);
+                    if (!opened) return;
                     minecraft.execute(() -> {
                         screenshots.take("cooking-iron-pot.png");
                         minecraft.screen.children().stream()
@@ -354,38 +370,39 @@ final class FuluCookingCheck extends ActionCheck {
                     });
                 }),
                 new Action(16, p -> {
-                    CompoundTag state = pot(p).getPersistentData();
+                    CookingPotBlockEntity pot = pot(p);
                     expectTrue("开始按钮：材料平均 15 级、三类各扣一件，烟灰与朱砂各扣三份，进入烹饪并关闭界面",
-                            state.getBoolean("cooking") && state.getInt("cookanimation") == 9
-                                    && pot(p).getItem(1).isEmpty() && pot(p).getItem(2).isEmpty()
-                                    && pot(p).getItem(3).isEmpty() && pot(p).getItem(4).isEmpty()
+                            pot.cooking() && pot.cookAnimation() == 9
+                                    && pot.getItem(1).isEmpty() && pot.getItem(2).isEmpty()
+                                    && pot.getItem(3).isEmpty() && pot.getItem(4).isEmpty()
                                     && p.containerMenu == p.inventoryMenu);
                 }),
                 new Action(4, p -> {
+                    CookingPotBlockEntity pot = pot(p);
                     expectTrue("开始满 10 服务端刻后，槽 0 被覆盖为玄阶墨料坯，烹饪仍在进行（实际 "
-                                    + BuiltInRegistries.ITEM.getKey(pot(p).getItem(0).getItem()) + "×" + pot(p).getItem(0).getCount() + "）",
-                            pot(p).getItem(0).is(item("motiao_0201").getItem()) && pot(p).getItem(0).getCount() == 1
-                                    && pot(p).getPersistentData().getBoolean("cooking"));
+                                    + BuiltInRegistries.ITEM.getKey(pot.getItem(0).getItem()) + "×" + pot.getItem(0).getCount() + "）",
+                            pot.getItem(0).is(item("motiao_0201").getItem()) && pot.getItem(0).getCount() == 1
+                                    && pot.cooking());
                 }),
                 new Action(4, p -> useBlock(potPos)),
                 new Action(4, p -> useBlock(potPos)),
                 new Action(4, p -> useBlock(potPos)),
                 new Action(4, p -> useBlock(potPos)),
                 new Action(4, p -> {
-                    expectTrue("四次翻炒后仍在烹饪", pot(p).getPersistentData().getBoolean("cooking")
-                            && pot(p).getPersistentData().getDouble("cooknumber") == 4);
+                    expectTrue("四次翻炒后仍在烹饪", pot(p).cooking() && pot(p).cookNumber() == 4);
                     useBlock(potPos);
                 }),
                 new Action(6, p -> {
-                    CompoundTag state = pot(p).getPersistentData();
+                    CookingPotBlockEntity pot = pot(p);
                     CookingPotBlockEntity restored = (CookingPotBlockEntity) BlockEntity.loadStatic(potPos, p.serverLevel().getBlockState(potPos),
-                            pot(p).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                            pot.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("第五次翻炒结束烹饪并清零计数，产物保留，保存重读一致",
-                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookanimation") == 0
-                                    && pot(p).getItem(0).is(item("motiao_0201").getItem())
-                                    && restored.getPersistentData().equals(state)
-                                    && ItemStack.matches(restored.getItem(0), pot(p).getItem(0)));
-                    pot(p).clearContent();
+                            !pot.cooking() && pot.cookNumber() == 0 && pot.cookAnimation() == 0
+                                    && pot.getItem(0).is(item("motiao_0201").getItem())
+                                    && restored.cooking() == pot.cooking() && restored.cookNumber() == pot.cookNumber()
+                                    && restored.cookAnimation() == pot.cookAnimation()
+                                    && ItemStack.matches(restored.getItem(0), pot.getItem(0)));
+                    pot.clearContent();
 
                     knowledge = p.getData(FuluData.KNOWLEDGE);
                     rune = p.getData(ProfessionAttachments.PROGRESS).get(Profession.RUNE);
@@ -406,24 +423,26 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     DrawingTableBlockEntity table = table(p);
                     for (int button = 3; button < 6; button++) DrawingTableRuntime.button(table, p, button);
-                    CompoundTag state = table.getPersistentData();
                     expectTrue("初始知识下三类选择分别取符头 1、天地柱 1、符胆 1，预览符箓与耗墨来自首个匹配配方",
-                            state.getInt("futou") == 1 && state.getInt("tiandizhu") == 1 && state.getInt("fudan") == 1
-                                    && state.getString("fuluname").equals(ModId.VALUE + ":itemfulu_01") && state.getInt("needmotiao") == 2);
+                            table.head() == 1 && table.pillar() == 1 && table.core() == 1
+                                    && table.fuluName().equals(ModId.VALUE + ":itemfulu_01") && table.needInk() == 2);
                     table.setItem(0, item("fulufuzhi", 1));
                     table.setItem(1, item("motiao_01", 3));
                     DrawingTableRuntime.button(table, p, 6);
                     ItemStack result = table.getItem(2);
-                    CompoundTag data = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    int level = Fulu.talisman(result).level();
                     expectTrue("绘制：产出对应符箓并记天地柱品阶，扣一张符纸与两份墨，画符经验增加 8（实际 "
                                     + (Professions.experience(p, Profession.RUNE) - runeBefore) + "）",
-                            result.is(item("itemfulu_01").getItem()) && data.getInt("fululevel") == 1
+                            result.is(item("itemfulu_01").getItem()) && level == 1
                                     && table.getItem(0).isEmpty() && table.getItem(1).getCount() == 1
                                     && Professions.experience(p, Profession.RUNE) - runeBefore == 8);
                     DrawingTableBlockEntity restored = (DrawingTableBlockEntity) BlockEntity.loadStatic(tablePos, p.serverLevel().getBlockState(tablePos),
                             table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
-                    expectTrue("画符台共享选择与库存保存重读一致", restored.getPersistentData().equals(state)
-                            && ItemStack.matches(restored.getItem(2), result));
+                    expectTrue("画符台共享选择与库存保存重读一致",
+                            restored.head() == table.head() && restored.pillar() == table.pillar()
+                                    && restored.core() == table.core() && restored.fuluName().equals(table.fuluName())
+                                    && restored.needInk() == table.needInk()
+                                    && ItemStack.matches(restored.getItem(2), result));
                     p.closeContainer();
                 }),
                 new Action(8, p -> {
@@ -442,14 +461,8 @@ final class FuluCookingCheck extends ActionCheck {
                     p.serverLevel().setBlockAndUpdate(clayPos.below(), Blocks.CAMPFIRE.defaultBlockState());
                     p.serverLevel().setBlockAndUpdate(clayPos, block("fooddunguo"));
                     ItemStack recipe = new ItemStack(Items.PAPER);
-                    CompoundTag recipeData = new CompoundTag();
-                    recipeData.putString("MenuType", "砂锅");
-                    recipeData.putString("MenuName", "测试菜谱");
-                    recipeData.putString("Menuid", ModId.VALUE + ":food_007");
-                    recipeData.putString("needcontainer", "无");
-                    recipeData.putString("cailiao00", ModId.VALUE + ":shicai_001");
-                    recipeData.putInt("cookanimation", 2);
-                    recipe.set(DataComponents.CUSTOM_DATA, CustomData.of(recipeData));
+                    Cooking.setRecipe(recipe, new CookingRecipeData("测试菜谱", 0, "", "", 2, "无",
+                            ModId.VALUE + ":food_007", "砂锅", List.of(ModId.VALUE + ":shicai_001")));
                     CookingPotBlockEntity clay = pot(p, clayPos);
                     clay.setItem(13, recipe);
                     clay.setItem(5, item("shicai_001", 2));
@@ -457,9 +470,10 @@ final class FuluCookingCheck extends ActionCheck {
                     useBlock(clayPos);
                 }),
                 new Action(6, p -> {
+                    CookingPotBlockEntity clay = pot(p, clayPos);
                     expectTrue("真实右键砂锅打开双方菜单与原生界面（服务端 " + p.containerMenu.getClass().getSimpleName() + "，客户端 "
                             + minecraft.player.containerMenu.getClass().getSimpleName() + "，界面 " + (minecraft.screen == null ? "无" : minecraft.screen.getClass().getSimpleName())
-                            + "，BE " + pot(p, clayPos).getPersistentData() + "）", p.containerMenu instanceof CookingPotMenu
+                            + "，cooking=" + clay.cooking() + "）", p.containerMenu instanceof CookingPotMenu
                             && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
                     minecraft.execute(() -> {
                         screenshots.take("cooking-clay-pot.png");
@@ -470,11 +484,10 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(4, p -> {
                     CookingPotBlockEntity clay = pot(p, clayPos);
-                    CompoundTag state = clay.getPersistentData();
                     expectTrue("菜谱烹饪：食材扣一件并产出菜品，覆盖结果槽，菜谱不消耗，经验按 belongToLevel 平方加 5",
-                            state.getBoolean("cooking") && clay.getItem(5).getCount() == 1
+                            clay.cooking() && clay.getItem(5).getCount() == 1
                                     && clay.getItem(4).is(item("food_007").getItem()) && !clay.getItem(13).isEmpty()
-                                    && state.getInt("cookexp") == 5 && p.containerMenu == p.inventoryMenu);
+                                    && clay.cookExp() == 5 && p.containerMenu == p.inventoryMenu);
                 }),
                 new Action(4, p -> useBlock(clayPos)),
                 new Action(4, p -> useBlock(clayPos)),
@@ -482,11 +495,11 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> useBlock(clayPos)),
                 new Action(4, p -> useBlock(clayPos)),
                 new Action(6, p -> {
-                    CompoundTag state = pot(p, clayPos).getPersistentData();
+                    CookingPotBlockEntity clay = pot(p, clayPos);
                     expectTrue("五次砂锅翻炒结束并清零，厨艺经验增加 5（实际 " + (Professions.experience(p, Profession.COOKING) - cookingBefore) + "），经验字段清零",
-                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookexp") == 0
+                            !clay.cooking() && clay.cookNumber() == 0 && clay.cookExp() == 0
                                     && Professions.experience(p, Profession.COOKING) - cookingBefore == 5
-                                    && pot(p, clayPos).getItem(4).is(item("food_007").getItem()));
+                                    && clay.getItem(4).is(item("food_007").getItem()));
                     burnerPos = p.blockPosition().offset(-4, 1, 0);
                     for (int offset = -1; offset <= 3; offset++) burnerBlocks.put(burnerPos.above(offset), p.serverLevel().getBlockState(burnerPos.above(offset)));
                     p.serverLevel().setBlockAndUpdate(burnerPos.below(), Blocks.STONE.defaultBlockState());
@@ -500,8 +513,8 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(6, p -> useBlock(burnerPos)),
                 new Action(425, p -> {
                     AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
-                    expectTrue("打火石点燃烧灰架：begin 置位且燃料保留（当前十刻周期进度 " + burner.getPersistentData().getInt("ranshaotick") + "）",
-                            burner.getPersistentData().getBoolean("begin") && !burner.getItem(0).isEmpty());
+                    expectTrue("打火石点燃烧灰架：begin 置位且燃料保留（当前十刻周期进度 " + burner.burnTick() + "）",
+                            burner.isActive() && !burner.getItem(0).isEmpty());
                 }),
                 new Action(4, p -> {
                     AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
@@ -514,16 +527,15 @@ final class FuluCookingCheck extends ActionCheck {
                     p.inventoryMenu.broadcastChanges();
                     p.serverLevel().setBlockAndUpdate(inheritancePos.below(), Blocks.STONE.defaultBlockState());
                     p.serverLevel().setBlockAndUpdate(inheritancePos, block("chuancheng"));
-                    BlockEntity inheritance = p.serverLevel().getBlockEntity(inheritancePos);
-                    inheritance.getPersistentData().putInt("weizhi", 5);
-                    inheritance.setChanged();
+                    InheritanceBlockEntity inheritance = (InheritanceBlockEntity) p.serverLevel().getBlockEntity(inheritancePos);
+                    inheritance.setSelection(5);
                 }),
                 new Action(6, p -> useBlock(inheritancePos)),
                 new Action(4, p -> {
                     expectTrue("使用传承之光经命令入口授予所存符头 5，方块与共享选择不变（符头 " + Fulu.knowledge(p).heads() + "）",
                             Fulu.knowledge(p).heads().contains(5)
                                     && p.serverLevel().getBlockState(inheritancePos).is(block("chuancheng").getBlock())
-                                    && p.serverLevel().getBlockEntity(inheritancePos).getPersistentData().getInt("weizhi") == 5);
+                                    && ((InheritanceBlockEntity) p.serverLevel().getBlockEntity(inheritancePos)).selection() == 5);
                     gameMode = p.gameMode.getGameModeForPlayer();
                     difficulty = p.serverLevel().getDifficulty();
                     soul = Cultivation.get(p, CultivationValue.SOUL);
@@ -594,8 +606,10 @@ final class FuluCookingCheck extends ActionCheck {
                                     && volleySpawns[0] >= 2 && volleySpawns[1] >= 2);
                     shots.forEach(shot -> shot.discard());
                     p.removeAllEffects();
-                    Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.putBoolean(key, false)));
+                    Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.setFlag(key, false)));
                     Cultivation.set(p, CultivationValue.SOUL, 20);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingli", 5);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0.2);
                     p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow(), 600, 0));
                     p.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 5));
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_21", 1, 1));
@@ -603,9 +617,14 @@ final class FuluCookingCheck extends ActionCheck {
                     useHeld();
                 }),
                 new Action(4, p -> {
-                    expectTrue("21 号符一阶：清除等级不高于 1 的毒药 01，保留等级 5 的虚弱，登记生效",
-                            !p.hasEffect(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow())
+                    expectTrue("21 号符一阶与 Q64/Q65：扣 (10+5)×1.2=18 精力、保留已有生效数累加至 4（而非清回 1）、清 duyao_01、留虚弱 5（精力 "
+                                    + Cultivation.get(p, CultivationValue.SOUL) + "，生效数 " + Cultivation.tizhiDouble(p, "fulunumber") + "）",
+                            Math.abs(Cultivation.get(p, CultivationValue.SOUL) - 2) < 2.5
+                                    && Cultivation.tizhiDouble(p, "fulunumber") == 4
+                                    && !p.hasEffect(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow())
                                     && p.hasEffect(MobEffects.WEAKNESS) && Cultivation.tizhiBoolean(p, "fuluxiaoguo21") && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingli", 0);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0);
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_39", 1, 1));
                     p.inventoryMenu.broadcastChanges();
@@ -635,15 +654,44 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("11 号符一阶：吸收等级 6、抗性等级 0（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，效果 " + p.getActiveEffects() + "）",
                             p.hasEffect(MobEffects.ABSORPTION) && p.getEffect(MobEffects.ABSORPTION).getAmplifier() == 6
                                     && p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 0);
+                    p.connection.teleport(p.getX(), p.getY(), p.getZ(), 0f, 0f);
+                    for (BlockPos pos : BlockPos.betweenClosed(p.blockPosition().offset(-1, -1, 0), p.blockPosition().offset(1, 2, 5))) {
+                        BlockPos saved = pos.immutable();
+                        clusterAir.putIfAbsent(saved, p.serverLevel().getBlockState(saved));
+                        p.serverLevel().setBlockAndUpdate(saved, saved.getY() == p.blockPosition().getY() - 1
+                                ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+                    }
+                    minecraft.execute(() -> {
+                        minecraft.player.setYRot(0f);
+                        minecraft.player.setXRot(0f);
+                    });
+                }),
+                new Action(4, p -> {
                     Cultivation.set(p, CultivationValue.SOUL, 20);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", -0.6);
                     Cultivation.setTizhiDouble(p, "fululevel46", 0);
-                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_46", 1, 1));
+                    dummy = EntityType.IRON_GOLEM.create(p.serverLevel());
+                    dummy.moveTo(p.getX(), p.getY(), p.getZ() + 3.5, 0, 0);
+                    dummy.setNoAi(true);
+                    dummy.setPersistenceRequired();
+                    EntityAttributes.setStat(dummy, Stat.MANA_DEF, 0);
+                    p.serverLevel().addFreshEntity(dummy);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_46", 1, 2));
                     p.inventoryMenu.broadcastChanges();
                     useHeld();
                 }),
-                new Action(4, p -> {
-                    expectTrue("46 号符使用后品阶写入玩家持久数据而非体质（来源 Q66；精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，持久 " + p.getPersistentData().getDouble("fululevel46") + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46") + "）",
-                            p.getPersistentData().getDouble("fululevel46") == 1 && Cultivation.tizhiDouble(p, "fululevel46") == 0);
+                new Action(10, p -> {
+                    expectTrue("46 号符二阶 Q66：消耗符箓、先写附着、火球首刻读二阶并清零且不改体质，命中铁傀儡造成 30 伤（消耗 "
+                                    + p.getInventory().getItem(HOTBAR).isEmpty() + "，附着 " + p.getData(FuluData.CASTER).level46()
+                                    + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46")
+                                    + "，傀儡生命 " + dummy.getHealth() + "）",
+                            p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && p.getData(FuluData.CASTER).level46() == 0
+                                    && Cultivation.tizhiDouble(p, "fululevel46") == 0
+                                    && dummy.getHealth() <= 75);
+                    dummy.discard();
+                    dummy = null;
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0);
                 
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_05", 1, 1));
@@ -651,14 +699,14 @@ final class FuluCookingCheck extends ActionCheck {
                     useHeld();
                 }),
                 new Action(4, p -> {
-                    expectTrue("05 号符：品阶经使用者持久数据交给气剑，首刻读取后清零",
-                            p.getInventory().getItem(HOTBAR).isEmpty() && p.getPersistentData().getDouble("fulu05level") == 0);
+                    expectTrue("05 号符：品阶经使用者附着数据交给气剑，首刻读取后清零",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && p.getData(FuluData.CASTER).level05() == 0);
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_32", 1, 1));
                     p.inventoryMenu.broadcastChanges();
                     for (BlockPos pos : BlockPos.betweenClosed(p.blockPosition().offset(-4, 2, -4), p.blockPosition().offset(4, 38, 4))) {
                         BlockPos saved = pos.immutable();
-                        clusterAir.put(saved, p.serverLevel().getBlockState(saved));
+                        clusterAir.putIfAbsent(saved, p.serverLevel().getBlockState(saved));
                         p.serverLevel().setBlockAndUpdate(saved, Blocks.AIR.defaultBlockState());
                     }
                     minecraft.execute(() -> {
@@ -672,7 +720,7 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     long pieces = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> shot.getType().toString().endsWith("32")).size();
                     expectTrue("32 号符：主弹 16 刻或命中时炸出子弹，使用者的分裂标记被主弹取走（子弹 " + pieces + "）",
-                            !p.getPersistentData().getBoolean("fulu32shoufa") && pieces >= 2);
+                            !p.getData(FuluData.CASTER).splitFirst32() && pieces >= 2);
                     minecraft.execute(() -> minecraft.player.setXRot(clusterPitch));
                 
                     Cultivation.set(p, CultivationValue.SOUL, 20);
@@ -683,9 +731,9 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     var summons = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanSummon.class), mob -> true);
                     expectTrue("14 号符：召唤出携带符名、品阶与召唤者 UUID 的飞行体（数量 " + summons.size() + "）",
-                            summons.size() == 1 && summons.get(0).getPersistentData().getString("fuluname").equals(TalismanSummon.AIRBURST)
-                                    && summons.get(0).getPersistentData().getDouble("fululevel") == 1
-                                    && summons.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID()));
+                            summons.size() == 1 && summons.get(0).talismanName().equals(TalismanSummon.AIRBURST)
+                                    && summons.get(0).grade() == 1
+                                    && summons.get(0).masterUuid().equals(p.getStringUUID()));
                 }),
                 new Action(24, p -> {
                 }),
@@ -701,9 +749,9 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     var beasts = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true);
                     expectTrue("26 号符：召唤神压符动画实体，携带品阶、符名与召唤者 UUID（数量 " + beasts.size() + "）",
-                            beasts.size() == 1 && beasts.get(0).getPersistentData().getString("fuluname").equals("神压符")
-                                    && beasts.get(0).getPersistentData().getDouble("fululevel") == 1
-                                    && beasts.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID()));
+                            beasts.size() == 1 && beasts.get(0).talismanName().equals("神压符")
+                                    && beasts.get(0).grade() == 1
+                                    && beasts.get(0).masterUuid().equals(p.getStringUUID()));
                     minecraft.execute(() -> screenshots.take("fulu-beast-26.png"));
                 }),
                 new Action(44, p -> {
@@ -718,10 +766,10 @@ final class FuluCookingCheck extends ActionCheck {
                     FuluRanged.release(p, p.getInventory().getItem(HOTBAR), 28);
                 }),
                 new Action(4, p -> {
-                    expectTrue("28 号远程符松手：付精力、消耗持有的一张，弹体第一刻读取品阶并清零使用者的 fululevel（精力 " + Cultivation.get(p, CultivationValue.SOUL)
+                    expectTrue("28 号远程符松手：付精力、消耗持有的一张，弹体第一刻读取品阶并清零使用者的 pendingLevel（精力 " + Cultivation.get(p, CultivationValue.SOUL)
                                     + "，余 " + p.getInventory().getItem(HOTBAR).getCount() + "）",
                             Cultivation.get(p, CultivationValue.SOUL) < 12 && p.getInventory().getItem(HOTBAR).getCount() == 1
-                                    && p.getPersistentData().getDouble("fululevel") == 0);
+                                    && p.getData(FuluData.CASTER).pendingLevel() == 0);
                 
                     oreAt = p.blockPosition().offset(2, -3, 0);
                     oreBefore = p.serverLevel().getBlockState(oreAt);
@@ -743,8 +791,8 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     var thunder = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true);
                     expectTrue("01 号雷符：召唤雷符实体并携带品阶与召唤者 UUID（数量 " + thunder.size() + "）",
-                            thunder.size() == 1 && thunder.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID())
-                                    && thunder.get(0).getPersistentData().getDouble("fululevel") == 1);
+                            thunder.size() == 1 && thunder.get(0).masterUuid().equals(p.getStringUUID())
+                                    && thunder.get(0).grade() == 1);
                 }),
                 new Action(84, p -> {
                 }),
@@ -781,8 +829,8 @@ final class FuluCookingCheck extends ActionCheck {
                     var spirits = p.serverLevel().getEntities(EntityTypeTest.forClass(CloudSpirit.class), mob -> true);
                     expectTrue("44 号符：召唤被使用者驯服的云灵，携带品阶、符名与召唤者 UUID（数量 " + spirits.size() + "）",
                             spirits.size() == 1 && spirits.get(0).isTame() && spirits.get(0).isOwnedBy(p)
-                                    && spirits.get(0).getPersistentData().getString("fuluname").equals("云灵符")
-                                    && spirits.get(0).getPersistentData().getDouble("fululevel") == 1);
+                                    && spirits.get(0).talismanName().equals("云灵符")
+                                    && spirits.get(0).grade() == 1);
                     minecraft.execute(() -> screenshots.take("fulu-cloud-spirit.png"));
                     spirits.forEach(Entity::discard);
                     p.removeAllEffects();
@@ -862,10 +910,9 @@ final class FuluCookingCheck extends ActionCheck {
                     while (Relations.friendlyTeams(p).contains(hostileTeam)) hostileTeam += "_";
                     Relations.setTeam(dummy, hostileTeam);
                     ward.repel(p.serverLevel());
-                    CompoundTag friendlist = ward.getPersistentData().getCompound("friendlist");
-                    boolean capturedFriends = Relations.friendlyTeams(p).stream().allMatch(friendlist::getBoolean);
+                    boolean capturedFriends = Relations.friendlyTeams(p).stream().allMatch(ward.friendlyTeams()::contains);
                     boolean blockPlaced = p.serverLevel().getBlockState(wardPos).is(block("itemfulu_15").getBlock());
-                    boolean teamCaptured = ward.getPersistentData().getString("team").equals(Relations.team(p));
+                    boolean teamCaptured = ward.team().equals(Relations.team(p));
                     boolean velocityApplied = Math.abs(dummy.getDeltaMovement().y() - 0.1) < 0.001;
                     expectTrue("15 号镇宅符：方块=" + blockPlaced + "、阵营=" + teamCaptured + "、初始友方集合=" + capturedFriends
                                     + "、弹开速度=" + dummy.getDeltaMovement() + "、手持=" + p.getInventory().getItem(HOTBAR).getCount(),
@@ -1198,10 +1245,10 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(30, p -> useBlock(silkReelPos)),
                 new Action(80, p -> {
                     SilkReelBlockEntity reel = silkReel(p);
-                    double before = reel.getPersistentData().getDouble("tick");
+                    double before = reel.tick();
                     useBlock(silkReelPos);
                     expectTrue("缫丝启动后使用既有周期且忙碌不重置进度，未提前产出",
-                            reel.getPersistentData().getBoolean("saosi") && before >= 1 && silkDrops.isEmpty());
+                            reel.reeling() && before >= 1 && silkDrops.isEmpty());
                     p.serverLevel().setBlockAndUpdate(silkReelPos, reel.getBlockState()
                             .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
                 }),
@@ -1211,7 +1258,7 @@ final class FuluCookingCheck extends ActionCheck {
                             ((Container) p.serverLevel().getBlockEntity(silkInputPos)).getItem(0).getCount() == 1
                                     && silkDrops.stream().filter(drop -> drop.getItem().is(item("silkthreadgold").getItem()))
                                             .mapToInt(drop -> drop.getItem().getCount()).sum() == 1
-                                    && !reel.getPersistentData().getBoolean("saosi") && reel.getPersistentData().getDouble("tick") == 0);
+                                    && !reel.reeling() && reel.tick() == 0);
                     silkDrops.forEach(Entity::discard);
                     silkDrops.clear();
                     ((Container) p.serverLevel().getBlockEntity(silkInputPos)).clearContent();
@@ -1235,16 +1282,16 @@ final class FuluCookingCheck extends ActionCheck {
                                             .mapToInt(drop -> drop.getItem().getCount()).sum() == 1
                                     && p.serverLevel().getBlockState(silkInputPos).getValue(BlockStateProperties.LEVEL_CAULDRON) == 1);
                     reel.setItem(8, new ItemStack(Items.IRON_SWORD, 3));
-                    reel.getPersistentData().putBoolean("saosi", true);
-                    reel.getPersistentData().putDouble("tick", 3);
-                    reel.getPersistentData().putString("fangxiang", "south");
+                    reel.setReeling(true);
+                    reel.setTick(3);
+                    reel.setDirection("south");
                     SilkReelBlockEntity restored = (SilkReelBlockEntity) BlockEntity.loadStatic(silkReelPos,
                             reel.getBlockState(), reel.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("缫丝九槽与忙碌进度/方向完整保存读回，单件物品仍保留3件",
                             restored != null && restored.getItem(8).getCount() == 3
-                                    && restored.getPersistentData().getBoolean("saosi")
-                                    && restored.getPersistentData().getDouble("tick") == 3
-                                    && restored.getPersistentData().getString("fangxiang").equals("south"));
+                                    && restored.reeling()
+                                    && restored.tick() == 3
+                                    && restored.direction().equals("south"));
                 }),
                 new Action(8, p -> {
                     p.closeContainer();
@@ -1339,8 +1386,9 @@ final class FuluCookingCheck extends ActionCheck {
                                     && restored.getItem(9).getCount() == 3
                                     && ItemStack.matches(restored.getItem(0), wheel.getItem(0)));
                     potteryBlankStack = wheel.getItem(0).copy();
-                    CustomData.update(DataComponents.CUSTOM_DATA, potteryBlankStack,
-                            data -> data.putString("smoke_marker", "pottery_followup"));
+                    CompoundTag marker = new CompoundTag();
+                    marker.putString("smoke_marker", "pottery_followup");
+                    potteryBlankStack.set(NbtEditorData.TAGS.get(), marker);
                     p.getInventory().clearContent();
                     p.getInventory().selected = HOTBAR;
                     p.getInventory().setItem(HOTBAR, potteryBlankStack.copyWithCount(2));
@@ -1362,15 +1410,15 @@ final class FuluCookingCheck extends ActionCheck {
                             potteryPlacementOkay && p.serverLevel().isEmptyBlock(potteryPlacedPos)
                                     && craftFollowupCount(p, "taopiitem") == 2
                                     && potteryOutput(inventoryItem(p, "taopiitem")).equals("yvanchuxiuzhen:taoguan_03item")
-                                    && inventoryItem(p, "taopiitem").getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("pottery_followup")
+                                    && inventoryItem(p, "taopiitem").getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("pottery_followup")
                                     && p.getMainHandItem().is(Items.STICK));
                     stoneMillSneak(false);
                     p.serverLevel().setBlockAndUpdate(potterySkyPos, block("taopi"));
                     PotteryBlankBlockEntity blank = potteryBlank(p, potterySkyPos);
                     blank.setItem(0, potteryBlankStack.copy());
-                    blank.getPersistentData().putBoolean("starfire", true);
-                    blank.getPersistentData().putInt("firetick", 47);
+                    blank.setBurning(true);
+                    blank.setFireTick(47);
                     blank.changed();
                     scheduleCraftFollowup(p, potterySkyPos);
                 }),
@@ -1389,17 +1437,17 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("露天陶坯受控47经真实计划刻烧成03且火不灭，单槽保存及六面封锁/无方向读取一致",
                             p.serverLevel().canSeeSkyFromBelowWater(potterySkyPos.above())
                                     && blank.getItem(0).is(item("taoguan_03item").getItem())
-                                    && blank.burning() && blank.getPersistentData().getInt("firetick") == 0
+                                    && blank.burning() && blank.fireTick() == 0
                                     && restored != null && restored.burning() && ItemStack.matches(restored.getItem(0), blank.getItem(0))
                                     && directions && unsided != null && unsided.extractItem(0, 1, true).getCount() == 1);
-                    blank.getPersistentData().putInt("firetick", 47);
+                    blank.setFireTick(47);
                     scheduleCraftFollowup(p, potterySkyPos);
                     p.serverLevel().setBlockAndUpdate(potteryCoveredPos, block("taopi"));
                     p.serverLevel().setBlockAndUpdate(potteryCoveredPos.above(), Blocks.STONE.defaultBlockState());
                     PotteryBlankBlockEntity covered = potteryBlank(p, potteryCoveredPos);
                     covered.setItem(0, potteryBlankStack.copy());
-                    covered.getPersistentData().putBoolean("starfire", true);
-                    covered.getPersistentData().putInt("firetick", 11);
+                    covered.setBurning(true);
+                    covered.setFireTick(11);
                     covered.changed();
                     scheduleCraftFollowup(p, potteryCoveredPos);
                 }),
@@ -1408,7 +1456,7 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("遮挡陶坯受控11经真实计划刻烧成，露天裸成品下一阈值因空标识消失且火仍开",
                             !p.serverLevel().canSeeSkyFromBelowWater(potteryCoveredPos.above())
                                     && covered.getItem(0).is(item("taoguan_03item").getItem()) && covered.burning()
-                                    && covered.getPersistentData().getInt("firetick") == 0
+                                    && covered.fireTick() == 0
                                     && potteryBlank(p, potterySkyPos).getItem(0).isEmpty()
                                     && potteryBlank(p, potterySkyPos).burning());
                     pauseCraftFollowup(p, potterySkyPos);
@@ -1511,7 +1559,7 @@ final class FuluCookingCheck extends ActionCheck {
                     WineVesselBlockEntity still = wineVessel(p, wineStillPos);
                     still.setItem(0, item("shicai_002", 64));
                     still.setItem(1, item("ginseng", 64));
-                    still.getPersistentData().putDouble("jindu", 95);
+                    still.setProgress(95);
                     still.changed();
                     p.getInventory().clearContent();
                     p.getInventory().selected = HOTBAR;
@@ -1534,12 +1582,12 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(6, p -> {
                     WineVesselBlockEntity still = wineVessel(p, wineStillPos);
                     expectTrue("木甑按占槽数识别配方，单槽64糯米和单槽64人参不开始也不扣料",
-                            !still.getPersistentData().getBoolean("begin") && still.getItem(0).getCount() == 64
-                                    && still.getItem(1).getCount() == 64 && still.getPersistentData().getDouble("jindu") == 95);
+                            !still.brewing() && still.getItem(0).getCount() == 64
+                                    && still.getItem(1).getCount() == 64 && still.progress() == 95);
                     still.setItem(2, item("shicai_002", 64));
                     still.setItem(3, item("shicai_002", 64));
                     ItemStack old = item("jiuniang_001", 64);
-                    CustomData.update(DataComponents.CUSTOM_DATA, old, data -> data.putDouble("agenum", 80));
+                    Cooking.setWineAge(old, 80);
                     still.setItem(4, old);
                     still.changed();
                     p.containerMenu.broadcastChanges();
@@ -1549,15 +1597,15 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(6, p -> {
                     WineVesselBlockEntity still = wineVessel(p, wineStillPos);
                     expectTrue("木甑真实按钮在满结果槽仍开始，四输入各扣1且忙碌再次按不再扣，开始保留95进度",
-                            still.getPersistentData().getBoolean("begin")
-                                    && still.getPersistentData().getString("jiuniangid").equals("yvanchuxiuzhen:jiuniang_001")
-                                    && still.getPersistentData().getDouble("jindu") == 95
+                            still.brewing()
+                                    && still.wineId().equals("yvanchuxiuzhen:jiuniang_001")
+                                    && still.progress() == 95
                                     && still.getItem(0).getCount() == 63 && still.getItem(1).getCount() == 63
                                     && still.getItem(2).getCount() == 63 && still.getItem(3).getCount() == 63
                                     && still.getItem(4).getCount() == 64);
                     p.serverLevel().setBlockAndUpdate(wineStillPos.below(), Blocks.CAMPFIRE.defaultBlockState()
                             .setValue(BlockStateProperties.LIT, false));
-                    still.getPersistentData().putDouble("jindu", 99);
+                    still.setProgress(99);
                     still.changed();
                     scheduleCraftFollowup(p, wineStillPos);
                 }),
@@ -1567,9 +1615,11 @@ final class FuluCookingCheck extends ActionCheck {
                     WineVesselBlockEntity restored = (WineVesselBlockEntity) BlockEntity.loadStatic(wineStillPos,
                             still.getBlockState(), still.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("木甑断热经真实计划刻仍保持99与已扣库存，生产状态和五槽保存重读一致",
-                            still.getPersistentData().getBoolean("begin") && still.getPersistentData().getDouble("jindu") == 99
+                            still.brewing() && still.progress() == 99
                                     && still.getItem(0).getCount() == 63 && restored != null
-                                    && restored.getPersistentData().equals(still.getPersistentData())
+                                    && restored.brewing() == still.brewing()
+                                    && restored.progress() == still.progress()
+                                    && restored.wineId().equals(still.wineId())
                                     && ItemStack.matches(restored.getItem(4), still.getItem(4)));
                     p.serverLevel().setBlockAndUpdate(wineStillPos.below(), Blocks.CAMPFIRE.defaultBlockState());
                     scheduleCraftFollowup(p, wineStillPos);
@@ -1578,7 +1628,7 @@ final class FuluCookingCheck extends ActionCheck {
                     pauseCraftFollowup(p, wineStillPos);
                     WineVesselBlockEntity still = wineVessel(p, wineStillPos);
                     expectTrue("木甑复热真实计划刻完成并归零，满64按当时数量截量覆盖且旧年份归零，客户端结果同步",
-                            !still.getPersistentData().getBoolean("begin") && still.getPersistentData().getDouble("jindu") == 0
+                            !still.brewing() && still.progress() == 0
                                     && still.getItem(4).getCount() == 64 && wineAge(still.getItem(4)) == 0
                                     && minecraft.player.containerMenu.getSlot(4).getItem().getCount() == 64
                                     && wineAge(minecraft.player.containerMenu.getSlot(4).getItem()) == 0);
@@ -1588,10 +1638,10 @@ final class FuluCookingCheck extends ActionCheck {
                     p.closeContainer();
                     p.getInventory().clearContent();
                     ItemStack wine = item("jiuniang_001", 2);
-                    CustomData.update(DataComponents.CUSTOM_DATA, wine, data -> {
-                        data.putDouble("agenum", 9);
-                        data.putString("smoke_marker", "wine_followup");
-                    });
+                    Cooking.setWineAge(wine, 9);
+                    CompoundTag marker = new CompoundTag();
+                    marker.putString("smoke_marker", "wine_followup");
+                    wine.set(NbtEditorData.TAGS.get(), marker);
                     p.getInventory().setItem(HOTBAR, wine);
                     p.inventoryMenu.broadcastChanges();
                 }),
@@ -1613,9 +1663,9 @@ final class FuluCookingCheck extends ActionCheck {
                             winePlacementOkay && p.getMainHandItem().getCount() == 1
                                     && jar.getBlockState().is(block("jiuniang_00101").getBlock())
                                     && jar.getItem(0).getCount() == 1 && wineAge(jar.getItem(0)) == 9
-                                    && jar.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("wine_followup") && naturalPeriod);
-                    jar.getPersistentData().putDouble("agenum", 7);
+                                    && jar.getItem(0).getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("wine_followup") && naturalPeriod);
+                    jar.setAgeCounter(7);
                     scheduleCraftFollowup(p, wineJarPos);
                 }),
                 new Action(6, p -> {
@@ -1624,9 +1674,9 @@ final class FuluCookingCheck extends ActionCheck {
                     WineVesselBlockEntity restored = (WineVesselBlockEntity) BlockEntity.loadStatic(wineJarPos,
                             jar.getBlockState(), jar.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("酒坛受控推进真实计划刻跨9到10年，组件保留、BE年龄清零且保存重读一致",
-                            wineAge(jar.getItem(0)) == 10 && jar.getPersistentData().getDouble("agenum") == 0
-                                    && jar.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("wine_followup")
+                            wineAge(jar.getItem(0)) == 10 && jar.ageCounter() == 0
+                                    && jar.getItem(0).getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("wine_followup")
                                     && restored != null && ItemStack.matches(restored.getItem(0), jar.getItem(0)));
                     p.getInventory().setItem(0, p.getMainHandItem().copy());
                     p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
@@ -1642,16 +1692,16 @@ final class FuluCookingCheck extends ActionCheck {
                     }
                     expectTrue("酒坛真实空手潜行收取删除坛且不重复，取回10年酒仍带实例组件",
                             p.serverLevel().isEmptyBlock(wineJarPos) && craftFollowupCount(p, "jiuniang_001") == 2
-                                    && aged.getCount() == 1 && aged.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("wine_followup"));
+                                    && aged.getCount() == 1 && aged.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("wine_followup"));
                     stoneMillSneak(false);
                     p.getInventory().clearContent();
                     p.getInventory().setItem(HOTBAR, aged);
                     p.removeAllEffects();
                     Alcohol.add(p, -Alcohol.amount(p));
                     Cultivation.editTizhi(p, data -> {
-                        data.putDouble("AlcoholPatience", 0);
-                        data.putDouble("AlcoholPatiencePercentage", 0);
+                        data.setNumber("AlcoholPatience", 0);
+                        data.setNumber("AlcoholPatiencePercentage", 0);
                     });
                     Cultivation.set(p, CultivationValue.EXPERIENCE_STAND, 0);
                     p.inventoryMenu.broadcastChanges();
@@ -1702,12 +1752,12 @@ final class FuluCookingCheck extends ActionCheck {
                     Cultivation.set(p, CultivationValue.EXPERIENCE_RATE, 0);
                     Cultivation.set(p, CultivationValue.CULTIVATION_COOLDOWN, 2);
                     Cultivation.editTizhi(p, data -> {
-                        data.putString("xiuliankaiguan", "");
-                        data.putBoolean("jinji", false);
-                        data.putDouble("xiulianlengqve", 14);
-                        data.putDouble("XiulianColdCorrect", 0);
-                        data.putDouble("AlcoholDigestion", 0.5);
-                        data.putDouble("AlcoholDigestionPercentage", 0.02);
+                        data.setText("xiuliankaiguan", "");
+                        data.setFlag("jinji", false);
+                        data.setNumber("xiulianlengqve", 14);
+                        data.setNumber("XiulianColdCorrect", 0);
+                        data.setNumber("AlcoholDigestion", 0.5);
+                        data.setNumber("AlcoholDigestionPercentage", 0.02);
                     });
                     Alcohol.add(p, 5 - Alcohol.amount(p));
                     wineArmSecond = true;
@@ -1770,7 +1820,7 @@ final class FuluCookingCheck extends ActionCheck {
                     pot.clearContent();
                     tray.clearContent();
                     pot.setItem(13, steamerRecipe(3));
-                    pot.getPersistentData().putInt("belongToLevel", 3);
+                    pot.setBelongToLevel(3);
                     pot.setItem(0, new ItemStack(Items.CARROT));
                     tray.setItem(0, new ItemStack(Items.CARROT));
                     pot.changed();
@@ -1780,14 +1830,14 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("真实右键蒸锅打开双方十四槽菜单和原生界面，并把厨艺2.9写入设备",
                             p.containerMenu instanceof SteamerMenu menu && !menu.tray() && menu.slots.size() == 50
                                     && minecraft.player.containerMenu instanceof SteamerMenu && minecraft.screen instanceof SteamerScreen
-                                    && steamer(p, 0).getPersistentData().getDouble("playercooklevel") == 2.9);
+                                    && steamer(p, 0).playerCookLevel() == 2.9);
                     minecraft.execute(() -> screenshots.take("cooking-steamer.png"));
                     steamerButton();
                 }),
                 new Action(6, p -> {
                     expectTrue("菜谱品阶3高于getInt厨艺2时先失败，不标上层且材料不扣",
-                            !steamer(p, 0).getPersistentData().getBoolean("cooking")
-                                    && !steamer(p, 2).getPersistentData().getBoolean("cooking")
+                            !steamer(p, 0).cooking()
+                                    && !steamer(p, 2).cooking()
                                     && steamer(p, 0).getItem(0).is(Items.CARROT) && p.containerMenu instanceof SteamerMenu);
                     steamer(p, 0).setItem(13, steamerRecipe(2));
                     steamer(p, 0).changed();
@@ -1795,9 +1845,9 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(6, p -> {
                     expectTrue("上层tongguo2跨层累计8加7，先标第二笼屉再因主锅缺马铃薯失败",
-                            !steamer(p, 1).getPersistentData().getBoolean("cooking")
-                                    && steamer(p, 2).getPersistentData().getBoolean("cooking")
-                                    && !steamer(p, 0).getPersistentData().getBoolean("cooking")
+                            !steamer(p, 1).cooking()
+                                    && steamer(p, 2).cooking()
+                                    && !steamer(p, 0).cooking()
                                     && steamer(p, 0).getItem(0).is(Items.CARROT)
                                     && steamer(p, 2).getItem(4).isEmpty());
                     steamer(p, 0).setItem(1, new ItemStack(Items.POTATO));
@@ -1806,13 +1856,13 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(6, p -> {
                     expectTrue("本锅材料齐但缺热仍保留上层标记且不扣料",
-                            !steamer(p, 0).getPersistentData().getBoolean("cooking")
-                                    && steamer(p, 2).getPersistentData().getBoolean("cooking")
+                            !steamer(p, 0).cooking()
+                                    && steamer(p, 2).cooking()
                                     && steamer(p, 0).getItem(0).is(Items.CARROT) && steamer(p, 0).getItem(1).is(Items.POTATO));
                     SteamerBlockEntity saved = (SteamerBlockEntity) BlockEntity.loadStatic(steamerPos.above(2),
                             steamer(p, 2).getBlockState(), steamer(p, 2).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("失败留下的笼屉cooking标记及九槽库存保存重读一致",
-                            saved.getPersistentData().equals(steamer(p, 2).getPersistentData())
+                            saved.cooking() == steamer(p, 2).cooking()
                                     && saved.getContainerSize() == 9 && saved.getItem(4).isEmpty());
                     steamer(p, 1).clearContent();
                     p.serverLevel().setBlockAndUpdate(steamerPos.above(), Blocks.AIR.defaultBlockState());
@@ -1823,15 +1873,16 @@ final class FuluCookingCheck extends ActionCheck {
                     SteamerBlockEntity pot = steamer(p, 0);
                     SteamerBlockEntity tray = steamer(p, 2);
                     expectTrue("成功消费扫描跨空层吃旧标记，主锅与缺料旧标笼屉立即产出各1且经验28",
-                            pot.getPersistentData().getBoolean("cooking") && pot.getPersistentData().getInt("cookexp") == 28
+                            pot.cooking() && pot.cookExp() == 28
                                     && pot.getItem(0).isEmpty() && pot.getItem(1).isEmpty()
                                     && pot.getItem(4).is(item("food_007").getItem()) && pot.getItem(4).getCount() == 1
                                     && tray.getItem(4).is(item("food_007").getItem()) && tray.getItem(4).getCount() == 1
-                                    && !tray.getPersistentData().getBoolean("cooking") && p.containerMenu == p.inventoryMenu);
+                                    && !tray.cooking() && p.containerMenu == p.inventoryMenu);
                     SteamerBlockEntity saved = (SteamerBlockEntity) BlockEntity.loadStatic(steamerPos,
                             pot.getBlockState(), pot.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("成功烹饪状态、cookexp与主锅成品保存重读一致",
-                            saved.getPersistentData().equals(pot.getPersistentData()) && ItemStack.matches(saved.getItem(4), pot.getItem(4)));
+                            saved.cooking() == pot.cooking() && saved.cookExp() == pot.cookExp()
+                                    && ItemStack.matches(saved.getItem(4), pot.getItem(4)));
                     useBlock(steamerPos.above(2));
                 }),
                 new Action(6, p -> {
@@ -1844,18 +1895,18 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> useBlock(steamerPos)),
                 new Action(6, p -> {
                     expectTrue("蒸锅四次真实右键仍在烹饪且不提前给职业经验",
-                            steamer(p, 0).getPersistentData().getDouble("cooknumber") == 4
-                                    && steamer(p, 0).getPersistentData().getBoolean("cooking")
+                            steamer(p, 0).cookNumber() == 4
+                                    && steamer(p, 0).cooking()
                                     && Professions.experience(p, Profession.COOKING) == steamerExperience);
                     useBlock(steamerPos);
                 }),
                 new Action(6, p -> {
-                    CompoundTag state = steamer(p, 0).getPersistentData();
+                    SteamerBlockEntity pot = steamer(p, 0);
                     expectTrue("蒸锅第五次真实右键清状态与经验字段，最后点击者获职业经验28，成品仍保留",
-                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0
-                                    && state.getDouble("cookanimation") == 0 && state.getDouble("cookexp") == 0
+                            !pot.cooking() && pot.cookNumber() == 0
+                                    && pot.cookAnimation() == 0 && pot.cookExp() == 0
                                     && Professions.experience(p, Profession.COOKING) - steamerExperience == 28
-                                    && steamer(p, 0).getItem(4).is(item("food_007").getItem()));
+                                    && pot.getItem(4).is(item("food_007").getItem()));
                     useBlock(steamerPos.above(2));
                 }),
                 new Action(8, p -> {
@@ -2028,24 +2079,24 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("菜谱管理命令权限0不能生成物品", !p.getInventory().contains(new ItemStack(Items.PAPER)));
                     p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(), command);
                     ItemStack recipe = p.getInventory().getItem(0);
-                    CompoundTag data = recipe.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    CookingRecipeData data = Cooking.recipe(recipe);
                     ItemStack restored = ItemStack.parse(p.registryAccess(), recipe.save(p.registryAccess())).orElseThrow();
                     expectTrue("权限1菜谱命令生成中文纸载体与Double字段，保存读回仍缺来源未写的MenuName",
                             recipe.is(Items.PAPER) && recipe.getHoverName().getString().equals("竹笼蒸菜")
-                                    && data.getDouble("belongTopinjie") == 2 && data.getString("belongTopinjietext").equals("二级")
-                                    && data.getDouble("cookanimation") == 2 && data.getString("MenuType").equals("蒸锅")
-                                    && data.getString("cailiao00").equals("minecraft:carrot")
-                                    && data.getString("cailiao01").equals("minecraft:potato")
-                                    && !data.contains("cailiao02") && !data.contains("MenuName")
+                                    && data.grade() == 2 && data.gradeText().equals("二级")
+                                    && data.animation() == 2 && data.potType().equals("蒸锅")
+                                    && data.ingredient(0).equals("minecraft:carrot")
+                                    && data.ingredient(1).equals("minecraft:potato")
+                                    && data.ingredient(2).isEmpty() && data.menuName().isEmpty()
                                     && ItemStack.isSameItemSameComponents(recipe, restored));
                     p.getInventory().clearContent();
                     p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(),
                             "shipu minecraft:paper 简谱 非数字 简介 非数字");
-                    CompoundTag fallback = p.getInventory().getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    CookingRecipeData fallback = Cooking.recipe(p.getInventory().getItem(0));
                     expectTrue("菜谱命令数字解析失败写零，缺失容器材料为空且品阶文字沿来源",
-                            fallback.getDouble("belongTopinjie") == 0 && fallback.getDouble("cookanimation") == 0
-                                    && fallback.getString("belongTopinjietext").equals("无品级")
-                                    && fallback.getString("needcontainer").isEmpty() && !fallback.contains("cailiao00"));
+                            fallback.grade() == 0 && fallback.animation() == 0
+                                    && fallback.gradeText().equals("无品级")
+                                    && fallback.neededContainer().isEmpty() && fallback.ingredient(0).isEmpty());
                     p.getInventory().clearContent();
                     p.inventoryMenu.broadcastChanges();
                 }),
@@ -2351,16 +2402,16 @@ final class FuluCookingCheck extends ActionCheck {
                     p.serverLevel().setBlock(ricePos, root, 2);
                     p.serverLevel().setBlock(ricePos.above(2), block("shicai_008plant_03"), 2);
                     riceHeld(p, ItemStack.EMPTY);
-                    p.getPersistentData().putDouble("caiou", 0);
+                    p.setData(PlantData.LOTUS_HARVEST, 0.0);
                     root.attack(p.serverLevel(), ricePos, p);
                     expectTrue("莲藕原生attack跨过空气读取height2莲蓬并记录caiou2",
-                            p.serverLevel().isEmptyBlock(ricePos.above()) && p.getPersistentData().getDouble("caiou") == 2);
+                            p.serverLevel().isEmptyBlock(ricePos.above()) && p.getData(PlantData.LOTUS_HARVEST) == 2);
                     boolean removed = p.gameMode.destroyBlock(ricePos);
                     List<ItemEntity> roots = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_008").getItem())).toList();
                     expectTrue("莲藕原生玩家破坏后交两个独立藕实体并清零采藕记录",
                             removed && p.serverLevel().isEmptyBlock(ricePos) && roots.size() == 2
                                     && roots.stream().allMatch(drop -> drop.getItem().getCount() == 1)
-                                    && p.getPersistentData().getDouble("caiou") == 0);
+                                    && p.getData(PlantData.LOTUS_HARVEST) == 0);
                     riceReset(p, Blocks.DIRT.defaultBlockState());
                     p.serverLevel().setBlock(ricePos, root, 2);
                     p.serverLevel().setBlock(ricePos.above(), block("shicai_008plant_03"), 2);
@@ -2518,9 +2569,9 @@ final class FuluCookingCheck extends ActionCheck {
                     ItemStack savedWare = item("foodwan", 3);
                     savedWare.set(DataComponents.CUSTOM_NAME, Component.literal("保存餐具"));
                     utensilsWare(p, utensilsBowl).setItem(0, savedWare);
-                    board.getPersistentData().putInt("jiaodu", -90);
-                    board.getPersistentData().putBoolean("qiecaibegin", true);
-                    board.getPersistentData().putInt("tick", 3);
+                    board.setAngle(-90);
+                    board.setCutting(true);
+                    board.setTick(3);
                     TablewareBlockEntity wareCopy = (TablewareBlockEntity) BlockEntity.loadStatic(utensilsBowl,
                             utensilsWare(p, utensilsBowl).getBlockState(),
                             utensilsWare(p, utensilsBowl).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
@@ -2529,9 +2580,10 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("餐具带组件库存及案板63件/方向/切菜状态经原生保存读回一致",
                             wareCopy != null && ItemStack.matches(wareCopy.getItem(0), savedWare)
                                     && boardCopy != null && ItemStack.matches(boardCopy.getItem(0), board.getItem(0))
-                                    && boardCopy.getPersistentData().equals(board.getPersistentData()));
-                    board.getPersistentData().putBoolean("qiecaibegin", false);
-                    board.getPersistentData().putInt("tick", 0);
+                                    && boardCopy.angle() == board.angle() && boardCopy.cutting() == board.cutting()
+                                    && boardCopy.tick() == board.tick());
+                    board.setCutting(false);
+                    board.setTick(0);
                     board.setItem(7, new ItemStack(Items.POTATO));
                     board.setItem(8, new ItemStack(Items.BEETROOT));
                     board.changed();
@@ -2561,25 +2613,26 @@ final class FuluCookingCheck extends ActionCheck {
                     BlockState cleaver = p.serverLevel().getBlockState(utensilsBoard.above());
                     expectTrue("客户端自然左键菜刀启动刀架动画1及案板标记，未破坏案板或消耗食材",
                             cleaver.getBlock() instanceof CleaverBlock && cleaver.getValue(CleaverBlock.ANIMATION) == 1
-                                    && utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
+                                    && utensilsBoard(p).cutting()
                                     && utensilsBoard(p).getItem(0).getCount() == 63
                                     && p.getMainHandItem().is(item("caidao").getItem()));
                     minecraft.execute(() -> screenshots.take("cooking-cutting-board-cleaver.png"));
                 }),
                 new Action(180, p -> {}),
                 new Action(8, p -> {
+                    CuttingBlockEntity cutting = utensilsBoard(p);
                     expectTrue("自然等待至少160服务端刻后刀架置AIR、案板标记和计时归零且食材不变无产物；elapsed="
                                     + (p.serverLevel().getGameTime() - utensilsCutStarted)
                                     + " above=" + p.serverLevel().getBlockState(utensilsBoard.above())
-                                    + " data=" + utensilsBoard(p).getPersistentData()
-                                    + " food=" + utensilsBoard(p).getItem(0) + " slot7=" + utensilsBoard(p).getItem(7)
+                                    + " cutting=" + cutting.cutting() + " tick=" + cutting.tickInt()
+                                    + " food=" + cutting.getItem(0) + " slot7=" + cutting.getItem(7)
                                     + " held=" + p.getMainHandItem() + " drops=" + utensilsDropSummary(),
                             p.serverLevel().getGameTime() - utensilsCutStarted >= 160
                                     && p.serverLevel().isEmptyBlock(utensilsBoard.above())
-                                    && !utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
-                                    && utensilsBoard(p).getPersistentData().getInt("tick") == 0
-                                    && utensilsBoard(p).getItem(0).is(Items.CARROT) && utensilsBoard(p).getItem(0).getCount() == 63
-                                    && utensilsBoard(p).getItem(7).is(Items.POTATO)
+                                    && !cutting.cutting()
+                                    && cutting.tickInt() == 0
+                                    && cutting.getItem(0).is(Items.CARROT) && cutting.getItem(0).getCount() == 63
+                                    && cutting.getItem(7).is(Items.POTATO)
                                     && p.getMainHandItem().is(item("caidao").getItem()) && utensilsDrops.isEmpty());
                     p.setGameMode(GameType.SPECTATOR);
                     utensilsHeld(p, ItemStack.EMPTY);
@@ -2664,8 +2717,8 @@ final class FuluCookingCheck extends ActionCheck {
         riceMotion = player.getDeltaMovement();
         riceYaw = player.getYRot();
         ricePitch = player.getXRot();
-        if (player.getPersistentData().contains("caiou")) {
-            ricePlantDataBefore.put("caiou", player.getPersistentData().get("caiou").copy());
+        if (player.hasData(PlantData.LOTUS_HARVEST)) {
+            ricePlantDataBefore.putDouble("caiou", player.getData(PlantData.LOTUS_HARVEST));
         }
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             riceInventory.add(player.getInventory().getItem(slot).copy());
@@ -3117,9 +3170,9 @@ final class FuluCookingCheck extends ActionCheck {
         for (int slot = 0; slot < riceInventory.size(); slot++) player.getInventory().setItem(slot, riceInventory.get(slot));
         player.getInventory().selected = riceSelected;
         if (ricePlantDataBefore.contains("caiou")) {
-            player.getPersistentData().put("caiou", ricePlantDataBefore.get("caiou").copy());
+            player.setData(PlantData.LOTUS_HARVEST, ricePlantDataBefore.getDouble("caiou"));
         } else {
-            player.getPersistentData().remove("caiou");
+            player.removeData(PlantData.LOTUS_HARVEST);
         }
         player.inventoryMenu.broadcastChanges();
     }
@@ -3295,17 +3348,9 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static ItemStack steamerRecipe(int grade) {
-        CompoundTag recipe = new CompoundTag();
-        recipe.putString("MenuType", "蒸锅");
-        recipe.putString("MenuName", "竹笼蒸菜");
-        recipe.putString("Menuid", ModId.VALUE + ":food_007");
-        recipe.putString("needcontainer", "无");
-        recipe.putString("cailiao00", "minecraft:carrot");
-        recipe.putString("cailiao01", "minecraft:potato");
-        recipe.putInt("belongTopinjie", grade);
-        recipe.putInt("cookanimation", 2);
         ItemStack result = new ItemStack(Items.PAPER);
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        Cooking.setRecipe(result, new CookingRecipeData("竹笼蒸菜", grade, "", "", 2, "无",
+                ModId.VALUE + ":food_007", "蒸锅", List.of("minecraft:carrot", "minecraft:potato")));
         return result;
     }
 
@@ -3364,7 +3409,7 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static double wineAge(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("agenum");
+        return Cooking.wineAge(stack);
     }
 
     private void wineButton(int operation) {
@@ -3398,8 +3443,7 @@ final class FuluCookingCheck extends ActionCheck {
             for (String key : List.of("jiuniangid", "agenum", "jishiqi", "xiuliankaiguan", "jinji", "xiulianlengqve",
                     "XiulianColdCorrect", "dailyexperience", "yaohualengqve", "AlcoholPatience", "AlcoholPatiencePercentage",
                     "AlcoholDigestion", "AlcoholDigestionPercentage")) {
-                data.remove(key);
-                if (wineTizhiBefore.contains(key)) data.put(key, wineTizhiBefore.get(key).copy());
+                data.copyKeyFrom(wineTizhiBefore, key);
             }
         });
         wineValuesBefore.forEach((value, amount) -> Cultivation.set(player, value, amount));
@@ -3439,7 +3483,7 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static String potteryOutput(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("chengpinid");
+        return stack.getOrDefault(CraftData.POTTERY_PRODUCT.get(), "");
     }
 
     private static int craftFollowupCount(ServerPlayer player, String id) {
@@ -3500,10 +3544,8 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static ItemStack talisman(String path, int count, int grade) {
-        ItemStack stack = item(path, count);
-        CompoundTag data = new CompoundTag();
-        data.putInt("fululevel", grade);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        ItemStack stack = Fulu.createReward(item(path, 1).getItem(), grade);
+        stack.setCount(count);
         return stack;
     }
 
@@ -3617,9 +3659,9 @@ final class FuluCookingCheck extends ActionCheck {
             Cultivation.set(player, CultivationValue.SOUL, soul);
             Cultivation.editTizhi(player, tizhi -> talismanState.forEach((key, value) -> {
                 if (key.startsWith("fuluxiaoguo")) {
-                    tizhi.putBoolean(key, value != 0);
+                    tizhi.setFlag(key, value != 0);
                 } else {
-                    tizhi.putDouble(key, value);
+                    tizhi.setNumber(key, value);
                 }
             }));
         }

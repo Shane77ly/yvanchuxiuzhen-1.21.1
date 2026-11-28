@@ -17,8 +17,8 @@ public final class CultivationSummons {
             ThunderPillar pillar = XiulianSetup.<ThunderPillar>entityType("tianjie_05").get().create(level);
             pillar.moveTo(target.getX() + offset[0], target.getY(), target.getZ() + offset[1], level.getRandom().nextFloat() * 360F, 0);
             Relations.shareEntityAllegiance(owner, pillar);
-            pillar.getPersistentData().putString("playerUUID", target.getStringUUID());
-            pillar.getPersistentData().putDouble("thunder_Att", attack);
+            pillar.setPlayerUuid(target.getStringUUID());
+            pillar.setThunderAttack(attack);
             pillar.finalizeSpawn(level, level.getCurrentDifficultyAt(pillar.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
             level.addFreshEntity(pillar);
         }

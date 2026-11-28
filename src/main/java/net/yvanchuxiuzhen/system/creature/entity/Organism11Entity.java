@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -115,10 +116,13 @@ public final class Organism11Entity extends TamableAnimal implements GeoEntity, 
         return offspring;
     }
 
+    private boolean sprintingState;
+    private double sprintTick;
+
     @Override
     public boolean hurt(DamageSource source, float amount) {
         setSprinting(true);
-        getPersistentData().putBoolean("jipao", true);
+        sprintingState = true;
         return !source.is(DamageTypes.FALL) && super.hurt(source, amount);
     }
 
@@ -126,18 +130,31 @@ public final class Organism11Entity extends TamableAnimal implements GeoEntity, 
     public void baseTick() {
         super.baseTick();
         if (!level().isClientSide()) {
-            var data = getPersistentData();
-            if (data.getBoolean("jipao")) {
-                double tick = data.getDouble("jipaotick") + 1;
+            if (sprintingState) {
+                double tick = sprintTick + 1;
                 if (tick >= 40) {
                     tick = 0;
-                    data.putBoolean("jipao", false);
+                    sprintingState = false;
                     setSprinting(false);
                 }
-                data.putDouble("jipaotick", tick);
+                sprintTick = tick;
             }
         }
         refreshDimensions();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("jipao", sprintingState);
+        tag.putDouble("jipaotick", sprintTick);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        sprintingState = tag.getBoolean("jipao");
+        sprintTick = tag.getDouble("jipaotick");
     }
 
     @Override public void tick() {

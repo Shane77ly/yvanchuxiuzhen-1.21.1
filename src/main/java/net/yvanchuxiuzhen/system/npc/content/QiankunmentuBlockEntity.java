@@ -39,6 +39,7 @@ public final class QiankunmentuBlockEntity extends RandomizableContainerBlockEnt
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private double renwuset;
 
     public QiankunmentuBlockEntity(BlockPos pos, BlockState state) {
         super(QiankunBlockEntities.DISCIPLE.get(), pos, state);
@@ -65,14 +66,13 @@ public final class QiankunmentuBlockEntity extends RandomizableContainerBlockEnt
         }
     }
 
-    public double renwuset() { return getPersistentData().getDouble("renwuset"); }
+    public double renwuset() { return renwuset; }
     public void incrementRenwuset() {
-        double value = renwuset() + 1;
-        getPersistentData().putDouble("renwuset", value);
+        renwuset += 1;
         setChanged();
         if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        if (value >= 10) {
-            getPersistentData().putDouble("renwuset", 0);
+        if (renwuset >= 10) {
+            renwuset = 0;
             if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
@@ -81,10 +81,12 @@ public final class QiankunmentuBlockEntity extends RandomizableContainerBlockEnt
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        renwuset = tag.getDouble("renwuset");
     }
     @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        tag.putDouble("renwuset", renwuset);
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

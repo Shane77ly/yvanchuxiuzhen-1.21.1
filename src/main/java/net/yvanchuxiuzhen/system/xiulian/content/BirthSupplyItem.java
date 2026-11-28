@@ -1,17 +1,16 @@
 package net.yvanchuxiuzhen.system.xiulian.content;
 
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthSupplyEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
@@ -38,10 +37,10 @@ public final class BirthSupplyItem extends ContentItem {
     }
 
     private void inheritance(ServerPlayer player, ItemStack stack) {
-        double count = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("yikaiqi");
+        double count = BirthItems.supplyCount(stack);
         if (count < 30) {
             if (Cultivation.get(player, CultivationValue.LEVEL_NUMBER) > count) {
-                grant(player, stack, "yikaiqi", count + 1);
+                grant(player, stack, count + 1);
             } else {
                 player.displayClientMessage(Component.literal("§4当前境界没有能取出的宝物了，请努力修炼！"), false);
             }
@@ -56,17 +55,17 @@ public final class BirthSupplyItem extends ContentItem {
             return;
         }
         player.displayClientMessage(Component.literal("认证成功，是家族子弟。"), false);
-        double count = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("geiyvcishu");
+        double count = BirthItems.supplyCount(stack);
         if (count < 20) {
-            grant(player, stack, "geiyvcishu", count + 1);
+            grant(player, stack, count + 1);
             player.getCooldowns().addCooldown(stack.getItem(), 20);
         } else {
             player.displayClientMessage(Component.literal("§4已全部领完。"), false);
         }
     }
 
-    private void grant(ServerPlayer player, ItemStack stack, String key, double stage) {
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putDouble(key, stage));
+    private void grant(ServerPlayer player, ItemStack stack, double stage) {
+        BirthItems.setSupplyCount(stack, stage);
         NeoForge.EVENT_BUS.post(new BirthSupplyEvent(player, kind, stage));
     }
 }

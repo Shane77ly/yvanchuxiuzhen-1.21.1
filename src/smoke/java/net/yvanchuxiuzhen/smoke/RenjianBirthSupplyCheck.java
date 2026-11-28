@@ -40,6 +40,8 @@ import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.client.SkillLoadoutScreen;
 import net.yvanchuxiuzhen.system.skill.content.SkillLoadoutMenu;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
@@ -448,9 +450,9 @@ final class RenjianBirthSupplyCheck extends SystemCheck {
     }
 
     private static boolean shelf(ItemStack stack, String kind) {
-        var data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return stack.is(item("book_021")) && data.getString("TreasureTypeBig").equals("书架")
-                && data.getString("TreasureTypeSmall").equals(kind) && data.getDouble("TreasureLEVEL") == 1;
+        TreasureContainerConfig config = TreasureContainers.config(stack);
+        return stack.is(item("book_021")) && config.category().equals("书架")
+                && config.subtype().equals(kind) && config.level() == 1;
     }
 
     private static int count(Player player, Predicate<ItemStack> match) {

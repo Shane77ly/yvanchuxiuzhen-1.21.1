@@ -1,23 +1,24 @@
 package net.yvanchuxiuzhen.system.npc.entity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.npc.NpcData;
+import net.yvanchuxiuzhen.system.npc.NpcDialogueProfile;
+import net.yvanchuxiuzhen.system.npc.NpcToolProfile;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.api.NpcManagementApplyEvent;
 
 /** 管理工具处理原生姓名、装备及粒子，持久配置交给实体所有者。 */
@@ -34,22 +35,22 @@ public final class NpcProfiles {
     private NpcProfiles() { }
 
     public static void apply(ServerLevel level, BlockPos position, Mob npc, ItemStack tool) {
-        CompoundTag item = tool.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        NpcToolProfile profile = tool.getOrDefault(NpcData.TOOL_PROFILE.get(), NpcToolProfile.EMPTY);
         level.sendParticles(ParticleTypes.HAPPY_VILLAGER, position.getX() + .5, position.getY() + 1,
                 position.getZ() + .5, 10, 1, 2, 1, 0);
-        String name = item.getString("npcname");
+        String name = profile.name();
         if (!name.isEmpty()) {
             npc.setCustomName(Component.literal(name));
             npc.setCustomNameVisible(true);
         }
         List<String> scripts = new ArrayList<>();
-        for (int index = 1; index <= 10; index++) scripts.add(item.getString("renwulist" + index));
+        for (int index = 0; index < 10; index++) scripts.add(profile.quest(index));
         Map<String, String> ratings = new LinkedHashMap<>();
         for (int index = 0; index < ITEM_RATINGS.length; index++) {
-            ratings.put(NPC_RATINGS[index], item.getString(ITEM_RATINGS[index]));
+            ratings.put(NPC_RATINGS[index], profile.ratings().getOrDefault(ITEM_RATINGS[index], ""));
         }
-        NpcManagementApplyEvent event = new NpcManagementApplyEvent(npc, item.getDouble("npclevel"), scripts,
-                item.getString("productlist"), item.getString("shopinformation"), ratings, item.getBoolean("npcset"), equipment(npc, item));
+        NpcManagementApplyEvent event = new NpcManagementApplyEvent(npc, profile.level(), scripts,
+                profile.products(), profile.shopInfo(), ratings, profile.fixed(), equipment(profile));
         NeoForge.EVENT_BUS.post(event);
         if (!event.equipmentApplied()) event.applyEquipment();
     }
@@ -61,8 +62,7 @@ public final class NpcProfiles {
             applyGenericMobProfile(event, npc);
             return;
         }
-        CompoundTag data = npc.getPersistentData();
-        writeProfileData(event, data);
+        writeProfileData(event, npc);
         event.applyEquipment();
         NpcStats.calculate(npc);
     }
@@ -74,42 +74,40 @@ public final class NpcProfiles {
      */
     private static void applyGenericMobProfile(NpcManagementApplyEvent event, Mob npc) {
         if (npc.getAttribute(Attributes.ATTACK_DAMAGE) == null) return;
-        CompoundTag data = npc.getPersistentData();
-        writeProfileData(event, data);
+        writeProfileData(event, npc);
         event.applyEquipment();
         NpcStats.calculate(npc);
     }
 
-    private static void writeProfileData(NpcManagementApplyEvent event, CompoundTag data) {
+    private static void writeProfileData(NpcManagementApplyEvent event, Mob npc) {
+        NpcDialogueProfile profile = npc.getData(NpcData.PROFILE);
         for (int index = 0; index < event.scripts().size(); index++) {
-            String key = "renwulist" + (index + 1);
             String script = event.scripts().get(index);
             if (!script.isEmpty()) {
-                data.putString(key, script);
-                data.putBoolean("renwuzuopen", true);
+                profile = profile.withScript(index, script);
+                NpcDefinitions.setInteractiveNpc(npc, true);
             }
         }
         String products = event.products();
         if (!products.isEmpty()) {
-            data.putString("productlist", products);
-            data.putString("shopinformation", event.information());
+            profile = profile.withProducts(products).withShopInfo(event.information());
         }
-        data.putDouble("LEVELnumber", event.level());
-        event.ratings().forEach(data::putString);
-        if (event.fixed()) data.putBoolean("npcset", true);
+        if (event.fixed()) profile = profile.withFixed(true);
+        npc.setData(NpcData.PROFILE, profile);
+
+        Map<Stat, String> ratings = new EnumMap<>(Stat.class);
+        for (int index = 0; index < NPC_RATINGS.length; index++) {
+            String value = event.ratings().get(NPC_RATINGS[index]);
+            if (value != null) ratings.put(EntityAttributes.COMBAT_STATS.get(index), value);
+        }
+        EntityAttributes.update(npc, stats -> stats.withLevel(event.level()).withRatings(ratings));
     }
 
-    private static List<ItemStack> equipment(Mob npc, CompoundTag item) {
-        ListTag inventory = item.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
+    private static List<ItemStack> equipment(NpcToolProfile profile) {
         ItemStack[] stacks = new ItemStack[6];
-        Arrays.fill(stacks, ItemStack.EMPTY);
-        for (int index = 0; index < inventory.size(); index++) {
-            CompoundTag entry = inventory.getCompound(index);
-            int slot = entry.getByte("Slot") & 255;
-            if (slot < stacks.length) stacks[slot] = ItemStack.parseOptional(npc.registryAccess(), entry);
-        }
-        for (int index = 0; index < 2; index++) {
-            if (!stacks[index].isEmpty()) stacks[index] = stacks[index].copyWithCount(1);
+        for (int index = 0; index < stacks.length; index++) {
+            ItemStack stack = profile.equipment().get(index).copy();
+            stacks[index] = index < 2 && !stack.isEmpty() ? stack.copyWithCount(1) : stack;
         }
         return List.of(stacks);
     }

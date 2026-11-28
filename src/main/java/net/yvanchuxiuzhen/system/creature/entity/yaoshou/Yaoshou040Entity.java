@@ -24,6 +24,9 @@ import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 
 /** 040号妖兽的来源飞行、基础属性、技能及死亡生命周期。 */
 public final class Yaoshou040Entity extends YaoshouEntity {
@@ -43,7 +46,7 @@ public final class Yaoshou040Entity extends YaoshouEntity {
     }
     @Override protected void sourceSpawn(ServerLevelAccessor level) {
         if (YaoshouShared.initialize(this, 25, "强劲", "勉强", "绝佳", "绝佳", "勉强", "贫弱", "贫弱", "贫弱", "绝佳", "平庸", "勉强", "强劲", "贫弱")) {
-            getAttribute(Attributes.FLYING_SPEED).setBaseValue(getPersistentData().getDouble("speed_number") * 0.7);
+            getAttribute(Attributes.FLYING_SPEED).setBaseValue(EntityAttributes.stat(this, Stat.MOVE_SPEED) * 0.7);
         }
     }
 
@@ -54,9 +57,9 @@ public final class Yaoshou040Entity extends YaoshouEntity {
     @Override protected void sourceHurt(DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (!isAlive() || attacker == null || Relations.isFriendly(this, attacker)) return;
-        getPersistentData().putString("linshigongjizhe", attacker.getStringUUID());
-        if (getPersistentData().getBoolean("beidaduan")) {
-            getPersistentData().putBoolean("beidaduan", false);
+        CreatureData.state(this).setTempAttackerUuid(attacker.getStringUUID());
+        if (CreatureData.state(this).interrupted()) {
+            CreatureData.state(this).setInterrupted(false);
             if (isShiftKeyDown()) setShiftKeyDown(false);
         }
     }

@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -20,7 +18,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -79,10 +76,7 @@ public final class RoofBrushItem extends ContentTieredItem {
         if (player != null && !context.getLevel().isClientSide()) {
             BlockPos pos = context.getClickedPos();
             int point = ModifierKeys.alt(player) ? 2 : 1;
-            CompoundTag data = player.getPersistentData();
-            data.putInt("Xp" + point, pos.getX());
-            data.putInt("Yp" + point, pos.getY());
-            data.putInt("Zp" + point, pos.getZ());
+            player.getData(DecorData.ROOF_BRUSH_SELECTION).setPoint(point, pos.getX(), pos.getY(), pos.getZ());
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_point_" + point,
                     Double.toString(pos.getX()), Double.toString(pos.getY()), Double.toString(pos.getZ())), false);
         }
@@ -94,43 +88,39 @@ public final class RoofBrushItem extends ContentTieredItem {
         InteractionResultHolder<ItemStack> result = super.use(level, player, hand);
         if (level.isClientSide()) return result;
         ItemStack stack = result.getObject();
-        CompoundTag item = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        RoofBrushConfig config = stack.getOrDefault(DecorData.ROOF_BRUSH.get(), RoofBrushConfig.DEFAULT);
         if (ModifierKeys.ctrl(player)) {
-            CompoundTag points = player.getPersistentData();
-            if (points.getInt("Xp1") == 0 || points.getInt("Xp2") == 0) {
-                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_missing_" + (points.getInt("Xp1") == 0 ? 1 : 2)), false);
+            RoofBrushSelection points = player.getData(DecorData.ROOF_BRUSH_SELECTION);
+            if (points.xp1() == 0 || points.xp2() == 0) {
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_missing_" + (points.xp1() == 0 ? 1 : 2)), false);
                 return result;
             }
             boolean northSouth = player.getDirection().getAxis() == Direction.Axis.Z;
-            if ((northSouth && points.getInt("Zp1") < points.getInt("Zp2")) || (!northSouth && points.getInt("Xp1") < points.getInt("Xp2"))) {
-                for (String axis : List.of("X", "Y", "Z")) {
-                    int first = points.getInt(axis + "p1");
-                    points.putInt(axis + "p1", points.getInt(axis + "p2"));
-                    points.putInt(axis + "p2", first);
-                }
+            if ((northSouth && points.zp1() < points.zp2()) || (!northSouth && points.xp1() < points.xp2())) {
+                points.swapPoints();
             }
-            if (item.getString("wapian").isEmpty()) item.putString("wapian", "tileimbrexgrey");
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
-            String roof = item.getString("wuding");
+            if (config.tileType().isEmpty()) {
+                config = new RoofBrushConfig(config.roofType(), "tileimbrexgrey");
+                stack.set(DecorData.ROOF_BRUSH.get(), config);
+            }
+            String roof = config.roofType();
             boolean curved = roof.equals("悬山") || roof.equals("歇山") || roof.equals("庑殿");
-            String tile = roof.equals("歇山") || roof.equals("庑殿") ? "tileimbrexblack" : item.getString("wapian");
-            double width = Math.abs((double) (northSouth ? points.getInt("Zp1") : points.getInt("Xp1"))
-                    - (northSouth ? points.getInt("Zp2") : points.getInt("Xp2")));
+            String tile = roof.equals("歇山") || roof.equals("庑殿") ? "tileimbrexblack" : config.tileType();
+            double width = Math.abs((double) (northSouth ? points.zp1() : points.xp1())
+                    - (northSouth ? points.zp2() : points.xp2()));
             player.displayClientMessage(Component.translatable(curved ? "message.yvanchuxiuzhen.roof_place"
                     : "message.yvanchuxiuzhen.roof_parity_" + (width / 2 - Math.round(width / 2) == 0 ? "odd" : "even")), false);
-            RoofBrushLayout.generate(new RoofBrushLayout.Area(points.getInt("Xp1"), points.getInt("Yp1"), points.getInt("Zp1"),
-                    points.getInt("Xp2"), points.getInt("Zp2"), northSouth), curved, tile,
+            RoofBrushLayout.generate(new RoofBrushLayout.Area(points.xp1(), points.yp1(), points.zp1(),
+                    points.xp2(), points.zp2(), northSouth), curved, tile,
                     (x, y, z, block, facing) -> place(level, BlockPos.containing(x, y, z), block, Direction.from2DDataValue(facing)),
-                    value -> points.putDouble("linshi", value));
+                    points::setTemp);
         } else if (player.isShiftKeyDown()) {
-            int next = (TILES.indexOf(item.getString("wapian")) + 1) % TILES.size();
-            item.putString("wapian", TILES.get(next));
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
+            int next = (TILES.indexOf(config.tileType()) + 1) % TILES.size();
+            stack.set(DecorData.ROOF_BRUSH.get(), new RoofBrushConfig(config.roofType(), TILES.get(next)));
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_tile_" + next), false);
         } else {
-            boolean hard = item.getString("wuding").equals("悬山");
-            item.putString("wuding", hard ? "硬山" : "悬山");
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
+            boolean hard = config.roofType().equals("悬山");
+            stack.set(DecorData.ROOF_BRUSH.get(), new RoofBrushConfig(hard ? "硬山" : "悬山", config.tileType()));
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_" + (hard ? "hard" : "overhanging")), false);
         }
         return result;

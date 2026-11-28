@@ -117,7 +117,6 @@ final class SmokeRun {
         case NaturalAlloyRepairCheck.SELECTOR -> NaturalAlloyRepairCheck.SAVE;
         case JadeWoodSupplyCheck.SELECTOR -> JadeWoodSupplyCheck.SAVE;
         case JadeBambooSupplyCheck.SELECTOR -> JadeBambooSupplyCheck.SAVE;
-        case "q119" -> QiankunDialogueCheck.SAVE_ID;
         case RenjianLocustNaturalCheck.SELECTOR -> RenjianLocustNaturalCheck.SAVE;
         case RenjianCapturedJarCheck.SELECTOR -> RenjianCapturedJarCheck.SAVE;
         case RenjianResidenceCheck.SELECTOR -> RenjianResidenceCheck.SAVE_ID;
@@ -365,6 +364,8 @@ final class SmokeRun {
             levelId = "smoke" + System.currentTimeMillis();
             if (q235SpellShield) report.add("INFO Q235 存档=" + levelId + "，超平坦生存，普通难度，种子=" + FIRST_SPELL_SEED);
             WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
+                case "dilingportal" -> new WorldOptions(-7329712849286513803L, true, false);
+                case "dimensionportal" -> new WorldOptions(-580532063411277730L, true, false);
                 case "renjianfirstspell", "renjiancombatlifecycle", "renjianbirthsupply" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
                 case "renjianrandom", "renjianrandom02", "renjianrandom05", "renjianrandom06" ->
                         new WorldOptions(RenjianRandomCheck.SEED, true, false);
@@ -488,6 +489,7 @@ final class SmokeRun {
                         if (!renjianBirthSupply) throw new IllegalArgumentException("renjianbirthsupply 需单独运行");
                         yield List.of(new RenjianBirthSupplyCheck(report, levelId, this::shot, () -> pollFirstSpellExit("闭关后同档重进")));
                     }
+                    case "birthitemdialogue" -> List.of(new BirthItemDialogueCheck(report, levelId));
                     case "reincarnation" -> List.of(new ReincarnationCheck(report, levelId));
                     case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
                     case "attribute" -> List.of(new AttributeCheck(report, levelId));
@@ -496,6 +498,9 @@ final class SmokeRun {
                             new XiulianOperationsCheck(report, levelId));
                     case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
                     case "combat" -> List.of(new CombatCheck(report, levelId, this::shot));
+                    case "lingwen" -> List.of(new LingwenCheck(report, levelId));
+                    case "skillcore" -> List.of(new SkillCheck(report, levelId));
+                    case "skillentity" -> List.of(new SkillEntityCheck(report, levelId));
                     case SpellShieldCheck.SELECTOR -> List.of(new SpellShieldCheck(report, levelId));
                     case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId), new SkillMovementCheck(report, levelId), new SkillUiCheck(report, levelId, this::shot), new SkillRemainderCheck(report, levelId));
                     case "firebird" -> List.of(new FireBirdCheck(report, levelId));
@@ -504,6 +509,7 @@ final class SmokeRun {
                     case "voidrift" -> List.of(new VoidRiftCheck(report, levelId));
                     case "damagearea" -> List.of(new DamageAreaCheck(report, levelId));
                     case "yuanying" -> List.of(new YuanyingCheck(report, levelId));
+                    case "controlswolf" -> List.of(new ControlsWolfCheck(report, levelId));
                     case "skillarrow" -> List.of(new SkillArrowCheck(report, levelId));
                     case "skillmovement" -> List.of(new SkillMovementCheck(report, levelId));
                     case "skillui" -> List.of(new SkillUiCheck(report, levelId, this::shot));
@@ -552,15 +558,14 @@ final class SmokeRun {
                     case "npcmerchanteggs" -> List.of(new NpcMerchantSpawnEggCheck(report, levelId));
                     case "xiuzhespawn" -> List.of(new XiuzheSpawnCheck(report, levelId));
                     case "questjournal" -> List.of(new QuestJournalCheck(report, levelId, this::shot));
+                    case "questeffect" -> List.of(new QuestEffectCheck(report, levelId));
+                    case "questchatoptions" -> List.of(new QuestChatOptionsCheck(report, levelId));
                     case "questeditor" -> List.of(new QuestTriggerEditorCheck(report, levelId, this::shot));
                     case "guconstitutionharvest" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
                     case "festivalremaining" -> List.of(new FestivalRemainingCheck(report, levelId, this::shot));
                     case "doublebang" -> List.of(new DoubleBangFireworkCheck(report, levelId, this::shot));
                     case "qiankun" -> List.of(new QiankunCheck(report, levelId, this::shot));
-                    case "q119" -> {
-                        if (!QiankunDialogueCheck.SAVE_ID.equals(levelId)) throw new IllegalArgumentException("q119 需单独运行");
-                        yield List.of(new QiankunDialogueCheck(report, levelId, this::shot));
-                    }
+                    case "q119" -> List.of(new QiankunDialogueCheck(report, levelId, this::shot));
                     case "npc08" -> List.of(new NpcFlyingShuttleCheck(report, levelId, this::shot));
                     case "npc_underworld" -> List.of(new NpcUnderworldCheck(report, levelId, this::shot));
                     case "wishlantern" -> List.of(new WishLanternCheck(report, levelId, this::shot));
@@ -572,6 +577,10 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "globalbiomefeatures" -> List.of(new GlobalBiomeFeaturesCheck(report, levelId));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
+                    case "difutemplate" -> List.of(new DifuTemplateCheck(report, levelId, false));
+                    case "difuwindoworder" -> List.of(new DifuWindowOrderCheck(report, levelId));
+                    case "difuchunkreload" -> List.of(new DifuChunkReloadCheck(report, levelId));
+                    case "difumetadataexport" -> List.of(new DifuTemplateCheck(report, levelId, true));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "renjianrandom02" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.SURFACE));
                     case "renjianrandom05" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.CAVERN));
@@ -583,6 +592,8 @@ final class SmokeRun {
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
+                    case "dilingportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.DILING));
+                    case "dilingsavedportal" -> List.of(DimensionPortalCheck.savedDifu(report, levelId, this::shot));
                     case "renjianportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.RENJIAN));
                     case "renjiandeath" -> List.of(new RenjianDeathCheck(report, levelId, this::shot));
                     case "renjiancombatlifecycle" -> {
@@ -609,7 +620,7 @@ final class SmokeRun {
                     }
                     case "overworldfirstspell" -> List.of(new RenjianStarterCheck(report, levelId, this::shot, false, true));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
-                    case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));
+                    case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId, this::shot));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
                     case "treasuretool" -> List.of(new TreasureToolCheck(report, levelId, this::shot));
@@ -655,6 +666,7 @@ final class SmokeRun {
                     case "jadeoredrops", JadeOreDropsCheck.EMPTY -> List.of(new JadeOreDropsCheck(report, levelId));
                     case NaturalAlloyRepairCheck.SELECTOR -> List.of(new NaturalAlloyRepairCheck(report, levelId, this::shot));
                     case "jadecarving" -> List.of(new JadeCarvingCheck(report, levelId, this::shot));
+                    case "birthsupply" -> List.of(new BirthSupplyCheck(report, levelId));
                     case "jadepickupsave" -> List.of(new JadePickupPersistenceCheck(report, levelId, this::shot));
                     case "peachleaves" -> List.of(new PeachLeavesCheck(report, levelId));
                     case "peachflower" -> List.of(new PeachLeavesCheck(report, levelId, "peachflower", "桃花"));

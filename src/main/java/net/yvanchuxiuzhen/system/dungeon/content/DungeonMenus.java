@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonMenuSnapshot;
 import net.yvanchuxiuzhen.system.dungeon.network.DungeonActionPayload;
 
 /** 四个来源菜单保持独立注册身份，打开时只发送当前方块的展示快照。 */
@@ -43,7 +44,7 @@ public final class DungeonMenus {
                 Component.translatable("menu.yvanchuxiuzhen.dungeon." + kind)), buffer -> {
                     buffer.writeBlockPos(block.getBlockPos());
                     buffer.writeVarInt(kind);
-                    buffer.writeNbt(block.getPersistentData());
+                    DungeonMenuSnapshot.STREAM_CODEC.encode(buffer, block.menuSnapshot());
                 });
     }
 }

@@ -21,6 +21,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 
 /** 023号彩羽飞禽：保留来源飞行导航、资质、攻击阶段与三个动画控制器。 */
 public final class Yaoshou023Entity extends YaoshouEntity {
@@ -85,7 +87,7 @@ public final class Yaoshou023Entity extends YaoshouEntity {
         if (YaoshouShared.initialize(this, 8,
                 "勉强", "贫弱", "勉强", "平庸", "勉强", "贫弱", "勉强", "贫弱", "强劲", "平庸", "贫弱", "贫弱", "强劲")) {
             getAttribute(Attributes.FLYING_SPEED)
-                    .setBaseValue(getPersistentData().getDouble("speed_number") * 0.7);
+                    .setBaseValue(EntityAttributes.stat(this, Stat.MOVE_SPEED) * 0.7);
         }
     }
 

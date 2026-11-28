@@ -3,18 +3,16 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
 
 /** 通过真实客户端右键检查灵盘首次进入追踪状态、状态同步与引导粒子画面。 */
 final class Ling11GuideCheck extends SystemCheck {
@@ -82,7 +80,6 @@ final class Ling11GuideCheck extends SystemCheck {
         player.getInventory().clearContent();
         ItemStack compass = new ItemStack(BuiltInRegistries.ITEM.get(
                 ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "ling_11")));
-        CustomData.update(DataComponents.CUSTOM_DATA, compass, data -> data.remove("zhuangtai"));
         player.getInventory().setItem(0, compass);
         player.getInventory().selected = 0;
         player.getInventory().setChanged();
@@ -109,8 +106,7 @@ final class Ling11GuideCheck extends SystemCheck {
     }
 
     private static String state(ItemStack stack) {
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return data.getString("zhuangtai");
+        return BirthItems.spiritDisc(stack).state();
     }
 
     private static boolean isSourceEmptySentinel(Vec3 center) {

@@ -45,6 +45,11 @@ public final class Fabao01701Entity extends PathfinderMob implements GeoEntity, 
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedure = "";
+    private String masterUuid = "";
+    private String skill = "";
+    private double timer1;
+    private double timer2;
+    private boolean stageDone;
 
     public Fabao01701Entity(EntityType<Fabao01701Entity> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -59,9 +64,33 @@ public final class Fabao01701Entity extends PathfinderMob implements GeoEntity, 
     }
 
     public void configure(Player owner, boolean trapping) {
-        getPersistentData().putString("belongToMasterUUID", owner.getStringUUID());
-        getPersistentData().putString("skill", trapping ? TRAP : CAPTURE);
+        masterUuid = owner.getStringUUID();
+        skill = trapping ? TRAP : CAPTURE;
         entityData.set(ANIMATION, trapping ? "animation.fabao01701.skill01" : "animation.fabao01701.attack");
+    }
+
+    public String masterUuid() { return masterUuid; }
+    public String skill() { return skill; }
+    public double timer1() { return timer1; }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("belongToMasterUUID", masterUuid);
+        tag.putString("skill", skill);
+        tag.putDouble("tick1", timer1);
+        tag.putDouble("tick2", timer2);
+        tag.putBoolean("jieduan", stageDone);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        masterUuid = tag.getString("belongToMasterUUID");
+        skill = tag.getString("skill");
+        timer1 = tag.getDouble("tick1");
+        timer2 = tag.getDouble("tick2");
+        stageDone = tag.getBoolean("jieduan");
     }
 
     @Override
@@ -112,32 +141,28 @@ public final class Fabao01701Entity extends PathfinderMob implements GeoEntity, 
     }
 
     private void updateNet(ServerLevel level) {
-        CompoundTag data = getPersistentData();
-        if (data.getString("skill").equals(TRAP)) {
-            data.putDouble("tick2", data.getDouble("tick2") + 1);
-            if (data.getDouble("tick2") >= 20) {
+        if (skill.equals(TRAP)) {
+            if (++timer2 >= 20) {
                 for (Entity target : nearby(level)) {
                     if (target instanceof LivingEntity living && target.getType().is(EntityTypeTags.ARTHROPOD))
                         living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 20));
                 }
-                data.putDouble("tick2", 0);
+                timer2 = 0;
             }
-            data.putDouble("tick1", data.getDouble("tick1") + 1);
-            if (data.getDouble("tick1") >= 200) {
-                data.putDouble("tick1", 0);
+            if (++timer1 >= 200) {
+                timer1 = 0;
                 discard();
             }
-        } else if (data.getString("skill").equals(CAPTURE)) {
-            data.putDouble("tick1", data.getDouble("tick1") + 1);
-            if (data.getDouble("tick1") >= 40) {
-                data.putDouble("tick1", 0);
+        } else if (skill.equals(CAPTURE)) {
+            if (++timer1 >= 40) {
+                timer1 = 0;
                 discard();
-            } else if (!data.getBoolean("jieduan") && data.getDouble("tick1") >= 36) {
+            } else if (!stageDone && timer1 >= 36) {
                 for (Entity target : nearby(level)) {
-                    if (GuchongCapture.captureWild(level, target, data.getString("belongToMasterUUID")) == GuchongCapture.Result.OWNED)
+                    if (GuchongCapture.captureWild(level, target, masterUuid) == GuchongCapture.Result.OWNED)
                         level.sendParticles(ParticleTypes.ANGRY_VILLAGER, getX(), getY(), getZ(), 5, .5, .5, .5, .1);
                 }
-                data.putBoolean("jieduan", true);
+                stageDone = true;
             }
         }
     }

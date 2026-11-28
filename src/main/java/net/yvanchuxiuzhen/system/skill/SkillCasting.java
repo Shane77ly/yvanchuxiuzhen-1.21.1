@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,7 +12,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -62,7 +60,7 @@ public final class SkillCasting {
         if (selected.isEmpty()) {
             return;
         }
-        if (weaponTooHeavy(player, selectedStack) || !weaponFits(held, selected.get()) || !selected.get().ownedBy(player.getUUID())) return;
+        if (weaponTooHeavy(player, held) || !weaponFits(held, selected.get()) || !selected.get().ownedBy(player.getUUID())) return;
         SkillBook book = selected.get();
         if (StatusEffects.has(player, "effect_002")) {
             bar(player, "message.yvanchuxiuzhen.skill.casting.silenced");
@@ -108,10 +106,9 @@ public final class SkillCasting {
         return required != null && held.is(required);
     }
 
-    /** 来源 Jiancewuqi 从所选技能书的自定义数据读取炼器重量，超过 120 时阻止施放。 */
-    private static boolean weaponTooHeavy(ServerPlayer player, ItemStack selected) {
-        int weight = selected.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
-                .getCompound("lianqizong").getInt("weightnum");
+    /** 来源 Jiancewuqi 读取手持武器炼器重量，超过 120 时阻止施放（Q38）。 */
+    private static boolean weaponTooHeavy(ServerPlayer player, ItemStack weapon) {
+        double weight = NeoForge.EVENT_BUS.post(new WeaponStatEvent(weapon, "lianqizong.weightnum")).total();
         if (weight <= 120) return false;
         player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.weapon_too_heavy")
                 .withStyle(ChatFormatting.DARK_RED), false);
@@ -157,9 +154,8 @@ public final class SkillCasting {
     }
 
     /**
-     * 施放后累加冷却（来源 {@code Colddownjisuan}）。每组有冷却数值时：若该组正在冷却且数值为负，按负值缩短该组冷却，
-     * 加体质固定值、乘体质百分比，并标记可恢复；否则该组冷却不超过上限时，增加 数值 × 20 × (1 − 冷却缩减)，再乘体质技能冷却百分比。
-     * 增量变量在各组之间不重置，某组两个条件都不满足时沿用上一组的增量；阴阳组的上限比较读取的是土组冷却（Q36）。
+     * 施放后累加冷却（来源 {@code Colddownjisuan}）。每组有冷却数值时：各组单独初始化增量为 0；若该组正在冷却且数值为负，按负值缩短该组冷却，
+     * 加体质固定值、乘体质百分比，并标记可恢复；否则该组自身冷却不超过上限时，增加 数值 × 20 × (1 − 冷却缩减)，再乘体质技能冷却百分比（Q36）。
      * 标记可恢复后按体质恢复生命、灵力与神识。
      */
     private static void accumulateCooldowns(ServerPlayer player, SkillBook book) {
@@ -168,15 +164,14 @@ public final class SkillCasting {
         double percentage = Cultivation.tizhiDouble(player, "ColddownCorrectPercentage");
         double skillPercentage = Cultivation.tizhiDouble(player, "SkillColdCorrectPercentage");
         SkillCooldowns cooldowns = player.getData(SkillData.COOLDOWNS);
-        double delta = 0;
         boolean recover = false;
         for (SkillElement element : SkillElement.values()) {
             double seconds = book.cooldown(element);
             if (seconds == 0) {
                 continue;
             }
+            double delta = 0;
             double current = cooldowns.get(element);
-            SkillElement compared = element == SkillElement.YINYANG ? SkillElement.SOIL : element;
             if (current > 0 && seconds < 0) {
                 delta = seconds * 20;
                 if (fixed != 0) {
@@ -186,7 +181,7 @@ public final class SkillCasting {
                     delta *= percentage + 1;
                 }
                 recover = true;
-            } else if (cooldowns.get(compared) <= book.cooldownIgnore(element) * 20) {
+            } else if (current <= book.cooldownIgnore(element) * 20) {
                 delta = seconds * 20 * (1 - reduction);
                 if (skillPercentage != 0) {
                     delta *= skillPercentage + 1;

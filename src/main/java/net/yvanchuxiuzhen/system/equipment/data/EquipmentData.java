@@ -6,17 +6,20 @@ import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
+import net.yvanchuxiuzhen.system.equipment.api.BloodEssenceData;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.api.FabaoFireData;
-import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
+import net.yvanchuxiuzhen.system.equipment.api.SpatialPocketCoords;
 
 /** 装备实例组件随物品保存、同步；饰品附件只同步本人，护甲比较槽只在服务端保存并随克隆复制。 */
 public final class EquipmentData {
@@ -30,6 +33,9 @@ public final class EquipmentData {
     public static final Supplier<AttachmentType<ArmorComparison>> ARMOR_COMPARISON = ATTACHMENTS.register("armor_comparison", () -> AttachmentType
             .builder(ArmorComparison::new).serialize(ArmorComparison.CODEC).copyOnDeath()
             .copyHandler((comparison, holder, provider) -> comparison.copySlots()).build());
+    public static final Supplier<AttachmentType<Boolean>> RIGHT_CLICKING = ATTACHMENTS.register("right_clicking", () -> AttachmentType
+            .builder(() -> false).serialize(Codec.BOOL)
+            .sync((holder, player) -> holder == player, ByteBufCodecs.BOOL).build());
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
     public static final Supplier<DataComponentType<EquipmentProperties>> PROPERTIES = COMPONENTS.registerComponentType("equipment_properties",
             builder -> builder.persistent(EquipmentProperties.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProperties.CODEC)));
@@ -37,14 +43,24 @@ public final class EquipmentData {
             builder -> builder.persistent(EquipmentStats.CODEC).networkSynchronized(EquipmentStats.STREAM_CODEC));
     public static final Supplier<DataComponentType<EquipmentProduct>> PRODUCT = COMPONENTS.registerComponentType("equipment_product",
             builder -> builder.persistent(EquipmentProduct.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProduct.CODEC)));
-    public static final Supplier<DataComponentType<CustomData>> REFINEMENT = COMPONENTS.registerComponentType("equipment_refinement",
-            builder -> builder.persistent(CustomData.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(CustomData.CODEC)));
+    public static final Supplier<DataComponentType<EquipmentRefinement>> REFINEMENT = COMPONENTS.registerComponentType("equipment_refinement",
+            builder -> builder.persistent(EquipmentRefinement.CODEC).networkSynchronized(EquipmentRefinement.STREAM_CODEC));
     public static final Supplier<DataComponentType<FabaoFireData>> FABAO_FIRE = COMPONENTS.registerComponentType("fabao_fire",
             builder -> builder.persistent(FabaoFireData.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(FabaoFireData.CODEC)));
     public static final Supplier<DataComponentType<BenmingData>> BENMING = COMPONENTS.registerComponentType("benming_data",
             builder -> builder.persistent(BenmingData.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(BenmingData.CODEC)));
     public static final Supplier<DataComponentType<DemonTimer>> DEMON_TIMER = COMPONENTS.registerComponentType("demon_timer",
             builder -> builder.persistent(DemonTimer.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(DemonTimer.CODEC)));
+    public static final Supplier<DataComponentType<SpatialPocketCoords>> SPATIAL_COORDS = COMPONENTS.registerComponentType("spatial_coords",
+            builder -> builder.persistent(SpatialPocketCoords.CODEC).networkSynchronized(SpatialPocketCoords.STREAM_CODEC));
+    public static final Supplier<DataComponentType<Boolean>> FABAO_SNEAK = COMPONENTS.registerComponentType("fabao_sneak",
+            builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+    public static final Supplier<DataComponentType<BloodEssenceData>> BLOOD_ESSENCE = COMPONENTS.registerComponentType("blood_essence",
+            builder -> builder.persistent(BloodEssenceData.CODEC).networkSynchronized(BloodEssenceData.STREAM_CODEC));
+    public static final Supplier<DataComponentType<FlyingInstrumentData>> FLYING_INSTRUMENT = COMPONENTS.registerComponentType("flying_instrument",
+            builder -> builder.persistent(FlyingInstrumentData.CODEC).networkSynchronized(FlyingInstrumentData.STREAM_CODEC));
+    public static final Supplier<DataComponentType<String>> GECKO_ANIM = COMPONENTS.registerComponentType("gecko_anim",
+            builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
 
     public record DemonTimer(double ticks, double seconds, boolean ending) {
         public static final DemonTimer EMPTY = new DemonTimer(0, 0, false);

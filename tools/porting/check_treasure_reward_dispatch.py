@@ -1,7 +1,7 @@
-"""核对 R11 宝箱奖励表的 24 类分派、来源指纹和奖励所有者接口。
+"""核对 R11 宝箱奖励池 JSON 资产、24 类分派、来源指纹与强类型奖励解释器。
 
-该检查只读取来源过程、生成的奖励表和目标奖励解释器。它不能替代完整随机
-奖励消费、空/畸形奖励串开箱、客户端、专用服务器、多人或 1.18.2 版本实机。
+该检查只读取来源过程、生成后的 `reward_tables.json`、JSON 抽样器与奖励构造器。它不能替代完整随机
+奖励消费、客户端、专用服务器、多人或 1.18.2 版本实机。
 """
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXTRACTOR = ROOT / "tools/porting/extract_treasure_rewards.py"
+TARGET_JSON = ROOT / "src/main/resources/content/treasure/reward_tables.json"
 TARGET_TABLES = ROOT / "src/main/java/net/yvanchuxiuzhen/system/treasure/TreasureRewardTables.java"
 TARGET_REWARDS = ROOT / "src/main/java/net/yvanchuxiuzhen/system/treasure/TreasureRewards.java"
 EVIDENCE = ROOT / "docs/reference/conversion/treasure_reward_tables.json"
@@ -43,53 +44,46 @@ def load_categories() -> dict[str, dict[str, str]]:
 
 def expected_dispatch(categories: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
     return {
-        category: {subtype: f"table{suffix}" for subtype, suffix in subtypes.items()}
+        category: {subtype: suffix.lower() for subtype, suffix in subtypes.items()}
         for category, subtypes in categories.items()
     }
 
 
-def parse_target_dispatch(text: str) -> dict[str, dict[str, str]]:
-    prefix = text.split("    /** 来源", 1)[0]
+def parse_json_dispatch(pools: list[dict[str, Any]]) -> tuple[dict[str, dict[str, str]], set[str]]:
     actual: dict[str, dict[str, str]] = {}
-    category_pattern = re.compile(
-        r'case "(?P<category>[^"]+)" -> switch \(subtype\) \{(?P<body>.*?)\n\s+default -> "";\n\s+\};',
-        re.DOTALL,
-    )
-    case_pattern = re.compile(r'case "(?P<subtype>[^"]+)" -> (?P<table>table\w+)\(level, random\);')
-    for match in category_pattern.finditer(prefix):
-        category = match.group("category")
-        if category in actual:
-            raise AssertionError(f"目标 select 重复类别：{category}")
-        entries = {
-            case.group("subtype"): case.group("table") for case in case_pattern.finditer(match.group("body"))
-        }
-        if len(entries) != len(case_pattern.findall(match.group("body"))):
-            raise AssertionError(f"目标 select 类别 {category} 存在重复子类")
-        actual[category] = entries
-    return actual
-
-
-def method_names(text: str) -> set[str]:
-    return set(re.findall(r"private static (?:String|double) (table\w+)\(double level, RandomSource random\)", text))
+    pool_ids: set[str] = set()
+    for pool in pools:
+        pool_id = pool["id"]
+        if pool_id in pool_ids:
+            raise AssertionError(f"JSON 奖励池重复 ID：{pool_id}")
+        pool_ids.add(pool_id)
+        for key in pool.get("dispatches", []):
+            category = key["category"]
+            subtype = key["subtype"]
+            bucket = actual.setdefault(category, {})
+            if subtype in bucket:
+                raise AssertionError(f"JSON 分派键重复：{category}/{subtype}")
+            bucket[subtype] = pool_id
+    return actual, pool_ids
 
 
 def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
-def check_dispatch(categories: dict[str, dict[str, str]], target_text: str) -> dict[str, Any]:
+def check_dispatch(categories: dict[str, dict[str, str]], pools: list[dict[str, Any]]) -> dict[str, Any]:
     expected = expected_dispatch(categories)
-    actual = parse_target_dispatch(target_text)
+    actual, pool_ids = parse_json_dispatch(pools)
     entries = [
         {
             "category": category,
             "subtype": subtype,
-            "expected_method": expected_method,
-            "actual_method": actual.get(category, {}).get(subtype),
-            "matches": actual.get(category, {}).get(subtype) == expected_method,
+            "expected_pool": expected_pool,
+            "actual_pool": actual.get(category, {}).get(subtype),
+            "matches": actual.get(category, {}).get(subtype) == expected_pool,
         }
         for category, subtypes in expected.items()
-        for subtype, expected_method in subtypes.items()
+        for subtype, expected_pool in subtypes.items()
     ]
     extra = {
         category: sorted(set(subtypes) - set(expected.get(category, {})))
@@ -98,8 +92,7 @@ def check_dispatch(categories: dict[str, dict[str, str]], target_text: str) -> d
     }
     missing_categories = sorted(set(expected) - set(actual))
     extra_categories = sorted(set(actual) - set(expected))
-    expected_methods = {method for subtypes in expected.values() for method in subtypes.values()}
-    methods = method_names(target_text)
+    expected_pools = {pool_id for subtypes in expected.values() for pool_id in subtypes.values()}
     return {
         "categories": categories,
         "entries": entries,
@@ -108,13 +101,13 @@ def check_dispatch(categories: dict[str, dict[str, str]], target_text: str) -> d
         "missing_categories": missing_categories,
         "extra_categories": extra_categories,
         "extra_subtypes": extra,
-        "missing_methods": sorted(expected_methods - methods),
+        "missing_pools": sorted(expected_pools - pool_ids),
         "matches": (
             not missing_categories
             and not extra_categories
             and not extra
             and all(item["matches"] for item in entries)
-            and not (expected_methods - methods)
+            and not (expected_pools - pool_ids)
         ),
     }
 
@@ -128,9 +121,6 @@ def check_fingerprints(source_workspace: Path, evidence: dict[str, Any], target_
         name = source_id.removeprefix("B:")
         path = source_dir / f"{name}.java"
         exists = path.is_file()
-        # Python 的来源提取器通过 read_text(encoding="utf-8") 读取，换行会按
-        # universal-newline 规则归一；指纹必须复用这一字节语义，而不是比较
-        # 工作区里的原始 CRLF 文件。
         actual = sha256_bytes(path.read_text(encoding="utf-8").encode("utf-8")) if exists else None
         matches = actual == record.get("sha256")
         records.append({
@@ -144,10 +134,10 @@ def check_fingerprints(source_workspace: Path, evidence: dict[str, Any], target_
         if not matches:
             issues.append(source_id)
     output = evidence.get("output")
-    output_path = ROOT / output if isinstance(output, str) else TARGET_TABLES
+    output_path = ROOT / output if isinstance(output, str) else TARGET_JSON
     expected_output = evidence.get("output_sha256")
     actual_output = sha256_bytes(target_bytes)
-    output_matches = output_path == TARGET_TABLES and actual_output == expected_output
+    output_matches = output_path == TARGET_JSON and actual_output == expected_output
     if not output_matches:
         issues.append("target output")
     return {
@@ -156,7 +146,7 @@ def check_fingerprints(source_workspace: Path, evidence: dict[str, Any], target_
         "records_checked": len(records),
         "records_match": not issues,
         "output": output,
-        "output_path_matches_target": output_path == TARGET_TABLES,
+        "output_path_matches_target": output_path == TARGET_JSON,
         "expected_output_sha256": expected_output,
         "actual_output_sha256": actual_output,
         "output_match": output_matches,
@@ -182,23 +172,20 @@ def check_reward_interpreter(text: str, table_text: str) -> dict[str, Any]:
         "materials.setInstance": r"\bMaterials\.setInstance\s*\(",
     })
     behavior_checks = find_required(text, {
-        "reward percent split": r'String\[\] parts = reward\.split\("%"\);',
-        "empty or malformed reward stops current open": r'if \(!parts\[0\]\.equals\("指令"\) && parts\[0\]\.split\("/"\)\.length < 3\) return;',
-        "command branch": r'if \(parts\[0\]\.equals\("指令"\)\)',
+        "empty selection stops current open": r"if \(selected\.isEmpty\(\)\) \{\s*return;",
+        "command branch": r"if \(drop\.reward\(\) instanceof CommandReward command\)",
         "permission 4 command source": r"new CommandSourceStack\([^;]+, 4,",
         "suppressed command output": r"\.withSuppressedOutput\(\)",
         "perform prefixed command": r"performPrefixedCommand\(",
-        "ordinary reward returns stack": r"return stack;",
+        "codec json loader present": r"ContentFiles\.read\(RESOURCE_PATH, TreasurePoolDefinition\.CODEC\)",
         "invalid numeric text returns zero": r"catch \(NumberFormatException exception\)\s*\{\s*return 0;",
-        "doube spelling retained": r'case "double", "doube" ->',
-        "unknown field type ignored": r"default -> \{ \}",
     })
-    dispatch_defaults = len(re.findall(r'default -> "";', table_text.split("    /** 来源", 1)[0]))
-    behavior_checks["unknown category and subtype return empty"] = {
-        "present": dispatch_defaults == 5,
-        "pattern": "five empty defaults (four subtype switches plus category switch)",
-        "count": dispatch_defaults,
-    }
+    loader_checks = find_required(table_text, {
+        "codec json loader present": r"ContentFiles\.read\(RESOURCE_PATH, TreasurePoolDefinition\.CODEC\)",
+        "unknown dispatch returns empty": r"if \(pool == null\) \{\s*return Optional\.empty\(\);",
+    })
+    behavior_checks["codec json loader present"] = loader_checks["codec json loader present"]
+    behavior_checks["unknown dispatch returns empty"] = loader_checks["unknown dispatch returns empty"]
     return {
         "owner_api": api_checks,
         "field_and_empty_rules": behavior_checks,
@@ -208,8 +195,6 @@ def check_reward_interpreter(text: str, table_text: str) -> dict[str, Any]:
 
 
 def default_source_workspace() -> Path:
-    # 工作区路径深度并不固定；通过实际祖先逐层尝试，避免直接索引
-    # 不存在的 `ROOT.parents[n]` 在浅层 Windows 路径上触发 IndexError。
     candidates = tuple(
         parent / "yuanchuxiuzhen-1.21.1"
         for parent in (ROOT.parent, *ROOT.parents)
@@ -222,12 +207,13 @@ def default_source_workspace() -> Path:
 
 def run(source_workspace: Path, output: Path) -> dict[str, Any]:
     categories = load_categories()
-    target_table_bytes = TARGET_TABLES.read_bytes()
-    target_table_text = target_table_bytes.decode("utf-8")
+    target_json_bytes = TARGET_JSON.read_text(encoding="utf-8").encode("utf-8")
+    pools = json.loads(target_json_bytes.decode("utf-8"))
+    target_table_text = TARGET_TABLES.read_text(encoding="utf-8")
     target_rewards_text = TARGET_REWARDS.read_text(encoding="utf-8")
     evidence = json.loads(EVIDENCE.read_text(encoding="utf-8"))
-    dispatch = check_dispatch(categories, target_table_text)
-    fingerprints = check_fingerprints(source_workspace, evidence, target_table_bytes)
+    dispatch = check_dispatch(categories, pools)
+    fingerprints = check_fingerprints(source_workspace, evidence, target_json_bytes)
     interpreter = check_reward_interpreter(target_rewards_text, target_table_text)
     result = {
         "check": "r11-treasure-reward-dispatch",
@@ -237,15 +223,6 @@ def run(source_workspace: Path, output: Path) -> dict[str, Any]:
         "dispatch": dispatch,
         "source_fingerprints": fingerprints,
         "reward_interpreter": interpreter,
-        "runtime_validation": {
-            "performed": False,
-            "excluded": [
-                "完整随机奖励消费",
-                "空/畸形奖励串真实开箱",
-                "客户端、专用服务器、多人",
-                "1.18.2版本实机与两版本对照",
-            ],
-        },
         "summary": {
             "dispatch_24_entries_match": dispatch["matches"] and dispatch["actual_entries"] == 24,
             "source_30_inputs_match": fingerprints["records_match"] and fingerprints["records_checked"] == 30,
@@ -281,7 +258,7 @@ def main() -> None:
     summary = result["summary"]
     if not summary["static_parity_pass"]:
         raise SystemExit("R11 宝箱奖励分派静态核验失败，详见输出 JSON")
-    print("R11宝箱奖励分派静态核验通过：24项分派、30个来源过程指纹、奖励所有者API和空/畸形规则；未执行实机运行。")
+    print("R11宝箱奖励分派静态核验通过：24项分派、30个来源过程指纹、奖励所有者API与JSON加载/空分支规则；未执行实机运行。")
 
 
 if __name__ == "__main__":

@@ -10,25 +10,35 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
 
 /** 本 Mod 状态效果的查询、移除与实体状态标记，效果按路径名（如 {@code effect_036}）指定。 */
 public final class StatusEffects {
     private StatusEffects() {
     }
 
-    /** 阴四阵法写入本体持久标记；来源不调用生物的 AI 开关。 */
+    /** 阴四阵法写入本体标记；来源不调用生物的 AI 开关。 */
     public static void markEntityNoAi(Entity target) {
-        target.getPersistentData().putBoolean("NoAI", true);
+        target.setData(CombatData.ENTITY_STATE, target.getData(CombatData.ENTITY_STATE).withNoAi(true));
+    }
+
+    public static boolean isEntityNoAi(Entity target) {
+        return target.getData(CombatData.ENTITY_STATE).noAi();
     }
 
     /** 阵法写入来源禁空标记；技能与飞行法器各自在下一次推进时消费。 */
     public static void markEntityFlightBlocked(Entity target) {
-        target.getPersistentData().putBoolean("jinkong", true);
+        target.setData(CombatData.ENTITY_STATE, target.getData(CombatData.ENTITY_STATE).withFlightBlocked(true));
+    }
+
+    public static boolean isEntityFlightBlocked(Entity target) {
+        return target.getData(CombatData.ENTITY_STATE).flightBlocked();
     }
 
     public static boolean consumeEntityFlightBlock(Entity target) {
-        if (!target.getPersistentData().getBoolean("jinkong")) return false;
-        target.getPersistentData().putBoolean("jinkong", false);
+        var state = target.getData(CombatData.ENTITY_STATE);
+        if (!state.flightBlocked()) return false;
+        target.setData(CombatData.ENTITY_STATE, state.withFlightBlocked(false));
         return true;
     }
 

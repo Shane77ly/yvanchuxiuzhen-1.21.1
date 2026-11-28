@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.liandan.LiandanMedicine;
 import net.yvanchuxiuzhen.system.liandan.MedicineContainerPlacement;
@@ -27,7 +26,7 @@ public final class MedicineContainerItem extends ContentItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         InteractionResultHolder<ItemStack> result = super.use(level, player, hand);
         if (airUse) {
-            LiandanMedicine.use(level, player, result.getObject(), player.position());
+            LiandanMedicine.use(level, player, result.getObject());
         }
         // 返回来源调用栈的 PASS；换瓶写入手中，调用栈对象本身不替换。
         return result;
@@ -41,7 +40,7 @@ public final class MedicineContainerItem extends ContentItem {
             if (player.isShiftKeyDown()) {
                 MedicineContainerPlacement.place(context);
             } else {
-                LiandanMedicine.use(context.getLevel(), player, context.getItemInHand(), Vec3.atLowerCornerOf(context.getClickedPos()));
+                LiandanMedicine.use(context.getLevel(), player, context.getItemInHand());
             }
         }
         return InteractionResult.SUCCESS;

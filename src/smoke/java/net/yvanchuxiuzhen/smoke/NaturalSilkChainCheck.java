@@ -73,9 +73,9 @@ final class NaturalSilkChainCheck extends ActionCheck {
                 }),
                 new Action(4, player -> {
                     SilkReelBlockEntity reel = (SilkReelBlockEntity) player.serverLevel().getBlockEntity(reelPos);
-                    reel.getPersistentData().putBoolean("saosi", true);
-                    reel.getPersistentData().putDouble("tick", 4);
-                    reel.getPersistentData().putString("fangxiang", "south");
+                    reel.setReeling(true);
+                    reel.setTick(4);
+                    reel.setDirection("south");
                     SilkReelRuntime.tick(player.serverLevel(), reelPos);
                     expectTrue("缫丝轮消费蚕蛹并产出灵丝线",
                             player.serverLevel().getEntitiesOfClass(ItemEntity.class, new AABB(reelPos).inflate(1.0)).stream()

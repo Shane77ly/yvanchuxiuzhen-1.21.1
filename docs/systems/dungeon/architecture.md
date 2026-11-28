@@ -2,7 +2,7 @@
 topic: dungeon
 role: architecture
 status: partial
-updated: 2026-11-18
+updated: 2026-11-26
 ---
 
 # 副本：入口、实例、波次与私人画卷
@@ -51,17 +51,23 @@ updated: 2026-11-18
 
 `Fabao009ZaiFangKuaiShangYouJianProcedure`中主人潜行取回，非主人失败提示；首次普通点击播放动画1并开8秒窗口，第二次传送。外维度首次激活先增加本世界画卷序号，出口为`(48×序号,100,48)`，给缓降200刻并保存两端快照。进入画卷维度后清`hualiqiankun`，首次在出口偏移`(-24,0,-24)`放`fabao008jiegou`，出口上2格放画卷、出口Y加2。内维度返回写`fanhui`；普通世界实体加入时清标志并刷新入口槽0。未为入口丢失补造重建逻辑。
 
+### Q279 画卷两端被其他容器替换时的快照写入
+
+任务二的奖励能放置和传送；差异出现在传送之后更新原坐标槽 0 的步骤。1.18.2 版本 `A:WeidubianhuanProcedure:145–171`（回程）和 `A:Fabao009weiduDangWanJiaJinRuWeiDuShiProcedure:124–135`（再次进画）查询该格的无方向物品能力，只要可直接赋槽，就把一份画卷写进槽 0，不检查方块是否仍是画卷。1.21.1 版本 `PaintingRuntime.entered/returned/store:89–121` 只对 `DungeonBlockEntity` 写槽。普通画卷仍会刷新；无方块实体的空气在两版都不会重建入口。地灵与无归的回程映射另见 Q82。
+
+最小对照：在主世界放置任务奖励并进画，让第二名玩家把原入口换成黄铜炉，槽 0 放一件可识别物品，不开炉；第一名玩家从画内返回并查看丹炉。来源 `Alchemy01TileEntity:43–46,173–178` 在空方向回退容器父类（[Forge 无方向能力](../../../.claude/skills/minecraft-mod-porting/references/targets/neoforge-1.21.1.md#库存身份匹配与无方向能力2026-11-10-核对)）。按代码，来源会覆盖槽 0，目标保留原物。用未替换的画卷作对照。仅静态确认，未做双人实机；来源覆盖别的库存有损物风险，是否保留待裁定，不能据此直接放宽生产代码的写入范围。
+
 ## 镇妖塔与外部依赖
 
-`tools/porting/extract_dungeon_definitions.py`从锁定A源码提取默认定义1份、镇妖塔44份及楼板，生成`DungeonSourceData`和[来源/输出指纹](../../reference/conversion/dungeon_definitions.json)。楼板逐一为固定点Y-1；43份有完整百分号头，第44份保持Q81。`Dungeons.configureTower`提供固定点补充操作。
+`tools/porting/extract_dungeon_zhenfa_json.py`从锁定A源码与模板提取默认定义1份、镇妖塔44份至`src/main/resources/content/dungeon/dungeons.json`（强类型`DungeonDefinition` `Codec`加载），同步将5份含阵基/副本方块实体的`.nbt`模板离线升级为根部强类型字段并移除`DungeonSourceData`及`fubenshujv`魔法分隔串。楼板逐一为固定点Y-1；44份固定点均包含完整波次头与奖励，`Dungeons.configureTower`按JSON定义补充`definition_id`、楼板与配置。
 
 来源调用者`A:SealreleaseGoProcedure:444`属于World结构释放命令：`YvanchuGo:536–537`在`unlock sealrelease`分支调用，镇妖塔固定放置后40服务端刻补充44点定义；与Fulu的50→5001妖兽尸体封存没有调用关系。2026-11-14已接入World发布的`StructureReleasedEvent`和Dungeon消费者，保持既有Dungeon→World依赖方向；管理命令路径与运行边界见[World正文](../world/architecture.md#固定结构解封命令2026-11-14)。寻灵盘/裂隙自然生产者已接，孤舟最近目标/82刻释放与共享进度必要单项通过；镇妖塔自然整链未单独验，见[World月志](../world/logs/2026-11.md#2026-11-14-寻灵盘光环与自然裂隙)。
 
 ## 来源异常与当前处理
 
-### Q81 镇妖塔第44点缺少波次头
+### Q81 镇妖塔第44点缺少波次头（已在子批 1 修复并验证）
 
-`A:ZhenyaotashengchengbuchongProcedure`最后点`(1278,83,-587)`只写奖励串，无`%`头；`B:FubenshujvjiexiProcedure`取第1字段时越界。目标逐字保留，不补波次或奖励入口；1.18.2版本实机未执行。
+1.18.2 版本`A:ZhenyaotashengchengbuchongProcedure`最后点`(1278,83,-587)`只写奖励串、遗漏`%`头，但结构模板`zhenyaota.nbt`同点位原已保存“山中无老虎”3波与480秒完整波次头。子批 1 已合并完整波次头与更新后5条奖励写入`dungeons.json`（`tower_1278_83_-587`），`DungeonCheck`已验证可正常解析不越界。
 
 ### Q82 私人画卷地灵与无归返回互换
 
@@ -69,7 +75,7 @@ updated: 2026-11-18
 
 ### Q103 准入与扣票顺序
 
-`A:FubenjinruProcedure`的能力临时队伍为空时，不查发起者境界且人数为0；境界/人数拒绝后仍扣票；不支持维度在成功准入后已写冷却。目标保持顺序。临时队伍界面/生产者由Relation/Panel后续接回。
+已在阶段 4 续批修正并验证。`DungeonEntrances.enter` 依次核验冷却与支持维度后，在能力临时队伍为空时按发起者单人（`people = 1` 与发起者境界）核验人数上限与境界要求，全部准入条件通过后再扣除门票并写入冷却；拒入不再扣票或污染冷却，已通过 `DungeonCheck` 烟测验证。临时队伍界面/生产者仍由 Relation/Panel 后续接回。
 
 ### Q104 妖魂回程分支
 
@@ -85,15 +91,15 @@ updated: 2026-11-18
 
 ### Q107 区域统计与标题
 
-`B:FubenblockGengXinYouXiKeProcedure`统计区域所有玩家与副本怪物标志，不核实例坐标；副本名不经JSON转义直接拼标题命令。目标不补过滤或转义。
+`B:FubenblockGengXinYouXiKeProcedure`统计区域所有玩家与副本怪物标志，不核实例坐标；副本名不经JSON转义直接拼标题命令。目标不补过滤或转义。准备时只解析一次名称组件；无法解析不发标题。每名区域玩家分别以自身位置在全服在线列表取最近者，等距保留列表顺序，不排除旁观者、不限定维度。准备组件仍按执行者与实际接收者解析；成功、失败直接发送原文字与样式。
 
 ### Q108 同维度失败回调不注销
 
 来源两刻延后回程若已在目标维度直接退出回调，未注销监听器；目标保留任务后续继续尝试，服务器结束清空运行期任务。
 
-### Q109 火焰护盾奖励错位
+### Q109 火焰护盾奖励错位（已在子批 1 修复并验证）
 
-镇妖塔两份“火焰护盾”简介含`30//jinengneeditem…`，斜线拆分使后续三元组错位，后续数值/冷却未写；“火鸟术”空`jinengjieyin/int/`按来源转0。逐字保留，不修字符串。
+1.18.2 版本镇妖塔两份“火焰护盾”简介含`降低30//jinengneeditem/`，导致三元组错位；“火鸟术”含空`/jinengjieyin/int//`。子批 1 提取`dungeons.json`时已修复为`降低30%/jinengneeditem/`与`/jinengjieyin/int/0/`，并通过反序列化与内容检查。
 
 ### Q77 未使用的三行菜单
 

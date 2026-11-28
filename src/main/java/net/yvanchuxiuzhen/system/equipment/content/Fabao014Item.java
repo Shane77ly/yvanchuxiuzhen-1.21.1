@@ -1,23 +1,21 @@
 package net.yvanchuxiuzhen.system.equipment.content;
 
 import java.util.List;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao014;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -54,9 +52,7 @@ public final class Fabao014Item extends ContentItem {
         projectile.pickup = AbstractArrow.Pickup.DISALLOWED;
         stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
         if (player.isShiftKeyDown()) {
-            CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            data.putBoolean("sneak", true);
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            stack.set(EquipmentData.FABAO_SNEAK.get(), true);
         }
         player.getCooldowns().addCooldown(this, player.isShiftKeyDown() ? 300 : 80);
     }

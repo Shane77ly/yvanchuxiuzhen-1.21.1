@@ -50,10 +50,15 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.cooking.data.CookingAttachments;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
 import net.yvanchuxiuzhen.system.liandan.client.AlchemyScreen;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
@@ -63,6 +68,8 @@ import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationMenu;
 import net.yvanchuxiuzhen.system.liandan.client.PharmacologyScreen;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyMenu;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.client.TripodScreen;
 import net.yvanchuxiuzhen.system.lianqi.client.BlueprintTableScreen;
 import net.yvanchuxiuzhen.system.lianqi.client.RepairTableScreen;
@@ -85,10 +92,13 @@ import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
 import net.yvanchuxiuzhen.system.skill.SkillGuard;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.api.WeaponStatEvent;
+import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.storage.api.MaterialStorage;
 import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse;
 import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse.Preferences;
 import net.yvanchuxiuzhen.system.storage.data.StorageData;
+import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 核对成品、丹炉及炼器工作台的自然交互、库存消费、实例保存和双端同步。 */
 final class EquipmentProductCheck extends ActionCheck {
@@ -104,7 +114,7 @@ final class EquipmentProductCheck extends ActionCheck {
     private BlockPos alchemyPos;
     private final List<BlockState> alchemyBlocks = new ArrayList<>();
     private ProfessionProgress alchemyProfession;
-    private CompoundTag medicine;
+    private MedicineInstance medicine;
     private int selected;
     private GameType gameMode;
     private final CompoundTag food = new CompoundTag();
@@ -116,6 +126,7 @@ final class EquipmentProductCheck extends ActionCheck {
     private BlockPos bottlePos;
     private BlockState bottleBlock;
     private ItemStack bottledMedicine;
+    private int equippedTick;
     private Cow feedingTarget;
     private BlockPos separationPos;
     private BlockState separationBlock;
@@ -140,17 +151,17 @@ final class EquipmentProductCheck extends ActionCheck {
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
         script(
-                new Action(4, p -> {
+                new Action(200, p -> {
                     inventory = new ArrayList<>();
                     gameMode = p.gameMode.getGameModeForPlayer();
                     p.getFoodData().addAdditionalSaveData(food);
-                    hadFastingTimer = p.getPersistentData().contains("baoshidu");
-                    fastingTimer = p.getPersistentData().getDouble("baoshidu");
+                    hadFastingTimer = p.hasData(CookingAttachments.FASTING_TICKS);
+                    fastingTimer = p.getData(CookingAttachments.FASTING_TICKS);
                     effects.addAll(p.getActiveEffects().stream().map(MobEffectInstance::new).toList());
                     shiftKey = minecraft.options.keyShift.isDown();
                     for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
                     p.getInventory().clearContent();
-                    oldGuard = p.getPersistentData().getDouble("canjianjishicolddown");
+                    oldGuard = p.getData(SkillData.GUARD_COOLDOWN);
                     chestPos = p.blockPosition().offset(4, 0, 0);
                     run(p, WEAPON, 4);
                     boolean absent = drops(p).isEmpty();
@@ -188,7 +199,9 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.setItemSlot(EquipmentSlot.MAINHAND, weapon);
                     p.setItemSlot(EquipmentSlot.HEAD, restored);
                     p.inventoryMenu.broadcastChanges();
-                }),
+                    equippedTick = p.tickCount;
+                }, () -> minecraft.getSingleplayerServer().submit(() -> minecraft.getSingleplayerServer().getPlayerList()
+                        .getPlayers().getFirst().tickCount - equippedTick >= 2).join()),
                 new Action(6, p -> {
                     expectTrue("成品覆盖默认修饰，生命和物攻各计一次，负移速只在武器生效（生命/护甲/攻速/移速："
                             + p.getMaxHealth() + "/" + p.getAttributeValue(Attributes.ARMOR) + "/"
@@ -202,7 +215,7 @@ final class EquipmentProductCheck extends ActionCheck {
                             && Math.abs(p.getAttributeValue(Attributes.ATTACK_SPEED) - 1.26) < 1e-8
                             && Math.abs(p.getAttributeValue(Attributes.MOVEMENT_SPEED) - .08) < 1e-8
                             && weapon.getAttributeModifiers().modifiers().stream().noneMatch(entry -> entry.attribute().equals(Attributes.ATTACK_DAMAGE)));
-                    p.getPersistentData().putDouble("canjianjishicolddown", 0);
+                    p.setData(SkillData.GUARD_COOLDOWN, 0.0);
                     SkillGuard.press(p);
                     boolean grade = Skills.guardRemaining(p) == 24;
                     WeaponStatEvent rootAttack = new WeaponStatEvent(weapon, "mana_Att");
@@ -229,16 +242,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.serverLevel().setBlockAndUpdate(alchemyPos.below(), Blocks.STONE.defaultBlockState());
                     p.serverLevel().setBlockAndUpdate(alchemyPos.below(2), Blocks.STONE.defaultBlockState());
                     p.getInventory().setItem(4, alchemyItem("alchemy_01", 1));
-                    ItemStack fire = alchemyItem("danhuo", 1);
-                    CompoundTag fuel = new CompoundTag();
-                    fuel.putDouble("power", 10);
-                    fuel.putString("ManaAttackUUID", p.getStringUUID());
-                    fire.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(5, fire);
-                    ItemStack supplement = fire.copy();
-                    fuel.putDouble("power", 20);
-                    supplement.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(7, supplement);
+                    p.getInventory().setItem(5, Yihuo.createDanFire(p.getStringUUID(), 10));
+                    p.getInventory().setItem(7, Yihuo.createDanFire(p.getStringUUID(), 20));
                     p.getInventory().setItem(6, ItemStack.EMPTY);
                     p.getInventory().setItem(9, alchemyItem("itemdanyaohulu_04", 2));
                     p.getInventory().setItem(10, alchemyItem("spiritgrass", 2));
@@ -247,9 +252,11 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> useBlock(4, alchemyPos.below())),
                 new Action(6, p -> {
                     AlchemyBlockEntity furnace = furnace(p);
-                    expectTrue("自然放炉初始化本炉药性，双端同步黄铜炉参数", furnace.getPersistentData().getCompound("zong").getInt("yvanchuxiuzhen:spiritgrassnumber") == 4
-                            && furnace.getPersistentData().getDouble("alchemyLevel") == 1
-                            && minecraft.level.getBlockEntity(alchemyPos).getPersistentData().equals(furnace.getPersistentData()));
+                    AlchemyBlockEntity clientFurnace = minecraft.level.getBlockEntity(alchemyPos) instanceof AlchemyBlockEntity client ? client : null;
+                    expectTrue("自然放炉初始化本炉药性，双端同步黄铜炉参数", furnace.herbs().effectCount("yvanchuxiuzhen:spiritgrass") == 4
+                            && furnace.alchemyLevel() == 1
+                            && clientFurnace != null
+                            && clientFurnace.saveWithoutMetadata(p.registryAccess()).equals(furnace.saveWithoutMetadata(p.registryAccess())));
                     furnace.setItem(9, new ItemStack(Items.DIAMOND));
                     useBlock(6, alchemyPos);
                 }),
@@ -271,39 +278,44 @@ final class EquipmentProductCheck extends ActionCheck {
                 })),
                 new Action(5, p -> {
                     AlchemyBlockEntity furnace = furnace(p);
-                    CompoundTag state = furnace.getPersistentData();
-                    medicine = furnace.getItem(11).get(DataComponents.CUSTOM_DATA).copyTag();
-                    expectTrue("开始按钮各消耗一件、保留旧输出，无热炉次暂停，四药性给出十五炉刻", state.getBoolean("liandanBegin")
+                    medicine = Liandan.medicine(furnace.getItem(11));
+                    expectTrue("开始按钮各消耗一件、保留旧输出，无热炉次暂停，四药性给出十五炉刻", furnace.brewing()
                             && furnace.getItem(0).getCount() == 1 && furnace.getItem(1).getCount() == 1 && furnace.getItem(9).is(Items.DIAMOND)
-                            && state.getInt("lianqiTickMax") == 15 && state.getInt("lianqiTick") == 0 && medicine.getInt("shuliang") == 4
-                            && medicine.getInt("danyaolevel0") == 80 && medicine.getInt("danyaolevel3") == -30
+                            && (int) furnace.brewTickMax() == 15 && (int) furnace.brewTick() == 0 && medicine.effects().size() == 4
+                            && medicine.effects().get(0).level() == 80 && medicine.effects().get(3).level() == -30
                             && ItemStack.matches(furnace.getItem(0), minecraft.player.containerMenu.getSlot(0).getItem()));
                     furnace.getItem(11).set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
                     AlchemyBlockEntity restored = (AlchemyBlockEntity) BlockEntity.loadStatic(alchemyPos, furnace.getBlockState(),
                             furnace.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
-                    expectTrue("在炼炉次保存重读保留库存、隐藏成品全组件与装置状态", restored.getPersistentData().equals(state)
-                            && ItemStack.matches(restored.getItem(0), furnace.getItem(0)) && ItemStack.matches(restored.getItem(11), furnace.getItem(11)));
+                    expectTrue("在炼炉次保存重读保留库存、隐藏成品全组件与装置状态",
+                            restored.brewing() && restored.brewTickMax() == furnace.brewTickMax()
+                                    && restored.brewTick() == furnace.brewTick()
+                                    && restored.lianPower() == furnace.lianPower()
+                                    && restored.herbs().equals(furnace.herbs())
+                                    && ItemStack.matches(restored.getItem(0), furnace.getItem(0))
+                                    && ItemStack.matches(restored.getItem(11), furnace.getItem(11)));
                     p.closeContainer();
                     p.serverLevel().removeBlock(alchemyPos.below(), false);
                 }),
                 new Action(6, p -> useBlock(5, alchemyPos.below(2))),
                 new Action(45, p -> useBlock(7, alchemyPos.below())),
                 new Action(320, p -> {
-                    CompoundTag state = furnace(p).getPersistentData();
-                    double fuel = p.serverLevel().getBlockEntity(alchemyPos.below()).getPersistentData().getDouble("power");
-                    expectTrue("丹火自然供热推进炉次，已耗热量与火块剩余燃料守恒，客户端收到进度 实际燃料=" + fuel + "，进度=" + state.getDouble("lianqiTick"),
-                            state.getDouble("lianqiTick") > 0 && fuel + state.getDouble("lianpower") + state.getDouble("lianqiTick") == 30
-                                    && minecraft.level.getBlockEntity(alchemyPos).getPersistentData().getDouble("lianqiTick") > 0);
+                    AlchemyBlockEntity furnace = furnace(p);
+                    AlchemyBlockEntity clientFurnace = (AlchemyBlockEntity) minecraft.level.getBlockEntity(alchemyPos);
+                    double fuel = ((FireBlockEntity) p.serverLevel().getBlockEntity(alchemyPos.below())).power();
+                    expectTrue("丹火自然供热推进炉次，已耗热量与火块剩余燃料守恒，客户端收到进度 实际燃料=" + fuel + "，进度=" + furnace.brewTick(),
+                            furnace.brewTick() > 0 && fuel + furnace.lianPower() + furnace.brewTick() == 30
+                                    && clientFurnace.brewTick() > 0);
                     useBlock(6, alchemyPos);
                 }),
                 new Action(6, p -> {
                     AlchemyBlockEntity furnace = furnace(p);
                     ItemStack output = furnace.getItem(9);
                     expectTrue("自然成丹覆盖旧输出，04容器转0401并保留全部组件，隐藏槽清空且双端一致", output.is(alchemyItem("itemdanyaohulu_0401", 1).getItem())
-                            && output.get(DataComponents.CUSTOM_DATA).copyTag().equals(medicine)
+                            && Liandan.medicine(output).equals(medicine)
                             && Boolean.TRUE.equals(output.get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE))
-                            && output.getHoverName().getString().equals(medicine.getString("danyaoname"))
-                            && furnace.getItem(11).isEmpty() && !furnace.getPersistentData().getBoolean("liandanBegin")
+                            && output.getHoverName().getString().equals(medicine.name())
+                            && furnace.getItem(11).isEmpty() && !furnace.brewing()
                             && ItemStack.matches(output, minecraft.player.containerMenu.getSlot(9).getItem()));
                     minecraft.execute(() -> {
                         screenshots.take("liandan-finished.png");
@@ -314,13 +326,13 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("Shift取丹清空结果槽且经验只领取一次，并同步玩家", furnace(p).getItem(9).isEmpty()
                         && p.getInventory().items.stream().anyMatch(stack -> stack.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()))
                         && Professions.experience(p, Profession.ALCHEMY) == 3 && Professions.experience(minecraft.player, Profession.ALCHEMY) == 3
-                        && furnace(p).getPersistentData().getInt("jingyanhuoqv") == 0);
+                        && furnace(p).pendingExperience() == 0);
                     p.closeContainer();
                     p.setGameMode(GameType.SURVIVAL);
                     p.removeAllEffects();
                     ItemStack result = p.getInventory().items.stream().filter(stack -> stack.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()))
                             .findFirst().orElseThrow();
-                    brewedCount = data(result).getInt("danyaonum");
+                    brewedCount = Liandan.medicine(result).doses();
                     p.getInventory().removeItemNoUpdate(p.getInventory().findSlotMatchingItem(result));
                     p.getInventory().setItem(4, result);
                     p.inventoryMenu.broadcastChanges();
@@ -330,42 +342,37 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(4, p -> {
                     ItemStack used = p.getMainHandItem();
                     expectTrue("自然成丹右键扣一颗，喝空换04空盒且双方持物一致", (brewedCount == 1
-                            ? used.is(alchemyItem("itemdanyaohulu_04", 1).getItem()) && !used.has(DataComponents.CUSTOM_DATA)
-                            : used.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()) && data(used).getInt("danyaonum") == brewedCount - 1)
+                            ? used.is(alchemyItem("itemdanyaohulu_04", 1).getItem()) && !Liandan.medicine(used).isPresent()
+                            : used.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()) && Liandan.medicine(used).doses() == brewedCount - 1)
                             && ItemStack.matches(used, minecraft.player.getMainHandItem()));
                     p.getInventory().clearContent();
                     ItemStack bottle = alchemyItem("itemdanyaohulu_01", 2);
-                    CompoundTag contents = new CompoundTag();
-                    contents.putInt("danyaonum", 2);
                     String[] names = {"speed", "resistance", "yvanchuxiuzhen:effect_031", "glowing", "night_vision"};
                     int[] levels = {199, 900, 100, 0, 100};
-                    for (int i = 0; i < names.length; i++) {
-                        contents.putString("danyaoxiaoguo" + i, names[i]);
-                        contents.putInt("danyaolevel" + i, levels[i]);
-                        contents.putInt("danyaotick" + i, 201);
-                    }
-                    bottle.set(DataComponents.CUSTOM_DATA, CustomData.of(contents));
+                    List<MedicineInstance.Effect> bottleEffects = new ArrayList<>(names.length);
+                    for (int i = 0; i < names.length; i++) bottleEffects.add(new MedicineInstance.Effect(names[i], levels[i], 201));
+                    Liandan.setMedicine(bottle, new MedicineInstance("", "", "", 2, false, bottleEffects));
                     bottle.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
                     p.getInventory().setItem(4, bottle);
                     p.getFoodData().setFoodLevel(10);
                     p.getFoodData().setSaturation(0);
-                    p.getPersistentData().putDouble("baoshidu", 14);
+                    p.setData(CookingAttachments.FASTING_TICKS, 14.0);
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useMedicine()),
                 new Action(4, p -> {
                     expectTrue("多瓶首次右键只合并，保留组件并返一个同ID空瓶", p.getMainHandItem().getCount() == 1
-                            && data(p.getMainHandItem()).getInt("danyaonum") == 4 && !p.hasEffect(MobEffects.MOVEMENT_SPEED)
+                            && Liandan.medicine(p.getMainHandItem()).doses() == 4 && !p.hasEffect(MobEffects.MOVEMENT_SPEED)
                             && Boolean.TRUE.equals(p.getMainHandItem().get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE))
                             && p.getInventory().items.stream().anyMatch(stack -> stack.is(alchemyItem("itemdanyaohulu_01", 1).getItem())
-                                    && !stack.has(DataComponents.CUSTOM_DATA))
+                                    && !Liandan.medicine(stack).isPresent())
                             && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
                     useMedicine();
                 }),
                 new Action(6, p -> {
                     MobEffectInstance speed = p.getEffect(MobEffects.MOVEMENT_SPEED);
                     MobEffectInstance resistance = p.getEffect(MobEffects.DAMAGE_RESISTANCE);
-                    expectTrue("实际服用按整数药效施加、抗性封顶三级，零等级截断，辟谷补饥饿且同步", data(p.getMainHandItem()).getInt("danyaonum") == 3
+                    expectTrue("实际服用按整数药效施加、抗性封顶三级，零等级截断，辟谷补饥饿且同步", Liandan.medicine(p.getMainHandItem()).doses() == 3
                             && speed != null && speed.getAmplifier() == 0 && speed.getDuration() > 180 && speed.getDuration() <= 200
                             && resistance != null && resistance.getAmplifier() == 2 && p.hasEffect(fasting())
                             && !p.hasEffect(MobEffects.NIGHT_VISION) && p.getFoodData().getFoodLevel() >= 11
@@ -405,7 +412,7 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(4, p -> {
                     expectTrue("潜行实际喂药作用于目标，抗性不套自服上限并只扣主手一颗", feedingTarget.hasEffect(MobEffects.DAMAGE_RESISTANCE)
                         && feedingTarget.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 8
-                        && data(p.getMainHandItem()).getInt("danyaonum") == 2
+                        && Liandan.medicine(p.getMainHandItem()).doses() == 2
                         && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
                     sneak(false);
                     separationPos = bottlePos;
@@ -417,10 +424,9 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.getInventory().setItem(9, alchemyItem("itemdanyaohulu_04", 1));
                     p.getInventory().setItem(10, alchemyItem("itemdanyaohulu_06", 1));
                     separationMedicine = bottledMedicine.copy();
-                    CompoundTag contents = data(separationMedicine);
-                    contents.putInt("danyaonum", 5);
-                    contents.putString("danyaoname", "分合丹样本");
-                    separationMedicine.set(DataComponents.CUSTOM_DATA, CustomData.of(contents));
+                    MedicineInstance sepMed = Liandan.medicine(separationMedicine);
+                    Liandan.setMedicine(separationMedicine, new MedicineInstance(sepMed.outputItemId(), "分合丹样本", sepMed.description(), 5,
+                            sepMed.treasure(), sepMed.effects()));
                     separationMedicine.set(DataComponents.CUSTOM_NAME, Component.literal("分合丹样本"));
                     p.getInventory().setItem(11, separationMedicine.copy());
                     p.inventoryMenu.broadcastChanges();
@@ -444,10 +450,10 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     MedicineSeparationBlockEntity table = separationTable(p);
                     expectTrue("分丹真实按钮将五颗分为左二右三，空盒转满盒并复制完整组件，原瓶清空", table.getItem(0).is(alchemyItem("itemdanyaohulu_0401", 1).getItem())
-                            && data(table.getItem(0)).getInt("danyaonum") == 2 && data(table.getItem(1)).getInt("danyaonum") == 3
+                            && Liandan.medicine(table.getItem(0)).doses() == 2 && Liandan.medicine(table.getItem(1)).doses() == 3
                             && table.getItem(0).getHoverName().getString().equals("分合丹样本")
                             && Boolean.TRUE.equals(table.getItem(1).get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE))
-                            && !table.getItem(2).has(DataComponents.CUSTOM_DATA)
+                            && !Liandan.medicine(table.getItem(2)).isPresent()
                             && ItemStack.matches(table.getItem(0), minecraft.player.containerMenu.getSlot(0).getItem()));
                     minecraft.execute(() -> screenshots.take("liandan-split.png"));
                     separationButton("合丹");
@@ -455,7 +461,7 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     expectTrue("切换合丹保留同台库存，两个菜单身份与上下槽位切换", p.containerMenu instanceof MedicineSeparationMenu menu
                             && menu.merging() && menu.getSlot(0).y == 17 && menu.getSlot(2).y == 53
-                            && data(menu.getSlot(0).getItem()).getInt("danyaonum") == 2
+                            && Liandan.medicine(menu.getSlot(0).getItem()).doses() == 2
                             && ((MedicineSeparationMenu) minecraft.player.containerMenu).merging());
                     separationButton("合丹");
                 }),
@@ -472,9 +478,11 @@ final class EquipmentProductCheck extends ActionCheck {
                     minecraft.execute(() -> screenshots.take("liandan-merge.png"));
                     table.setItem(0, separationMedicine.copy());
                     ItemStack different = separationMedicine.copy();
-                    CompoundTag mismatch = data(different);
-                    mismatch.putInt("danyaolevel0", 200);
-                    different.set(DataComponents.CUSTOM_DATA, CustomData.of(mismatch));
+                    MedicineInstance diffMed = Liandan.medicine(different);
+                    List<MedicineInstance.Effect> diffEffects = new ArrayList<>(diffMed.effects());
+                    diffEffects.set(0, new MedicineInstance.Effect(diffEffects.get(0).id(), 200, diffEffects.get(0).duration()));
+                    Liandan.setMedicine(different, new MedicineInstance(diffMed.outputItemId(), diffMed.name(), diffMed.description(),
+                            diffMed.doses(), diffMed.treasure(), diffEffects));
                     table.setItem(1, different);
                     table.setItem(2, alchemyItem("itemdanyaohulu_05", 1));
                     p.containerMenu.broadcastChanges();
@@ -483,17 +491,18 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     MedicineSeparationBlockEntity table = separationTable(p);
                     expectTrue("同名但药效不同的合丹请求不消费三槽", ItemStack.matches(table.getItem(0), separationMedicine)
-                            && data(table.getItem(1)).getInt("danyaonum") == 5 && !table.getItem(2).has(DataComponents.CUSTOM_DATA));
-                    CompoundTag differentName = data(table.getItem(1));
-                    differentName.putString("danyaoname", "另一名称");
-                    table.getItem(1).set(DataComponents.CUSTOM_DATA, CustomData.of(differentName));
+                            && Liandan.medicine(table.getItem(1)).doses() == 5 && !Liandan.medicine(table.getItem(2)).isPresent());
+                    MedicineInstance prevMed = Liandan.medicine(table.getItem(1));
+                    Liandan.setMedicine(table.getItem(1), new MedicineInstance(prevMed.outputItemId(), "另一名称", prevMed.description(),
+                            prevMed.doses(), prevMed.treasure(), prevMed.effects()));
                     p.containerMenu.broadcastChanges();
                     separationButton("合丹");
                 }),
                 new Action(6, p -> {
                     MedicineSeparationBlockEntity table = separationTable(p);
+                    MedicineInstance mergedMed = Liandan.medicine(table.getItem(2));
                     expectTrue("来源名称不同仅提示仍合并，保留左瓶药效并变满六边盒", table.getItem(2).is(alchemyItem("itemdanyaohulu_0501", 1).getItem())
-                            && data(table.getItem(2)).getInt("danyaonum") == 10 && data(table.getItem(2)).getInt("danyaolevel0") == 199
+                            && mergedMed.doses() == 10 && mergedMed.effects().get(0).level() == 199
                             && table.getItem(2).getHoverName().getString().equals("分合丹样本"));
                     p.closeContainer();
                     pharmacologyPos = bottlePos.offset(0, 0, 1);
@@ -523,7 +532,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("自然放药理台初始化药性快照，真实开窗双方十一可见槽和隐藏预览隔离", p.containerMenu instanceof PharmacologyMenu
                             && minecraft.screen instanceof PharmacologyScreen && p.containerMenu.slots.size() == 47
                             && table.getContainerSize() == 12 && p.containerMenu.getSlot(0).getMaxStackSize() == 1
-                            && table.getPersistentData().getCompound("zong").getInt("yvanchuxiuzhen:spiritgrassnumber") == 4);
+                            && table.herbs().effectCount("yvanchuxiuzhen:spiritgrass") == 4);
                     minecraft.execute(() -> {
                         int id = minecraft.player.containerMenu.containerId;
                         int[] destinations = {0, 1, 2, 3, 4, 9, 10};
@@ -538,14 +547,15 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> separationButton("刷新药性")),
                 new Action(6, p -> {
                     PharmacologyBlockEntity table = pharmacologyTable(p);
-                    CompoundTag preview = data(table.getItem(11));
+                    MedicineInstance preview = Liandan.medicine(table.getItem(11));
                     PharmacologyBlockEntity restored = (PharmacologyBlockEntity) BlockEntity.loadStatic(pharmacologyPos, table.getBlockState(),
                             table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("实际刷新保留八草和媒介，隐藏预览按顺序合药性，客户端显示及保存重读保持", table.getItem(11).is(Items.DIAMOND)
-                            && preview.getString("danyaoname").equals("药理样本") && preview.getInt("danyaolevel0") == 320
-                            && preview.getInt("danyaotick0") == 3200 && table.getItem(1).getCount() == 1 && table.getItem(0).has(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)
+                            && preview.name().equals("药理样本") && !preview.effects().isEmpty()
+                            && preview.effects().get(0).level() == 320 && preview.effects().get(0).duration() == 3200
+                            && table.getItem(1).getCount() == 1 && table.getItem(0).has(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)
                             && ItemStack.matches(table.getItem(11), restored.getItem(11))
-                            && ((PharmacologyMenu) minecraft.player.containerMenu).table().getPersistentData().getString("effectxianshi0").contains("3级")
+                            && ((PharmacologyMenu) minecraft.player.containerMenu).table().effectLine(0).contains("3级")
                             && table.handler(Direction.DOWN).extractItem(0, 1, true).isEmpty()
                             && !table.handler(Direction.DOWN).extractItem(9, 1, true).isEmpty()
                             && table.handler(Direction.UP).insertItem(11, new ItemStack(Items.STONE), true).is(Items.STONE));
@@ -555,12 +565,12 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     PharmacologyBlockEntity table = pharmacologyTable(p);
                     ItemStack recipe = table.getItem(0);
-                    CompoundTag contents = data(recipe);
+                    MedicineRecipe contents = Liandan.recipe(recipe);
                     expectTrue("实际写丹方保留Item数量且替换全部旧组件，不消费材料说明、不复制预览药效并同步", recipe.is(Items.BOOK) && recipe.getCount() == 1
                             && recipe.getHoverName().getString().equals("药理样本") && !recipe.has(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)
-                            && contents.getString("cailiao01").equals("yvanchuxiuzhen:spiritgrass") && contents.getString("cailiao08").equals("minecraft:air")
-                            && contents.getString("danfangshuoming").equals("[丹方说明]") && contents.getString("danyaoshuoming").equals("[药效说明]")
-                            && !contents.contains("danyaoxiaoguo0") && table.getItem(4).getCount() == 1 && table.getItem(9).getCount() == 1
+                            && contents.ingredient(1).id().equals("yvanchuxiuzhen:spiritgrass") && contents.ingredient(8).id().equals("minecraft:air")
+                            && contents.description().equals("[丹方说明]") && contents.medicineDescription().equals("[药效说明]")
+                            && !Liandan.medicine(recipe).isPresent() && table.getItem(4).getCount() == 1 && table.getItem(9).getCount() == 1
                             && ItemStack.matches(recipe, minecraft.player.containerMenu.getSlot(0).getItem()));
                     p.closeContainer();
                     tripodPos = alchemyPos.offset(0, 0, 3);
@@ -575,16 +585,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.setData(StorageData.WAREHOUSE, MaterialWarehouse.EMPTY);
                     p.getInventory().clearContent();
                     p.getInventory().setItem(4, alchemyItem("tripod_01", 1));
-                    CompoundTag fuel = new CompoundTag();
-                    fuel.putString("ManaAttackUUID", p.getStringUUID());
-                    fuel.putDouble("power", 10);
-                    ItemStack fire = alchemyItem("danhuo", 1);
-                    fire.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(5, fire);
-                    ItemStack supplement = fire.copy();
-                    fuel.putDouble("power", 20);
-                    supplement.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(7, supplement);
+                    p.getInventory().setItem(5, Yihuo.createDanFire(p.getStringUUID(), 10));
+                    p.getInventory().setItem(7, Yihuo.createDanFire(p.getStringUUID(), 20));
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useBlock(4, tripodPos.below())),
@@ -593,7 +595,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     TripodBlockEntity tripod = tripod(p);
                     expectTrue("自然放鼎开窗同步本炉参数，十一可见槽、隐藏槽与成品禁手取保持", minecraft.screen instanceof TripodScreen
                             && p.containerMenu instanceof TripodMenu && p.containerMenu.slots.size() == 47 && tripod.getContainerSize() == 12
-                            && tripod.getPersistentData().getInt("RefinerLEVEL") == 9 && tripod.getPersistentData().getInt("TripodLevel") == 1
+                            && tripod.refinerLevel() == 9 && tripod.tripodLevel() == 1
                             && !p.containerMenu.getSlot(9).mayPickup(p) && !p.containerMenu.getSlot(9).mayPlace(new ItemStack(Items.STONE))
                             && tripod.handler(Direction.UP).insertItem(9, new ItemStack(Items.STONE), true).is(Items.STONE));
                     tripod.setItem(0, new ItemStack(Items.IRON_SWORD));
@@ -604,19 +606,25 @@ final class EquipmentProductCheck extends ActionCheck {
                 }),
                 new Action(6, p -> {
                     TripodBlockEntity tripod = tripod(p);
+                    LianqiBlueprint bp = Lianqi.blueprint(tripod.getItem(10)).orElse(LianqiBlueprint.EMPTY);
                     expectTrue("真实保存图纸保留材料，媒介压一件且仅记录一至八槽", tripod.getItem(10).getCount() == 1
-                            && data(tripod.getItem(10)).getString("fabaoid").equals("minecraft:iron_sword")
-                            && data(tripod.getItem(10)).getInt("cailiao01num") == 2 && !data(tripod.getItem(10)).contains("cailiao00")
+                            && bp.itemId().equals("minecraft:iron_sword")
+                            && bp.ingredient(1).count() == 2 && bp.ingredient(0).id().isEmpty()
                             && tripod.getItem(1).getCount() == 2);
-                    CompoundTag translatedRecipe = data(tripod.getItem(10));
-                    translatedRecipe.putString("cailiao01name", "[Cailiao 1 7 1]");
-                    translatedRecipe.putString("tuzhiname", "[Iron Sword]");
-                    tripod.getItem(10).set(DataComponents.CUSTOM_DATA, CustomData.of(translatedRecipe));
+                    LianqiBlueprint translatedRecipe = new LianqiBlueprint("[Iron Sword]", bp.nameComponentJson(), bp.description(),
+                            bp.itemId(), bp.itemDescription(), bp.itemDescriptionComponentJson(), bp.type(), bp.levelText(),
+                            bp.level(), bp.sourceCarrierId(), List.of(
+                                    bp.ingredient(0),
+                                    new LianqiBlueprint.Ingredient(bp.ingredient(1).id(), "[Cailiao 1 7 1]",
+                                            bp.ingredient(1).nameComponentJson(), bp.ingredient(1).count()),
+                                    bp.ingredient(2), bp.ingredient(3), bp.ingredient(4), bp.ingredient(5),
+                                    bp.ingredient(6), bp.ingredient(7), bp.ingredient(8)));
+                    Lianqi.setBlueprint(tripod.getItem(10), translatedRecipe);
                     tripod.changed();
-                    expectTrue("图纸保留可翻译名称，英文服务端根字符串不覆盖中文材料与成品名", translatedRecipe.getString("cailiao01name_component").contains("translate")
-                            && translatedRecipe.getString("tuzhiname_component").contains("item.minecraft.iron_sword")
+                    expectTrue("图纸保留可翻译名称，英文服务端根字符串不覆盖中文材料与成品名", translatedRecipe.ingredient(1).nameComponentJson().contains("translate")
+                            && translatedRecipe.nameComponentJson().contains("item.minecraft.iron_sword")
                             && ((TripodMenu) p.containerMenu).recipeLine(1).contains(tripod.getItem(1).getHoverName().getString())
-                            && Equipment.createRefinedProduct(p.registryAccess(), translatedRecipe, new CompoundTag(), ItemStack.EMPTY)
+                            && Equipment.createRefinedProduct(p.registryAccess(), translatedRecipe.toRefinement(), EquipmentRefinement.EMPTY, ItemStack.EMPTY)
                                     .getHoverName().getString().equals(new ItemStack(Items.IRON_SWORD).getHoverName().getString()));
                     tripod.setItem(0, ItemStack.EMPTY);
                     tripod.setItem(1, ItemStack.EMPTY);
@@ -645,14 +653,15 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(45, p -> {}),
                 new Action(6, p -> {
                     TripodBlockEntity tripod = tripod(p);
-                    CompoundTag state = tripod.getPersistentData();
                     TripodBlockEntity restored = (TripodBlockEntity) BlockEntity.loadStatic(tripodPos, tripod.getBlockState(),
                             tripod.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
-                    ItemStack planned = ItemStack.parseOptional(p.registryAccess(), state.getCompound("item"));
-                    expectTrue("图纸制作立即扣料且无热暂停，完整计划成品与炉次保存重读保持", state.getBoolean("lianqiBegin")
-                            && state.getInt("lianqiTick") == 0 && state.getInt("lianqiTickMax") == 9 && tripod.getItem(1).isEmpty()
+                    ItemStack planned = tripod.plannedItem();
+                    expectTrue("图纸制作立即扣料且无热暂停，完整计划成品与炉次保存重读保持", tripod.refining()
+                            && tripod.lianqiTick() == 0 && tripod.lianqiTickMax() == 9 && tripod.getItem(1).isEmpty()
                             && tripod.getItem(9).isEmpty() && tripod.getItem(11).isEmpty() && planned.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).health() == 10
-                            && Equipment.product(planned).orElseThrow().level() == 4 && restored.getPersistentData().equals(state)
+                            && Equipment.product(planned).orElseThrow().level() == 4
+                            && restored.refining() == tripod.refining() && restored.lianqiTickMax() == tripod.lianqiTickMax()
+                            && ItemStack.matches(restored.plannedItem(), tripod.plannedItem())
                             && ItemStack.matches(tripod.getItem(10), restored.getItem(10)));
                     p.closeContainer();
                     p.serverLevel().removeBlock(tripodPos.below(), false);
@@ -663,7 +672,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     TripodBlockEntity tripod = tripod(p);
                     refinedProduct = tripod.getItem(9).copy();
                     expectTrue("丹火自然供热完成炼器，服务端成品属性与客户端完整组件一致", refinedProduct.is(Items.IRON_SWORD)
-                            && !tripod.getPersistentData().getBoolean("lianqiBegin") && refinedProduct.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).power() == 80
+                            && !tripod.refining() && refinedProduct.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).power() == 80
                             && ItemStack.matches(refinedProduct, minecraft.player.containerMenu.getSlot(9).getItem()));
                     minecraft.execute(() -> screenshots.take("lianqi-finished.png"));
                     separationButton("领取成品");
@@ -698,9 +707,9 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.getInventory().setItem(10, quality);
                     p.getInventory().setItem(11, refiningMaterial(2, 2));
                     ItemStack damaged = new ItemStack(Items.IRON_SWORD);
-                    CompoundTag refinement = new CompoundTag();
+                    EquipmentRefinement.Mutable refinement = EquipmentRefinement.mutable();
                     refinement.putInt("item_level_num", 2);
-                    damaged.set(EquipmentData.REFINEMENT.get(), CustomData.of(refinement));
+                    damaged.set(EquipmentData.REFINEMENT.get(), refinement.toImmutable());
                     damaged.setDamageValue(200);
                     p.getInventory().setItem(12, damaged);
                     p.inventoryMenu.broadcastChanges();
@@ -717,7 +726,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     RepairTableBlockEntity table = repairTable(p);
                     expectTrue("自然放修理台开窗入槽，首次修理只刷新二级需求且不消费材料", p.containerMenu instanceof RepairTableMenu
                             && minecraft.screen instanceof RepairTableScreen && table.getItem(0).getDamageValue() == 200
-                            && table.getPersistentData().getInt("needcailiaolevel") == 2
+                            && table.requiredLevel() == 2
                             && p.getInventory().getItem(9).getCount() == 1 && p.getInventory().getItem(10).getCount() == 1
                             && p.getInventory().getItem(11).getCount() == 2);
                     separationButton("修理");
@@ -727,7 +736,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("第二次真实修理优先低等级并跳过上品，扣一件修八十耐久且同步", table.getItem(0).getDamageValue() == 120
                             && p.getInventory().getItem(9).getCount() == 1 && p.getInventory().getItem(10).getCount() == 1
                             && p.getInventory().getItem(11).getCount() == 1
-                            && table.getPersistentData().getString("needcailiao").equals("修理一次！")
+                            && table.requirement().equals("修理一次！")
                             && ItemStack.matches(table.getItem(0), minecraft.player.containerMenu.getSlot(0).getItem()));
                     minecraft.execute(() -> screenshots.take("lianqi-repair.png"));
                 }),
@@ -735,8 +744,11 @@ final class EquipmentProductCheck extends ActionCheck {
                     RepairTableBlockEntity table = repairTable(p);
                     RepairTableBlockEntity restored = (RepairTableBlockEntity) BlockEntity.loadStatic(repairPos, table.getBlockState(),
                             table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
-                    expectTrue("修理四十刻后提示恢复，需求与完整装备保存重读且侧面不能抽取", table.getPersistentData().getString("needcailiao").contains("2到6")
-                            && restored.getPersistentData().equals(table.getPersistentData()) && ItemStack.matches(restored.getItem(0), table.getItem(0))
+                    expectTrue("修理四十刻后提示恢复，需求与完整装备保存重读且侧面不能抽取", table.requirement().contains("2到6")
+                            && restored.requirement().equals(table.requirement())
+                            && restored.requiredLevel() == table.requiredLevel()
+                            && restored.repairType().equals(table.repairType())
+                            && ItemStack.matches(restored.getItem(0), table.getItem(0))
                             && table.handler(Direction.DOWN).extractItem(0, 1, true).isEmpty()
                             && !table.handler(null).extractItem(0, 1, true).isEmpty());
                     p.closeContainer();
@@ -758,7 +770,7 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     SewingBasketBlockEntity basket = sewingBasket(p);
                     expectTrue("自然开针线笸箩延后填第一页，两端八槽只读且真实点击不能取预览", p.containerMenu instanceof SewingBasketMenu
-                            && minecraft.screen instanceof SewingBasketScreen && basket.getPersistentData().getInt("pagemax") == 14
+                            && minecraft.screen instanceof SewingBasketScreen && basket.maxPage() == 14
                             && basket.getItem(0).is(alchemyItem("clothes_01_helmet", 1).getItem()) && basket.getItem(4).getCount() == 8
                             && p.containerMenu.getCarried().isEmpty() && !p.containerMenu.getSlot(4).mayPlace(alchemyItem("cailiao_171", 1))
                             && basket.handler(Direction.DOWN).extractItem(0, 1, true).isEmpty()
@@ -772,7 +784,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("真实缝纫按ID合计异组件主包与副手材料，扣八给四件并保留可保存预览", p.getInventory().getItem(9).isEmpty()
                             && p.getOffhandItem().isEmpty() && ownsClothing(p, "01") && ownsClothing(minecraft.player, "01")
                             && basket.getItem(4).getCount() == 8 && ItemStack.matches(basket.getItem(0), restored.getItem(0))
-                            && restored.getPersistentData().equals(basket.getPersistentData()));
+                            && restored.selectedPage() == basket.selectedPage() && restored.maxPage() == basket.maxPage());
                     p.getInventory().setItem(9, alchemyItem("cailiao_171", 4));
                     p.getInventory().setItem(10, new ItemStack(Items.LEATHER, 4));
                     p.containerMenu.broadcastChanges();
@@ -780,7 +792,7 @@ final class EquipmentProductCheck extends ActionCheck {
                 }),
                 new Action(6, p -> {
                     SewingBasketBlockEntity basket = sewingBasket(p);
-                    sewingLastPage = basket.getPersistentData().getInt("xvanze") == 14
+                    sewingLastPage = basket.selectedPage() == 14
                             && basket.getItem(0).is(alchemyItem("clothes_15_helmet", 1).getItem())
                             && basket.getItem(4).getCount() == 4 && basket.getItem(5).is(Items.LEATHER) && basket.getItem(5).getCount() == 4;
                     minecraft.execute(() -> screenshots.take("lianqi-sewing.png"));
@@ -792,7 +804,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("上一页由零回绕十四并制作混合配方，关闭清空共享八槽且保留页码", sewingLastPage
                             && p.getInventory().getItem(9).isEmpty() && p.getInventory().getItem(10).isEmpty()
                             && ownsClothing(p, "15") && ownsClothing(minecraft.player, "15") && basket.isEmpty()
-                            && basket.getPersistentData().getInt("xvanze") == 14
+                            && basket.selectedPage() == 14
                             && ((SewingBasketBlockEntity) minecraft.level.getBlockEntity(sewingPos)).isEmpty());
                     blueprintPos = prepareWorkbench(p, alchemyPos.offset(-3, 0, 2));
                     p.getInventory().clearContent();
@@ -809,8 +821,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("自然图纸台开窗填一百九十一栈目录，空料刷新保留来源四十一级超品", p.containerMenu instanceof BlueprintTableMenu
                             && minecraft.screen instanceof BlueprintTableScreen && p.containerMenu.slots.size() == 259 && filled == 191
                             && table.getItem(13).is(alchemyItem("cailiao_001", 1).getItem()) && table.getItem(204).isEmpty()
-                            && table.getPersistentData().getCompound("zong").getInt("item_level_num") == 41
-                            && table.getPersistentData().getCompound("zong").getString("item_level").equals("超品")
+                            && table.previewData().integer("item_level_num") == 41
+                            && table.previewData().text("item_level").equals("超品")
                             && !p.containerMenu.getSlot(13).mayPlace(table.getItem(13)) && p.containerMenu.getSlot(13).mayPickup(p));
                     table.setItem(0, refiningMaterial(1, 2));
                     ItemStack medium = new ItemStack(Items.PAPER, 3);
@@ -832,18 +844,18 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     BlueprintTableBlockEntity table = blueprintTable(p);
                     ItemStack recipe = table.getItem(9);
-                    CompoundTag contents = data(recipe);
+                    LianqiBlueprint contents = Lianqi.blueprint(recipe).orElse(LianqiBlueprint.EMPTY);
                     BlueprintTableBlockEntity restored = (BlueprintTableBlockEntity) BlockEntity.loadStatic(blueprintPos, table.getBlockState(),
                             table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("目录真实Shift可取，图纸保留组件与九槽配方，成品去名称括号并保留翻译样式", table.getItem(13).isEmpty()
                             && p.getInventory().items.stream().anyMatch(stack -> stack.is(alchemyItem("cailiao_001", 1).getItem()) && stack.getCount() == 64)
                             && recipe.is(Items.PAPER) && recipe.getCount() == 1 && recipe.getHoverName().getString().equals("原载体")
-                            && Boolean.TRUE.equals(recipe.get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)) && contents.getString("tuzhiname").equals("[天道]样本")
-                            && contents.getString("fabaoid").equals("minecraft:iron_sword") && contents.getString("fabaotype").equals("武器")
-                            && contents.getString("fabaoshuoming").equals("[图纸说明]") && contents.getInt("cailiao00num") == 2
-                            && Component.Serializer.fromJson(contents.getString("tuzhiname_component"), p.registryAccess()).getString().equals("天道样本")
-                            && Component.Serializer.fromJson(contents.getString("fabaoshuoming_component"), p.registryAccess()).getString().equals("[图纸说明]")
-                            && contents.getString("cailiao08").equals("minecraft:air") && table.getItem(0).getCount() == 2
+                            && Boolean.TRUE.equals(recipe.get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)) && contents.name().equals("[天道]样本")
+                            && contents.itemId().equals("minecraft:iron_sword") && contents.type().equals("武器")
+                            && contents.itemDescription().equals("[图纸说明]") && contents.ingredient(0).count() == 2
+                            && Component.Serializer.fromJson(contents.nameComponentJson(), p.registryAccess()).getString().equals("天道样本")
+                            && Component.Serializer.fromJson(contents.itemDescriptionComponentJson(), p.registryAccess()).getString().equals("[图纸说明]")
+                            && contents.ingredient(8).id().equals("minecraft:air") && table.getItem(0).getCount() == 2
                             && ItemStack.matches(recipe, restored.getItem(9)) && ItemStack.matches(recipe, minecraft.player.containerMenu.getSlot(9).getItem())
                             && refinedNameParity(p, contents));
                     minecraft.execute(() -> screenshots.take("lianqi-blueprint.png"));
@@ -859,26 +871,31 @@ final class EquipmentProductCheck extends ActionCheck {
                     PoisonCauldronBlockEntity cauldron = (PoisonCauldronBlockEntity) p.serverLevel().getBlockEntity(poisonPos);
                     PoisonCauldronBlockEntity restored = (PoisonCauldronBlockEntity) BlockEntity.loadStatic(poisonPos, cauldron.getBlockState(),
                             cauldron.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    PoisonCauldronBlockEntity clientCauldron = (PoisonCauldronBlockEntity) minecraft.level.getBlockEntity(poisonPos);
                     expectTrue("材料真实右键水锅转毒锅扣一件，毒性命名空间与附魔保存并同步", p.getMainHandItem().getCount() == 1
-                            && cauldron.getPersistentData().getString("linshikongjian").equals(ModId.VALUE)
-                            && cauldron.getPersistentData().getString("linshifumo").equals("sinomeninevine")
-                            && restored.getPersistentData().equals(cauldron.getPersistentData())
-                            && minecraft.level.getBlockEntity(poisonPos).getPersistentData().equals(cauldron.getPersistentData()));
-                    p.getInventory().setItem(4, new ItemStack(Items.IRON_SWORD));
+                            && cauldron.poisonNamespace().equals(ModId.VALUE)
+                            && cauldron.poisonId().equals("sinomeninevine")
+                            && restored.poisonNamespace().equals(cauldron.poisonNamespace())
+                            && restored.poisonId().equals(cauldron.poisonId())
+                            && clientCauldron.poisonNamespace().equals(cauldron.poisonNamespace())
+                            && clientCauldron.poisonId().equals(cauldron.poisonId()));
+                    ItemStack enchantedSword = new ItemStack(Items.IRON_SWORD);
+                    enchantedSword.enchant(poisonEnchantment(p), 3);
+                    p.getInventory().setItem(4, enchantedSword);
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useBlock(4, poisonPos)),
                 new Action(6, p -> {
                     poisonRejected = p.serverLevel().getBlockEntity(poisonPos) instanceof PoisonCauldronBlockEntity
-                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 0;
-                    p.getMainHandItem().enchant(poisonEnchantment(p), 3);
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 3;
+                    p.getInventory().setItem(4, new ItemStack(Items.IRON_SWORD));
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useBlock(4, poisonPos)),
                 new Action(6, p -> {
-                    expectTrue("毒藤锅保留已有附魔前置：未附魔不消费，三级剑淬毒后保三级并返空锅", poisonRejected
+                    expectTrue("毒藤锅仅在未附魔时淬毒（Q35）：已有附魔不消费且保三级，未附魔淬为一级并返空锅", poisonRejected
                             && p.serverLevel().getBlockState(poisonPos).is(Blocks.CAULDRON)
-                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 3
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 1
                             && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
                     p.getInventory().setItem(4, alchemyItem("cailiao_141", 2));
                     p.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
@@ -887,28 +904,29 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> useMedicine()),
                 new Action(6, p -> {
                     ItemStack result = p.getOffhandItem();
-                    CompoundTag raw = result.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
+                    EquipmentRefinement raw = result.getOrDefault(EquipmentData.REFINEMENT.get(), EquipmentRefinement.EMPTY);
                     expectTrue("毒材真实右键空气淬副手耗一件，一级附魔与先增总数后写fumo1完整同步", p.getMainHandItem().getCount() == 1
                             && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), result) == 1
-                            && raw.getInt("fumozongshu") == 1 && raw.getString("fumo1").equals("sinomeninevine")
-                            && raw.getString("fumo1kongjian").equals(ModId.VALUE) && raw.getInt("fumo1num") == 100 && !raw.contains("fumo0")
-                            && ItemStack.matches(result, minecraft.player.getOffhandItem()));
+                            && raw.integer("fumozongshu") == 1 && raw.text("fumo1").equals("sinomeninevine")
+                            && raw.text("fumo1kongjian").equals(ModId.VALUE) && raw.integer("fumo1num") == 100
+                            && raw.text("fumo0").isEmpty() && ItemStack.matches(result, minecraft.player.getOffhandItem()));
                 }));
     }
 
     /** 在真实图纸记录副本上覆盖带括号模板，核对首次成品、升级及存档后的名称组件。 */
-    private static boolean refinedNameParity(ServerPlayer player, CompoundTag recipe) {
+    private static boolean refinedNameParity(ServerPlayer player, LianqiBlueprint recipe) {
         Component templateName = Component.literal("[灵]").withStyle(ChatFormatting.GOLD)
                 .append(Component.translatableWithFallback("item.minecraft.iron_sword", "[铁剑]"))
                 .append(Component.translatableWithFallback("yvanchuxiuzhen.smoke.refined_name", "[%s][%s]",
                         Component.literal("[芯]").withStyle(ChatFormatting.BOLD), "[尾]"));
         ItemStack template = new ItemStack(Items.IRON_SWORD);
         template.set(DataComponents.CUSTOM_NAME, templateName);
-        CompoundTag namedRecipe = recipe.copy();
-        namedRecipe.putString("tuzhiname", template.getDisplayName().getString());
-        namedRecipe.putString("tuzhiname_component", Component.Serializer.toJson(template.getHoverName(), player.registryAccess()));
-        ItemStack product = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, new CompoundTag(), ItemStack.EMPTY);
-        ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, new CompoundTag(), product);
+        EquipmentRefinement namedRecipe = new LianqiBlueprint(template.getDisplayName().getString(),
+                Component.Serializer.toJson(template.getHoverName(), player.registryAccess()),
+                recipe.description(), recipe.itemId(), recipe.itemDescription(), recipe.itemDescriptionComponentJson(),
+                recipe.type(), recipe.levelText(), recipe.level(), recipe.sourceCarrierId(), recipe.ingredients()).toRefinement();
+        ItemStack product = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, EquipmentRefinement.EMPTY, ItemStack.EMPTY);
+        ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, EquipmentRefinement.EMPTY, product);
         ItemStack restored = ItemStack.parse(player.registryAccess(), product.save(player.registryAccess())).orElseThrow();
         Component expected = Component.literal("灵").withStyle(ChatFormatting.GOLD)
                 .append(Component.translatableWithFallback("item.minecraft.iron_sword", "铁剑"))
@@ -1043,8 +1061,8 @@ final class EquipmentProductCheck extends ActionCheck {
         player.removeAllEffects();
         for (MobEffectInstance effect : effects) player.addEffect(effect);
         player.getFoodData().readAdditionalSaveData(food);
-        if (hadFastingTimer) player.getPersistentData().putDouble("baoshidu", fastingTimer);
-        else player.getPersistentData().remove("baoshidu");
+        if (hadFastingTimer) player.setData(CookingAttachments.FASTING_TICKS, fastingTimer);
+        else player.removeData(CookingAttachments.FASTING_TICKS);
         sneak(shiftKey);
         for (Map.Entry<BlockPos, BlockState> entry : workbenchBlocks.entrySet()) {
             BlockEntity current = player.serverLevel().getBlockEntity(entry.getKey());
@@ -1084,7 +1102,7 @@ final class EquipmentProductCheck extends ActionCheck {
         minecraft.execute(() -> minecraft.player.getInventory().selected = selected);
         player.serverLevel().removeBlock(chestPos, false);
         for (ItemEntity drop : drops(player)) drop.discard();
-        player.getPersistentData().putDouble("canjianjishicolddown", oldGuard);
+        player.setData(SkillData.GUARD_COOLDOWN, oldGuard);
         SkillGuard.release(player);
         for (int i = 0; i < inventory.size(); i++) player.getInventory().setItem(i, inventory.get(i));
         player.inventoryMenu.broadcastChanges();

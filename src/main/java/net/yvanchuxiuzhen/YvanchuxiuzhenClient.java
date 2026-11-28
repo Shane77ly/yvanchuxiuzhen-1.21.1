@@ -48,7 +48,7 @@ import net.yvanchuxiuzhen.collection.tiandao.client.NbtEditorClientSetup;
 @Mod(value = ModId.VALUE, dist = Dist.CLIENT)
 public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
-        ModifierKeysClient.register();
+        ModifierKeysClient.register(modBus);
         BookClientSetup.register(modBus);
         ParticleClientSetup.register(modBus);
         PlantClientSetup.register(modBus);

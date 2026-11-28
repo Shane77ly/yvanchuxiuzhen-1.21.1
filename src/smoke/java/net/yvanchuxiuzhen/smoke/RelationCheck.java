@@ -184,7 +184,18 @@ final class RelationCheck extends SystemCheck {
                 if (!inWorld(local)) {
                     return false;
                 }
-                onServer(player -> checkKept("重进后", player));
+                onServer(player -> {
+                    checkKept("重进后", player);
+                    PlayerRelation relation = player.getData(RelationAttachments.PLAYER);
+                    relation.setRequest(name, team);
+                    TeamRequest.press(player, 0);
+                    expectTrue("Q19 同意已存在好友不去重增格且清空请求", relation.friendCount() == 11 && relation.requestName().isEmpty());
+                    FriendList.open(player);
+                    FriendList.press(player, 0);
+                    FriendList.press(player, 15);
+                    expectTrue("Q19 删除在线本人行双向标记删除且保持好友总数", relation.friendCount() == 11 && relation.friend(1).black());
+                    player.closeContainer();
+                });
                 finish();
             }
             default -> finish();
@@ -207,20 +218,17 @@ final class RelationCheck extends SystemCheck {
         Relations.addFriendlyTeam(stranger, team);
         expectTrue("加入友方集合后视玩家为友方", Relations.isFriendly(stranger, player));
         PlayerRelation relation = player.getData(RelationAttachments.PLAYER);
-        CompoundTag jar = new CompoundTag();
-        Relations.shareAllegianceToBlock(player, jar);
+        relation.allegiance().setFriendly("smoke_block_friend", true);
+        List<String> jar = Relations.friendTeamsForBlock(player);
         Relations.shareBlockAllegiance(jar, summon, "smoke_insect");
         expect("放虫保留虫物品团队", "smoke_insect", Relations.team(summon));
         Set<String> sharedView = Relations.friendlyTeams(summon);
-        relation.allegiance().setFriendly("smoke_block_friend", true);
-        expectTrue("主人友方修改经蛊罐传给虫和既有视图", jar.getCompound("friendlist").getBoolean("smoke_block_friend") && sharedView.contains("smoke_block_friend"));
-        jar.getCompound("friendlist").putBoolean("smoke_false_friend", false);
-        expectTrue("共享标签假值不算友方", !sharedView.contains("smoke_false_friend"));
+        expectTrue("主人友方列表经蛊罐快照传给虫和既有视图", jar.contains("smoke_block_friend") && sharedView.contains("smoke_block_friend"));
+        expectTrue("未包含团队不算友方", !sharedView.contains("smoke_false_friend"));
         Allegiance restored = Allegiance.CODEC.parse(NbtOps.INSTANCE,
                 Allegiance.CODEC.encodeStart(NbtOps.INSTANCE, summon.getData(RelationAttachments.ENTITY)).getOrThrow()).getOrThrow();
         relation.allegiance().setFriendly("smoke_block_friend", false);
-        expectTrue("删除友方立即穿过罐和虫", !sharedView.contains("smoke_block_friend") && !jar.getCompound("friendlist").getBoolean("smoke_block_friend"));
-        expectTrue("阵营存档重读保留值并解除共享", restored.isFriendly("smoke_block_friend") && !restored.isFriendly("smoke_false_friend"));
+        expectTrue("阵营存档重读保留虫友方并独立于主人", restored.isFriendly("smoke_block_friend") && !restored.isFriendly("smoke_false_friend"));
         relation.addFriend(name, team);
         for (int i = 1; i <= 10; i++) {
             String number = String.format("%02d", i);

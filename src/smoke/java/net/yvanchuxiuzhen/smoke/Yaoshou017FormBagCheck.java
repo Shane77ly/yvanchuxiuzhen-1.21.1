@@ -31,8 +31,13 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.creature.SpiritBeastBagRuntime;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou017Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou01701Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
@@ -203,7 +208,7 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
         active = releaseOne(player);
         expectTrue("收纳与首次放出保留低生命、体型和经验样本", active.getHealth() == 21
                 && active.getMaxHealth() == 100 && active.getAttributeValue(YaoshouAttributes.SIZE) == SPECIMEN_SIZE
-                && active.getPersistentData().getDouble("experience") == 37.5);
+                && EntityAttributes.get(active).experience() == 37.5);
         release(player);
         expect("待收回状态不能重复释放", 1, released(player).size());
         UUID firstRelease = active.getUUID();
@@ -229,14 +234,14 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
         require(crab != null, "无法创建017样本");
         crab.moveTo(Vec3.atBottomCenterOf(floor.offset(x, 1, 2)));
         anchor(crab);
-        CompoundTag data = crab.getPersistentData();
-        data.putString("LEVELname", "一阶中级");
-        data.putDouble("LEVELnumber", 4);
-        data.putDouble("experience_Max", 350);
-        data.putDouble("experience", 37.5);
-        data.putDouble("health_Max", 100);
-        data.putDouble("attack_Num", 12);
-        data.putDouble("speed_number", .25);
+        EntityAttributes.update(crab, stats -> stats
+                .withRealmName("一阶中级")
+                .withLevel(4)
+                .withExperienceMax(350)
+                .withExperience(37.5)
+                .withStat(Stat.HEALTH_MAX, 100)
+                .withStat(Stat.ATTACK, 12)
+                .withStat(Stat.MOVE_SPEED, .25));
         crab.getAttribute(YaoshouAttributes.SIZE).setBaseValue(SPECIMEN_SIZE);
         crab.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100);
         crab.setHealth(21);
@@ -252,7 +257,7 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
         Yaoshou017Entity crab = matches.getFirst();
         samples.add(crab.getUUID());
         require(hasBagIdentity(player, true) && crab.isOwnedBy(player)
-                && crab.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID()), "放出未绑定主人或袋");
+                && CreatureData.state(crab).masterUuid().equals(player.getStringUUID()), "放出未绑定主人或袋");
         crab.moveTo(Vec3.atBottomCenterOf(floor.offset(2, 1, 2)));
         anchor(crab);
         return crab;
@@ -260,7 +265,7 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
 
     private List<Yaoshou017Entity> released(ServerPlayer player) {
         return player.serverLevel().getEntitiesOfClass(Yaoshou017Entity.class, player.getBoundingBox().inflate(8),
-                entity -> entity.isAlive() && bagId.equals(entity.getPersistentData().getString("lingshoudaiuuid")));
+                entity -> entity.isAlive() && bagId.equals(CreatureData.state(entity).bagUuid()));
     }
 
     private boolean hasBagIdentity(ServerPlayer player, boolean out) {
@@ -314,8 +319,9 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
     }
 
     private void aim(Entity entity) {
-        entity.getPersistentData().putString("linshigongjizhe", target.getStringUUID());
-        entity.getPersistentData().putString("gongjizhe", target.getStringUUID());
+        CreatureState state = CreatureData.state(entity);
+        state.setTempAttackerUuid(target.getStringUUID());
+        state.setAttackerUuid(target.getStringUUID());
     }
 
     private void observeForm(int distance) {
@@ -327,8 +333,13 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
     }
 
     private static void resetSkill(Entity entity) {
-        CompoundTag data = entity.getPersistentData();
-        for (String key : List.of("jineng", "jinengjinxing", "yvdingjineng", "yvdingjinengjishi", "entitytick", "jinengshuliang")) data.remove(key);
+        CreatureState data = CreatureData.state(entity);
+        data.setSkill("");
+        data.setPhase("");
+        data.setQueuedSkill("");
+        data.setQueuedTimer(0);
+        data.setTick(0);
+        data.setCandidateCount(0);
     }
 
     private void startReplacement(Mob source, String skill) {
@@ -338,22 +349,22 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
         stageStarted = false;
         resetSkill(source);
         aim(source);
-        CompoundTag data = source.getPersistentData();
+        CreatureState data = CreatureData.state(source);
         if (skill.equals(REGROW)) {
             // 固定已观察到的候选，延迟与阶段仍由正常实体刻推进。
-            data.putString("yvdingjineng", skill);
-            data.putDouble("yvdingjinengjishi", formProbe.delay());
+            data.setQueuedSkill(skill);
+            data.setQueuedTimer(formProbe.delay());
         } else {
-            data.putString("jineng", skill);
+            data.setSkill(skill);
         }
     }
 
     private void onTick(EntityTickEvent.Post event) {
         Entity entity = event.getEntity();
         if (entity.level() != initialLevel || !samples.contains(entity.getUUID())) return;
-        CompoundTag data = entity.getPersistentData();
-        if (entity == replacing && data.getDouble("entitytick") == 1) {
-            stageStarted = data.getString("jinengjinxing").equals(entity == active ? "结束" : REGROW);
+        CreatureState data = CreatureData.state(entity);
+        if (entity == replacing && data.tick() == 1) {
+            stageStarted = data.phase().equals(entity == active ? "结束" : REGROW);
         }
         if (entity == active && tameProbe == null) tameProbe = probe(entity, SHED);
         if (entity == wild && wildProbe == null) wildProbe = probe(entity, SHED);
@@ -361,13 +372,13 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
     }
 
     private static Probe probe(Entity entity, String skill) {
-        CompoundTag data = entity.getPersistentData();
-        for (int index = 1; index <= data.getDouble("jinengshuliang"); index++) {
-            if (data.getString("linshijineng" + index).equals(skill)) {
-                return new Probe(data.getDouble("jinengjishi" + index), data.getDouble("jinengqvanzhong" + index), true);
+        CreatureState data = CreatureData.state(entity);
+        for (int index = 1; index <= data.candidateCount(); index++) {
+            if (data.candidateSkill(index).equals(skill)) {
+                return new Probe(data.candidateTimer(index), data.candidateWeight(index), true);
             }
         }
-        return new Probe(0, 0, data.getDouble("jinengshuliang") > 0);
+        return new Probe(0, 0, data.candidateCount() > 0);
     }
 
     private void expectCandidate(String label, Probe probe, int delay, int weight) {
@@ -379,11 +390,11 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
                 || replacing.distanceToSqr(form) > 1e-6) return;
         replacement = form;
         replacements++;
-        replacementTick = replacing.getPersistentData().getDouble("entitytick");
+        replacementTick = CreatureData.state(replacing).tick();
         samples.add(form.getUUID());
         anchor(form);
         if (replacing == active) {
-            expect("脱壳新形态初始技能", "逃跑", form.getPersistentData().getString("jineng"));
+            expect("脱壳新形态初始技能", "逃跑", CreatureData.state(form).skill());
             var speed = form.getEffect(MobEffects.MOVEMENT_SPEED);
             var weakness = form.getEffect(MobEffects.WEAKNESS);
             expectTrue("脱壳速度II 100刻、虚弱II 400刻", speed != null && speed.getAmplifier() == 1 && speed.getDuration() == 100
@@ -405,20 +416,22 @@ final class Yaoshou017FormBagCheck extends SystemCheck {
         expect(label + "体型", replacing.getAttributeValue(YaoshouAttributes.SIZE), replacement.getAttributeValue(YaoshouAttributes.SIZE));
         expect(label + "阵营", Relations.entityTeam(replacing), Relations.entityTeam(replacement));
         expect(label + "友方集合", Relations.friendlyTeams(replacing), Relations.friendlyTeams(replacement));
-        CompoundTag source = replacing.getPersistentData();
-        CompoundTag dest = replacement.getPersistentData();
-        expect(label + "等级", source.getString("LEVELname"), dest.getString("LEVELname"));
-        for (String field : List.of("LEVELnumber", "experience", "experience_Max", "health_Max", "attack_Num")) {
-            expect(label + " " + field, source.getDouble(field), dest.getDouble(field));
-        }
-        expect(label + "防御资质", defense, List.of(dest.getString("attack_Def_LEVEL"), dest.getString("mana_Def_LEVEL"), dest.getString("soul_Def_LEVEL")));
+        EntityStats source = EntityAttributes.get(replacing);
+        EntityStats dest = EntityAttributes.get(replacement);
+        expect(label + "等级", source.realmName(), dest.realmName());
+        expect(label + " LEVELnumber", source.level(), dest.level());
+        expect(label + " experience", source.experience(), dest.experience());
+        expect(label + " experience_Max", source.experienceMax(), dest.experienceMax());
+        expect(label + " health_Max", source.stat(Stat.HEALTH_MAX), dest.stat(Stat.HEALTH_MAX));
+        expect(label + " attack_Num", source.stat(Stat.ATTACK), dest.stat(Stat.ATTACK));
+        expect(label + "防御资质", defense, List.of(dest.rating(Stat.ATTACK_DEF), dest.rating(Stat.MANA_DEF), dest.rating(Stat.SOUL_DEF)));
         expectTrue(label + "不继承主人或袋ID", unlinked(replacement));
         replacing = null;
     }
 
     private static boolean unlinked(Yaoshou01701Entity form) {
-        CompoundTag data = form.getPersistentData();
-        return data.getString("lingshoudaiuuid").isEmpty() && data.getString("belongToMasterUUID").isEmpty();
+        CreatureState data = CreatureData.state(form);
+        return data.bagUuid().isEmpty() && data.masterUuid().isEmpty();
     }
 
     private void prepareReload(ServerPlayer player) {

@@ -2,12 +2,34 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-22
+updated: 2026-11-28
 ---
 
 # 交接说明
 
-## 当前交接（2026-11-22 收口干净状态）
+## 当前交接（2026-11-28 架构终极收尾、阶段 4 全量清理与黄金基线本地 `main` 合入完成）
+
+1. **当前基线**：
+   - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`。
+   - 当前分支：本地 `main`（已通过 `git merge --no-ff` 完整合入 `port/20261123-parity-integration` 及其全部 7 个收尾子批次，未自动推送远端）。
+   - 阶段 2C（妖兽 AI 选技能规则 JSON 拆分）按负责人决定保持暂缓、保留现有 Java 实现。
+2. **七大收尾子批次完成状态（详见[当前调度](remaining-work.md#2026-11-27-架构终极收尾去套壳与剩余配方-json-化阶段-4-全量原版-bug-清理与黄金基线收口)）**：
+   - **子批 1–6**：`p5a`（副本/阵法 `Codec` + JSON 与去套壳）、`p5b`（烹饪/生活制造 25+68 配方 JSON 化与去套壳）、`p5c`（剥离全仓套壳 `CompoundTag` & 升级 `ArchitectureTest` 规则 7）、`p4b`（Q32/Q33/Q34/Q45 命中附魔/毒药/死亡消息）、`p4c`（Q57 18 把弓/Q35 淬毒锅/Q36–Q39/Q41/Q42/Q44/Q68）、`p4d`（Q25/Q21/Q22/Q19/Q93/Q72/Q73/Q88/Q94/Q96/Q103/Q192/Q214）全部完成验证并 `--no-ff` 合入。
+   - **子批 7（`refactor/p6-test-fixtures-and-main-closure`，已完成并合入本地 `main`）**：已将 `AttributeCheck`（重生当前生命 `11.0`）与 `QiankunDialogueCheck`（`q119` 代码自举建坛，脱离 `renjian-q119`）修补并通过 `-PsmokeOnly=attribute,q119`（51 行、`0 FAIL`、`DONE`）；已移除 3 个干净且已合入的 parity 子工作树与 28 个已合入临时分支；已保留含 16 个未合入提交及未提交地形研究文件的 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-terrain-generation-research`（`port/20261124-terrain-generation-research`）待负责人确认；全量 `compileJava/compileTestJava/compileSmokeJava/test/jar`、`check_ledger.py`、`check_docs.py` 与 `git diff --check` 全部 0 问题通过后合入本地 `main`。
+
+## 历史交接（2026-11-27 阶段 4 首批合入）
+
+- **从这里接手**：主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，当前分支已切至集成分支 `port/20261123-parity-integration`（已以 `--no-ff` 合入阶段 1、2A、2B、3 以及阶段 4 已批准批 `refactor/p4-legacy-bug-cleanup`）。未合 `main`、未推送；不要动 `main` 或其他工作树。
+- **已验证并合入的阶段 4 批次（2026-11-27）**：`festivalfirework`（`pao_13` 近景）、Q05、Q26（第 6/7 表 `max=8/12`）、Q71（玩家商铺领取清零）、Q84（维度直接比较）、Q177（护腿与删去三级妖兽材料 `cailiao_153` 余 21 签）、战斗批 Q18/Q29/Q30（受击同属性功法减伤及负伤保护、体质防御修正、`mana_Def` 护甲项、物理破甲=1/暴击倍率/攻击者 `AttackAttCorrectPercentage`/闪避 1–100/去重吸血/空团队不免伤；`combat` 与 `q235spellshield` 0 `FAIL`/`DONE`）以及符箓批 Q64–Q67（`FuluConsumeJingliPercentage` 乘法、21 号保留 `fulunumber` 累加、46 号先写 `CASTER.level46` 再发射且首刻读并清零、32 号单次分裂；`fulucooking` 0 `FAIL`/`DONE`）。
+- **已验证与待裁定**：合入后全量编译、`AttributeTotalsTest`、ArchUnit 与 `jar` 门禁及台账/文档校验通过；`attribute` 先前合跑中仅 2026-11-03 旧夹具“重生后 当前生命 30.0”因后续 `Rebirth` 二成回血机制变化而报 11.0（`受击方火功法项 -10.0` 通过）。其余未批复的阶段 4 候选项（Q13/Q19/Q25/Q32/Q33/Q35/Q72/Q73 等）待负责人指示后再另行开批或评估是否合入 `main`，参见[剩余工作](remaining-work.md)。
+- **既定边界**：2C 暂缓，妖兽 AI 保留 Java。阶段 3 的连续六维、地灵直入及十二城镇模板已按正式代码、2 GiB 客户端验收；768 MiB 客户端只用于可选压力测试。重型验证串行，Gradle 768 MiB、单 worker。
+- **2B 遗留**：`q119` 需重建存档夹具；`npcvillage` 无对应场景；合跑时 `npcmanagement` 气血差异和 `fanhuacheng03` 内存不足单跑未复现。见[项目月志](../systems/project/logs/2026-11.md)。
+
+## 历史交接（2026-11-24 双源保真修复与边界收口）
+
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。在完成 Q244–Q281 与任务一、五、六审计后，本轮已在同一集成线完成 Q244–Q281 中 30 项差异的代码/资源/标签/语言修复；`Q246`、`Q248`、`Q252`、`Q254`、`Q259`、`Q264`、`Q279`、`Q281` 共 8 项因既存 Smoke 契约、权限安全、服务端权威或跨块破坏风险保留当前实现并明确登记在[项目月志](../systems/project/logs/2026-11.md#2026-11-24-双源差异-q244q281-批量修复与保留边界收口)与[统一问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)。任务原书、新按钮界面与实机行为链仍待按实际验证门禁执行客户端/专服实测。
+
+## 历史交接（2026-11-22 收口干净状态）
 
 主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 已恢复为**唯一且干净的工作树**，当前分支为 `port/batch0-integration-20261117`（基线包含 `faf99fa1` 及其之前全部已合入成果；最新 HEAD 以 Git 为准）。除 `main`（`5cdc045c`）与 `port/batch0-integration-20261117` 之外的 325 个历史分支和 136 个冗余 worktree（含原 `rebuild-batch0-integration-continuation-20261119` 与原主树 313 条旧改动）已全部打包归档至工作区外 `D:/yuanchuxiuzhen-1.21.1-port/archive/cleanup-20261122/`（含 `all-branches-20261122.bundle` 与 `dirty-worktrees/`）后彻底移除。本批合入与取舍记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-22-接手验收合并与工作树收口)。
 

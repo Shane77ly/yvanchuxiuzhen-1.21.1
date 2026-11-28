@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.book.api.BookQuizzes;
@@ -85,8 +86,8 @@ public final class ReincarnationFlow {
             }
         }
         Cultivation.rollNonPlayerReincarnationRoots(sourceLevel);
-        entity.getPersistentData().putDouble("LEVELnumber", 0);
-        entity.getPersistentData().putString("team", "");
+        EntityAttributes.setLevel(entity, 0);
+        Relations.setTeam(entity, "");
         if (entity instanceof ServerPlayer player) Cultivation.openBirthAfterReincarnation(player);
     }
 

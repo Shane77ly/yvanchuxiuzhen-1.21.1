@@ -20,7 +20,7 @@ public final class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBl
 
     @Override
     public void render(CuttingBlockEntity board, float partialTick, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
-        int angle = board.getPersistentData().getInt("jiaodu");
+        int angle = board.angle();
         for (int slot = 0; slot < 9; slot++) {
             ItemStack stack = board.getItem(slot).copy();
             if (stack.isEmpty()) continue;

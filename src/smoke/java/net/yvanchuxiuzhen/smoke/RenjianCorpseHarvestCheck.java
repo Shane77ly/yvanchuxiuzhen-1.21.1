@@ -23,7 +23,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou003Entity;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 
@@ -78,8 +80,8 @@ final class RenjianCorpseHarvestCheck extends SystemCheck {
             fail("受控003未入场");
             return;
         }
-        var data = sheep.getPersistentData();
-        if (coreTaken) data.putBoolean("yaodandiaoluo", true);
+        var data = CreatureData.state(sheep);
+        if (coreTaken) data.setBeastCoreDropped(true);
         var items = new ArrayList<ItemEntity>();
         Consumer<EntityJoinLevelEvent> listener = event -> {
             Vec3 dropPosition = new Vec3(sheep.getX(), sheep.blockPosition().getY() + 1, sheep.getZ());
@@ -94,7 +96,7 @@ final class RenjianCorpseHarvestCheck extends SystemCheck {
         String label = coreTaken ? "已有妖丹" : "新尸体";
         try {
             player.interactOn(sheep, InteractionHand.MAIN_HAND);
-            expectTrue(label + "活体不采集", items.isEmpty() && data.getDouble("caijinumber") == 0);
+            expectTrue(label + "活体不采集", items.isEmpty() && data.harvestCount() == 0);
             if (!sheep.hurt(sheep.damageSources().genericKill(), Float.MAX_VALUE) || sheep.isAlive() || sheep.isRemoved()) {
                 fail(label + "未走真实死亡且保留尸体");
                 return;
@@ -102,7 +104,7 @@ final class RenjianCorpseHarvestCheck extends SystemCheck {
             expectTrue(label + "普通死亡未在采集坐标发放采集品", items.isEmpty());
             for (int count = 1; count <= 5; count++) {
                 player.interactOn(sheep, InteractionHand.MAIN_HAND);
-                expectTrue(label + "第" + count + "次采集计数和落物", count == data.getDouble("caijinumber") && count == items.size());
+                expectTrue(label + "第" + count + "次采集计数和落物", count == data.harvestCount() && count == items.size());
                 if (count < 5) expectTrue(label + "前四次保留尸体", !sheep.isRemoved());
             }
             expectTrue(label + "第五次直接移除", sheep.getRemovalReason() == Entity.RemovalReason.DISCARDED);
@@ -112,10 +114,10 @@ final class RenjianCorpseHarvestCheck extends SystemCheck {
                 if (!PRODUCTS.contains(kind) || item.saveWithoutId(new CompoundTag()).getInt("PickupDelay") != 10) return false;
                 if (!kind.equals(HIDE) && !kind.equals(CORE)) return true;
                 var material = Materials.instance(stack);
-                return material.level() == (int) data.getDouble("LEVELnumber") && material.quality() >= 0 && material.quality() <= 4;
+                return material.level() == (int) EntityAttributes.level(sheep) && material.quality() >= 0 && material.quality() <= 4;
             }));
             long cores = items.stream().filter(item -> BuiltInRegistries.ITEM.getKey(item.getItem().getItem()).equals(CORE)).count();
-            expectTrue(label + "妖丹上限及持久标记", coreTaken ? cores == 0 : cores <= 1 && (cores == 1) == data.getBoolean("yaodandiaoluo"));
+            expectTrue(label + "妖丹上限及持久标记", coreTaken ? cores == 0 : cores <= 1 && (cores == 1) == data.beastCoreDropped());
         } finally {
             NeoForge.EVENT_BUS.unregister(listener);
             player.setItemInHand(InteractionHand.MAIN_HAND, hand);

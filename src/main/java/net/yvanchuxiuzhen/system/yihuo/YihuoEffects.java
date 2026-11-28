@@ -16,10 +16,13 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.yihuo.data.YihuoBurnState;
+import net.yvanchuxiuzhen.system.yihuo.data.YihuoData;
 
 /** 阳火炙烤与阴火灼烧：独立持久计时、每二十刻伤害及阳火触发的阴阳爆燃。 */
 public final class YihuoEffects {
@@ -51,21 +54,38 @@ public final class YihuoEffects {
             ServerLevel level = (ServerLevel) entity.level();
             int particle = (yang ? 221 : 231) + (amplifier >= 0 && amplifier < 8 ? amplifier : 8);
             level.sendParticles(Particles.type("cailiao_" + particle + "particle"), entity.getX(), entity.getY() + .7, entity.getZ(), 2, .8, .8, .8, .1);
-            String timer = yang ? "yanghuotick" : "yinhuotick";
-            double elapsed = entity.getPersistentData().getDouble(timer) + 1;
-            entity.getPersistentData().putDouble(timer, elapsed);
+            YihuoBurnState state = entity.getData(YihuoData.BURN_STATE);
+            double elapsed = (yang ? state.yangTick() : state.yinTick()) + 1;
+            if (yang) state.setYangTick(elapsed);
+            else state.setYinTick(elapsed);
             if (elapsed >= 20) {
                 String attacker = entity instanceof Player player ? Cultivation.tizhiString(player, "fireAttackUUID")
-                        : entity.getPersistentData().getString("fireAttackUUID");
+                        : state.fireAttackUuid();
                 if (yang && StatusEffects.has(entity, "effect_024")) {
                     explode(level, entity, attacker);
                 } else {
-                    SpellDamage.command(level, entity, "shanghai 火 " + attacker + " true " + (8 * (amplifier + 1)) + " 1" + (yang ? " 异火" : ""));
+                    SpellDamage.dealSaved(level, entity, DamageCategory.FIRE, attacker, true, 8 * (amplifier + 1), 1);
                     if (yang) RESET_INVULNERABILITY.add(entity);
                 }
-                entity.getPersistentData().putDouble(timer, 0);
+                if (yang) state.setYangTick(0);
+                else state.setYinTick(0);
             }
             return true;
+        }
+
+        @Override
+        public void clientTick(LivingEntity entity, int amplifier) {
+            if (!yang || !eligible(entity) || !StatusEffects.has(entity, "effect_024")) {
+                return;
+            }
+            YihuoBurnState state = entity.getData(YihuoData.BURN_STATE);
+            double elapsed = state.yangClientTick() + 1;
+            state.setYangClientTick(elapsed);
+            if (elapsed >= 20) {
+                entity.level().playLocalSound(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
+                        SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1, false);
+                state.setYangClientTick(0);
+            }
         }
     }
 
@@ -80,7 +100,7 @@ public final class YihuoEffects {
         for (Mob target : level.getEntitiesOfClass(Mob.class, new AABB(entity.position(), entity.position()).inflate(2)).stream()
                 .sorted(Comparator.comparingDouble(entity::distanceToSqr)).toList()) {
             int damage = 10 * (StatusEffects.amplifier(entity, "effect_023") + StatusEffects.amplifier(entity, "effect_024") + 2);
-            SpellDamage.command(level, target, "shanghai 火 " + attacker + " false " + damage + " 1");
+            SpellDamage.dealSaved(level, target, DamageCategory.FIRE, attacker, false, damage, 1);
         }
         double y = entity.getY() + entity.getBbHeight() * .5;
         level.playSound(null, BlockPos.containing(entity.getX(), y, entity.getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);

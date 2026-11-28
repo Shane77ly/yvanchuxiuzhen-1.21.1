@@ -21,8 +21,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.yvanchuxiuzhen.collection.decor.CritterCageData;
+import net.yvanchuxiuzhen.collection.decor.DecorData;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
@@ -62,7 +63,7 @@ final class RabbitCageCheck extends SystemCheck {
             case 2 -> onServer(player -> {
                 player.serverLevel().getEntity(rabbitId).move(MoverType.SELF, Vec3.ZERO);
                 expectTrue("保护时段动物碰撞仍保持开笼", player.level().getBlockState(cage).is(block("zhuangshi_tulong_02")));
-                expectTrue("保护状态已随开笼建立", cage(player, cage).getPersistentData().getBoolean("qiangzhi"));
+                expectTrue("保护状态已随开笼建立", cage(player, cage).forcedOpen());
                 IItemHandler unsided = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, cage, null);
                 IItemHandler sided = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, cage, Direction.UP);
                 expect("无方向能力单槽上限", 1, unsided.getSlotLimit(0));
@@ -151,9 +152,9 @@ final class RabbitCageCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         use(player, cage, Direction.NORTH, true);
         ItemStack filled = find(player, "zhuangshitulongitem_02");
-        CompoundTag data = filled.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        expect("收笼兔数量", 1, data.getInt("rabbitnumber"));
-        expect("收笼保留兔种", Rabbit.Variant.GOLD.id(), data.getInt("RabbitType"));
+        CritterCageData data = filled.getOrDefault(DecorData.CRITTER_CAGE.get(), CritterCageData.EMPTY);
+        expect("收笼兔数量", 1, data.rabbitCount());
+        expect("收笼保留兔种", Rabbit.Variant.GOLD.id(), data.rabbitVariant());
         expectTrue("收笼删除原世界动物", player.serverLevel().getEntity(rabbitId) == null);
         expectTrue("收笼移除方块", player.level().isEmptyBlock(cage));
         player.getInventory().removeItem(filled);
@@ -172,9 +173,9 @@ final class RabbitCageCheck extends SystemCheck {
     private void reloadAndReleaseRabbit(ServerPlayer player) {
         ItemStack saved = player.getInventory().getItem(9);
         expectTrue("满笼物品随玩家存档恢复", saved.is(item("zhuangshitulongitem_02")));
-        expect("满笼兔种随存档恢复", Rabbit.Variant.GOLD.id(), saved.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("RabbitType"));
+        expect("满笼兔种随存档恢复", Rabbit.Variant.GOLD.id(), saved.getOrDefault(DecorData.CRITTER_CAGE.get(), CritterCageData.EMPTY).rabbitVariant());
         expectTrue("开笼诱饵随方块存档恢复", cage(player, savedCage).getItem(0).is(Items.CARROT));
-        expectTrue("保护计数由自然二十刻更新结束", !cage(player, savedCage).getPersistentData().getBoolean("qiangzhi"));
+        expectTrue("保护计数由自然二十刻更新结束", !cage(player, savedCage).forcedOpen());
         player.setItemInHand(InteractionHand.MAIN_HAND, saved.copy());
         player.getInventory().setItem(9, ItemStack.EMPTY);
         player.connection.teleport(cage.getX() + .5, cage.getY(), cage.getZ() - 2, 0, 20);
@@ -209,7 +210,7 @@ final class RabbitCageCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         use(player, savedCage, Direction.NORTH, true);
         ItemStack filled = find(player, "zhuangshitulongitem_03");
-        expect("鸡笼保存来源数量", 1, filled.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("chickennumber"));
+        expect("鸡笼保存来源数量", 1, filled.getOrDefault(DecorData.CRITTER_CAGE.get(), CritterCageData.EMPTY).chickenCount());
         player.getInventory().removeItem(filled);
         player.setItemInHand(InteractionHand.MAIN_HAND, filled.copy());
         use(player, savedCage.below(), Direction.UP, false);

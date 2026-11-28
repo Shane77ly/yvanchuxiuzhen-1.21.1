@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.npc.entity;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +27,7 @@ public final class NpcResidentAnimated extends NpcResident implements GeoEntity,
     private final EntityModelRow model;
     private String procedure = "empty";
     private boolean procedureStarted;
+    private double smileTick;
 
     public NpcResidentAnimated(EntityType<? extends NpcResidentAnimated> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -39,20 +41,33 @@ public final class NpcResidentAnimated extends NpcResident implements GeoEntity,
         builder.define(ANIMATION, "undefined");
     }
 
+    @Override public void addAdditionalSaveData(CompoundTag data) {
+        super.addAdditionalSaveData(data);
+        data.putDouble("smile_tick", smileTick);
+    }
+
+    @Override public void readAdditionalSaveData(CompoundTag data) {
+        super.readAdditionalSaveData(data);
+        smileTick = data.getDouble("smile_tick");
+    }
+
     @Override public String texture() { return entityData.get(TEXTURE); }
 
     public String getSyncedAnimation() { return entityData.get(ANIMATION); }
 
     public void setAnimation(String animation) { entityData.set(ANIMATION, animation); }
 
+    public double smileTick() { return smileTick; }
+
+    public void setSmileTick(double tick) { smileTick = tick; }
+
     @Override public void baseTick() {
         super.baseTick();
-        double ticks = getPersistentData().getDouble("tick") + 1;
-        if (ticks >= 100) {
+        smileTick += 1;
+        if (smileTick >= 100) {
             if (getHealth() >= getMaxHealth() * .9) setAnimation("animation." + model.animation() + ".smile");
-            ticks = 0;
+            smileTick = 0;
         }
-        getPersistentData().putDouble("tick", ticks);
         refreshDimensions();
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
@@ -18,11 +19,12 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.yvanchuxiuzhen.system.economy.data.EconomyBlockState;
 
-/** 来源经济方块的实际库存和附加数据，服务端是唯一写入者，更新包提供界面只读显示。 */
+/** 来源经济方块的实际库存和强类型状态，服务端是唯一写入者，更新包提供界面只读显示。 */
 public final class EconomyBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> items;
-    private CompoundTag state = new CompoundTag();
+    private EconomyBlockState state = new EconomyBlockState();
     private boolean auctionRejected;
     private final IItemHandler handler = new InvWrapper(this);
 
@@ -32,7 +34,7 @@ public final class EconomyBlockEntity extends RandomizableContainerBlockEntity i
     }
 
     public boolean auction() { return ((EconomyBlock) getBlockState().getBlock()).auction(); }
-    public CompoundTag state() { return state; }
+    public EconomyBlockState state() { return state; }
     public boolean auctionRejected() { return auctionRejected; }
     public void rejectAuction() { auctionRejected = true; }
     public void rearmAuction() { auctionRejected = false; }
@@ -51,12 +53,14 @@ public final class EconomyBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        state = tag.getCompound("economy").copy();
+        state = tag.contains("economy_state")
+                ? EconomyBlockState.CODEC.parse(NbtOps.INSTANCE, tag.get("economy_state")).result().orElseGet(EconomyBlockState::new)
+                : new EconomyBlockState();
     }
     @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
-        tag.put("economy", state.copy());
+        tag.put("economy_state", EconomyBlockState.CODEC.encodeStart(NbtOps.INSTANCE, state).getOrThrow());
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

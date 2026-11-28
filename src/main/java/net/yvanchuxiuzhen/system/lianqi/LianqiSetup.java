@@ -17,6 +17,7 @@ import net.yvanchuxiuzhen.system.lianqi.content.LianqiBlockEntities;
 import net.yvanchuxiuzhen.system.lianqi.content.LianqiMenus;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlock;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodPlacementItem;
+import net.yvanchuxiuzhen.system.lianqi.data.LianqiData;
 import net.yvanchuxiuzhen.system.lianqi.network.TripodButtonPayload;
 import net.yvanchuxiuzhen.system.lianqi.network.BlueprintTableButtonPayload;
 import net.yvanchuxiuzhen.system.lianqi.network.RepairTableButtonPayload;
@@ -42,6 +43,7 @@ public final class LianqiSetup {
     public static void register(IEventBus modBus) {
         LianqiRules.register();
         CONTENT.register(modBus);
+        LianqiData.register(modBus);
         LianqiBlockEntities.register(modBus);
         LianqiMenus.register(modBus);
         modBus.addListener(LianqiSetup::payloads);

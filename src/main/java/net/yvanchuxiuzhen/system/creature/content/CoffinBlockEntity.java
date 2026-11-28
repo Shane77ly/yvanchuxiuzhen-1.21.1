@@ -34,6 +34,8 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -50,41 +52,45 @@ public final class CoffinBlockEntity extends RandomizableContainerBlockEntity im
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private double openTick;
+    private boolean spawned;
 
     public CoffinBlockEntity(BlockPos pos, BlockState state) {
         super(CoffinContent.TYPE.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
     }
 
+    public double openTick() { return openTick; }
+    public void setOpenTick(double openTick) { this.openTick = openTick; }
+    public boolean spawned() { return spawned; }
+    public void setSpawned(boolean spawned) { this.spawned = spawned; }
+
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : sided[direction.ordinal()]; }
 
     /** 每二十游戏刻执行一次，来源倒计时的单位保持为调度次数。 */
     public void sourceTick(ServerLevel server) {
-        CompoundTag data = getPersistentData();
-        double remaining = data.getDouble("opentick");
-        if (remaining == 0) {
+        if (openTick == 0) {
             Vec3 center = Vec3.atCenterOf(worldPosition);
             for (Entity candidate : server.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(4), entity -> true)
                     .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
                 if (candidate instanceof ServerPlayer player && player.gameMode.getGameModeForPlayer() == GameType.SURVIVAL) {
                     setAnimation(server, Math.random() < 0.333 ? 3 : Math.random() < 0.5 ? 2 : 1);
-                    data.putDouble("opentick", 60);
+                    openTick = 60;
                     sync(server);
                 }
             }
-        } else if (remaining >= 1) {
-            remaining -= 1;
-            data.putDouble("opentick", remaining);
+        } else if (openTick >= 1) {
+            openTick -= 1;
             sync(server);
-            if (remaining == 0) {
-                data.putBoolean("shengcheng", false);
+            if (openTick == 0) {
+                spawned = false;
                 sync(server);
-            } else if (remaining == 47) {
+            } else if (openTick == 47) {
                 setAnimation(server, 0);
-            } else if (remaining == 49) {
+            } else if (openTick == 49) {
                 setAnimation(server, 4);
-            } else if (!data.getBoolean("shengcheng") && remaining == 59) {
-                data.putBoolean("shengcheng", true);
+            } else if (!spawned && openTick == 59) {
+                spawned = true;
                 sync(server);
                 spawnRefinedZombie(server);
             }
@@ -97,9 +103,10 @@ public final class CoffinBlockEntity extends RandomizableContainerBlockEntity im
         zombie.setDeltaMovement(new Vec3(0, 0.5, 0));
         zombie.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(28);
         zombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(350);
-        zombie.getPersistentData().putDouble("attack_Def", 24);
-        zombie.getPersistentData().putDouble("mana_Def", 15);
-        zombie.getPersistentData().putDouble("soul_Def", 40);
+        EntityAttributes.update(zombie, stats -> stats
+                .withStat(Stat.ATTACK_DEF, 24)
+                .withStat(Stat.MANA_DEF, 15)
+                .withStat(Stat.SOUL_DEF, 40));
         zombie.setCustomName(Component.literal("被炼化的僵尸"));
         zombie.setHealth(350);
         zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
@@ -126,8 +133,17 @@ public final class CoffinBlockEntity extends RandomizableContainerBlockEntity im
         server.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
-    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.loadAdditional(tag, registries); }
-    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.saveAdditional(tag, registries); }
+    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        openTick = tag.getDouble("opentick");
+        spawned = tag.getBoolean("shengcheng");
+    }
+
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putDouble("opentick", openTick);
+        tag.putBoolean("shengcheng", spawned);
+    }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }
     @Override public int getContainerSize() { return 0; }

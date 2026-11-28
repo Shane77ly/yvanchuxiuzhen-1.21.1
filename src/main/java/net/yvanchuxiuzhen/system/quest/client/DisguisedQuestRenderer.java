@@ -23,7 +23,7 @@ public final class DisguisedQuestRenderer implements BlockEntityRenderer<Disguis
         boolean blockItem = stack.getItem() instanceof BlockItem item && !item.getBlock().defaultBlockState().isAir();
         pose.pushPose();
         pose.translate(.5, blockItem ? .5 : .1, .5);
-        float rotation = switch (block.getPersistentData().getString("fangxiang")) {
+        float rotation = switch (block.displayDirection()) {
             case "北" -> 0;
             case "南" -> 180;
             case "西" -> 90;

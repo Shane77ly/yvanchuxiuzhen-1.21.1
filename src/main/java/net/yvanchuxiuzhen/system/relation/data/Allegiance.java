@@ -147,15 +147,8 @@ public final class Allegiance {
         friendDataPresent = true;
     }
 
-    /** 蛊罐放虫只共享方块的友方子标签，虫的团队仍取其物品实例字段。 */
-    public void shareFromBlock(CompoundTag blockData, String insectTeam) {
-        team = insectTeam;
-        friendlyTeams = blockData.getCompound("friendlist");
-        friendDataPresent = true;
-    }
-
-    /** 方块接收主人友方标签的同一引用，保留来源放置后好友修改的可见性。 */
-    public void shareToBlock(CompoundTag blockData) {
-        blockData.put("friendlist", friendDataPresent ? friendlyTeams : new CompoundTag());
+    /** 返回所有视为友方的团队名列表快照。 */
+    public List<String> friendlyTeamList() {
+        return friendlyTeams.getAllKeys().stream().filter(friendlyTeams::getBoolean).toList();
     }
 }

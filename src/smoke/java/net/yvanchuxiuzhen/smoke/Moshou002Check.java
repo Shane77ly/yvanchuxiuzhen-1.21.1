@@ -23,6 +23,11 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 
 /** 天魔002的来源初生、自然索敌、冲刺、拒伤边界、真实重进和二十刻死亡检查。 */
 final class Moshou002Check extends SystemCheck {
@@ -177,30 +182,30 @@ final class Moshou002Check extends SystemCheck {
         entityId = mob.getId();
         registerObserver();
 
-        CompoundTag data = mob.getPersistentData();
-        expect("来源默认等级", 20, data.getDouble("LEVELnumber"));
-        expect("来源初生境界", "四阶圆满", data.getString("LEVELname"));
-        expect("来源气血资质", "强劲", data.getString("health_Max_LEVEL"));
-        expect("来源气血恢复资质", "平庸", data.getString("health_Rec_LEVEL"));
-        expect("来源灵力资质", "平庸", data.getString("power_Max_LEVEL"));
-        expect("来源灵力恢复资质", "勉强", data.getString("power_Rec_LEVEL"));
-        expect("来源神识资质", "贫弱", data.getString("soul_Max_LEVEL"));
-        expect("来源神识恢复资质", "贫弱", data.getString("soul_Rec_LEVEL"));
-        expect("来源攻击资质", "勉强", data.getString("attack_Num_LEVEL"));
-        expect("来源防御资质", "强劲", data.getString("attack_Def_LEVEL"));
-        expect("来源法力攻击资质", "勉强", data.getString("mana_Att_LEVEL"));
-        expect("来源法力防御资质", "强劲", data.getString("mana_Def_LEVEL"));
-        expect("来源神识攻击资质", "贫弱", data.getString("soul_Att_LEVEL"));
-        expect("来源神识防御资质", "平庸", data.getString("soul_Def_LEVEL"));
-        expect("来源速度资质", "绝佳", data.getString("speed_LEVEL"));
-        expect("来源计算生命上限应用到实体属性", data.getDouble("health_Max"),
+        EntityStats stats = EntityAttributes.get(mob);
+        expect("来源默认等级", 20, stats.level());
+        expect("来源初生境界", "四阶圆满", stats.realmName());
+        expect("来源气血资质", "强劲", stats.rating(Stat.HEALTH_MAX));
+        expect("来源气血恢复资质", "平庸", stats.rating(Stat.HEALTH_REC));
+        expect("来源灵力资质", "平庸", stats.rating(Stat.POWER_MAX));
+        expect("来源灵力恢复资质", "勉强", stats.rating(Stat.POWER_REC));
+        expect("来源神识资质", "贫弱", stats.rating(Stat.SOUL_MAX));
+        expect("来源神识恢复资质", "贫弱", stats.rating(Stat.SOUL_REC));
+        expect("来源攻击资质", "勉强", stats.rating(Stat.ATTACK));
+        expect("来源防御资质", "强劲", stats.rating(Stat.ATTACK_DEF));
+        expect("来源法力攻击资质", "勉强", stats.rating(Stat.MANA_ATT));
+        expect("来源法力防御资质", "强劲", stats.rating(Stat.MANA_DEF));
+        expect("来源神识攻击资质", "贫弱", stats.rating(Stat.SOUL_ATT));
+        expect("来源神识防御资质", "平庸", stats.rating(Stat.SOUL_DEF));
+        expect("来源速度资质", "绝佳", stats.rating(Stat.MOVE_SPEED));
+        expect("来源计算生命上限应用到实体属性", stats.stat(Stat.HEALTH_MAX),
                 mob.getAttributeValue(Attributes.MAX_HEALTH));
-        expect("来源初生生命填满计算上限", data.getDouble("health_Max"), mob.getHealth());
-        expect("来源计算攻击力应用到实体属性", data.getDouble("attack_Num"),
+        expect("来源初生生命填满计算上限", stats.stat(Stat.HEALTH_MAX), mob.getHealth());
+        expect("来源计算攻击力应用到实体属性", stats.stat(Stat.ATTACK),
                 mob.getAttributeValue(Attributes.ATTACK_DAMAGE));
-        expect("来源计算速度应用到实体属性", data.getDouble("speed_number"),
+        expect("来源计算速度应用到实体属性", stats.stat(Stat.MOVE_SPEED),
                 mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
-        expect("初生飞行速度等于来源速度资质乘三", data.getDouble("speed_number") * 3,
+        expect("初生飞行速度等于来源速度资质乘三", stats.stat(Stat.MOVE_SPEED) * 3,
                 mob.getAttributeValue(Attributes.FLYING_SPEED));
     }
 
@@ -211,7 +216,7 @@ final class Moshou002Check extends SystemCheck {
         if (!naturalReady) {
             onServer(player -> {
                 if (entity == null || entity.isRemoved() || entity.getTarget() != player
-                        || entity.getPersistentData().getDouble("entitytick") <= 0) {
+                        || CreatureData.state(entity).tick() <= 0) {
                     return;
                 }
                 naturalReady = true;
@@ -225,7 +230,7 @@ final class Moshou002Check extends SystemCheck {
                 entity.setYRot(90);
                 entity.setXRot(0);
                 entity.setDeltaMovement(Vec3.ZERO);
-                entity.getPersistentData().putDouble("entitytick", 39);
+                CreatureData.state(entity).setTick(39);
                 impulseDirection = entity.getLookAngle();
                 impulseStart = entity.level().getGameTime();
             });
@@ -275,7 +280,7 @@ final class Moshou002Check extends SystemCheck {
     private void observeServerTick(ServerTickEvent.Post event) {
         if (!prepared || entity == null || entity.getServer() != event.getServer()) return;
         if (!impulseObserved && impulseDirection != null && entity.level().getGameTime() > impulseStart
-                && entity.getPersistentData().getDouble("entitytick") == 0) {
+                && CreatureData.state(entity).tick() == 0) {
             impulseDot = entity.getDeltaMovement().dot(impulseDirection);
             impulseObserved = true;
         }
@@ -317,18 +322,18 @@ final class Moshou002Check extends SystemCheck {
             fail("跌落免疫检查前实体已消失");
             return;
         }
-        CompoundTag data = entity.getPersistentData();
-        data.putString("jineng", "controlled_test_skill");
-        data.putString("jinengjinxing", "controlled_test_phase");
-        data.putDouble("entitytick", 7);
-        data.putDouble("entitytick2", 3);
+        CreatureState data = CreatureData.state(entity);
+        data.setSkill("controlled_test_skill");
+        data.setPhase("controlled_test_phase");
+        data.setTick(7);
+        data.setTick2(3);
         float health = entity.getHealth();
         boolean hurt = entity.hurt(player.damageSources().fall(), 5);
         expectTrue("FALL伤害被免疫", !hurt);
         expect("FALL受击不扣除生命", health, entity.getHealth());
-        expectTrue("FALL受击仍打断技能状态", data.getString("jineng").isEmpty()
-                && data.getString("jinengjinxing").isEmpty()
-                && data.getDouble("entitytick") == 0 && data.getDouble("entitytick2") == 0);
+        expectTrue("FALL受击仍打断技能状态", data.skill().isEmpty()
+                && data.phase().isEmpty()
+                && data.tick() == 0 && data.tick2() == 0);
         expectTrue("自然落地回调入口拒伤且生命不变",
                 !entity.causeFallDamage(24, 1, entity.damageSources().fall()) && entity.getHealth() == health);
         entity.invulnerableTime = 0;
@@ -339,8 +344,9 @@ final class Moshou002Check extends SystemCheck {
         entity.setDeltaMovement(Vec3.ZERO);
 
         savedHealth = entity.getHealth();
-        savedLevelName = data.getString("LEVELname");
-        savedLevelNumber = data.getDouble("LEVELnumber");
+        EntityStats stats = EntityAttributes.get(entity);
+        savedLevelName = stats.realmName();
+        savedLevelNumber = stats.level();
         savedFlyingSpeed = entity.getAttributeValue(Attributes.FLYING_SPEED);
         CompoundTag saved = entity.saveWithoutId(new CompoundTag());
         Entity restored = entityType.create(entity.level());
@@ -349,14 +355,15 @@ final class Moshou002Check extends SystemCheck {
             return;
         }
         restoredMob.load(saved.copy());
-        CompoundTag restoredData = restoredMob.getPersistentData();
+        CreatureState restoredData = CreatureData.state(restoredMob);
+        EntityStats restoredStats = EntityAttributes.get(restoredMob);
         expectTrue("实体NBT读回保留身份与来源属性", restoredMob.getType() == entity.getType()
-                && restoredData.getString("LEVELname").equals(savedLevelName)
-                && restoredData.getDouble("LEVELnumber") == savedLevelNumber
+                && restoredStats.realmName().equals(savedLevelName)
+                && restoredStats.level() == savedLevelNumber
                 && Math.abs(restoredMob.getAttributeValue(Attributes.FLYING_SPEED) - savedFlyingSpeed) < 1.0e-6);
         expect("实体NBT读回保留生命", savedHealth, restoredMob.getHealth());
-        expectTrue("实体NBT读回保留跌落后打断状态", restoredData.getString("jineng").isEmpty()
-                && restoredData.getDouble("entitytick") == 0 && restoredData.getDouble("entitytick2") == 0);
+        expectTrue("实体NBT读回保留跌落后打断状态", restoredData.skill().isEmpty()
+                && restoredData.tick() == 0 && restoredData.tick2() == 0);
         restoredMob.discard();
     }
 
@@ -370,12 +377,13 @@ final class Moshou002Check extends SystemCheck {
             expectTrue("真实退出重进恢复同一天魔实体", entity != null && entity.getUUID().equals(entityUuid)
                     && BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).equals(ID));
             if (entity != null) {
-                CompoundTag data = entity.getPersistentData();
-                expect("真实重进保留来源姓名", savedLevelName, data.getString("LEVELname"));
-                expect("真实重进保留来源等级", savedLevelNumber, data.getDouble("LEVELnumber"));
+                CreatureState data = CreatureData.state(entity);
+                EntityStats restoredStats = EntityAttributes.get(entity);
+                expect("真实重进保留来源姓名", savedLevelName, restoredStats.realmName());
+                expect("真实重进保留来源等级", savedLevelNumber, restoredStats.level());
                 expect("真实重进保留生命", savedHealth, entity.getHealth());
-                expectTrue("真实重进保留技能受击后的清理状态", data.getString("jineng").isEmpty()
-                        && data.getDouble("entitytick2") == 0);
+                expectTrue("真实重进保留技能受击后的清理状态", data.skill().isEmpty()
+                        && data.tick2() == 0);
             }
         });
         return true;

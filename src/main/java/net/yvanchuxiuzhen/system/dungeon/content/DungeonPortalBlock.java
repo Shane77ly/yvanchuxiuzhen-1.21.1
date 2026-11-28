@@ -25,6 +25,8 @@ import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.system.dungeon.DungeonEntrances;
 import net.yvanchuxiuzhen.system.dungeon.PaintingRuntime;
 import net.yvanchuxiuzhen.system.dungeon.api.Dungeons;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonTransientData;
 
 /** 天道副本和画卷保留各自动画范围、含水与来源交互触发。 */
 public class DungeonPortalBlock extends DungeonBlock implements SimpleWaterloggedBlock {
@@ -63,9 +65,12 @@ public class DungeonPortalBlock extends DungeonBlock implements SimpleWaterlogge
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
         if (entity instanceof ServerPlayer player && level.getBlockEntity(pos) instanceof DungeonBlockEntity block
-                && block.kind().equals("tiandaofuben") && !player.getPersistentData().getBoolean("openfubengui")) {
-            player.getPersistentData().putBoolean("openfubengui", true);
-            Dungeons.open(player, pos, false);
+                && block.kind().equals("tiandaofuben")) {
+            DungeonTransientData transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
+            if (!transientState.portalOpened()) {
+                player.setData(DungeonData.PLAYER_TRANSIENT, transientState.withPortalOpened(true));
+                Dungeons.open(player, pos, false);
+            }
         }
     }
 

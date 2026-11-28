@@ -46,10 +46,10 @@ public final class SkillEntities {
             @Override
             public void tick(SkillEntity self) {
                 self.setNoGravity(true);
-                double tick = self.getPersistentData().getDouble("tick") + 1;
-                self.getPersistentData().putDouble("tick", tick);
+                double tick = self.skillTick() + 1;
+                self.setSkillTick(tick);
                 if (tick >= 8) {
-                    self.getPersistentData().putDouble("tick", 0);
+                    self.setSkillTick(0);
                     self.discard();
                 }
             }
@@ -135,13 +135,6 @@ public final class SkillEntities {
     /** 同 {@link #strike}，攻击量与倍率先取整（来源经 {@code DecimalFormat("0")} 拼进命令的调用）。 */
     public static void strikeRounded(SkillEntity self, Entity other) {
         self.cast().strikeRounded((ServerLevel) self.level(), other);
-    }
-
-    /** 恢复旧目标版本保存的灵纹字段，以便命中遍历与实体刻共同消费。 */
-    public static void restoreLegacyRune(SkillEntity entity) {
-        if (is(entity, LingwenEntities.ID)) {
-            LingwenEntities.restoreLegacyData(entity);
-        }
     }
 
     /** 实体是不是登记为 {@code id} 的技能实体。 */

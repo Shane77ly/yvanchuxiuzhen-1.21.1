@@ -1,16 +1,18 @@
 package net.yvanchuxiuzhen.system.lianqi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.content.BlueprintTableBlockEntity;
 import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
@@ -36,7 +38,7 @@ public final class BlueprintTableRuntime {
 
     /** 预览逐条处理完整材料定义并逐次截断整数，不消耗输入，也不写附魔总数字段。 */
     public static void refresh(BlueprintTableBlockEntity table) {
-        CompoundTag raw = new CompoundTag();
+        EquipmentRefinement.Mutable raw = EquipmentRefinement.mutable();
         Accumulator accumulator = new Accumulator(raw);
         double weight = 0;
         for (int slot = 0; slot < 9; slot++) {
@@ -51,45 +53,43 @@ public final class BlueprintTableRuntime {
         derive(raw);
         type(raw, table.getItem(10));
         grade(raw);
-        table.getPersistentData().put("zong", raw);
+        table.setPreviewData(raw.toImmutable());
         table.changed();
     }
 
     /** 保存沿用载体原有组件，将九槽配方写入根字段，并把载体栈数量设为一。 */
     public static void save(BlueprintTableBlockEntity table, String inputName) {
         refresh(table);
-        CompoundTag raw = table.getPersistentData().getCompound("zong");
+        EquipmentRefinement.Mutable raw = table.previewData().toMutable();
         ItemStack template = table.getItem(10);
         type(raw, template);
         ItemStack result = table.getItem(9).copy();
-        CompoundTag recipe = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        recipe.putString("tuzhiname", inputName.isEmpty() ? template.getDisplayName().getString() : inputName);
+        String nameText = inputName.isEmpty() ? template.getDisplayName().getString() : inputName;
         Component name = inputName.isEmpty() ? template.getHoverName().copy()
                 : Component.literal(inputName.replace("[", "").replace("]", ""));
-        recipe.putString("tuzhiname_component", Component.Serializer.toJson(name, table.getLevel().registryAccess()));
-        recipe.putString("fabaoid", BuiltInRegistries.ITEM.getKey(template.getItem()).toString());
-        recipe.putString("fabaoshuoming", table.getItem(11).getDisplayName().getString());
-        recipe.putString("fabaoshuoming_component", Component.Serializer.toJson(
-                Component.literal("[").append(table.getItem(11).getHoverName().copy()).append("]"), table.getLevel().registryAccess()));
-        recipe.putString("fabaotype", raw.getString("fabaotype"));
+        String nameComponentJson = Component.Serializer.toJson(name, table.getLevel().registryAccess());
+        String itemDescription = table.getItem(11).getDisplayName().getString();
+        String itemDescriptionJson = Component.Serializer.toJson(
+                Component.literal("[").append(table.getItem(11).getHoverName().copy()).append("]"), table.getLevel().registryAccess());
+        List<LianqiBlueprint.Ingredient> ingredients = new ArrayList<>(9);
         for (int slot = 0; slot < 9; slot++) {
             ItemStack ingredient = table.getItem(slot);
-            String key = "cailiao0" + slot;
-            recipe.putString(key, BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString());
-            recipe.putString(key + "name", ingredient.getDisplayName().getString());
-            recipe.putString(key + "name_component", Component.Serializer.toJson(
-                    Component.literal("[").append(ingredient.getHoverName().copy()).append("]"), table.getLevel().registryAccess()));
-            recipe.putInt(key + "num", ingredient.getCount());
+            String componentJson = Component.Serializer.toJson(
+                    Component.literal("[").append(ingredient.getHoverName().copy()).append("]"), table.getLevel().registryAccess());
+            ingredients.add(new LianqiBlueprint.Ingredient(BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString(),
+                    ingredient.getDisplayName().getString(), componentJson, ingredient.getCount()));
         }
-        recipe.putString("item_level", raw.getString("item_level"));
-        recipe.putInt("item_level_num", raw.getInt("item_level_num"));
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        String sourceCarrierId = Lianqi.blueprint(result).map(LianqiBlueprint::sourceCarrierId).orElse("");
+        Lianqi.setBlueprint(result, new LianqiBlueprint(nameText, nameComponentJson, "",
+                BuiltInRegistries.ITEM.getKey(template.getItem()).toString(), itemDescription, itemDescriptionJson,
+                raw.text("fabaotype"), raw.text("item_level"), raw.integer("item_level_num"),
+                sourceCarrierId, ingredients));
         result.setCount(1);
         table.setItem(9, result);
         table.changed();
     }
 
-    private static void type(CompoundTag raw, ItemStack template) {
+    private static void type(EquipmentRefinement.Mutable raw, ItemStack template) {
         String type;
         if (template.getItem() instanceof SwordItem || tagged(template, ModId.VALUE, "wuqi")) type = "武器";
         else if (tagged(template, ModId.VALUE, "fabao")) type = "法宝";
@@ -109,10 +109,10 @@ public final class BlueprintTableRuntime {
         return stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(namespace, path)));
     }
 
-    private static void grade(CompoundTag raw) {
+    private static void grade(EquipmentRefinement.Mutable raw) {
         int grade = 41;
         for (int value = 41; value >= 0; value--) {
-            if (raw.getInt("expnum") >= (value == 0 ? 1 : value * 100)) {
+            if (raw.integer("expnum") >= (value == 0 ? 1 : value * 100)) {
                 grade = value;
                 break;
             }
@@ -126,8 +126,8 @@ public final class BlueprintTableRuntime {
         raw.putInt("item_level_num", grade);
     }
 
-    private static void derive(CompoundTag raw) {
-        int weight = raw.getInt("weightnum");
+    private static void derive(EquipmentRefinement.Mutable raw) {
+        int weight = raw.integer("weightnum");
         double factor = weight > 150 ? 0 : weight >= 140 ? .1 : weight >= 130 ? .4
                 : weight >= 120 ? .65 : weight >= 110 ? .85 : weight > 100 ? .95 : 1;
         integerValue(raw, "heanum", "health_Max", factor, 10);
@@ -146,7 +146,7 @@ public final class BlueprintTableRuntime {
         integerValue(raw, "armortoughness", "Armor_Toughness", 1, 1);
         for (String[] entry : new String[][] {{"spenum", "speed_num"}, {"attspeednum", "attack_speed"},
                 {"knockbacknum", "knockback_resistance"}}) {
-            if (raw.getDouble(entry[0]) > 0) raw.putDouble(entry[1], Math.floor(raw.getDouble(entry[0]) / 100) * .05);
+            if (raw.number(entry[0]) > 0) raw.putDouble(entry[1], Math.floor(raw.number(entry[0]) / 100) * .05);
         }
         double penalty = weight > 150 ? 1 : weight >= 140 ? .9 : weight >= 130 ? .6
                 : weight >= 120 ? .35 : weight >= 110 ? .15 : weight > 100 ? .05 : 0;
@@ -154,23 +154,23 @@ public final class BlueprintTableRuntime {
             raw.putDouble("attack_speed", -penalty);
             raw.putDouble("speed_num", -penalty);
         } else if (weight > 100) {
-            raw.putDouble("attack_speed", raw.getDouble("attack_speed") - penalty);
-            raw.putDouble("speed_num", raw.getDouble("speed_num") - penalty);
+            raw.putDouble("attack_speed", raw.number("attack_speed") - penalty);
+            raw.putDouble("speed_num", raw.number("speed_num") - penalty);
         }
-        if (weight > 100) raw.putDouble("knockback_resistance", raw.getDouble("knockback_resistance") + penalty);
+        if (weight > 100) raw.putDouble("knockback_resistance", raw.number("knockback_resistance") + penalty);
     }
 
-    private static void integerValue(CompoundTag raw, String source, String target, double factor, int scale) {
-        if (raw.getDouble(source) > 0) raw.putInt(target, (int) (Math.floor(raw.getDouble(source) * factor / 100) * scale));
+    private static void integerValue(EquipmentRefinement.Mutable raw, String source, String target, double factor, int scale) {
+        if (raw.number(source) > 0) raw.putInt(target, (int) (Math.floor(raw.number(source) * factor / 100) * scale));
     }
 
     /** 未识别属性沿用上次工作值；附魔只按名称合并，命名空间保留首次出现值。 */
     private static final class Accumulator {
-        private final CompoundTag raw;
+        private final EquipmentRefinement.Mutable raw;
         private int enchantments;
         private double attribute;
 
-        private Accumulator(CompoundTag raw) {
+        private Accumulator(EquipmentRefinement.Mutable raw) {
             this.raw = raw;
         }
 
@@ -195,7 +195,7 @@ public final class BlueprintTableRuntime {
                     attribute *= multiplier;
                     attribute *= definition.fixedWeight().orElse(0);
                     attribute *= .2;
-                    raw.putInt(name, (int) (raw.getInt(name) + attribute * count));
+                    raw.putInt(name, (int) (raw.integer(name) + attribute * count));
                 } else if (entry.namespace().equals("teshu")) {
                     raw.putBoolean(name, true);
                 } else if (!entry.namespace().isEmpty()) {
@@ -204,14 +204,14 @@ public final class BlueprintTableRuntime {
                     amount *= .2;
                     for (int group = 0; group <= enchantments; group++) {
                         String key = "fumo" + group;
-                        if (raw.getString(key).isEmpty()) {
+                        if (raw.text(key).isEmpty()) {
                             raw.putString(key, name);
                             raw.putString(key + "kongjian", entry.namespace());
                             raw.putInt(key + "num", (int) (amount * count));
                             enchantments++;
                             break;
-                        } else if (raw.getString(key).equals(name)) {
-                            raw.putInt(key + "num", (int) (raw.getInt(key + "num") + amount * count));
+                        } else if (raw.text(key).equals(name)) {
+                            raw.putInt(key + "num", (int) (raw.integer(key + "num") + amount * count));
                             break;
                         }
                     }

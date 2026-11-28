@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
+import net.yvanchuxiuzhen.system.xiulian.data.XiulianData;
 import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
@@ -53,6 +54,7 @@ public final class XiulianSetup {
         XiulianFluids.register(modBus);
         XiulianBlockEntities.register(modBus);
         XiulianAttachments.register(modBus);
+        XiulianData.register(modBus);
         XiulianMenus.register(modBus);
         XiulianRules.register();
         modBus.addListener(XiulianSetup::registerPayloads);
@@ -71,10 +73,9 @@ public final class XiulianSetup {
         event.registrar("1").playToServer(XiulianButtonPayload.TYPE, XiulianButtonPayload.STREAM_CODEC, XiulianButtonPayload::handle);
     }
 
-    /** 存档附件装载后先恢复来源实体境界镜像，再执行出身登录门槛。 */
+    /** 存档附件装载后执行出身登录门槛。 */
     private static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         ServerPlayer player = (ServerPlayer) event.getEntity();
-        Cultivation.syncLegacyLevelMirror(player);
         BirthSelection.onLogin(player);
     }
 

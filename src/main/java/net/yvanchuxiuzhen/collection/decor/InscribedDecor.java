@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -42,28 +40,25 @@ public final class InscribedDecor {
 
     public static void interact(InscribedDecorBlockEntity block, Player player) {
         ItemStack held = player.getMainHandItem();
-        CompoundTag data = block.getPersistentData();
         if (held.is(ItemTags.create(id("colouritem")))) {
-            if (held.is(Items.GLOW_INK_SAC)) data.putBoolean("faguang", true);
+            if (held.is(Items.GLOW_INK_SAC)) block.setGlowing(true);
             else {
                 Integer colour = colour(held.getItem());
-                if (colour != null) data.putInt("rgbcolour", colour);
+                if (colour != null) block.setRgbColour(colour);
             }
             held.shrink(1);
             block.syncText();
         } else if (block.variant().memorial() && player.isShiftKeyDown()) {
             ItemStack item = new ItemStack(BuiltInRegistries.ITEM.get(id(block.variant().itemId())));
-            if (!data.getString("plaquetxt").isEmpty()) {
-                item.set(DataComponents.CUSTOM_NAME, Component.literal(data.getString("plaquetxt")));
-                CompoundTag saved = new CompoundTag();
-                saved.putString("plaquetxt", data.getString("plaquetxt"));
-                saved.putString("fangxiang", data.getString("fangxiang"));
-                saved.putInt("zishu", data.getInt("zishu"));
-                for (int index = 0; index < data.getInt("zishu"); index++) {
-                    saved.putString("zidi" + index, data.getString("zidi" + index));
-                    saved.putDouble("ziweizhi" + index, data.getDouble("ziweizhi" + index));
+            String plaqueText = block.plaqueText();
+            if (!plaqueText.isEmpty()) {
+                item.set(DataComponents.CUSTOM_NAME, Component.literal(plaqueText));
+                int count = block.glyphCountInt();
+                java.util.List<PlaqueInscription.Glyph> glyphs = new java.util.ArrayList<>(count);
+                for (int index = 0; index < count; index++) {
+                    glyphs.add(new PlaqueInscription.Glyph(block.glyphChar(index), block.glyphOffset(index)));
                 }
-                item.set(DataComponents.CUSTOM_DATA, CustomData.of(saved));
+                item.set(DecorData.PLAQUE_INSCRIPTION.get(), new PlaqueInscription(plaqueText, block.displayDirection(), glyphs));
             }
             ItemHandlerHelper.giveItemToPlayer(player, item);
             block.getLevel().setBlock(block.getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
@@ -103,15 +98,14 @@ public final class InscribedDecor {
     }
 
     public static void setMemorial(InscribedDecorBlockEntity block, String text) {
-        CompoundTag data = block.getPersistentData();
-        data.putString("plaquetxt", text);
-        data.putString("fangxiang", direction(block));
-        data.putDouble("zishu", text.length());
         double spacing = text.length() > 4 ? .22 : 1.2 / (text.length() + 1);
+        java.util.List<String> chars = new java.util.ArrayList<>(text.length());
+        java.util.List<Double> offsets = new java.util.ArrayList<>(text.length());
         for (int index = 0; index < text.length(); index++) {
-            data.putString("zidi" + index, text.substring(index, index + 1));
-            data.putDouble("ziweizhi" + index, (text.length() > 4 ? index : index + 1) * spacing);
+            chars.add(text.substring(index, index + 1));
+            offsets.add((text.length() > 4 ? index : index + 1) * spacing);
         }
+        block.setGlyphs(text, direction(block), chars, offsets);
         block.syncText();
     }
 
@@ -121,50 +115,51 @@ public final class InscribedDecor {
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.decor.plaque_too_long"), false);
             return;
         }
-        CompoundTag data = block.getPersistentData();
-        double extra = data.getBoolean("plaqueaddfive") ? .5 : 0;
+        double extra = block.addHalf() ? .5 : 0;
         double inset = 1.1 + (text.length() - 1) * .32;
         int count = (int) Math.ceil(text.length() / 1.7 + 2);
-        data.putDouble("blocknum", count);
-        data.putString("plaquetxt", text);
-        data.putDouble("plaquetxtnum", text.length());
+        block.setBlockNum(count);
+        block.setPlaqueText(text);
+        block.setPlaqueTextNum(text.length());
         String direction = direction(block);
-        data.putString("fangxiang", direction);
+        block.setDisplayDirection(direction);
         int yaw = switch (direction) { case "北" -> 0; case "东" -> -90; case "南" -> 180; default -> 90; };
-        data.putDouble("plaquejiaodu", yaw);
+        block.setPlaqueAngle(yaw);
         boolean alongX = direction.equals("北") || direction.equals("南");
         boolean increasing = direction.equals("北") || direction.equals("东");
-        data.putDouble("wenziX", alongX ? increasing ? inset + extra : -(inset - 1 - extra) : .5);
-        data.putDouble("wenziZ", alongX ? .5 : increasing ? inset + extra : -(inset - 1 - extra));
-        adjustAngle(data);
+        block.setTextX(alongX ? increasing ? inset + extra : -(inset - 1 - extra) : .5);
+        block.setTextZ(alongX ? .5 : increasing ? inset + extra : -(inset - 1 - extra));
+        adjustAngle(block);
         double fixed = direction.equals("北") || direction.equals("西") ? .3 : .7;
+        java.util.List<Double> xs = new java.util.ArrayList<>(count);
+        java.util.List<Double> zs = new java.util.ArrayList<>(count);
         for (int index = 0; index < count; index++) {
             double moving = increasing ? 1 - count / 2.0 + index + extra : count / 2.0 - index + extra;
-            data.putDouble("block" + index + "Xpianyi", alongX ? moving : fixed);
-            data.putDouble("block" + index + "Zpianyi", alongX ? fixed : moving);
+            xs.add(alongX ? moving : fixed);
+            zs.add(alongX ? fixed : moving);
         }
+        block.setSegmentOffsets(xs, zs);
         block.syncText();
     }
 
     public static void cycleAngle(InscribedDecorBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
-        double angle = data.getDouble("qingjiao");
-        data.putDouble("qingjiao", angle == 0 ? 20 : angle == 20 ? 45 : 0);
-        adjustAngle(data);
+        double angle = block.pitchAngle();
+        block.setPitchAngle(angle == 0 ? 20 : angle == 20 ? 45 : 0);
+        adjustAngle(block);
         block.syncText();
     }
     public static void toggleHalf(InscribedDecorBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
-        data.putBoolean("plaqueaddfive", !data.getBoolean("plaqueaddfive"));
+        block.setAddHalf(!block.addHalf());
         block.syncText();
     }
-    private static void adjustAngle(CompoundTag data) {
-        double near = data.getDouble("qingjiao") == 20 ? .3 : data.getDouble("qingjiao") == 45 ? 0 : .5;
-        switch (data.getString("fangxiang")) {
-            case "北" -> data.putDouble("wenziZ", near);
-            case "南" -> data.putDouble("wenziZ", 1 - near);
-            case "东" -> data.putDouble("wenziX", 1 - near);
-            case "西" -> data.putDouble("wenziX", near);
+    private static void adjustAngle(InscribedDecorBlockEntity block) {
+        double angle = block.pitchAngle();
+        double near = angle == 20 ? .3 : angle == 45 ? 0 : .5;
+        switch (block.displayDirection()) {
+            case "北" -> block.setTextZ(near);
+            case "南" -> block.setTextZ(1 - near);
+            case "东" -> block.setTextX(1 - near);
+            case "西" -> block.setTextX(near);
             default -> { }
         }
     }

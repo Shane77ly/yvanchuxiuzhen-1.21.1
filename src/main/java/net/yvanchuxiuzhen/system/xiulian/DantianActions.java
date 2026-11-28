@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.xiulian;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -47,12 +47,12 @@ public final class DantianActions {
     /** 打开时整理页码、金丹与元婴名和体质列表，本命槽放入本命法宝（数量 1），按槽内是否有物品设置本命显示标记。 */
     public static void open(ServerPlayer player) {
         CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
-        CompoundTag tizhi = data.tizhi();
-        if (tizhi.getDouble("tizhipagenum") <= 0) {
-            tizhi.putDouble("tizhipagenum", 1);
-            tizhi.putDouble("tizhipagenummax", 1);
-        } else if (tizhi.getDouble("tizhipagenummax") <= 0) {
-            tizhi.putDouble("tizhipagenummax", Math.max(Math.ceil(tizhi.getDouble("tizhinumber") / 9), 1));
+        ConstitutionState tizhi = data.tizhi();
+        if (tizhi.number("tizhipagenum") <= 0) {
+            tizhi.setNumber("tizhipagenum", 1);
+            tizhi.setNumber("tizhipagenummax", 1);
+        } else if (tizhi.number("tizhipagenummax") <= 0) {
+            tizhi.setNumber("tizhipagenummax", Math.max(Math.ceil(tizhi.number("tizhinumber") / 9), 1));
         }
         double level = data.get(CultivationValue.LEVEL_NUMBER);
         if (level >= 21 && level < 31) {
@@ -62,7 +62,7 @@ public final class DantianActions {
         }
         sort(tizhi);
         ItemStack benming = data.benming().copyWithCount(1);
-        tizhi.putBoolean("benmingxianshi", !benming.isEmpty());
+        tizhi.setFlag("benmingxianshi", !benming.isEmpty());
         player.syncData(XiulianAttachments.CULTIVATION);
         SimpleContainer slot = new SimpleContainer(1);
         slot.setItem(0, benming);
@@ -74,11 +74,11 @@ public final class DantianActions {
         CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
         if (slotItem.isEmpty()) {
             data.setBenming(ItemStack.EMPTY);
-            data.tizhi().putBoolean("benmingxianshi", false);
+            data.tizhi().setFlag("benmingxianshi", false);
         } else {
             data.setBenming(slotItem.copy());
             if (data.get(CultivationValue.LEVEL_NUMBER) >= 21) {
-                data.tizhi().putBoolean("benmingxianshi", true);
+                data.tizhi().setFlag("benmingxianshi", true);
             }
         }
         player.syncData(XiulianAttachments.CULTIVATION);
@@ -94,7 +94,7 @@ public final class DantianActions {
     }
 
     public static void press(ServerPlayer player, int button) {
-        CompoundTag tizhi = player.getData(XiulianAttachments.CULTIVATION).tizhi();
+        ConstitutionState tizhi = player.getData(XiulianAttachments.CULTIVATION).tizhi();
         switch (button) {
             case 0 -> turnPage(player, tizhi, -1);
             case 1 -> turnPage(player, tizhi, 1);
@@ -121,7 +121,7 @@ public final class DantianActions {
                 message(player, "但是如果您要凝结元婴或者金丹，那么这个统计将是一项重要指标。只有达到某个值，才能凝结某种元婴、金丹。");
             }
             default -> {
-                String id = tizhi.getString("tizhixianshi" + (button - 1) + "id");
+                String id = tizhi.text("tizhixianshi" + (button - 1) + "id");
                 if (!id.isEmpty()) {
                     player.displayClientMessage(Component.translatable("tizhi.shuoming." + id), false);
                 }
@@ -134,10 +134,10 @@ public final class DantianActions {
     }
 
     /** 从 {@code from} 起的 100 个编号中第一个打开的体质记为金丹（101 起）或元婴（201 起）名，没有时保留原值。 */
-    private static void nameFirstOpen(CompoundTag tizhi, String key, int from) {
+    private static void nameFirstOpen(ConstitutionState tizhi, String key, int from) {
         for (int number = from; number < from + 100; number++) {
-            if (tizhi.getBoolean("tizhiopen_" + number)) {
-                tizhi.putString(key, "tizhiopen_" + number);
+            if (tizhi.flag("tizhiopen_" + number)) {
+                tizhi.setText(key, "tizhiopen_" + number);
                 return;
             }
         }
@@ -147,33 +147,33 @@ public final class DantianActions {
      * 按编号顺序把打开的体质记为 {@code tizhipaixv<序号>id}，共记 {@code tizhinumber} 个；最大页数按体质数每页 9 个计算
      * （原值不大于 0 时为 1）。来源在打开的体质少于 {@code tizhinumber} 时无限循环，这里扫描到最后一个三位编号为止（Q24）。
      */
-    private static void sort(CompoundTag tizhi) {
-        double count = tizhi.getDouble("tizhinumber");
-        tizhi.putDouble("tizhipagenum", Math.max(tizhi.getDouble("tizhipagenum"), 1));
-        tizhi.putDouble("tizhipagenummax", tizhi.getDouble("tizhipagenummax") <= 0 ? 1 : Math.ceil(count / 9));
+    private static void sort(ConstitutionState tizhi) {
+        double count = tizhi.number("tizhinumber");
+        tizhi.setNumber("tizhipagenum", Math.max(tizhi.number("tizhipagenum"), 1));
+        tizhi.setNumber("tizhipagenummax", tizhi.number("tizhipagenummax") <= 0 ? 1 : Math.ceil(count / 9));
         int found = 0;
         for (int number = 1; found < count && number <= LAST_CONSTITUTION; number++) {
             String id = String.format("tizhiopen_%03d", number);
-            if (tizhi.getBoolean(id)) {
+            if (tizhi.flag(id)) {
                 found++;
-                tizhi.putString("tizhipaixv" + found + "id", id);
+                tizhi.setText("tizhipaixv" + found + "id", id);
             }
         }
         fillPage(tizhi);
     }
 
     /** 上一页、下一页（来源 {@code Tizhipagedown}、{@code Tizhipageup}）：页码在 1 与最大页数之间移动，再刷新本页。 */
-    private static void turnPage(ServerPlayer player, CompoundTag tizhi, int step) {
-        if (tizhi.getDouble("tizhipagenum") <= 0) {
-            tizhi.putDouble("tizhipagenum", 1);
-            tizhi.putDouble("tizhipagenummax", 1);
+    private static void turnPage(ServerPlayer player, ConstitutionState tizhi, int step) {
+        if (tizhi.number("tizhipagenum") <= 0) {
+            tizhi.setNumber("tizhipagenum", 1);
+            tizhi.setNumber("tizhipagenummax", 1);
         }
-        if (tizhi.getDouble("tizhipagenummax") <= 0) {
-            tizhi.putDouble("tizhipagenummax", Math.ceil(tizhi.getDouble("tizhipagenum") / 9));
+        if (tizhi.number("tizhipagenummax") <= 0) {
+            tizhi.setNumber("tizhipagenummax", Math.ceil(tizhi.number("tizhipagenum") / 9));
         }
-        double page = tizhi.getDouble("tizhipagenum");
-        if (step < 0 ? page > 1 : page < tizhi.getDouble("tizhipagenummax")) {
-            tizhi.putDouble("tizhipagenum", page + step);
+        double page = tizhi.number("tizhipagenum");
+        if (step < 0 ? page > 1 : page < tizhi.number("tizhipagenummax")) {
+            tizhi.setNumber("tizhipagenum", page + step);
         }
         fillPage(tizhi);
         player.syncData(XiulianAttachments.CULTIVATION);
@@ -183,13 +183,13 @@ public final class DantianActions {
      * 本页 9 行 {@code tizhixianshi<行>id} 取排序中从 (页码 − 1) × 9 + 1 起的体质。来源的循环条件使第 9 行只在体质数
      * 大于本页起点 + 8 时填写，最后一页恰好 9 个时第 9 行为空（Q24）。
      */
-    private static void fillPage(CompoundTag tizhi) {
-        double count = tizhi.getDouble("tizhinumber");
-        double start = (tizhi.getDouble("tizhipagenum") - 1) * 9 + 1;
+    private static void fillPage(ConstitutionState tizhi) {
+        double count = tizhi.number("tizhinumber");
+        double start = (tizhi.number("tizhipagenum") - 1) * 9 + 1;
         for (int row = 1; row <= 9; row++) {
             double position = start + row - 1;
             boolean filled = row < 9 || position < count;
-            tizhi.putString("tizhixianshi" + row + "id", filled ? tizhi.getString("tizhipaixv" + (int) position + "id") : "");
+            tizhi.setText("tizhixianshi" + row + "id", filled ? tizhi.text("tizhipaixv" + (int) position + "id") : "");
         }
     }
 }

@@ -18,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.CommandAmount;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
@@ -93,14 +94,14 @@ public final class Tribulations {
         cloud.moveTo(player.getX(), player.getY() + 64, player.getZ(), level.getRandom().nextFloat() * 360, 0);
         Relations.setTeam(cloud, "tianjiejieyvn");
         Relations.addFriendlyTeam(cloud, "tianjiejieyvn");
-        cloud.getPersistentData().putString("playerUUID", player.getStringUUID());
-        cloud.getPersistentData().putDouble("thundernum", 1);
+        cloud.setPlayerUuid(player.getStringUUID());
+        cloud.setPatternIndex(1);
         MobEffectInstance resistance = player.getEffect(BuiltInRegistries.MOB_EFFECT.getHolder(
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "effect_022")).orElseThrow());
-        cloud.getPersistentData().putDouble("thunder_Att", attack + Cultivation.get(player, CultivationValue.THUNDER_ATT)
+        cloud.setThunderAttack(attack + Cultivation.get(player, CultivationValue.THUNDER_ATT)
                 - (resistance == null ? 0 : resistance.getAmplifier() + 1));
         for (int i = 1; i <= (int) Cultivation.get(player, CultivationValue.THUNDER_MAX); i++) {
-            cloud.getPersistentData().putString("thunder" + i, "雷" + (level.getRandom().nextInt(7) + 1));
+            cloud.setPattern(i, "雷" + (level.getRandom().nextInt(7) + 1));
         }
         Cultivation.set(player, CultivationValue.THUNDER, 0);
         cloud.finalizeSpawn(level, level.getCurrentDifficultyAt(cloud.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
@@ -108,7 +109,7 @@ public final class Tribulations {
     }
 
     static ServerPlayer player(TribulationEntity self) {
-        String id = self.getPersistentData().getString("playerUUID");
+        String id = self.playerUuid();
         return ((ServerLevel) self.level()).players().stream().filter(player -> player.getStringUUID().equals(id)).findFirst().orElse(null);
     }
 
@@ -117,7 +118,7 @@ public final class Tribulations {
     }
 
     /** 来源按原始坐标的 AABB 和距离顺序遍历，非生物仍可接收命中特效。 */
-    static void damage(TribulationEntity self, double diameter, String multiplier, boolean hitParticles) {
+    static void damage(TribulationEntity self, double diameter, double multiplier, boolean hitParticles) {
         Vec3 center = self.position();
         ServerLevel level = (ServerLevel) self.level();
         for (Entity target : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(diameter / 2), entity -> true)
@@ -127,8 +128,8 @@ public final class Tribulations {
                 particles(self, "smallexplosionyellow", target.position().add(0, target.getBbHeight() / 2, 0), 1, 0, 0, 0, 0);
             }
             if (target instanceof LivingEntity living) {
-                NeoForge.EVENT_BUS.post(new TribulationDamageEvent(level, living, "shanghai 雷 " + self.getStringUUID() + " false "
-                        + WHOLE.format(self.getPersistentData().getDouble("thunder_Att")) + " " + multiplier));
+                NeoForge.EVENT_BUS.post(new TribulationDamageEvent(level, living, self,
+                        CommandAmount.formatted(WHOLE, self.thunderAttack()), multiplier));
             }
         }
     }

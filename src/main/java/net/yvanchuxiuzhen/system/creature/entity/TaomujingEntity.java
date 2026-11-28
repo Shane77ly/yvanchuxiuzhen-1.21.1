@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +27,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.MobSpawnType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -36,16 +38,31 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-/** 桃木精：技能阶段写入主手物品 CUSTOM_DATA，保持来源物品承载状态。 */
+/** 桃木精：技能阶段保存于实体自身 AI 状态字段。 */
 public final class TaomujingEntity extends Monster implements GeoEntity, AnimatedLook {
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(TaomujingEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(TaomujingEntity.class, EntityDataSerializers.STRING);
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedureAnimation = "empty";
+    private CompoundTag aiState = new CompoundTag();
 
     public TaomujingEntity(EntityType<? extends TaomujingEntity> type, Level level) {
         super(type, level);
         xpReward = 0;
+    }
+
+    public CompoundTag aiState() {
+        return aiState;
+    }
+
+    @Override public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.put("AiState", aiState.copy());
+    }
+
+    @Override public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        aiState = tag.contains("AiState") ? tag.getCompound("AiState").copy() : new CompoundTag();
     }
 
     public static AttributeSupplier.Builder attributes() {
@@ -76,7 +93,7 @@ public final class TaomujingEntity extends Monster implements GeoEntity, Animate
 
     @Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData data) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, reason, data);
-        if (getPersistentData().getString("LEVELname").isEmpty()) initializeSourceData();
+        if (EntityAttributes.realmName(this).isEmpty()) initializeSourceData();
         return result;
     }
 
@@ -87,8 +104,8 @@ public final class TaomujingEntity extends Monster implements GeoEntity, Animate
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "lingtikiller"))), 2);
         sword.enchant(enchantments.getOrThrow(Enchantments.SMITE), 2);
         setItemInHand(InteractionHand.MAIN_HAND, sword);
-        if (getPersistentData().getDouble("LEVELnumber") < 1) getPersistentData().putDouble("LEVELnumber", 11 + random.nextInt(5));
-        double level = getPersistentData().getDouble("LEVELnumber");
+        double level = EntityAttributes.level(this) < 1 ? 11 + random.nextInt(5) : EntityAttributes.level(this);
+        EntityAttributes.setLevel(this, level);
         getAttribute(YaoshouAttributes.SIZE).setBaseValue((random.nextInt(31) + 70) * .01 + level / 4 * .1);
         CreatureSourceStats.initialize(this, 11, true, false,
                 "平庸", "绝佳", "勉强", "勉强", "贫弱", "贫弱", "平庸", "强劲", "贫弱", "平庸", "贫弱", "贫弱", "贫弱");

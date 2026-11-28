@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +15,7 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
+import net.yvanchuxiuzhen.system.skill.data.WeaponArtState;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
 
@@ -39,12 +39,12 @@ final class SwordArtCheck extends ActionCheck {
                     stage(player, "weaponsword_01", 1, "剑", true, 1);
                     swing(player);
                     expect("中平剑法第 1 式生成剑影", 1, shadows(player, 1));
-                    expect("式数", 1.0, data(player).getDouble("swordsmanshipnum"));
-                    expect("连击窗口", 30.0, data(player).getDouble("swordsmanshiptick"));
-                    expect("出手冷却", 10.0, data(player).getDouble("smanshipcolddown"));
+                    expect("式数", 1.0, state(player).step());
+                    expect("连击窗口", 30.0, state(player).windowTicks());
+                    expect("出手冷却", 10.0, state(player).cooldownTicks());
                     expect("第 1 式没有伤害", HEALTH, target.getHealth());
                     swing(player);
-                    expect("冷却中再挥动不出手", 1.0, data(player).getDouble("swordsmanshipnum"));
+                    expect("冷却中再挥动不出手", 1.0, state(player).step());
                     expect("冷却中不再生成剑影", 1, shadows(player, 1));
                 }),
                 new Action(2, player -> {
@@ -113,15 +113,15 @@ final class SwordArtCheck extends ActionCheck {
                 }),
                 new Action(2, player -> {
                     stage(player, "weaponsword_01", 1, "剑", true, 4);
-                    data(player).putDouble("swordsmanshipnum", 6);
+                    setState(player, 6, state(player).windowTicks(), state(player).cooldownTicks());
                     swing(player);
-                    expect("式数超过上限后回到第 1 式", 1.0, data(player).getDouble("swordsmanshipnum"));
+                    expect("式数超过上限后回到第 1 式", 1.0, state(player).step());
                 }),
                 new Action(2, player -> {
                     stage(player, "weaponsword_01", 1, "枪", true, 1);
                     swing(player);
                     expect("武器技类别不是剑不出手", 0, shadows(player, 1));
-                    expect("类别不对时式数不变", 0.0, data(player).getDouble("swordsmanshipnum"));
+                    expect("类别不对时式数不变", 0.0, state(player).step());
                 }),
                 new Action(2, player -> {
                     stage(player, "weaponsword_01", 1, "剑", false, 1);
@@ -147,20 +147,22 @@ final class SwordArtCheck extends ActionCheck {
                 new Action(20, player -> {
                     stage(player, "weaponsword_01", 1, "剑", true, 1);
                     swing(player);
-                    CompoundTag data = data(player);
-                    data.putDouble("swordsmanshiptick", 3);
-                    data.putDouble("swordsmanshipnum", 4);
+                    setState(player, 4, 3, state(player).cooldownTicks());
                 }),
                 new Action(0, player -> {
-                    expect("连击窗口结束后式数归零", 0.0, data(player).getDouble("swordsmanshipnum"));
-                    expect("出手冷却走完", 0.0, data(player).getDouble("smanshipcolddown"));
+                    expect("连击窗口结束后式数归零", 0.0, state(player).step());
+                    expect("出手冷却走完", 0.0, state(player).cooldownTicks());
                     expect("剑影到时消失", 0L, shadows(player, 1) + shadows(player, 2) + shadows(player, 3) + shadows(player, 4));
                 })
         );
     }
 
-    private static CompoundTag data(ServerPlayer player) {
-        return player.getPersistentData();
+    private static WeaponArtState state(ServerPlayer player) {
+        return player.getData(SkillData.WEAPON_ART);
+    }
+
+    private static void setState(ServerPlayer player, double step, double windowTicks, double cooldownTicks) {
+        player.setData(SkillData.WEAPON_ART, new WeaponArtState(step, windowTicks, cooldownTicks));
     }
 
     private static void swing(ServerPlayer player) {
@@ -221,10 +223,7 @@ final class SwordArtCheck extends ActionCheck {
             book.set(SkillData.SKILL.get(), Skills.book(book).orElseThrow().withOwner(player.getUUID(), player.getName().getString()));
         }
         Skills.setWeaponArt(player, book);
-        CompoundTag data = data(player);
-        data.putDouble("smanshipcolddown", 0);
-        data.putDouble("swordsmanshiptick", 30);
-        data.putDouble("swordsmanshipnum", step - 1);
+        setState(player, step - 1, 30, 0);
     }
 
     @Override
@@ -232,6 +231,6 @@ final class SwordArtCheck extends ActionCheck {
         clearArea(player);
         Skills.setWeaponArt(player, ItemStack.EMPTY);
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        data(player).putDouble("swordsmanshipnum", 0);
+        setState(player, 0, state(player).windowTicks(), state(player).cooldownTicks());
     }
 }

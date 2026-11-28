@@ -2,11 +2,10 @@ package net.yvanchuxiuzhen.system.book.api;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 
 /** 初始奖励使用的书架藏宝书，由书籍所有者构造实际自然右键入口读取的实例。 */
 public final class ShelfBooks {
@@ -22,12 +21,8 @@ public final class ShelfBooks {
     }
 
     private static ItemStack create(String name, String type, double level) {
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse("yvanchuxiuzhen:book_021")));
-        CompoundTag data = new CompoundTag();
-        data.putString("TreasureTypeBig", "书架");
-        data.putString("TreasureTypeSmall", type);
-        data.putDouble("TreasureLEVEL", level);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        ItemStack stack = TreasureContainers.create(
+                BuiltInRegistries.ITEM.get(ResourceLocation.parse("yvanchuxiuzhen:book_021")), "书架", type, level, 0, 0);
         stack.set(DataComponents.CUSTOM_NAME, Component.literal(name));
         return stack;
     }

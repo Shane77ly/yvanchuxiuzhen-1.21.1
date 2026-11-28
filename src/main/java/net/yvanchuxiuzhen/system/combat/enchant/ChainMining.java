@@ -18,11 +18,13 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.GatherExperienceEvent;
+import net.yvanchuxiuzhen.system.profession.api.Profession;
+import net.yvanchuxiuzhen.system.profession.api.Professions;
 
 /**
  * 连锁采集（来源原初系统的 {@code ChainProcedure}，附魔 {@code chain}）：用主手工具挖掉一个方块时，
  * 从它出发按 3×3×3 邻域展开，把相同方块一并挖掉，展开的条目数不超过 附魔等级 × 5 + 1（条目可重复，来源如此）；
- * 每挖一个方块工具损耗 1 点。矿石按玩家持久化数据中的 {@code collection_LEVEL}（采集等级，随 profession 写入）
+ * 每挖一个方块工具损耗 1 点。矿石按玩家采集职业等级
  * 以 等级 × 0.5 % 的概率额外掉 3 倍、等级 % 的概率额外掉 2 倍，每个矿石给采集职业 2 点经验（经 {@link GatherExperienceEvent}）。
  * 掉落不带工具，不受时运、精准采集影响，一律掉在被挖的方块位置（来源如此）。
  */
@@ -46,13 +48,13 @@ public final class ChainMining {
         if (chain == 0 || !player.getMainHandItem().isCorrectToolForDrops(level.getBlockState(origin))) {
             return;
         }
-        double collectionLevel = player.getPersistentData().getInt("collection_LEVEL");
+        double collectionLevel = (int) Professions.level(player, Profession.GATHERING);
         Block block = level.getBlockState(origin).getBlock();
         List<BlockPos> queue = new ArrayList<>();
         queue.add(origin);
         int processed = 0;
         double experience = 0;
-        while (processed <= chain * 5 && queue.size() != processed) {
+        while (processed <= Enchants.mainHand(player, Enchants.key("chain")) * 5 && queue.size() != processed) {
             BlockPos center = queue.get(processed);
             processed++;
             for (int dz = -1; dz <= 1; dz++) {

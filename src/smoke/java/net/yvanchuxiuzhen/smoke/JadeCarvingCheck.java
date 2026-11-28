@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -19,11 +18,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
@@ -407,7 +406,7 @@ final class JadeCarvingCheck extends SystemCheck {
         expect("奇遇 " + fortune + " 出生数量", count, matching.size());
         for (Entity entity : matching) {
             if (hasLevel) {
-                double level = entity.getPersistentData().getDouble("LEVELnumber");
+                double level = EntityAttributes.level(entity);
                 expectTrue("奇遇 " + fortune + " 出生等级在1至35", level >= 1 && level <= 35);
             }
         }
@@ -419,7 +418,7 @@ final class JadeCarvingCheck extends SystemCheck {
         player.getInventory().clearContent();
         player.getInventory().selected = 0;
         ItemStack input = new ItemStack(item("cailiao_" + jade + "02"), count);
-        if (fortune > 0) CustomData.update(DataComponents.CUSTOM_DATA, input, tag -> tag.putDouble("qiyvbianhao", fortune));
+        if (fortune > 0) Materials.setFortuneIndex(input, fortune);
         player.setItemInHand(InteractionHand.MAIN_HAND, input);
         Cultivation.setTizhiDouble(player, "jiyvgailv", chance);
         Cultivation.setTizhiDouble(player, "qiyvbianhao", number);
