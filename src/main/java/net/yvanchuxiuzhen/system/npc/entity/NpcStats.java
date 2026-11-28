@@ -45,7 +45,7 @@ final class NpcStats {
     private static double rating(EntityStats stats, Stat field, double excellent, double strong, double average, double weak, double poor) {
         return switch (stats.rating(field)) {
             case "绝佳" -> excellent;
-            case "强劲" -> strong;
+            case "强劲", "强筋" -> strong;
             case "平庸" -> average;
             case "勉强" -> weak;
             default -> poor;

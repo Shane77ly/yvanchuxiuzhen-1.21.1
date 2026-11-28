@@ -2,10 +2,12 @@
 topic: npc
 role: entry
 status: partial
-updated: 2026-11-15
+updated: 2026-11-28
 ---
 
 # 修士
+
+阶段 4 续批（2026-11-28）修正 Q88 `"强筋"`/`"强劲"` 资质识别并完成 `NpcManagementCheck` 烟测验证（见[修士月志](logs/2026-11.md#2026-11-28-阶段-4-续批q88-强筋资质识别修复)）。
 
 标识 `npc`，类别：系统。职责：修士身份、AI、交互入口、门徒（[系统设计](../../development/system-design.md)）。
 

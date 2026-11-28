@@ -135,7 +135,7 @@ public final class Auctions {
         AuctionState state = block.state().auction();
         switch (operation) {
             case 0 -> {
-                if (player.isCreative()) state.auctionMode = state.auctionMode.equals("全自动") ? "自营" : "全自动";
+                if (player.isCreative()) state.managed = !state.managed;
                 else {
                     message(player, "§4只能在创造模式下，修改此选项。", false);
                     message(player, "§4选择全自动后，拍卖行将进入完全自动模式，自动补充物品，自动拍卖。同时，所获得的收益就不再分配给放置拍卖行的人了。", false);

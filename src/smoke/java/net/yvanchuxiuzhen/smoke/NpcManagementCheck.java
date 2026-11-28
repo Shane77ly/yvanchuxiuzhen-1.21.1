@@ -389,6 +389,19 @@ final class NpcManagementCheck extends SystemCheck {
                     target.getAttributeBaseValue(Attributes.MAX_HEALTH)));
             SkillDelays.after(10, () -> EntityAttributes.setStat(target, Stat.HEALTH_MAX, 777));
         }
+        Mob q88 = NpcSetup.<Mob>entityType(OWNED_IDS[0]).get().create(player.serverLevel());
+        if (q88 == null) throw new IllegalStateException("无法生成 Q88 测试 NPC");
+        q88.setPos(npcBlock.getX() + .5, npcBlock.getY(), npcBlock.getZ() + .5);
+        player.serverLevel().addFreshEntity(q88);
+        NpcToolProfile baseProfile = player.getMainHandItem().getOrDefault(NpcData.TOOL_PROFILE.get(), NpcToolProfile.EMPTY);
+        Map<String, String> q88Ratings = new LinkedHashMap<>(baseProfile.ratings());
+        q88Ratings.put(ITEM_RATINGS[0], "强筋");
+        ItemStack q88Tool = player.getMainHandItem().copy();
+        q88Tool.set(NpcData.TOOL_PROFILE.get(), new NpcToolProfile(baseProfile.name(), OWNED_LEVELS[0], baseProfile.quests(),
+                baseProfile.products(), baseProfile.shopInfo(), q88Ratings, baseProfile.fixed(), baseProfile.equipment()));
+        NpcProfiles.apply(player.serverLevel(), npcBlock, q88, q88Tool);
+        expect("Q88 强筋按强劲档计算气血", 227.0, EntityAttributes.stat(q88, Stat.HEALTH_MAX));
+        q88.discard();
         SkillDelays.after(20, () -> ownedCallbacksChecked = true);
     }
 
@@ -449,8 +462,11 @@ final class NpcManagementCheck extends SystemCheck {
     private int nearbyHappyParticles(BlockPos center) {
         Vec3 expected = new Vec3(center.getX() + .5, center.getY() + 1, center.getZ() + .5);
         minecraft.particleEngine.iterateParticles(particle -> {
-            if (particle.getClass().getName().equals("net.minecraft.client.particle.SuspendedTownParticle")
-                    && particle.getPos().distanceTo(expected) < 2.6) observedHappyParticles.add(particle);
+            if (particle.getClass().getName().equals("net.minecraft.client.particle.SuspendedTownParticle")) {
+                Vec3 pos = particle.getPos();
+                if (Math.abs(pos.x - expected.x) < 2.0 && Math.abs(pos.z - expected.z) < 2.0
+                        && Math.abs(pos.y - expected.y) < 5.0) observedHappyParticles.add(particle);
+            }
         });
         return observedHappyParticles.size();
     }

@@ -325,8 +325,8 @@ final class TiandaoDisplayCheck extends SystemCheck {
                 expectTrue("架空手取回原槽 " + original.id(), display.getItem(0).isEmpty() && player.getInventory().countItem(Items.EMERALD) == 1);
                 player.setItemInHand(InteractionHand.MAIN_HAND, item("ling_16", 2));
                 useBlock(player, pos);
-                expectTrue("Q192普通右键仍可把物品锁放入未锁架 " + original.id(), display.getItem(0).is(item("ling_16", 1).getItem())
-                        && player.getMainHandItem().getCount() == 1 && !BlockDisplayLock.locked(display));
+                expectTrue("Q192按完整注册ID排除物品锁：普通右键不把ling_16放入未锁架 " + original.id(), display.getItem(0).isEmpty()
+                        && player.getMainHandItem().getCount() == 2 && !BlockDisplayLock.locked(display));
                 display.setItem(0, witness(index % 2 == 0, 1));
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 player.setShiftKeyDown(true);

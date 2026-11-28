@@ -8,6 +8,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -61,6 +62,8 @@ final class BloodPathCheck extends SystemCheck {
                 }
                 screenshots.take("xiulian_bloodstone.png");
                 onServer(player -> {
+                    GameType previousMode = player.gameMode.getGameModeForPlayer();
+                    player.setGameMode(GameType.SURVIVAL);
                     Item essence = BuiltInRegistries.ITEM.get(id("xvejing"));
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(essence, 3));
                     player.setHealth(10);
@@ -68,6 +71,7 @@ final class BloodPathCheck extends SystemCheck {
                     expect("血精回复 2 点生命", 12, player.getHealth());
                     expect("血精消耗 1 个", 2, player.getMainHandItem().getCount());
                     player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                    player.setGameMode(previousMode);
                     for (int height = 0; height <= 5; height++) {
                         player.level().setBlock(stone.above(height), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
                     }

@@ -113,13 +113,13 @@ updated: 2026-11-26
 | Q15 | 配方 `skillarrow_10hecheng` 一次产出 5 个最大堆叠为 1 的 `skill_arrow_10`，1.21.1 拒绝此类配方；2026-11-02 已裁定：物品保持 1，配方产出改为 1 | [技能](../../systems/skill/architecture.md) |
 | Q17 | 防具与武器的炼器数值（`lianqizong.health_Max`、`attack_num`）计入显示值与战斗结算，但实际最大生命只在妖化防具上生效、近战伤害基础值不含武器数值；2026-11-03 已裁定：实际属性计入炼器数值，与显示一致 | [属性](../../systems/attribute/architecture.md) |
 | Q18 | 已在阶段 4 修正并验证（2026-11-27）：`AttributeTotals.receivedElementBonus` 改为负向减伤（`-(gongfa * level / 4)`），`Shanghai.attack` 改按受击方 `target` 读取并在 `damage <= 0` 时归零；`AttributeTotalsTest`、`AttributeCheck`（减伤项）与 `CombatCheck` 实机通过 | [属性](../../systems/attribute/architecture.md) |
-| Q19 | 好友功能的来源缺陷：申请时向申请者打印调试文字；同意时重复判定比较对象写错，会重复添加；删除在线好友时读错对象，通常只删除本人一侧；删除时把该团队整体移出友方集合。2026-11-03 评估为轻微，保持来源行为，待再议 | [关系](../../systems/relation/architecture.md) |
+| Q19 | 已在阶段 4 续批修正并验证：`TeamRequest` 移除调试文字并修正 `accept` 双方好友查重、清待处理申请；`FriendList.delete` 修正删在线好友时的双向标记清理（不再覆盖对方好友表） | [关系](../../systems/relation/architecture.md) |
 | Q20 | 改团队名界面 `Gui0301` 的唯一入口 `Gui03anniu` 没有调用者；`ling_15` 提示文本描述的改名功能不存在；`Playeraddplayer` 没有调用者。保留台账、不实现，待裁定 | [关系](../../systems/relation/architecture.md) |
-| Q21 | 随机体质只取 1–10，第 11、12 种体质随机取不到；关闭出身界面时其他体质（含空）按第 12 种生效；体质锁定键 `tizhilock` 没有写入者。评估为轻微，保持来源行为 | [修炼](../../systems/xiulian/architecture.md) |
-| Q22 | 境界名按服务端语言翻译后存入（单人随客户端语言、专用服务器为英文）；升级文字中法术防御增加的差值方向与神识攻防的标签写错。评估为轻微：境界名统一存中文，显示错误保持来源 | [修炼](../../systems/xiulian/architecture.md) |
+| Q21 | 已在阶段 4 续批修正并验证：`BirthSelection` 登录与随机按钮范围均扩为 `1..12`，第 11、12 种先天体质均可随机到达 | [修炼](../../systems/xiulian/architecture.md) |
+| Q22 | 已在阶段 4 续批修正并验证：境界名统一存中文，`LevelUp` 修正第 9 行法术防御增量符号与第 10 行“神识攻击/神识防御”标签 | [修炼](../../systems/xiulian/architecture.md) |
 | Q23 | 孕育元婴时体质数 `tizhinumber` 加在空物品上，体质数不变（元婴不进入丹田体质列表的计数）。评估为轻微，保持来源行为 | [修炼](../../systems/xiulian/architecture.md) |
 | Q24 | 丹田体质排序在打开的体质少于 `tizhinumber` 时无限循环（服务端卡死）；翻页时最后一页恰好 9 个体质则第 9 行不显示。评估为轻微：排序扫描到最后一个三位编号为止，第 9 行保持来源 | [修炼](../../systems/xiulian/architecture.md) |
-| Q25 | 丹田本命槽上限 64，放入多个妖丹后关闭再打开只剩 1 个，其余消失。评估为轻微，保持来源行为，待裁定 | [修炼](../../systems/xiulian/architecture.md) |
+| Q25 | 已在阶段 4 续批修正并验证：`DantianMenu` 槽 0 堆叠上限覆写为 `1`，放入多颗妖丹或 Shift 移入不再因超过上限吞掉多余妖丹 | [修炼](../../systems/xiulian/architecture.md) |
 | Q26 | 已在阶段 4 修正并验证 | 1.18.2 第 6 表随机 1–10 但仅有 8 本、第 7 表有 12 本但随机上限为 11；目标已在 `technique_lists.json`（及 `extract_techniques.py`）改为 `max=8` 与 `max=12`，`GongfaCheck` 抽样全达且非空 | [功法](../../systems/gongfa/architecture.md) |
 | Q27 | 原先误读参悟台继承清槽条件：`CanwudianjiProcedure:213–260` 的清槽位于升级分支之外，成功继承无论是否升级均消耗典籍；原疑点撤销，目标按来源修正，验证边界见正文 | [功法](../../systems/gongfa/architecture.md) |
 | Q28 | 星宿穴位学习小游戏不可达：研习台 `gongfaxvexi` 的物品不在创造栏、没有配方，结构与代码都不放置它，槽位没有放入书的途径；界面 `gongfaxvexi_gui` 只登记、从未打开（右键研习台打开的是 `TripodGUI`）。负责人已于2026-11-16明确批准排除这部分（研习台方块、界面与429个过程）；保留来源身份与不可达证据，不再作为待裁定或开放移植项 | [功法](../../systems/gongfa/architecture.md) |
@@ -182,8 +182,8 @@ updated: 2026-11-26
 | Q69 | 来源缺定义；已批准实现，拒启动必要单项通过 | 拍卖商品语言定义缺失，且仅34级NPC不满足筑基/结丹候选区间，原无限扫描不能结束。缺商品或合格NPC时拒绝启动并中文提示，真实入座后进度0、中文原因及同次失败只提示一次已验证，保留有效场次规则；未运行来源挂起分支或有效拍卖 | [经济](../../systems/economy/architecture.md)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-拍卖缺定义时拒绝启动) |
 | Q70 | 来源库存替换与扣料异常；已批准实现，有限守恒/重进通过 | B:`BuildingProcedure:31–220`先放结构再读18槽扣料；B的12个`build01/02/03`四向来源模板均清空核心库存，01变为一槽案台，02/03仍为18槽，可能丢材料并越界。已实现保存原库存、按原费用扣料，18槽回写余料、一槽原位掉落；中心与受控02模板跨栈余料/无关物品守恒及十八槽保存重进已过；03/全向/刚好足量仍待 | [城镇](../../systems/town/architecture.md#q70-模板替换与材料扣费)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-城镇扣料与差异集中登记) |
 | Q71 | 已在阶段 4 修复并验证 | B:`ShopblockqvchuProcedure:37–90` 原先领取不清除 `cunchulingshi` 且先输出 `0`；`ShopTrading.claim` 已改用实际金额并清零暂存，`CommerceCheck` 验证不再重复入账 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
-| Q72 | 已核来源载体疑点；保持来源，待集中裁定 | B:`ShopblockGuigoumaiProcedure:798–801`写`getCompound("playerxiangou")`；生存放置未初始化该compound，限购写入可能只落在临时空tag，创意刷新会初始化。具体两版本运行仍待核 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
-| Q73 | 已核字段误读；保持来源，待集中裁定 | B:`Tuzhizhongliang`对材料列表误读attribute索引1，读数为0，自然图纸估价的折价因子恒1；不按名称修正材料重量 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q72 | 已在阶段 4 续批修正并验证 | `EconomyBlockState.ShopState` 随方块实体创建与序列化始终初始化 `playerPurchases` 映射，生存商铺按次限购生效，`CommerceCheck` 验证拦截二次购买 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q73 | 已在阶段 4 续批修正并验证 | `CommerceValuation.blueprintWeightDiscount` 改读材料定义 `fixedWeight` 累计图纸重量并应用来源折价曲线（105..150 分段折价），`CommerceCheck` 验证重图纸折价拦截 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q74 | 来源空表异常；保留中断结果，错误提示待对照 | B:`Baoxiangzong:127–138`读取奖励首段第三字段，空串/畸形首段会终止同次发放。目标明确终止并保留此前掉落，不补抽；来源框架错误文案及空分支实机未对照 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
 | Q75 | 来源奖励类型疑点；保持来源，待集中裁定 | B:`BaoxiangLiandantuzhi`只有一级四支为丹方，二级及以上实际返回技能书；不补造高档丹方 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
 | Q76 | 来源重复字段；保持覆盖结果，待集中裁定 | 丹药表重复写`danyaotick0`，止血丹后写0且缺`danyaotick1`；保留后写覆盖与缺字段读0，不按药名改药效 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
@@ -198,22 +198,22 @@ updated: 2026-11-26
 | Q85 | 来源扣料与参数索引异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:153–241`带NBT扣物品先将足量需求清0再删除，参数索引跨栈持续递增；完整多栈影响未实机复核 | [任务Q85](../../systems/quest/architecture.md#q85-带nbt扣料与跨栈索引) |
 | Q86 | 来源目录与生成数量不符；保持来源，待集中裁定 | B:`Worldbegin:51`为045悬赏定义数量8，追踪`Xvanshangzhuizongheji:40–57`仅生成一次；不补造七只 | [任务Q86](../../systems/quest/architecture.md#q86-045目录数量与生成数) |
 | Q87 | 来源失联移除风险；保持来源，待集中裁定 | A:`Guchong05DangShiTiGengXinKeShi:32–57`百刻返还只找当前维度在线主人，未找到仍移除，可能不返还物品 | [蛊虫Q87](../../systems/guchong/architecture.md#q87-同维主人缺席仍移除) |
-| Q88 | 来源文本与公式不符；保持来源，待集中裁定 | 普通商人资质“强筋”不匹配A:`Npcshuxingjisuan:140–150`识别的“强劲”，实际走最低档公式 | [NPC Q88](../../systems/npc/architecture.md#q88-强筋资质文本) |
+| Q88 | 已在阶段 4 续批修正并验证 | `NpcStats.rating` 同时识别 `"强劲"` 与 `"强筋"` 为强档系数，`NpcManagementCheck` 验证 `12.5` 级气血计算为 `227.0` | [NPC Q88](../../systems/npc/architecture.md#q88-强筋资质文本) |
 | Q89 | 按既有文案规则实施的显示差异；待验证 | B:`Xvanshangshuoming:17–20`第三条源码调试说明移入开发记录，前两条玩法介绍仍显示；依据项目玩家文案规则，不改变悬赏结算 | [任务Q89](../../systems/quest/architecture.md#q89-悬赏说明调试文案) |
 | Q90 | 来源失效坐标异常；保持中断，待集中裁定 | B:`EntityDie:56,79`直接解引用悬赏告示牌BE，牌子移除后结算可能中断；已撤回目标额外静默跳过，现场未实机复现 | [任务Q90](../../systems/quest/architecture.md#q90-告示牌消失后的结算中断) |
 | Q91 | 分类疑问已核排除；05标签已接，待验证 | A的01/03来源为`MobType.UNDEFINED`，不能凭蛊虫名称加节肢标签；05明确为`ARTHROPOD`，只为05补目标标签 | [蛊虫Q91](../../systems/guchong/architecture.md#q91-节肢类别的核对边界) |
 | Q92 | 目标显示遗漏已补接；有限自然操作与截图通过 | 普通对话恢复五张来源双态按钮贴图与`fengexian`分隔线，沿用动作号、坐标和中文朗读；转换/编译及银行自然继续/四选项按钮通过，截图已查看；完整焦点/页面视觉仍待，裁切见Q102 | [任务Q92](../../systems/quest/architecture.md#q92-对话按钮与分隔线) |
-| Q93 | 来源实物购买扣费异常；保持来源，待集中裁定 | `ShopblockGuigoumai`只在背包包含某类需求时检查数量，整类缺失可跳过；不足栈清0后再减其数量，剩余需求不减少 | [经济R13-E04/E05](../../systems/economy/architecture.md#来源差异与当前处理) |
-| Q94 | 来源概率分支不可达；保持来源，待集中裁定 | `Cailiaoshop01/02`先判断随机数≥20再判断≥50，后档不可达；未按推测调概率 | [经济R13-E07](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q93 | 已在阶段 4 续批修正并验证 | `ShopTrading.buy` 移除 `contains` 跳过分支并对 1..3 槽需求作模拟预检后再精确扣减，`CommerceCheck` 验证缺料不白嫖、不足不吞料 | [经济R13-E04/E05](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q94 | 已在阶段 4 续批修正并验证 | `EconomyCatalogs.materialShop` 修正为先判 `roll >= 50` 再判 `>= 20`，`CommerceCheck` 验证一档商店三段等级均可达 | [经济R13-E07](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q95 | 来源估价重复低档；保持来源，待集中裁定 | `Shougouselljisuan`饰品21–30级价格重复11–20级段；逐级迁移，不替换成递增公式 | [经济R13-E08](../../systems/economy/architecture.md#来源差异与当前处理) |
-| Q96 | 来源托管字段错位；保持来源，待集中裁定 | `PaimaiTuoguananniu`写`paimaimoshi`的全自动/自营，显示却读`tuoguan`；不补造开关 | [经济R13-E11](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q96 | 已在阶段 4 续批修正并验证 | `Auctions.button` 操作 `0` 改为切换 `state.managed` 而不覆盖 `state.auctionMode`，`CommerceCheck` 验证与显示一致 | [经济R13-E11](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q97 | 来源竞价与成交断链；保留空操作，待集中复核 | `PaimaihangScreen`11按钮均为空回调，未找到玩家出价与成交结算推进入口；不将已接现场状态机称为完整成交 | [经济R13-E12](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q98 | 来源座椅令牌与台状态不一致；保持来源，待集中裁定 | `PaimaichairZaiFangKuaiShangYouJian`不验令牌身份即可移椅，且不更新台内坐标/计数 | [经济R13-E13](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q99 | 菜单绑定和延后覆槽边界；待核实/待实现 | 额外手持/实体能力绑定未见实际调用，其他系统Supplier槽映射尚未全部接入；银行九槽绑定十一槽页存在容量风险。已核Forge40.1.0父类提供无方向能力并补入目标，先前“无能力”判断撤销 | [经济R13-E14/E15/E19](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q100 | 来源商品根累计与命名覆盖；保持来源，待集中裁定 | `Goodsdaoru`复合根跨商品累计，循环临时自定义名又被后写覆盖；缺定义分支未合成假商品进行验证 | [经济R13-E17](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q101 | 来源文本分行超过显示范围；保持来源，待集中裁定 | `Duihuafenhang`仅外循环检查20行，内循环仍可写21行及以后，页面只显示20行 | [经济R13-E18](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q102 | 目标小窗口裁切已观察；来源同条件待对照 | 854×480、GUI缩放2下已观察商店、对话、副本页及炼丹固定画布裁切；副本及炼丹另观察通知遮挡。暂保持来源布局，完整窗口/缩放矩阵和来源实机未执行 | [经济Q102](../../systems/economy/architecture.md#q102-小窗口下的固定画布裁切)、[副本证据](../../systems/dungeon/logs/2026-11.md)、[炼丹证据](../../systems/liandan/logs/2026-11.md#2026-11-19-人间道虫蚀草炼丹与炉次重进) |
-| Q103 | 来源准入与扣票顺序疑点；保持来源，待集中裁定 | A:`FubenjinruProcedure`临时队伍为空时不核发起者境界且人数为0；境界/人数拒绝后仍扣票，不支持维度在准入后已写冷却。临时队伍自然生产者仍待 | [副本Q103](../../systems/dungeon/architecture.md#q103-准入与扣票顺序) |
+| Q103 | 已在阶段 4 续批修正并验证 | `DungeonEntrances.enter` 按冷却→维度→单人/团队境界与人数校验，全部通过后再扣票与写冷却，`DungeonCheck` 验证拒入不扣票 | [副本Q103](../../systems/dungeon/architecture.md#q103-准入与扣票顺序) |
 | Q104 | 来源妖魂回程分支疑点；保持来源，待集中裁定 | 同过程妖魂分支重复判断主世界，保留旧`chuansongid`，首次可能为空；不按当前维度补正 | [副本Q104](../../systems/dungeon/architecture.md#q104-妖魂回程分支) |
 | Q105 | 来源跟随者状态与模式疑点；保持来源，待集中裁定 | 只给队长写定义/实例/回程，跟随者可能保留旧附件；`非创造 || 非旁观`恒真，全部转冒险。未执行多人对照 | [副本Q105](../../systems/dungeon/architecture.md#q105-跟随者与模式) |
 | Q106 | 来源占位清理与攻击位断链；保持来源，待集中复核 | B的清理遇X偏移0停止、扫描不清累计计数；未勾攻击不清旧真，解析复制攻击位而释放不消费 | [副本Q106](../../systems/dungeon/architecture.md#q106-占位符扫描与攻击位) |
@@ -314,7 +314,7 @@ updated: 2026-11-26
 | Q189 | 修炼日数减一不能从一归零，加十/百可写负数；保持来源，待裁定 | 保留来源按钮的严格比较与寿元减一分支，不新增截断 | [修炼三页边界](../../systems/xiulian/architecture.md#修炼观想与功法参悟页2026-11-15) |
 | Q190 | 观想先遇坐具便结束整轮威胁扫描；保持来源，待裁定 | 远处威胁可能不再核对，继续保持仅扫描Mob及来源顺序 | [观想规则](../../systems/xiulian/architecture.md#修炼观想与功法参悟页2026-11-15) |
 | Q191 | 参悟说明无时限与实际天数倒计时矛盾；保持来源，待裁定 | 说明原文保留，启动仍需一天且每秒减天，不改玩法或文案 | [参悟边界](../../systems/xiulian/architecture.md#修炼观想与功法参悟页2026-11-15) |
-| Q192 | 展示架对工具裸ID的排除比较恒放行；保持来源，待裁定 | 注册ID含命名空间，裸lockblock比较不命中，未锁架仍可放非空工具 | [展示架排除](../../systems/decor/architecture.md#q192-博古架工具排除条件恒放行) |
+| Q192 | 已在阶段 4 续批修正并验证 | `DisplayFurnitureBlock` 改用完整注册 ID `yvanchuxiuzhen:ling_16` 排除展示锁工具，不再因裸 `"lockblock"` 匹配失败放行，`TiandaoDisplayCheck` 验证通过 | [展示架排除](../../systems/decor/architecture.md#q192-博古架工具排除条件恒放行) |
 | Q193 | 轮回管理命令匹配目标后却作用执行者；待裁定、未实现 | 管理员A指定B时来源给A执行轮回37；保持37跨所有者清理契约开放，不擅自改目标 | [轮回目标](../../systems/xiulian/architecture.md#q193-轮回命令的执行者与目标不一致) |
 | Q194 | 展示架潜行换型先保存移除再读回；保持来源，待裁定 | 换型与原移除掉物顺序可能使旧栈掉落后恢复副本，未自行去重或改变顺序 | [换型库存](../../systems/decor/architecture.md#q194-潜行换型保存与移除掉落顺序) |
 | Q195 | 材料命令在每个非目标玩家分支发送未找到提示；保持来源，待裁定 | 多人同维度即使命中目标也可能夹带报错；永久解锁不刷新当前千材录缓存，按原刷新入口更新 | [材料管理解锁](../../systems/material/architecture.md#q195-逐玩家未找到提示) |
@@ -330,7 +330,7 @@ updated: 2026-11-26
 | Q205 | 建筑笔歇山/庑殿没有切换入口且过程复用；保持来源，待裁定 | 目标保留来源分支、名称和黑瓦共享过程，不补造形态切换 | [建筑笔](../../systems/decor/architecture.md#q205屋顶形态切换与过程复用断链) |
 | Q206 | 建筑笔铺设无范围、替换、材料或回滚保护；保持来源，待裁定 | 目标保留直接写入、宽度0退化和无成本边界 | [建筑笔](../../systems/decor/architecture.md#q206铺设范围和失败保护为空) |
 | Q207 | 六组门户运行消费者已实现；无归、修罗首次及重进后再次完整往返、门户/POI保存通过；地灵资源待接收 | 人间/妖魂和天阙既有有限证据复用；一般多维门户组合加载人间道随机结构发生768 MB OOM仍开放；完整自然等待/多人及天阙重进再次完整往返未验 | [天道门户](../../systems/world/architecture.md#天道维度方块与门户来源闭包2026-11-15)、[天阙](../../systems/world/architecture.md#天阙七群系与门户接收2026-11-18)、[无归](../../systems/world/architecture.md#无归十群系与门户接收2026-11-18)、[修罗](../../systems/world/architecture.md#修罗道维度接线2026-11-18) |
-| Q214 | 签筒公式使第36首诗不可达，零档仍发送空消息；保持来源 | 非负世界时间下来源`ceil((时+分+秒+时间尾两位)/7)`取值0–35，静态第36档不可达；目标保留公式和空消息，不补造随机入口 | [装饰](../../systems/decor/architecture.md#签筒与装饰梯子2026-11-16) |
+| Q214 | 已在阶段 4 续批修正并验证 | `FortuneDraws.draw` 改用 `level.random.nextInt(36) + 1`（`1..36` 均匀可达），消除 0 档空消息/裸 `"§f"` 与第 36 诗句不可达问题，`AnimatedDecorCheck` 验证通过 | [装饰](../../systems/decor/architecture.md#签筒与装饰梯子2026-11-16) |
 | Q215 | 签筒动画待办按来源由服务端刻推进；集成服可播放、专服客户端无入口 | 两逻辑端右键均向共享静态队列加入携带原Level的待办；`ServerTickEvent`递减40刻后，抽签过程在集成服可发布ClientLevel激活事件，专用服务端没有客户端待办。目标保留该端侧边界，不新增开奖payload | [装饰](../../systems/decor/architecture.md#签筒与装饰梯子2026-11-16) |
 | Q225 | 同名签筒配方实际产陶轮；来源已核、保持来源、待统一复核 | 文件名不构成签筒自然获取入口；仅纠正文档，不改配方或补造供给 | [装饰](../../systems/decor/architecture.md#q225-同名签筒配方的来源结果) |
 | Q226 | 灵兽袋外层妖兽标签/存活门槛漏读；旧普通狼异常来源结论撤回，目标入口已纠正且必要受控客户端通过 | 补核完整当前使用手、三种主手前置物品、妖兽标签、死亡/活体及驯服门槛；旧305项原件保留，只撤回普通狼异常的规格解释，其余有效证据复用；本批客户端结果见所属月志 | [生物](../../systems/creature/architecture.md#q226-灵兽袋收纳入口与体型属性) |

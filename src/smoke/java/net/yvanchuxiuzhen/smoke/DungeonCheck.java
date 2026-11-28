@@ -49,6 +49,7 @@ import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.api.DungeonCreatures;
 import net.yvanchuxiuzhen.system.dungeon.DungeonController;
 import net.yvanchuxiuzhen.system.dungeon.DungeonDefinitions;
+import net.yvanchuxiuzhen.system.dungeon.DungeonEntrances;
 import net.yvanchuxiuzhen.system.dungeon.DungeonPlayers;
 import net.yvanchuxiuzhen.system.dungeon.PaintingRuntime;
 import net.yvanchuxiuzhen.system.dungeon.client.DungeonScreen;
@@ -76,6 +77,8 @@ import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 副本必要路径：客户端真实放置、四页菜单和按钮、三波受控清敌、十件奖励、成功与超时回程、画卷双击往返和收回。
@@ -260,6 +263,15 @@ final class DungeonCheck extends SystemCheck {
                 minecraft.player.closeContainer();
                 onServer(p -> {
                     p.setGameMode(GameType.SURVIVAL);
+                    DungeonBlockEntity entrance = block(p.server.overworld(), ENTRANCE);
+                    entrance.setMinLevel(10);
+                    double oldLevel = Cultivation.get(p, CultivationValue.LEVEL_NUMBER);
+                    Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 1);
+                    DungeonEntrances.enter(p, entrance);
+                    expectTrue("Q103 等级不足拒绝入场不扣门票且不进入冷却",
+                            p.getInventory().countItem(Items.IRON_INGOT) == 2 && !entrance.onCooldown());
+                    entrance.setMinLevel(0);
+                    Cultivation.set(p, CultivationValue.LEVEL_NUMBER, oldLevel);
                     move(p, ENTRANCE_STAND);
                 });
                 return true;

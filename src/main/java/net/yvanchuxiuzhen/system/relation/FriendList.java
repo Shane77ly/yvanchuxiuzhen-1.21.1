@@ -88,30 +88,28 @@ public final class FriendList {
     }
 
     /**
-     * 删除选中的好友：本人列表中该格去掉星标、标为删除，并把对方团队移出友方集合。
-     * 对方在同一维度在线时，来源在本人列表里查找本人的名字（通常不存在）；找到时把那一格同样标为删除，
-     * 再把本人的好友子表引用写给对方（来源 {@code Playeruidel} 读取对象写错，Q19）。选中行为空时返回 false，不刷新。
+     * 删除选中的好友：本人列表中该格去掉星标、标为删除，并把对方团队移出友方集合；
+     * 对方在同一维度在线时，在对方的好友列表中查找本人并同步双向清理（Q19）。选中行为空时返回 false，不刷新。
      */
     private static boolean delete(ServerPlayer player, PlayerRelation relation) {
         FriendRow row = relation.row(relation.selected());
+        if (row.name().isEmpty()) {
+            return false;
+        }
         String myName = player.getDisplayName().getString();
         for (ServerPlayer other : player.serverLevel().players()) {
             if (other.getDisplayName().getString().equals(row.name())) {
-                for (int slot = 1; slot <= relation.friendCount(); slot++) {
-                    FriendEntry entry = relation.friend(slot);
-                    if (entry.name().equals(myName)) {
-                        markDeleted(relation, entry);
-                        PlayerRelation otherRelation = other.getData(RelationAttachments.PLAYER);
-                        otherRelation.shareFriendsFrom(relation);
+                PlayerRelation otherRelation = other.getData(RelationAttachments.PLAYER);
+                for (int slot = 1; slot <= otherRelation.friendCount(); slot++) {
+                    FriendEntry entry = otherRelation.friend(slot);
+                    if (entry != null && !entry.black() && entry.name().equals(myName)) {
+                        markDeleted(otherRelation, entry);
                         other.syncData(RelationAttachments.PLAYER);
                         break;
                     }
                 }
                 break;
             }
-        }
-        if (row.name().isEmpty()) {
-            return false;
         }
         markDeleted(relation, relation.friend(row.slot()));
         return true;

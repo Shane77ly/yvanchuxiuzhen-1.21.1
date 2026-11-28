@@ -68,6 +68,9 @@ final class XiulianProgressCheck extends SystemCheck {
                     XiulianWorldData.get(player.server).setDailyExperience(0);
                     Cultivation.set(player, CultivationValue.LEVEL_NUMBER, 0);
                     Cultivation.setTizhiDouble(player, "LevelupCorrectHealth", 3);
+                    Cultivation.setTizhiDouble(player, "LevelupCorrectManadef", 2);
+                    Cultivation.setTizhiDouble(player, "LevelupCorrectSoulatt", 4);
+                    Cultivation.setTizhiDouble(player, "LevelupCorrectSouldef", 5);
                     Cultivation.set(player, CultivationValue.EXPERIENCE, 1100);
                     experienceBefore = Cultivation.get(player, CultivationValue.LIFETIME);
                 });
@@ -86,6 +89,8 @@ final class XiulianProgressCheck extends SystemCheck {
                     expect("升级文字 第 1 行", "进阶练气", Cultivation.tizhiString(player, "uplevelxianshi1"));
                     expect("升级文字 第 3 行", "属性点获得：5", Cultivation.tizhiString(player, "uplevelxianshi3"));
                     expect("升级文字 第 5 行", "§f血量上限:§a+3", Cultivation.tizhiString(player, "uplevelxianshi5"));
+                    expect("Q22 升级文字 第 9 行法术防御正向增量", " §f法术防御:§a+2", Cultivation.tizhiString(player, "uplevelxianshi9"));
+                    expect("Q22 升级文字 第 10 行神识攻防标签", "§f神识攻击:§a+4 §f神识防御:§a+5", Cultivation.tizhiString(player, "uplevelxianshi10"));
                 });
             }
             case 4 -> {

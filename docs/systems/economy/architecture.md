@@ -111,15 +111,15 @@ updated: 2026-11-26
 | --- | --- | --- |
 | R13-E01／Q05 | `B:ShopBuy:264–266` 已计算 money01，却将 money02 计入一级账户 | `CommerceTrading.buyStones` 按实际一级余款入账；来源中错误的结果不保留。有限场景见[经济月志](logs/2026-11.md#阶段-4-首批商店找零)。 |
 | R13-E02／Q71 | `B:Shopblockqvchu:37–90`不清cunchulingshi，可重复入账；反馈在计算前读取局部值，显示0 | 已修复并验证：`ShopTrading.claim` 入账前将 `cunchulingshi` 清零并输出实际金额（`gongfa,commerce,questjournal` 烟测验证首次入账 25、暂存归 0、二次打开不重复入账，见[经济月志](logs/2026-11.md#阶段-4-续批q71-玩家商铺领取清零)） |
-| R13-E03／Q72 | `B:ShopblockGuigoumai:798–801`写getCompound返回值；生存放置无playerxiangou时写入临时tag，创意刷新会初始化 | 保留有/无compound差异，不补回put |
-| R13-E04 | `B:ShopblockGuigoumai`仅Inventory.contains为真才核需求数；整类需求缺失时仍能购买 | 保留来源检查顺序；待集中裁定 |
-| R13-E05 | 同过程需求不足栈先shrink为0，再减getCount，后续所需数不减少 | 保留来源扣料顺序；待集中裁定 |
-| R13-E06／Q73 | `B:Tuzhizhongliang`读取材料串索引1的attribute作为数字，得到0；自然图纸折价因子恒1 | 按实际读数实现，不按过程名改成材料重量 |
-| R13-E07 | `B:Cailiaoshop01/02`先判断>=20，再判断>=50，后档不可达 | 保留分支顺序 |
+| R13-E03／Q72 | `B:ShopblockGuigoumai:798–801`写getCompound返回值；生存放置无playerxiangou时写入临时tag，创意刷新会初始化 | 已修复并验证：`EconomyBlockState.ShopState` 随方块实体创建与序列化始终初始化 `playerPurchases` 映射，生存商铺限购可正常拦截二次购买，已通过 `CommerceCheck` 烟测验证 |
+| R13-E04 | `B:ShopblockGuigoumai`仅Inventory.contains为真才核需求数；整类需求缺失时仍能购买 | 已修复并验证：`ShopTrading.buy` 移除 `contains` 跳过分支，对 1..3 槽全部需求作模拟扣减预检，缺失或不足均拒绝购买；已通过 `CommerceCheck` 烟测验证 |
+| R13-E05 | 同过程需求不足栈先shrink为0，再减getCount，后续所需数不减少 | 已修复并验证：`ShopTrading.buy` 预检全部满足后再按 `Math.min(candidate.getCount(), need)` 精确扣减，不吞材料；已通过 `CommerceCheck` 烟测验证 |
+| R13-E06／Q73 | `B:Tuzhizhongliang`读取材料串索引1的attribute作为数字，得到0；自然图纸折价因子恒1 | 已修复并验证：`CommerceValuation.blueprintWeightDiscount` 改读材料定义 `fixedWeight` 累计图纸重量并应用来源折价曲线（105..150 分段折价），已通过 `CommerceCheck` 烟测验证 |
+| R13-E07 | `B:Cailiaoshop01/02`先判断>=20，再判断>=50，后档不可达 | 已修复并验证：`EconomyCatalogs.materialShop` 修正为先判 `roll >= 50`（6 档）再判 `roll >= 20`（11 档），低/中/高三段均可达；已通过 `CommerceCheck` 烟测验证 |
 | R13-E08 | `B:Shougouselljisuan`的饰品21–30级价段重复低档 | 提取逐级表保留原价，不使用递增公式替代 |
 | R13-E09／Q69 | `B:Goodsdaoru`缺语言定义时扫描不能终止 | 已批准启动前拒绝；不执行来源挂起分支 |
 | R13-E10／Q69 | `B:PaimaiDaorunpc`仅34级定义，筑基/结丹筛选无候选时不能终止；元婴重复同NPC | 已批准仅无候选时拒绝；有效候选重复规则保留 |
-| R13-E11 | `B:PaimaiTuoguananniu`创意操作写paimaimoshi的全自动/自营，显示却读tuoguan | 保留字段错位，不补造托管切换 |
+| R13-E11 | `B:PaimaiTuoguananniu`创意操作写paimaimoshi的全自动/自营，显示却读tuoguan | 已修复并验证：`Auctions.button` 操作 `0` 改为切换 `state.managed`，不覆盖 `state.auctionMode`，与显示和自动托管读取字段一致；已通过 `CommerceCheck` 烟测验证 |
 | R13-E12 | `B:PaimaihangScreen`11按钮空回调，源状态机无玩家竞价与成交结算入口 | 保留空操作，完整成交未实现且不补造 |
 | R13-E13 | `B:PaimaichairZaiFangKuaiShangYouJian`不校验令牌身份即可移椅并减计数，未同步台内坐标和计数 | 保留来源；待裁定，不以令牌归属名义加限制 |
 | R13-E14 | 银行/交易菜单构造器有手和实体能力绑定分支，但已知打开调用只传坐标 | 保留已知方块/独立绑定；未发现实际消费者的额外分支继续待核，不宣称全路径对齐 |
