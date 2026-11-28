@@ -9,16 +9,11 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.cooking.api.Cooking;
 import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.data.CookingRuleDefinition.PotContainerRule;
+import net.yvanchuxiuzhen.system.cooking.data.CookingTableRecipes;
 
 /** 菜谱逐项检查同物品身份，实际逐项扣料后立即覆盖中槽；盛装容器只检查而不消耗。 */
 public final class CookingRecipes {
-    private static final String[] CONTAINERS = {"foodwan", "foodcipan", "fooddawan", "foodtiepan"};
-    private static final String[] CONTAINER_ERRORS = {
-            "§4需要在左侧四个容器栏位的第一个位置放置一个瓷碗！",
-            "§4需要在左侧四个容器栏位的第二个位置放置一个瓷盘！",
-            "§4需要在左侧四个容器栏位的第三个位置放置一个大碗！",
-            "§4需要在左侧四个容器栏位的第二个位置放置一个铁盘！"};
-
     private CookingRecipes() {
     }
 
@@ -60,10 +55,11 @@ public final class CookingRecipes {
 
     private static boolean hasContainer(ServerPlayer player, CookingPotBlockEntity pot, String identity) {
         if (identity.isEmpty() || identity.equals("无")) return true;
-        for (int index = 0; index < CONTAINERS.length; index++) {
-            if (normalize(identity).equals(ModId.VALUE + ":" + CONTAINERS[index])) {
-                if (pot.getItem(index + 9).is(stack(identity).getItem())) return true;
-                CookingRuntime.message(player, CONTAINER_ERRORS[index]);
+        String normalized = normalize(identity);
+        for (PotContainerRule rule : CookingTableRecipes.potContainers()) {
+            if (normalized.equals(rule.itemId())) {
+                if (pot.getItem(rule.slotOffset() + 9).is(stack(rule.itemId()).getItem())) return true;
+                CookingRuntime.message(player, rule.potError());
                 return false;
             }
         }

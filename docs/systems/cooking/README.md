@@ -2,10 +2,12 @@
 topic: cooking
 role: entry
 status: partial
-updated: 2026-11-23
+updated: 2026-11-28
 ---
 
 # 烹饪
+
+2026-11-28 子批 2（阶段 5B）已将木甑酿酒、八酒饮用、无菜谱墨料坯、摆盘食物与锅/蒸锅容器规则全部提取至 `src/main/resources/content/cooking/recipes.json` + `CookingRuleDefinition.CODEC` 数据驱动（`CookingTableRecipes`），并剥离 `CookingPotBlockEntity.inkScratch` 套壳 `CompoundTag`。
 
 小肉、烤小肉已接回原版狼喂食与繁殖入口，治疗量分别为 1、4 点。单件边界与实机待验项见[烹饪月志](logs/2026-11.md#2026-11-23-小肉与烤小肉喂狼)。
 
