@@ -31,6 +31,8 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
 import net.yvanchuxiuzhen.system.cooking.api.Cooking;
 import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.data.CookingRuleDefinition.WineEffectEntry;
+import net.yvanchuxiuzhen.system.cooking.data.CookingTableRecipes;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -114,58 +116,28 @@ public final class WineRuntime {
                 break;
             }
         }
+        final double effectiveDuration = duration;
+        final int scaledAmplifier = amplifier;
         String wine = Cultivation.tizhiString(player, "jiuniangid");
-        switch (wine) {
-            case "yvanchuxiuzhen:jiuniang_001" -> {
-                Alcohol.add(player, 18);
-                effect(player, effect("effect_010"), duration, amplifier);
-                experience(player, 5);
-            }
-            case "yvanchuxiuzhen:jiuniang_002" -> {
-                Alcohol.add(player, 50);
-                effect(player, MobEffects.LUCK, duration, amplifier);
-                effect(player, MobEffects.WATER_BREATHING, duration, amplifier);
-                experience(player, 5);
-            }
-            case "yvanchuxiuzhen:jiuniang_003" -> {
-                Alcohol.add(player, 70);
-                effect(player, effect("effect_017"), duration, amplifier);
-                experience(player, 5);
-            }
-            case "yvanchuxiuzhen:jiuniang_004" -> {
-                Alcohol.add(player, 35);
-                effect(player, MobEffects.REGENERATION, duration, amplifier);
-                effect(player, effect("effect_010"), duration, amplifier);
-                effect(player, effect("effect_017"), duration, amplifier);
-                experience(player, 20);
-            }
-            case "yvanchuxiuzhen:jiuniang_005" -> {
-                Alcohol.add(player, 50);
-                effect(player, effect("effect_031"), duration, amplifier);
-                experience(player, 5);
-            }
-            case "yvanchuxiuzhen:jiuniang_006" -> {
-                Alcohol.add(player, 10);
-                experience(player, 15);
-            }
-            case "yvanchuxiuzhen:jiuniang_007" -> {
-                Alcohol.add(player, 20);
-                effect(player, effect("effect_025"), duration, amplifier);
-                experience(player, 5);
-            }
-            case "yvanchuxiuzhen:jiuniang_008" -> {
-                String technique = Techniques.main(player).map(book -> book.definition().name()).orElse("");
-                if (BLOOD_TECHNIQUES.contains(technique)) {
-                    experience(player, 40);
-                    effect(player, effect("effect_013"), duration, 0);
-                    player.removeEffect(effect("effect_004"));
-                } else {
-                    effect(player, effect("duyao_08"), 2 * duration, amplifier);
+        CookingTableRecipes.wineDrink(wine).ifPresent(rule -> {
+            boolean blood = rule.bloodExperience() > 0
+                    && BLOOD_TECHNIQUES.contains(Techniques.main(player).map(book -> book.definition().name()).orElse(""));
+            if (rule.alcohol() > 0) Alcohol.add(player, rule.alcohol());
+            if (blood) {
+                experience(player, rule.bloodExperience());
+                for (WineEffectEntry entry : rule.bloodEffects()) {
+                    effect(player, effectById(entry.effectId()), effectiveDuration * entry.durationMultiplier(),
+                            entry.fixedAmplifier().orElse(scaledAmplifier));
                 }
+                rule.bloodRemovesEffect().ifPresent(effectId -> player.removeEffect(effectById(effectId)));
+            } else {
+                for (WineEffectEntry entry : rule.effects()) {
+                    effect(player, effectById(entry.effectId()), effectiveDuration * entry.durationMultiplier(),
+                            entry.fixedAmplifier().orElse(scaledAmplifier));
+                }
+                if (rule.experience() > 0) experience(player, rule.experience());
             }
-            default -> {
-            }
-        }
+        });
         double tolerance = 100 + Cultivation.tizhiDouble(player, "AlcoholPatience");
         tolerance += tolerance * Cultivation.tizhiDouble(player, "AlcoholPatiencePercentage");
         if (Alcohol.amount(player) >= tolerance) {
@@ -177,8 +149,8 @@ public final class WineRuntime {
         Cultivation.add(player, CultivationValue.EXPERIENCE_STAND, amount);
     }
 
-    private static Holder<MobEffect> effect(String path) {
-        return BuiltInRegistries.MOB_EFFECT.getHolder(id(path)).orElseThrow();
+    private static Holder<MobEffect> effectById(String fullId) {
+        return BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.parse(fullId)).orElseThrow();
     }
 
     private static void effect(ServerPlayer player, Holder<MobEffect> effect, double duration, int amplifier) {

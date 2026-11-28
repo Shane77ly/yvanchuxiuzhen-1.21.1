@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.cooking;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,24 +9,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.data.CookingRuleDefinition.StillBrewingRule;
+import net.yvanchuxiuzhen.system.cooking.data.CookingTableRecipes;
 
-/** 木甑按四个输入槽的物品身份匹配配方，持续受下方 lit 状态控制。 */
+/** 木甑按四个输入槽的物品身份匹配 JSON 酿酒配方，持续受下方 lit 状态控制。 */
 public final class WoodenStillRuntime {
-    private static final List<Map<String, Integer>> RECIPES = List.of(
-            Map.of("yvanchuxiuzhen:shicai_002", 3, "yvanchuxiuzhen:ginseng", 1),
-            Map.of("yvanchuxiuzhen:shicai_002", 4),
-            Map.of("minecraft:wheat", 2, "yvanchuxiuzhen:shicai_005", 2),
-            Map.of("yvanchuxiuzhen:jiuniang_001", 1, "yvanchuxiuzhen:fragranceflower", 3),
-            Map.of("yvanchuxiuzhen:shicai_032", 4),
-            Map.of("yvanchuxiuzhen:peachpeach", 4),
-            Map.of("yvanchuxiuzhen:jiuniang_001", 1, "yvanchuxiuzhen:peachflower", 3),
-            Map.of("yvanchuxiuzhen:jiuniang_001", 1, "yvanchuxiuzhen:xvejing", 3));
-
     private WoodenStillRuntime() {
     }
 
@@ -56,11 +47,11 @@ public final class WoodenStillRuntime {
         for (int slot = 0; slot < 4; slot++) {
             occupied.merge(BuiltInRegistries.ITEM.getKey(still.getItem(slot).getItem()).toString(), 1, Integer::sum);
         }
-        for (int recipe = 0; recipe < RECIPES.size(); recipe++) {
-            String result = "jiuniang_%03d".formatted(recipe + 1);
+        for (StillBrewingRule rule : CookingTableRecipes.stillBrewing()) {
+            Item target = BuiltInRegistries.ITEM.get(ResourceLocation.parse(rule.outputId()));
             ItemStack output = still.getItem(4);
-            if (!occupied.equals(RECIPES.get(recipe)) || !output.isEmpty() && !output.is(WineRuntime.item(result))) continue;
-            still.setWineId(ModId.VALUE + ":" + result);
+            if (!occupied.equals(rule.ingredients()) || !output.isEmpty() && !output.is(target)) continue;
+            still.setWineId(rule.outputId());
             still.setBrewing(true);
             still.changed();
             for (int slot = 0; slot < 4; slot++) still.getItem(slot).shrink(1);
@@ -76,7 +67,7 @@ public final class WoodenStillRuntime {
                 4, 0.5, 0.5, 0.5, 0);
         still.setProgress(still.progress() + 1);
         still.changed();
-        if (still.progress() >= 100) {
+        if (still.progress() >= brewTicks(still.wineId())) {
             still.setProgress(0);
             still.changed();
             ItemStack output = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(still.wineId())));
@@ -85,6 +76,13 @@ public final class WoodenStillRuntime {
             still.setBrewing(false);
             still.changed();
         }
+    }
+
+    private static int brewTicks(String wineId) {
+        for (StillBrewingRule rule : CookingTableRecipes.stillBrewing()) {
+            if (rule.outputId().equals(wineId)) return rule.brewTicks();
+        }
+        return 100;
     }
 
     private static boolean heated(BlockState state) {

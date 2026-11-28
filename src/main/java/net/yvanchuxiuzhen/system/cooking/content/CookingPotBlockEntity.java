@@ -43,7 +43,6 @@ public final class CookingPotBlockEntity extends RandomizableContainerBlockEntit
     private double cookNumber;
     private int cookExp;
     private int belongToLevel;
-    private CompoundTag inkScratch = new CompoundTag();
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
         super(CookingBlockEntities.type(state), pos, state);
@@ -98,10 +97,6 @@ public final class CookingPotBlockEntity extends RandomizableContainerBlockEntit
         belongToLevel = value;
     }
 
-    public CompoundTag inkScratch() {
-        return inkScratch;
-    }
-
     public boolean iron() {
         return ((CookingPotBlock) getBlockState().getBlock()).iron();
     }
@@ -138,7 +133,6 @@ public final class CookingPotBlockEntity extends RandomizableContainerBlockEntit
         cookNumber = tag.getDouble("cooknumber");
         cookExp = tag.getInt("cookexp");
         belongToLevel = tag.getInt("belongToLevel");
-        inkScratch = tag.getCompound("kong").copy();
     }
 
     @Override
@@ -151,7 +145,6 @@ public final class CookingPotBlockEntity extends RandomizableContainerBlockEntit
         if (cookNumber != 0) tag.putDouble("cooknumber", cookNumber);
         if (cookExp != 0) tag.putInt("cookexp", cookExp);
         if (belongToLevel != 0) tag.putInt("belongToLevel", belongToLevel);
-        if (!inkScratch.isEmpty()) tag.put("kong", inkScratch);
     }
 
     @Override

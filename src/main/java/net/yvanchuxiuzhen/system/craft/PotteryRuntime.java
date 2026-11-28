@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.craft;
 
+import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,15 +20,16 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.system.craft.content.PotteryBlankBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.PotteryWheelBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.PotteryWheelMenu;
 import net.yvanchuxiuzhen.system.craft.data.CraftData;
+import net.yvanchuxiuzhen.system.craft.data.CraftRecipeDefinition.PotteryRecipe;
+import net.yvanchuxiuzhen.system.craft.data.CraftTableRecipes;
 
-/** 陶轮制作、陶坯点火和计划刻烧制；蛊罐只按注册物品标识生成。 */
+/** 陶轮制作、陶坯点火和计划刻烧制；按 JSON 陶轮配方驱动并只按注册物品标识生成。 */
 public final class PotteryRuntime {
-    private static final String[] OUTPUTS = {"taoguan_01item", "taoguan_02item", "taoguan_03item"};
-    private static final int[] CLAY_COSTS = {4, 16, 36};
     private static final TagKey<Item> IGNITERS = ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "dahuozhuangzhi"));
 
     private PotteryRuntime() {
@@ -42,11 +43,12 @@ public final class PotteryRuntime {
         }
     }
 
-    /** 每页固定八项，现有三项只占第一页；开窗和翻页均清显示文本并保留结果槽。 */
+    /** 每页固定八项；开窗和翻页均清显示文本并保留结果槽。 */
     public static void refresh(PotteryWheelBlockEntity wheel) {
+        List<PotteryRecipe> recipes = CraftTableRecipes.pottery();
         for (int line = 1; line <= 3; line++) wheel.setText(line, "");
         int page = Math.max(1, wheel.page());
-        wheel.setMaxPage(1);
+        wheel.setMaxPage(Math.max(1, (recipes.size() + 7) / 8));
         for (int index = 0; index < 8; index++) {
             wheel.setItem(index + 1, ItemStack.EMPTY);
             wheel.setNeedItem(index, 0);
@@ -55,13 +57,13 @@ public final class PotteryRuntime {
         }
         int start = (page - 1) * 8;
         for (int index = 0; index < 8; index++) {
-            int tripleIndex = start + index * 3;
-            if (tripleIndex + 2 > OUTPUTS.length * 3) break;
-            int recipe = tripleIndex / 3;
-            ItemStack output = stack(OUTPUTS[recipe]);
-            wheel.setNeedItem(index, CLAY_COSTS[recipe]);
+            int recipeIndex = start + index;
+            if (recipeIndex >= recipes.size()) break;
+            PotteryRecipe recipe = recipes.get(recipeIndex);
+            ItemStack output = new ItemStack(byId(recipe.outputId()));
+            wheel.setNeedItem(index, recipe.cost());
             wheel.setItemName(index, output.getDisplayName().getString());
-            wheel.setOutputId(index, ModId.VALUE + ":" + OUTPUTS[recipe]);
+            wheel.setOutputId(index, recipe.outputId());
             wheel.setItem(index + 1, output);
         }
         wheel.changed();
@@ -86,22 +88,31 @@ public final class PotteryRuntime {
     public static void craft(PotteryWheelBlockEntity wheel, Player player) {
         if (wheel.text(1).isEmpty()) return;
         int selected = wheel.selected();
+        String outputId = wheel.outputId(selected);
         int cost = wheel.needItem(selected);
+        Item materialItem = materialFor(outputId);
         int count = 0;
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         if (inventory != null) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack material = inventory.getStackInSlot(slot);
-                if (material.is(Items.CLAY_BALL)) count += material.getCount();
+                if (material.is(materialItem)) count += material.getCount();
             }
         }
         if (count < cost) return;
         ItemStack blank = stack("taopiitem");
-        blank.set(CraftData.POTTERY_PRODUCT.get(), wheel.outputId(selected));
+        blank.set(CraftData.POTTERY_PRODUCT.get(), outputId);
         wheel.setItem(0, blank);
-        player.getInventory().clearOrCountMatchingItems(material -> material.is(Items.CLAY_BALL), cost,
+        player.getInventory().clearOrCountMatchingItems(material -> material.is(materialItem), cost,
                 player.inventoryMenu.getCraftSlots());
         wheel.changed();
+    }
+
+    private static Item materialFor(String outputId) {
+        for (PotteryRecipe recipe : CraftTableRecipes.pottery()) {
+            if (recipe.outputId().equals(outputId)) return byId(recipe.materialId());
+        }
+        return Items.CLAY_BALL;
     }
 
     public static void useBlank(Level level, BlockPos pos, Player player) {
@@ -132,7 +143,7 @@ public final class PotteryRuntime {
         int required = blank.getLevel().canSeeSkyFromBelowWater(blank.getBlockPos().above()) ? 48 : 12;
         if (progress >= required) {
             String output = blank.getItem(0).getOrDefault(CraftData.POTTERY_PRODUCT.get(), "").toLowerCase(Locale.ENGLISH);
-            blank.setItem(0, new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(output))));
+            blank.setItem(0, new ItemStack(byId(output)));
             blank.setFireTick(0);
             blank.setBurning(true);
         }
@@ -145,5 +156,9 @@ public final class PotteryRuntime {
 
     private static Item item(String path) {
         return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path));
+    }
+
+    private static Item byId(String id) {
+        return BuiltInRegistries.ITEM.get(ResourceLocation.parse(id));
     }
 }

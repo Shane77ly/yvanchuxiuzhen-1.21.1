@@ -21,14 +21,13 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
 import net.yvanchuxiuzhen.system.cooking.content.SteamerBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.SteamerMenu;
+import net.yvanchuxiuzhen.system.cooking.data.CookingRuleDefinition.PotContainerRule;
+import net.yvanchuxiuzhen.system.cooking.data.CookingTableRecipes;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 
 /** 蒸锅开始与五次完成、四层笼屉食材处理；设备状态由烹饪系统独占写入。 */
 public final class SteamerRuntime {
-    private static final String[] CONTAINERS = {"foodwan", "foodcipan", "fooddawan", "foodtiepan"};
-    private static final String[] CONTAINER_ERRORS = {"bowl", "plate", "large_bowl", "iron_plate"};
-
     private SteamerRuntime() {
     }
 
@@ -144,10 +143,11 @@ public final class SteamerRuntime {
 
     private static boolean hasContainer(ServerPlayer player, SteamerBlockEntity pot, String identity) {
         if (identity.isEmpty() || identity.equals("无")) return true;
-        for (int index = 0; index < CONTAINERS.length; index++) {
-            if (normalize(identity).equals(ModId.VALUE + ":" + CONTAINERS[index])) {
-                if (pot.getItem(index + 9).is(CookingRecipes.stack(identity).getItem())) return true;
-                message(player, "container_" + CONTAINER_ERRORS[index]);
+        String normalized = normalize(identity);
+        for (PotContainerRule rule : CookingTableRecipes.potContainers()) {
+            if (normalized.equals(rule.itemId())) {
+                if (pot.getItem(rule.slotOffset() + 9).is(CookingRecipes.stack(rule.itemId()).getItem())) return true;
+                message(player, "container_" + rule.steamerErrorKey());
                 return false;
             }
         }

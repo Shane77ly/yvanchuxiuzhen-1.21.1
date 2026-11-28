@@ -1,7 +1,5 @@
 package net.yvanchuxiuzhen.system.craft.content;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -37,7 +35,11 @@ public final class SilkwormBoxBlockEntity extends RandomizableContainerBlockEnti
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private final Map<String, Double> stats = new LinkedHashMap<>();
+    private double shiwu;
+    private double tick;
+    private double tick2;
+    private double bianyi;
+    private double jihanjiaopotick;
 
     public SilkwormBoxBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.SILKWORM_BOX.get(), pos, state);
@@ -53,12 +55,25 @@ public final class SilkwormBoxBlockEntity extends RandomizableContainerBlockEnti
     }
 
     public double value(String field) {
-        return stats.getOrDefault(field, 0.0);
+        return switch (field) {
+            case "shiwu" -> shiwu;
+            case "tick" -> tick;
+            case "tick2" -> tick2;
+            case "bianyi" -> bianyi;
+            case "jihanjiaopotick" -> jihanjiaopotick;
+            default -> throw new IllegalArgumentException("未知蚕盒字段: " + field);
+        };
     }
 
     public void value(String field, double value) {
-        if (value == 0.0) stats.remove(field);
-        else stats.put(field, value);
+        switch (field) {
+            case "shiwu" -> shiwu = value;
+            case "tick" -> tick = value;
+            case "tick2" -> tick2 = value;
+            case "bianyi" -> bianyi = value;
+            case "jihanjiaopotick" -> jihanjiaopotick = value;
+            default -> throw new IllegalArgumentException("未知蚕盒字段: " + field);
+        }
         setChanged();
         if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
@@ -68,22 +83,22 @@ public final class SilkwormBoxBlockEntity extends RandomizableContainerBlockEnti
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        stats.clear();
-        CompoundTag savedStats = tag.getCompound("silkworm_stats");
-        for (String key : savedStats.getAllKeys()) {
-            stats.put(key, savedStats.getDouble(key));
-        }
+        shiwu = tag.getDouble("shiwu");
+        tick = tag.getDouble("tick");
+        tick2 = tag.getDouble("tick2");
+        bianyi = tag.getDouble("bianyi");
+        jihanjiaopotick = tag.getDouble("jihanjiaopotick");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
-        if (!stats.isEmpty()) {
-            CompoundTag savedStats = new CompoundTag();
-            stats.forEach(savedStats::putDouble);
-            tag.put("silkworm_stats", savedStats);
-        }
+        if (shiwu != 0.0) tag.putDouble("shiwu", shiwu);
+        if (tick != 0.0) tag.putDouble("tick", tick);
+        if (tick2 != 0.0) tag.putDouble("tick2", tick2);
+        if (bianyi != 0.0) tag.putDouble("bianyi", bianyi);
+        if (jihanjiaopotick != 0.0) tag.putDouble("jihanjiaopotick", jihanjiaopotick);
     }
 
     @Override

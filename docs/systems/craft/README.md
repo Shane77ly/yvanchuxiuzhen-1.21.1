@@ -2,10 +2,12 @@
 topic: craft
 role: entry
 status: partial
-updated: 2026-11-10
+updated: 2026-11-28
 ---
 
 # 工艺
+
+2026-11-28 子批 2（阶段 5B）已将木工 37 种、石磨 7 种、缫丝 3 种、织布 18 种与陶轮 3 种配方全部提取至 `src/main/resources/content/craft/recipes.json` + `CraftRecipeDefinition.CODEC` 数据驱动（`CraftTableRecipes`），并剥离 `SilkwormBoxBlockEntity` 嵌套 `silkworm_stats` `CompoundTag` 改为 5 个根部强类型字段。
 
 标识 `craft`，类别：系统。职责：木匠台、陶轮、石磨、织布机与蚕丝链（[系统设计](../../development/system-design.md)）。
 
