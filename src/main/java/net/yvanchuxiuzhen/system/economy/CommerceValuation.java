@@ -7,12 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
@@ -33,7 +33,7 @@ final class CommerceValuation {
 
     private CommerceValuation() { }
 
-    static double value(ServerLevel level, ItemStack stack, CompoundTag state) {
+    static double value(ServerLevel level, ItemStack stack, CommerceSession.Builder state) {
         EconomyPrices prices = EconomyPrices.get(level);
         String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
         double unit = 0;
@@ -101,8 +101,8 @@ final class CommerceValuation {
             }
             total = count * unit;
         }
-        state.putString("bankceshi1", unit >= 1 ? "单价：" + format(unit) + " 数量：" + format(count) + "个" : "无法售卖");
-        state.putString("bankceshi2", "");
+        state.bankTest1(unit >= 1 ? "单价：" + format(unit) + " 数量：" + format(count) + "个" : "无法售卖")
+                .bankTest2("");
         return total;
     }
 

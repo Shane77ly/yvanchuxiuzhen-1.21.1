@@ -97,8 +97,8 @@ final class FuluRipeningCheck extends ActionCheck {
         player.setNoGravity(true);
         player.setDeltaMovement(Vec3.ZERO);
         Cultivation.editTizhi(player, data -> {
-            data.putDouble("FuluConsumeJingli", 0);
-            data.putDouble("FuluConsumeJingliPercentage", 0);
+            data.setNumber("FuluConsumeJingli", 0);
+            data.setNumber("FuluConsumeJingliPercentage", 0);
         });
         player.setGameMode(GameType.SURVIVAL);
         player.teleportTo(originalPosition.x, player.serverLevel().getMaxBuildHeight() - 16, originalPosition.z);
@@ -229,8 +229,8 @@ final class FuluRipeningCheck extends ActionCheck {
         player.setYBodyRot(bodyYaw);
         Cultivation.set(player, CultivationValue.SOUL, soul);
         Cultivation.editTizhi(player, data -> {
-            data.putDouble("FuluConsumeJingli", fixed);
-            data.putDouble("FuluConsumeJingliPercentage", percentage);
+            data.setNumber("FuluConsumeJingli", fixed);
+            data.setNumber("FuluConsumeJingliPercentage", percentage);
         });
     }
 

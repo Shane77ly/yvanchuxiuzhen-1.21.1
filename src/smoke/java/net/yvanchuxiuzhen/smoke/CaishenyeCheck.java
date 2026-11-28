@@ -29,11 +29,13 @@ import net.yvanchuxiuzhen.collection.festival.Caishenye;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.system.economy.CommerceTrading;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.economy.client.CommerceScreen;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -50,8 +52,8 @@ final class CaishenyeCheck extends SystemCheck {
     private ListTag inventory;
     private ListTag purchasedInventory;
     private ListTag rewardInventory;
-    private CompoundTag dialogue;
-    private CompoundTag commerce;
+    private QuestDialogueSession dialogue;
+    private CommerceSession commerce;
     private UUID caishenyeId;
     private int networkId;
     private Vec3 position;
@@ -103,10 +105,10 @@ final class CaishenyeCheck extends SystemCheck {
             case 3 -> {
                 if (!dialogue(local, true, "来看看新年新获吗？")) return false;
                 onServer(player -> {
-                    CompoundTag state = DialogueActions.snapshot(player);
-                    expect("财神首段选择提示中文", "来看看新年新获吗？", state.getString("TXTxianshi"));
-                    expect("财神逛逛商店按钮中文", "逛逛商店", state.getString("daantxt1"));
-                    expect("财神逛逛商店目标步骤", 3, state.getInt("daan1"));
+                    QuestDialogueSession state = DialogueActions.snapshot(player);
+                    expect("财神首段选择提示中文", "来看看新年新获吗？", state.displayText());
+                    expect("财神逛逛商店按钮中文", "逛逛商店", state.choiceText(1));
+                    expect("财神逛逛商店目标步骤", 3, state.choiceTarget(1));
                     expectTrue("财神对话投影同步", state.equals(DialogueActions.snapshot(minecraft.player)));
                 });
                 screenshots.take("caishenye_dialogue_choices.png");
@@ -285,7 +287,7 @@ final class CaishenyeCheck extends SystemCheck {
                 && minecraft.player != null
                 && minecraft.player.containerMenu instanceof DialogueMenu menu
                 && menu.choices == choices
-                && DialogueActions.snapshot(minecraft.player).getString("TXTxianshi").equals(text)) return true;
+                && DialogueActions.snapshot(minecraft.player).displayText().equals(text)) return true;
         if (local > 200) abort("未进入预期财神中文对话：" + text);
         return false;
     }
@@ -300,13 +302,13 @@ final class CaishenyeCheck extends SystemCheck {
         expect("财神商店中文标题", "通宝商店", minecraft.screen.getTitle().getString());
         expect("首件商品客户端中文名称", "大红包", minecraft.player.containerMenu.getSlot(0).getItem().getHoverName().getString());
         onServer(player -> {
-            CompoundTag state = EconomyMenus.snapshot(player);
+            var state = EconomyMenus.snapshot(player);
             ItemStack first = player.containerMenu.getSlot(0).getItem();
-            expect("财神宝库中文店名", "财神宝库", state.getString("storename"));
-            expect("财神中文店主", "财神", state.getString("storeowner"));
+            expect("财神宝库中文店名", "财神宝库", state.storeName());
+            expect("财神中文店主", "财神", state.storeOwner());
             expect("首件商品注册ID", RED_ENVELOPE_ID.toString(), BuiltInRegistries.ITEM.getKey(first.getItem()).toString());
-            expectTrue("首件商品标签保留来源价格", state.getString("shopnametxt00").endsWith("(20)"));
-            expect("首件商品中文价格", "2贯", state.getString("shopjiagetxt00"));
+            expectTrue("首件商品标签保留来源价格", state.shopNameText(0).endsWith("(20)"));
+            expect("首件商品中文价格", "2贯", state.shopPriceText(0));
             expectTrue("首件商品实际非空", !first.isEmpty());
         });
         return true;
@@ -410,8 +412,8 @@ final class CaishenyeCheck extends SystemCheck {
         player.getInventory().clearContent();
         player.getInventory().load(inventory);
         player.getInventory().selected = selected;
-        player.setData(QuestData.SESSION, dialogue.copy());
-        player.setData(CommerceData.SESSION, commerce.copy());
+        player.setData(QuestData.SESSION, dialogue);
+        player.setData(CommerceData.SESSION, commerce);
         player.setGameMode(mode);
         player.setShiftKeyDown(false);
         player.connection.teleport(position.x, position.y, position.z, yaw, pitch);

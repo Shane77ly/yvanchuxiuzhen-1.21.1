@@ -2,10 +2,12 @@
 topic: liandan
 role: entry
 status: partial
-updated: 2026-11-19
+updated: 2026-11-28
 ---
 
 # 炼丹
+
+已完成药性解析与丹炉/药理台状态去套壳：`HerbAnalysis`、`AlchemyBlockEntity` 与 `PharmacologyBlockEntity` 改为强类型记录，不再经 `CompoundTag` 传递本炉药性快照（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c药性解析与丹炉药理台去套壳)）。
 
 标识 `liandan`，类别：系统。职责：丹炉、丹方、炸炉、分合丹、药理、毒药（[系统设计](../../development/system-design.md)）。
 

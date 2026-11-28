@@ -25,10 +25,10 @@ public final class GuchongConstitutionItem extends ContentItem {
                 serverPlayer.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.guchong_constitution_known"), false);
             } else {
                 Cultivation.editTizhi(serverPlayer, data -> {
-                    data.putBoolean("tizhiopen_013", true);
-                    data.putDouble("AlcoholPatience", data.getDouble("AlcoholPatience") + 100);
-                    data.putDouble("AlcoholDigestionPercentage", data.getDouble("AlcoholDigestionPercentage") - 1);
-                    data.putDouble("tizhinumber", data.getDouble("tizhinumber") + 1);
+                    data.setFlag("tizhiopen_013", true);
+                    data.setNumber("AlcoholPatience", data.number("AlcoholPatience") + 100);
+                    data.setNumber("AlcoholDigestionPercentage", data.number("AlcoholDigestionPercentage") - 1);
+                    data.setNumber("tizhinumber", data.number("tizhinumber") + 1);
                 });
                 serverPlayer.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.guchong_constitution_gained"), false);
                 // 1.18.2原生使用包装会恢复创造数量；1.21.1改由物品保留该行为。

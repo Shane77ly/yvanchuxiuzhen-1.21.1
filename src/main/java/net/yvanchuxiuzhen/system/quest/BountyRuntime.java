@@ -6,7 +6,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +27,7 @@ import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCurrency;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongTracking;
 import net.yvanchuxiuzhen.system.quest.content.BountyBoardBlockEntity;
+import net.yvanchuxiuzhen.system.quest.data.BountyEntry;
 import net.yvanchuxiuzhen.system.quest.data.BountyTargetData;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
@@ -49,24 +49,21 @@ public final class BountyRuntime {
         BlockPos origin = board.getBlockPos();
         int[] target = TARGETS[level.random.nextInt(TARGETS.length)];
         String id = "yaoshou_" + String.format(Locale.ROOT, "%03d", target[0]);
-        CompoundTag entry = new CompoundTag();
-        entry.putString("entityname", "entity." + ModId.VALUE + "." + id);
-        entry.putString("entityid", ModId.VALUE + ":" + id);
-        entry.putInt("LEVELnumber", Mth.nextInt(level.random, target[1], 40));
-        entry.putInt("entitynum", target[2]);
-        entry.putInt("weizhiX", Mth.nextInt(level.random, -500, 500));
-        entry.putInt("weizhiZ", Mth.nextInt(level.random, -500, 500));
-        int x = origin.getX() + entry.getInt("weizhiX");
-        int z = origin.getZ() + entry.getInt("weizhiZ");
+        int levelNumber = Mth.nextInt(level.random, target[1], 40);
+        int entityNum = target[2];
+        int offsetX = Mth.nextInt(level.random, -500, 500);
+        int offsetZ = Mth.nextInt(level.random, -500, 500);
+        int x = origin.getX() + offsetX;
+        int z = origin.getZ() + offsetZ;
         int y = origin.getY();
         while (!available(level, new BlockPos(x, y, z), refresh)) y++;
-        entry.putInt("zuobiaoX", x);
-        entry.putInt("zuobiaoY", y);
-        entry.putInt("zuobiaoZ", z);
-        entry.putInt("weizhiY", y - origin.getY());
-        entry.putInt("zuobiaojvli", (int) Math.sqrt(origin.distSqr(new BlockPos(x, y, z))));
-        entry.putInt("xvanshangmoney", entry.getInt("LEVELnumber") * 80);
-        if (refresh) entry.putString("zhuizhongzheuuid", "");
+        int offsetY = y - origin.getY();
+        int distance = (int) Math.sqrt(origin.distSqr(new BlockPos(x, y, z)));
+        int rewardMoney = levelNumber * 80;
+        BountyEntry entry = new BountyEntry(
+                "entity." + ModId.VALUE + "." + id,
+                ModId.VALUE + ":" + id,
+                levelNumber, entityNum, offsetX, offsetY, offsetZ, x, y, z, distance, rewardMoney, false, "");
         board.setItem(index - 1, new ItemStack(BuiltInRegistries.ITEM.get(
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "xvanshang_0" + Mth.nextInt(level.random, 1, 6)))));
         board.entry(index, entry);
@@ -85,16 +82,14 @@ public final class BountyRuntime {
     }
 
     public static void track(ServerPlayer player, BountyBoardBlockEntity board, int index) {
-        CompoundTag entry = board.entry(index);
-        if (entry.getInt("zuobiaojvli") <= 1) {
+        BountyEntry entry = board.entry(index);
+        if (entry.distance() <= 1) {
             player.displayClientMessage(Component.literal("§4请刷新悬赏。"), false);
             return;
         }
-        BlockPos destination = new BlockPos(entry.getInt("zuobiaoX"), entry.getInt("zuobiaoY"), entry.getInt("zuobiaoZ"));
-        if (!entry.getBoolean("zhuizhong")) {
-            entry.putBoolean("zhuizhong", true);
-            entry.putString("zhuizhongzheuuid", player.getStringUUID());
-            Entity entity = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(entry.getString("entityid"))).create(player.serverLevel());
+        BlockPos destination = new BlockPos(entry.zuobiaoX(), entry.zuobiaoY(), entry.zuobiaoZ());
+        if (!entry.tracking()) {
+            Entity entity = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(entry.entityId())).create(player.serverLevel());
             if (entity != null) {
                 entity.moveTo(destination.getX(), destination.getY(), destination.getZ(), player.level().random.nextFloat() * 360, 0);
                 entity.setCustomName(Component.literal(entity.getDisplayName().getString() + "(悬赏)"));
@@ -103,7 +98,7 @@ public final class BountyRuntime {
                         board.getBlockPos().getX(), board.getBlockPos().getY(), board.getBlockPos().getZ(),
                         index, player.getStringUUID()));
                 if (entity instanceof Mob mob) {
-                    CreatureBounties.prepare(mob, entry.getInt("LEVELnumber"));
+                    CreatureBounties.prepare(mob, entry.levelNumber());
                     mob.setPersistenceRequired();
                     EventHooks.finalizeMobSpawn(mob, player.serverLevel(), player.level().getCurrentDifficultyAt(destination), MobSpawnType.MOB_SUMMONED, null);
                 }
@@ -111,8 +106,8 @@ public final class BountyRuntime {
             }
             ItemHandlerHelper.giveItemToPlayer(player, GuchongTracking.createBound(player, destination));
             player.displayClientMessage(Component.literal("斥候：妖兽所在坐标为" + destination.getX() + "，" + destination.getY() + "，" + destination.getZ() + "。祝前辈旗开得胜！"), false);
-            board.entry(index, entry);
-        } else if (entry.getString("zhuizhongzheuuid").equals(player.getStringUUID())) {
+            board.entry(index, entry.withTracking(true, player.getStringUUID()));
+        } else if (entry.trackerUuid().equals(player.getStringUUID())) {
             if (EconomyCurrency.payTrackingReissue(player)) {
                 player.displayClientMessage(Component.literal("缴纳20文，再次领取荧光蛊。"), false);
                 ItemHandlerHelper.giveItemToPlayer(player, GuchongTracking.createBound(player, destination));
@@ -135,9 +130,8 @@ public final class BountyRuntime {
         BlockPos pos = target.boardPos();
         BountyBoardBlockEntity board = (BountyBoardBlockEntity) level.getBlockEntity(pos);
         int index = target.slotIndex();
-        CompoundTag entry = board.entry(index);
-        entry.putBoolean("zhuizhong", false);
-        board.entry(index, entry);
+        BountyEntry entry = board.entry(index);
+        board.entry(index, entry.withTracking(false));
         if (failed) {
             ServerPlayer player = (ServerPlayer) victim;
             player.connection.send(new ClientboundSetTitleTextPacket(Component.literal("失 败").withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD)));
@@ -148,7 +142,7 @@ public final class BountyRuntime {
             for (ServerPlayer player : level.players()) {
                 if (player.getStringUUID().equals(target.hunterUuid())) {
                     player.connection.send(new ClientboundSetTitleTextPacket(Component.literal("成 功").withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD)));
-                    int reward = entry.getInt("xvanshangmoney");
+                    int reward = entry.rewardMoney();
                     player.displayClientMessage(Component.literal("§6" + new DecimalFormat("0").format(reward) + "灵石已入账！"), false);
                     BankAccounts.creditValue(player, reward);
                     break;

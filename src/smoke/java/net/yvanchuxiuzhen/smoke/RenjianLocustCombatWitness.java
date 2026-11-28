@@ -149,10 +149,10 @@ final class RenjianLocustCombatWitness {
     }
 
     private void observeOutcome(long now) {
-        boolean matchingJar = level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().getString("guguanuuid"));
+        boolean matchingJar = level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().uuid);
         boolean slotUnchanged = ItemStack.matches(savedSlot, jar.getItem(0));
-        double active = jar.jarData().getDouble("shifangnum");
-        boolean releasing = jar.jarData().getBoolean("shifangguchong");
+        double active = jar.jarData().releasedCount;
+        boolean releasing = jar.jarData().released;
         String result;
         if (matchingJar && slotUnchanged && fly.getTarget() == null && fly.getRemovalReason() == Entity.RemovalReason.DISCARDED
                 && active == 0 && !releasing) {
@@ -181,8 +181,8 @@ final class RenjianLocustCombatWitness {
         return "released=" + fly.getUUID() + " flyAge=" + fly.tickCount + " flyRemoval=" + fly.getRemovalReason()
                 + " target=" + (target == null ? "none" : target.getUUID()) + " targetAlive=" + (target != null && target.isAlive())
                 + " targetRemoved=" + (target != null && target.isRemoved()) + " jar=" + jarId
-                + " sameJar=" + (level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().getString("guguanuuid")))
-                + " active=" + jar.jarData().getDouble("shifangnum") + " releasing=" + jar.jarData().getBoolean("shifangguchong")
+                + " sameJar=" + (level.getBlockEntity(jar.getBlockPos()) == jar && jarId.equals(jar.jarData().uuid))
+                + " active=" + jar.jarData().releasedCount + " releasing=" + jar.jarData().released
                 + " slotUnchanged=" + ItemStack.matches(savedSlot, jar.getItem(0));
     }
 }

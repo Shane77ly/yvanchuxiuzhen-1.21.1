@@ -64,9 +64,9 @@ public final class TaoguanItem extends ContentItem {
         }
         level.setBlock(pos, BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "taoguan_0" + grade)).defaultBlockState(), 3);
         TaoguanBlockEntity jar = (TaoguanBlockEntity) level.getBlockEntity(pos);
-        Relations.shareAllegianceToBlock(player, jar.jarData());
-        jar.jarData().putString("guguanuuid", data.getString("guguanuuid"));
-        jar.jarData().putString("team", Relations.team(player));
+        jar.jarData().friendTeams.addAll(Relations.friendTeamsForBlock(player));
+        jar.jarData().uuid = data.getString("guguanuuid");
+        jar.jarData().team = Relations.team(player);
         for (int slot = 0; slot < capacity(grade); slot++) {
             ItemStack insect = GuchongJarData.unpack(data, slot, false);
             if (!insect.isEmpty()) jar.setItem(slot, insect);

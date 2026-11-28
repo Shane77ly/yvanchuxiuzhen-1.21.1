@@ -434,7 +434,7 @@ final class StorageCheck extends SystemCheck {
                     expectTrue("成本12耗尽最后样本仍推进真值，来源显示缓存保留旧进度", savedHerbs.progress(ModId.VALUE + ":spiritgrass") == 3
                             && player.containerMenu.getSlot(0).getItem().isEmpty()
                             && savedHerbs.progressText().equals("解析进度：2/4")
-                            && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(minecraft.player).data()));
+                            && savedHerbs.equals(LiandanHerbAnalysis.analysis(minecraft.player)));
                 });
                 minecraft.player.closeContainer();
             }
@@ -449,8 +449,8 @@ final class StorageCheck extends SystemCheck {
             case 67 -> {
                 if (!inWorld(local)) return false;
                 onServer(player -> expectTrue("真实死亡重生后材料仓快照双端一致、辨识进度与采集等级保留", savedWarehouse.equals(MaterialStorage.snapshot(player))
-                        && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(player).data())
-                        && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(minecraft.player).data())
+                        && savedHerbs.equals(LiandanHerbAnalysis.analysis(player))
+                        && savedHerbs.equals(LiandanHerbAnalysis.analysis(minecraft.player))
                         && savedWarehouse.equals(MaterialStorage.snapshot(minecraft.player))
                         && Materials.revealedEntries(player, ModId.VALUE + ":cailiao_018").size() == 3
                         && Professions.level(player, Profession.GATHERING) == 1 && Professions.level(minecraft.player, Profession.GATHERING) == 1));
@@ -463,8 +463,8 @@ final class StorageCheck extends SystemCheck {
                 if (!inWorld(local)) return false;
                 onServer(player -> {
                     expectTrue("退出重进后材料仓快照、辨识条目数与采集等级持久化，双端一致", savedWarehouse.equals(MaterialStorage.snapshot(player))
-                            && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(player).data())
-                            && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(minecraft.player).data())
+                            && savedHerbs.equals(LiandanHerbAnalysis.analysis(player))
+                            && savedHerbs.equals(LiandanHerbAnalysis.analysis(minecraft.player))
                             && savedWarehouse.equals(MaterialStorage.snapshot(minecraft.player))
                             && Materials.revealedEntries(player, ModId.VALUE + ":cailiao_018").size() == 3
                             && Materials.revealedEntries(minecraft.player, ModId.VALUE + ":cailiao_018").size() == 3

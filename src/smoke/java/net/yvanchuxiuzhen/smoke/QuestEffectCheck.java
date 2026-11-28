@@ -1,7 +1,7 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
-import net.minecraft.nbt.CompoundTag;
+import java.util.Optional;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,6 +13,7 @@ import net.yvanchuxiuzhen.system.quest.DialogueRuntime;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition.EffectNode;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
@@ -21,7 +22,7 @@ final class QuestEffectCheck extends ActionCheck {
     QuestEffectCheck(List<String> report, String levelId) {
         super("任务对话效果", report, levelId);
         script(new Action(1, player -> {
-            CompoundTag session = DialogueActions.snapshot(player);
+            QuestDialogueSession session = DialogueActions.snapshot(player);
             MobEffectInstance speed = player.getEffect(MobEffects.MOVEMENT_SPEED);
             MobEffectInstance healing = player.getEffect(MobEffects.HEAL);
             player.removeEffect(MobEffects.MOVEMENT_SPEED);
@@ -49,7 +50,7 @@ final class QuestEffectCheck extends ActionCheck {
                 new EffectNode("加", "speed", 0, 0), new EffectNode("加", "speed", 256, 10),
                 new EffectNode("加", "missing:absent", 0, 10), new EffectNode("加", "speed", 0, 1_000_001));
         expectTrue(mode + "清除忽略时长等级，无效效果不生效且游标继续", !player.hasEffect(MobEffects.MOVEMENT_SPEED)
-                && !player.hasEffect(MobEffects.HEAL) && DialogueActions.snapshot(player).getInt("renwuweizhi") == 7);
+                && !player.hasEffect(MobEffects.HEAL) && DialogueActions.snapshot(player).cursor() == 7);
         Scoreboard board = player.getScoreboard();
         PlayerTeam oldTeam = player.getTeam();
         PlayerTeam team = board.addPlayerTeam("smoke_quest_fx");
@@ -58,7 +59,7 @@ final class QuestEffectCheck extends ActionCheck {
             board.addPlayerToTeam(player.getScoreboardName(), team);
             run(player, chat, new EffectNode("加", "speed", 0, 10));
             expectTrue(mode + "带空格的显示名不能选中本人", player.getDisplayName().getString().contains(" ")
-                    && !player.hasEffect(MobEffects.MOVEMENT_SPEED) && DialogueActions.snapshot(player).getInt("renwuweizhi") == 2);
+                    && !player.hasEffect(MobEffects.MOVEMENT_SPEED) && DialogueActions.snapshot(player).cursor() == 2);
         } finally {
             board.removePlayerTeam(team);
             if (oldTeam != null) board.addPlayerToTeam(player.getScoreboardName(), oldTeam);
@@ -66,11 +67,12 @@ final class QuestEffectCheck extends ActionCheck {
     }
 
     private static void run(ServerPlayer player, boolean chat, DialogueNodeDefinition... nodes) {
-        CompoundTag state = new CompoundTag();
-        DialogueActions.writeTemplate(state, new QuestTemplateDefinition("smoke_effect", "smoke_effect", "", "", 0, "", "", "", List.of(nodes)));
-        state.putInt("renwuweizhi", 1);
-        state.putBoolean("tasksustained", chat);
-        state.putInt("tasktick", 59);
+        QuestDialogueSession state = QuestDialogueSession.EMPTY.toBuilder()
+                .template(Optional.of(new QuestTemplateDefinition("smoke_effect", "smoke_effect", "", "", 0, "", "", "", List.of(nodes))))
+                .cursor(1)
+                .taskSustained(chat)
+                .taskTick(59)
+                .build();
         player.setData(QuestData.SESSION, state);
         if (chat) DialogueRuntime.tick(new PlayerTickEvent.Post(player));
         else DialogueRuntime.run(player, player.blockPosition());

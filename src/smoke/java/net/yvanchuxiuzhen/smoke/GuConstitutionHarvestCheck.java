@@ -97,10 +97,10 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
                     var ops = player.registryAccess().createSerializationContext(NbtOps.INSTANCE);
                     var encoded = CultivationData.CODEC.encodeStart(ops, player.getData(XiulianAttachments.CULTIVATION)).getOrThrow();
                     CultivationData restored = CultivationData.CODEC.parse(ops, encoded).getOrThrow();
-                    expectTrue("修炼实际持久化Codec保存重读保留酒蛊四字段", restored.tizhi().getBoolean("tizhiopen_013")
-                            && restored.tizhi().getDouble("AlcoholPatience") == 107
-                            && restored.tizhi().getDouble("AlcoholDigestionPercentage") == -0.75
-                            && restored.tizhi().getDouble("tizhinumber") == 4);
+                    expectTrue("修炼实际持久化Codec保存重读保留酒蛊四字段", restored.tizhi().flag("tizhiopen_013")
+                            && restored.tizhi().number("AlcoholPatience") == 107
+                            && restored.tizhi().number("AlcoholDigestionPercentage") == -0.75
+                            && restored.tizhi().number("tizhinumber") == 4);
                     if (scope == Scope.FULL) harvest(player);
                 }));
     }
@@ -206,10 +206,10 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
 
     private static void resetConstitution(ServerPlayer player) {
         Cultivation.editTizhi(player, tag -> {
-            tag.putBoolean("tizhiopen_013", false);
-            tag.putDouble("AlcoholPatience", 7);
-            tag.putDouble("AlcoholDigestionPercentage", 0.25);
-            tag.putDouble("tizhinumber", 3);
+            tag.setFlag("tizhiopen_013", false);
+            tag.setNumber("AlcoholPatience", 7);
+            tag.setNumber("AlcoholDigestionPercentage", 0.25);
+            tag.setNumber("tizhinumber", 3);
         });
     }
 
@@ -250,10 +250,10 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
             player.getInventory().setItem(slot, originalInventory.get(slot));
         }
         Cultivation.editTizhi(player, tag -> {
-            tag.putBoolean("tizhiopen_013", originalConstitution);
-            tag.putDouble("AlcoholPatience", originalPatience);
-            tag.putDouble("AlcoholDigestionPercentage", originalDigestion);
-            tag.putDouble("tizhinumber", originalNumber);
+            tag.setFlag("tizhiopen_013", originalConstitution);
+            tag.setNumber("AlcoholPatience", originalPatience);
+            tag.setNumber("AlcoholDigestionPercentage", originalDigestion);
+            tag.setNumber("tizhinumber", originalNumber);
         });
         player.removeEffect(MobEffects.LUCK);
         player.removeEffect(MobEffects.UNLUCK);

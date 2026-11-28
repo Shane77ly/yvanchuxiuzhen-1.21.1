@@ -2,7 +2,7 @@
 topic: engineering
 role: architecture
 status: current
-updated: 2026-11-16
+updated: 2026-11-28
 ---
 
 # 工程结构与长期维护
@@ -66,7 +66,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 4. `platform` 不得依赖 `system`、`flow`、`panel` 或 `collection`。
 5. `system` 下各系统包之间没有循环依赖。
 6. 除 Mod 入口外，任何类不得依赖 `collection` 或 `panel`。
-7. `system`、`flow`、`panel`、`collection` 不得依赖 `CustomData`、`DataComponents.CUSTOM_DATA` 或调用 `getPersistentData()`。
+7. `system`、`flow`、`panel`、`collection` 不得依赖 `CustomData`、`DataComponents.CUSTOM_DATA` 或调用 `getPersistentData()`，且不得在业务包注册 `AttachmentType<CompoundTag>`、`DataComponentType<CompoundTag>`（豁免 `NbtEditorData`）、包裹 `CompoundTag` 字段的 `record`（豁免 `SealedCorpse`）或 `BlockEntity` 非静态 `CompoundTag` 字段（豁免 `NbtEditorBlockEntity`）。
 
 这些是结构守卫，不属于“为每个类写测试”；违反即构建失败。已接入（B0 步骤 3）：`src/test/java/net/yvanchuxiuzhen/ArchitectureTest.java` 用 ArchUnit 核心库在 JUnit 5 中检查，第 2 条的“client 包”包括本项目的 `client` 子包、`net.minecraft.client` 与 `net.neoforged.neoforge.client`；第 3 条在还没有 `rule` 包时允许为空。2026-11-02 为每条规则临时制造一次违规，六条各被检出一次并使构建失败。
 

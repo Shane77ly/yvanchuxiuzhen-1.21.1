@@ -253,7 +253,7 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> {
                     AlchemyBlockEntity furnace = furnace(p);
                     AlchemyBlockEntity clientFurnace = minecraft.level.getBlockEntity(alchemyPos) instanceof AlchemyBlockEntity client ? client : null;
-                    expectTrue("自然放炉初始化本炉药性，双端同步黄铜炉参数", furnace.herbs().getInt("yvanchuxiuzhen:spiritgrassnumber") == 4
+                    expectTrue("自然放炉初始化本炉药性，双端同步黄铜炉参数", furnace.herbs().effectCount("yvanchuxiuzhen:spiritgrass") == 4
                             && furnace.alchemyLevel() == 1
                             && clientFurnace != null
                             && clientFurnace.saveWithoutMetadata(p.registryAccess()).equals(furnace.saveWithoutMetadata(p.registryAccess())));
@@ -532,7 +532,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("自然放药理台初始化药性快照，真实开窗双方十一可见槽和隐藏预览隔离", p.containerMenu instanceof PharmacologyMenu
                             && minecraft.screen instanceof PharmacologyScreen && p.containerMenu.slots.size() == 47
                             && table.getContainerSize() == 12 && p.containerMenu.getSlot(0).getMaxStackSize() == 1
-                            && table.herbs().getInt("yvanchuxiuzhen:spiritgrassnumber") == 4);
+                            && table.herbs().effectCount("yvanchuxiuzhen:spiritgrass") == 4);
                     minecraft.execute(() -> {
                         int id = minecraft.player.containerMenu.containerId;
                         int[] destinations = {0, 1, 2, 3, 4, 9, 10};
@@ -624,7 +624,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("图纸保留可翻译名称，英文服务端根字符串不覆盖中文材料与成品名", translatedRecipe.ingredient(1).nameComponentJson().contains("translate")
                             && translatedRecipe.nameComponentJson().contains("item.minecraft.iron_sword")
                             && ((TripodMenu) p.containerMenu).recipeLine(1).contains(tripod.getItem(1).getHoverName().getString())
-                            && Equipment.createRefinedProduct(p.registryAccess(), translatedRecipe.toRecipeTag(), new CompoundTag(), ItemStack.EMPTY)
+                            && Equipment.createRefinedProduct(p.registryAccess(), translatedRecipe.toRefinement(), EquipmentRefinement.EMPTY, ItemStack.EMPTY)
                                     .getHoverName().getString().equals(new ItemStack(Items.IRON_SWORD).getHoverName().getString()));
                     tripod.setItem(0, ItemStack.EMPTY);
                     tripod.setItem(1, ItemStack.EMPTY);
@@ -655,13 +655,13 @@ final class EquipmentProductCheck extends ActionCheck {
                     TripodBlockEntity tripod = tripod(p);
                     TripodBlockEntity restored = (TripodBlockEntity) BlockEntity.loadStatic(tripodPos, tripod.getBlockState(),
                             tripod.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
-                    ItemStack planned = ItemStack.parseOptional(p.registryAccess(), tripod.plannedItem());
+                    ItemStack planned = tripod.plannedItem();
                     expectTrue("图纸制作立即扣料且无热暂停，完整计划成品与炉次保存重读保持", tripod.refining()
                             && tripod.lianqiTick() == 0 && tripod.lianqiTickMax() == 9 && tripod.getItem(1).isEmpty()
                             && tripod.getItem(9).isEmpty() && tripod.getItem(11).isEmpty() && planned.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).health() == 10
                             && Equipment.product(planned).orElseThrow().level() == 4
                             && restored.refining() == tripod.refining() && restored.lianqiTickMax() == tripod.lianqiTickMax()
-                            && restored.plannedItem().equals(tripod.plannedItem())
+                            && ItemStack.matches(restored.plannedItem(), tripod.plannedItem())
                             && ItemStack.matches(tripod.getItem(10), restored.getItem(10)));
                     p.closeContainer();
                     p.serverLevel().removeBlock(tripodPos.below(), false);
@@ -707,9 +707,9 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.getInventory().setItem(10, quality);
                     p.getInventory().setItem(11, refiningMaterial(2, 2));
                     ItemStack damaged = new ItemStack(Items.IRON_SWORD);
-                    CompoundTag refinement = new CompoundTag();
+                    EquipmentRefinement.Mutable refinement = EquipmentRefinement.mutable();
                     refinement.putInt("item_level_num", 2);
-                    damaged.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(refinement));
+                    damaged.set(EquipmentData.REFINEMENT.get(), refinement.toImmutable());
                     damaged.setDamageValue(200);
                     p.getInventory().setItem(12, damaged);
                     p.inventoryMenu.broadcastChanges();
@@ -821,8 +821,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     expectTrue("自然图纸台开窗填一百九十一栈目录，空料刷新保留来源四十一级超品", p.containerMenu instanceof BlueprintTableMenu
                             && minecraft.screen instanceof BlueprintTableScreen && p.containerMenu.slots.size() == 259 && filled == 191
                             && table.getItem(13).is(alchemyItem("cailiao_001", 1).getItem()) && table.getItem(204).isEmpty()
-                            && table.previewData().getInt("item_level_num") == 41
-                            && table.previewData().getString("item_level").equals("超品")
+                            && table.previewData().integer("item_level_num") == 41
+                            && table.previewData().text("item_level").equals("超品")
                             && !p.containerMenu.getSlot(13).mayPlace(table.getItem(13)) && p.containerMenu.getSlot(13).mayPickup(p));
                     table.setItem(0, refiningMaterial(1, 2));
                     ItemStack medium = new ItemStack(Items.PAPER, 3);
@@ -919,12 +919,12 @@ final class EquipmentProductCheck extends ActionCheck {
                         Component.literal("[芯]").withStyle(ChatFormatting.BOLD), "[尾]"));
         ItemStack template = new ItemStack(Items.IRON_SWORD);
         template.set(DataComponents.CUSTOM_NAME, templateName);
-        CompoundTag namedRecipe = new LianqiBlueprint(template.getDisplayName().getString(),
+        EquipmentRefinement namedRecipe = new LianqiBlueprint(template.getDisplayName().getString(),
                 Component.Serializer.toJson(template.getHoverName(), player.registryAccess()),
                 recipe.description(), recipe.itemId(), recipe.itemDescription(), recipe.itemDescriptionComponentJson(),
-                recipe.type(), recipe.levelText(), recipe.level(), recipe.sourceCarrierId(), recipe.ingredients()).toRecipeTag();
-        ItemStack product = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, new CompoundTag(), ItemStack.EMPTY);
-        ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, new CompoundTag(), product);
+                recipe.type(), recipe.levelText(), recipe.level(), recipe.sourceCarrierId(), recipe.ingredients()).toRefinement();
+        ItemStack product = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, EquipmentRefinement.EMPTY, ItemStack.EMPTY);
+        ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, EquipmentRefinement.EMPTY, product);
         ItemStack restored = ItemStack.parse(player.registryAccess(), product.save(player.registryAccess())).orElseThrow();
         Component expected = Component.literal("灵").withStyle(ChatFormatting.GOLD)
                 .append(Component.translatableWithFallback("item.minecraft.iron_sword", "铁剑"))

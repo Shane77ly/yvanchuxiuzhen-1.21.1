@@ -23,10 +23,13 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -54,7 +57,9 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
     private double level;
     private Vec3 origin;
     private boolean shifting;
-    private CompoundTag journal, session, commerce;
+    private QuestJournalState journal;
+    private QuestDialogueSession session;
+    private CommerceSession commerce;
 
     FlyingInstrumentAcquisitionCheck(List<String> report, String levelId) {
         super("飞行法器取得与自然拾取", report, levelId);
@@ -106,12 +111,12 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         origin = p.position();
         journal = DialogueActions.journal(p);
         session = DialogueActions.snapshot(p);
-        commerce = p.getData(CommerceData.SESSION).copy();
+        commerce = p.getData(CommerceData.SESSION);
         for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
         NeoForge.EVENT_BUS.addListener(observer);
         ready = true;
-        p.setData(QuestData.JOURNAL, new CompoundTag());
-        p.setData(QuestData.SESSION, new CompoundTag());
+        p.setData(QuestData.JOURNAL, QuestJournalState.EMPTY);
+        p.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
         p.setGameMode(GameType.SURVIVAL);
         p.setShiftKeyDown(false);
         p.getInventory().clearContent();
@@ -136,7 +141,7 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
 
     private void purchase(ServerPlayer p, boolean paid) {
         for (int i = 0; i < 6; i++) click(p, false);
-        require(DialogueActions.snapshot(p).getString("daantxt1").equals("购买"), "首个选项不是购买");
+        require(DialogueActions.snapshot(p).choiceText(1).equals("购买"), "首个选项不是购买");
         click(p, true);
         expect(paid ? "足额扣12枚三级灵石" : "11枚不足时不扣费", paid ? 0 : 11, p.getInventory().countItem(PRICE));
         expect(paid ? "陈叶交付一件飞叶" : "不足额不发飞叶", paid ? 1 : 0, p.getInventory().countItem(LEAF));

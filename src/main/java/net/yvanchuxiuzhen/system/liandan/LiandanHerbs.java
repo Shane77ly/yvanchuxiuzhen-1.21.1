@@ -2,8 +2,9 @@ package net.yvanchuxiuzhen.system.liandan;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.LinkedHashMap;
 import java.util.List;
-import net.minecraft.nbt.CompoundTag;
+import java.util.Map;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 
 /** 药草目录按来源顺序生成每台装置独立保存的药性快照，重复药效仍分别参与运算。 */
@@ -24,25 +25,39 @@ public final class LiandanHerbs {
         return null;
     }
 
-    public static CompoundTag snapshot() {
-        CompoundTag result = new CompoundTag();
+    public static HerbCatalogSnapshot snapshot() {
+        Map<String, Herb> byItem = new LinkedHashMap<>();
         for (Herb herb : HERBS) {
-            result.putInt(herb.itemId() + "number", herb.effects().size());
-            for (int i = 0; i < herb.effects().size(); i++) {
-                Effect effect = herb.effects().get(i);
-                String key = herb.itemId() + "effect" + i;
-                result.putString(key + "name", effect.name());
-                result.putString(key + "symbollevel", effect.levelOp());
-                result.putInt(key + "symbollevelnum", effect.level());
-                result.putString(key + "symboltime", effect.timeOp());
-                result.putInt(key + "symboltimenum", effect.time());
-            }
+            byItem.put(herb.itemId(), herb);
         }
-        return result;
+        return new HerbCatalogSnapshot(byItem);
+    }
+
+    public record HerbCatalogSnapshot(Map<String, Herb> byItem) {
+        public static final HerbCatalogSnapshot EMPTY = new HerbCatalogSnapshot(Map.of());
+        public static final Codec<HerbCatalogSnapshot> CODEC = Codec.unboundedMap(Codec.STRING, Herb.CODEC)
+                .xmap(HerbCatalogSnapshot::new, HerbCatalogSnapshot::byItem);
+
+        public HerbCatalogSnapshot {
+            byItem = Map.copyOf(byItem);
+        }
+
+        public boolean isEmpty() {
+            return byItem.isEmpty();
+        }
+
+        public Herb herb(String itemId) {
+            return byItem.get(itemId);
+        }
+
+        public int effectCount(String itemId) {
+            Herb herb = byItem.get(itemId);
+            return herb == null ? 0 : herb.effects().size();
+        }
     }
 
     public record Herb(String itemId, List<Effect> effects) {
-        private static final Codec<Herb> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        public static final Codec<Herb> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("item_id").forGetter(Herb::itemId),
                 Effect.CODEC.listOf().fieldOf("effects").forGetter(Herb::effects)
         ).apply(instance, Herb::new));
@@ -53,7 +68,7 @@ public final class LiandanHerbs {
     }
 
     public record Effect(String name, String levelOp, int level, String timeOp, int time) {
-        private static final Codec<Effect> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        public static final Codec<Effect> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("name").forGetter(Effect::name),
                 Codec.STRING.fieldOf("level_op").forGetter(Effect::levelOp),
                 Codec.INT.fieldOf("level").forGetter(Effect::level),

@@ -245,7 +245,7 @@ final class Guchong01Check extends SystemCheck {
             }
             if (!active.isRemoved()) return;
             expectTrue("编号01有存活目标仍自然百刻回罐", pig.isAlive() && elapsed >= 80 && elapsed <= 130
-                    && !jar(player).jarData().getBoolean("shifangguchong") && !jar(player).getItem(0).isEmpty());
+                    && !jar(player).jarData().released && !jar(player).getItem(0).isEmpty());
             pig.discard();
             done[0] = true;
         });

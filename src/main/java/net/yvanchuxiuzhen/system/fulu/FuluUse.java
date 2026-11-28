@@ -114,9 +114,9 @@ public final class FuluUse {
         }
         if (!active) {
             Cultivation.editTizhi(player, tizhi -> {
-                tizhi.putBoolean(flag, true);
-                tizhi.putDouble("fulu" + suffix + "level", grade);
-                tizhi.putDouble("fulunumber", Math.round(tizhi.getDouble("fulunumber") + 1));
+                tizhi.setFlag(flag, true);
+                tizhi.setNumber("fulu" + suffix + "level", grade);
+                tizhi.setNumber("fulunumber", Math.round(tizhi.number("fulunumber") + 1));
             });
         }
         if (breath) {

@@ -2,10 +2,12 @@
 topic: quest
 role: entry
 status: partial
-updated: 2026-11-26
+updated: 2026-11-28
 ---
 
 # 任务
+
+已完成任务附件去套壳改造：`QuestData` 的 `SESSION`、`JOURNAL`、`FLAGS` 与 `BountyBoardBlockEntity` 悬赏项均改用强类型状态结构及 `Codec`/`StreamCodec`，不再持有套壳 `CompoundTag`（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c任务附件与悬赏方块去套壳)）。
 
 界面与连续聊天的状态效果已改为直接添加或移除，目标与时长按来源处理。聊天选项已直接发送组件，保留四选上限、文字格式及记分板副作用。见[效果节点验证](logs/2026-11.md#2026-11-26-任务对话效果节点)。
 

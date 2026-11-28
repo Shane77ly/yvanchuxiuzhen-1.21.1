@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
@@ -17,13 +18,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbs.HerbCatalogSnapshot;
 
 /** 药理台保存十一格可见物品与一格隐藏预览，六面仅允许抽取两个说明槽。 */
 public final class PharmacologyBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> items = NonNullList.withSize(12, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
-    private CompoundTag herbs = new CompoundTag();
+    private HerbCatalogSnapshot herbs = HerbCatalogSnapshot.EMPTY;
     private final String[] effectLines = new String[]{"", "", "", "", "", "", "", "", "", "", "", "", ""};
 
     public PharmacologyBlockEntity(BlockPos pos, BlockState state) {
@@ -31,8 +33,8 @@ public final class PharmacologyBlockEntity extends RandomizableContainerBlockEnt
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
     }
 
-    public CompoundTag herbs() { return herbs; }
-    public void setHerbs(CompoundTag value) { herbs = value == null ? new CompoundTag() : value.copy(); }
+    public HerbCatalogSnapshot herbs() { return herbs; }
+    public void setHerbs(HerbCatalogSnapshot value) { herbs = value == null ? HerbCatalogSnapshot.EMPTY : value; }
     public String effectLine(int index) { return index >= 0 && index < effectLines.length ? effectLines[index] : ""; }
     public void setEffectLine(int index, String value) {
         if (index >= 0 && index < effectLines.length) effectLines[index] = value == null ? "" : value;
@@ -53,7 +55,10 @@ public final class PharmacologyBlockEntity extends RandomizableContainerBlockEnt
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(12, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        herbs = tag.getCompound("zong").copy();
+        herbs = tag.contains("zong")
+                ? HerbCatalogSnapshot.CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), tag.get("zong"))
+                        .result().orElse(HerbCatalogSnapshot.EMPTY)
+                : HerbCatalogSnapshot.EMPTY;
         for (int index = 0; index < effectLines.length; index++) {
             effectLines[index] = tag.getString("effectxianshi" + index);
         }
@@ -63,7 +68,10 @@ public final class PharmacologyBlockEntity extends RandomizableContainerBlockEnt
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
-        if (!herbs.isEmpty()) tag.put("zong", herbs);
+        if (!herbs.isEmpty()) {
+            HerbCatalogSnapshot.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), herbs)
+                    .result().ifPresent(nbt -> tag.put("zong", nbt));
+        }
         for (int index = 0; index < effectLines.length; index++) {
             if (!effectLines[index].isEmpty()) tag.putString("effectxianshi" + index, effectLines[index]);
         }

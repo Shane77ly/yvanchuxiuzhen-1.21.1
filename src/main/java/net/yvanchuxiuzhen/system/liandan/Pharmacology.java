@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -13,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbs.HerbCatalogSnapshot;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
@@ -27,7 +27,7 @@ public final class Pharmacology {
     public static void refresh(BlockEntity table, Container inventory, String inputName) {
         String name = inputName.isEmpty() || inputName.equals("丹方名称")
                 ? defaultName(inventory.getItem(1)) : inputName;
-        CompoundTag herbs = table instanceof PharmacologyBlockEntity pharmacology ? pharmacology.herbs() : new CompoundTag();
+        HerbCatalogSnapshot herbs = table instanceof PharmacologyBlockEntity pharmacology ? pharmacology.herbs() : HerbCatalogSnapshot.EMPTY;
         List<MedicineInstance.Effect> effects = new ArrayList<>();
         for (int slot = 1; slot <= 8; slot++) {
             ItemStack ingredient = inventory.getItem(slot);

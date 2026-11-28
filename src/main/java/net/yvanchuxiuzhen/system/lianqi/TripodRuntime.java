@@ -113,7 +113,7 @@ public final class TripodRuntime {
                 message(player, "§4规则禁止升级。");
             } else if (!hasMaterial(furnace)) {
                 message(player, "§4至少需要一个炼器材料。");
-            } else if (Equipment.refiningMaterials(furnace.getItem(0)).getString("fabaotype").isEmpty()) {
+            } else if (Equipment.refiningMaterials(furnace.getItem(0)).text("fabaotype").isEmpty()) {
                 message(player, "§4此物并不是由炼器鼎制作，也没有炼制痕迹，无法为其升级。");
             } else {
                 message(player, "开始炼制");
@@ -201,7 +201,7 @@ public final class TripodRuntime {
                             ItemStack ash = new ItemStack(Items.GUNPOWDER);
                             ash.set(DataComponents.CUSTOM_NAME, Component.literal("灰烬"));
                             furnace.setItem(9, ash);
-                        } else furnace.setItem(9, ItemStack.parseOptional(level.registryAccess(), furnace.plannedItem()));
+                        } else furnace.setItem(9, furnace.plannedItem().copy());
                         furnace.setItem(11, ItemStack.EMPTY);
                         finish(furnace);
                     }

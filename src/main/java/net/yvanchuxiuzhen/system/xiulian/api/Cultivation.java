@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -72,7 +71,7 @@ public final class Cultivation {
             data.set(text, text.initial());
         }
         data.setThunderOpen(false);
-        double extraLocks = data.tizhi().getDouble("liftlockewai");
+        double extraLocks = data.tizhi().number("liftlockewai");
         data.set(CultivationValue.LIFTLOCK, 1 + extraLocks);
         data.growth().keySet().removeAll(REINCARNATION_GROWTH);
         PlayerAttributes.setContribution(player, GROWTH_SOURCE, new Contribution(Layer.BASE, data.growth()));
@@ -88,9 +87,9 @@ public final class Cultivation {
             BirthSelection.rollReincarnationRoots(player, sourceLevel, data);
             submitRoots(player);
         }
-        CompoundTag tizhi = data.tizhi();
-        for (String key : Set.copyOf(tizhi.getAllKeys())) tizhi.remove(key);
-        tizhi.putDouble("liftlockewai", extraLocks);
+        ConstitutionState tizhi = data.tizhi();
+        tizhi.clear();
+        tizhi.setNumber("liftlockewai", extraLocks);
         player.syncData(XiulianAttachments.CULTIVATION);
         BirthSelection.openAfterReincarnation(player);
     }
@@ -178,35 +177,35 @@ public final class Cultivation {
      * 其他系统读取修正值（如 {@code GoldAttCorrectPercentage}）与写入自己的键都经这里。
      */
     public static double tizhiDouble(Player player, String key) {
-        return player.getData(XiulianAttachments.CULTIVATION).tizhi().getDouble(key);
+        return player.getData(XiulianAttachments.CULTIVATION).tizhi().number(key);
     }
 
     public static void setTizhiDouble(ServerPlayer player, String key, double value) {
-        player.getData(XiulianAttachments.CULTIVATION).tizhi().putDouble(key, value);
+        player.getData(XiulianAttachments.CULTIVATION).tizhi().setNumber(key, value);
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 
     public static boolean tizhiBoolean(Player player, String key) {
-        return player.getData(XiulianAttachments.CULTIVATION).tizhi().getBoolean(key);
+        return player.getData(XiulianAttachments.CULTIVATION).tizhi().flag(key);
     }
 
     public static void setTizhiBoolean(ServerPlayer player, String key, boolean value) {
-        player.getData(XiulianAttachments.CULTIVATION).tizhi().putBoolean(key, value);
+        player.getData(XiulianAttachments.CULTIVATION).tizhi().setFlag(key, value);
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 
-    /** 在同一次同步内修改体质标签的多个键；用于逐刻推进计数的持续效果，避免每个键各发一次同步。 */
-    public static void editTizhi(ServerPlayer player, Consumer<CompoundTag> edit) {
+    /** 在同一次同步内修改体质键值表的多个键；用于逐刻推进计数的持续效果，避免每个键各发一次同步。 */
+    public static void editTizhi(ServerPlayer player, Consumer<ConstitutionState> edit) {
         edit.accept(player.getData(XiulianAttachments.CULTIVATION).tizhi());
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 
     public static String tizhiString(Player player, String key) {
-        return player.getData(XiulianAttachments.CULTIVATION).tizhi().getString(key);
+        return player.getData(XiulianAttachments.CULTIVATION).tizhi().text(key);
     }
 
     public static void setTizhiString(ServerPlayer player, String key, String value) {
-        player.getData(XiulianAttachments.CULTIVATION).tizhi().putString(key, value);
+        player.getData(XiulianAttachments.CULTIVATION).tizhi().setText(key, value);
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 

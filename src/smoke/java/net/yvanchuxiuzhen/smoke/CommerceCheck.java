@@ -25,6 +25,7 @@ import net.yvanchuxiuzhen.system.economy.api.BankAccount;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankCards;
 import net.yvanchuxiuzhen.system.economy.api.BankDisplay;
+import net.yvanchuxiuzhen.system.economy.api.CommerceSession;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
@@ -38,6 +39,7 @@ import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplates;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
@@ -51,8 +53,8 @@ final class CommerceCheck extends SystemCheck {
     private final List<ItemStack> savedInventory = new ArrayList<>();
     private BankAccount account;
     private BankDisplay display;
-    private CompoundTag dialogue;
-    private CompoundTag commerce;
+    private QuestDialogueSession dialogue;
+    private CommerceSession commerce;
     private Vec3 position;
     private float yaw;
     private float pitch;
@@ -96,11 +98,11 @@ final class CommerceCheck extends SystemCheck {
             case 3 -> {
                 if (!waitDialogue(local, true, "办理什么业务")) return false;
                 onServer(player -> {
-                    CompoundTag state = DialogueActions.snapshot(player);
-                    expect("第一选项中文", "逛逛商店", state.getString("daantxt1"));
-                    expect("第二选项中文", "打开银行", state.getString("daantxt2"));
-                    expect("第三选项中文", "购买新通宝玉", state.getString("daantxt3"));
-                    expect("第四选项中文", "出售", state.getString("daantxt4"));
+                    var state = DialogueActions.snapshot(player);
+                    expect("第一选项中文", "逛逛商店", state.choiceText(1));
+                    expect("第二选项中文", "打开银行", state.choiceText(2));
+                    expect("第三选项中文", "购买新通宝玉", state.choiceText(3));
+                    expect("第四选项中文", "出售", state.choiceText(4));
                     expect("本人对话投影同步", state, DialogueActions.snapshot(minecraft.player));
                 });
                 screenshots.take("commerce_bank_choices.png");
@@ -193,7 +195,7 @@ final class CommerceCheck extends SystemCheck {
                 commerceButton(3);
             }
             case 28 -> {
-                onServer(player -> expectTrue("三枚灵石估价", EconomyMenus.snapshot(player).getString("bankceshi2").contains("一级灵石3枚")));
+                onServer(player -> expectTrue("三枚灵石估价", EconomyMenus.snapshot(player).bankTest2().contains("一级灵石3枚")));
                 commerceButton(2);
             }
             case 29 -> {
@@ -219,7 +221,7 @@ final class CommerceCheck extends SystemCheck {
                 commerceButton(1);
             }
             case 34 -> {
-                onServer(player -> expectTrue("基础收购中文估价按来源石头单价一文", EconomyMenus.snapshot(player).getString("bankceshi1").contains("单价1文，总价值为37文")));
+                onServer(player -> expectTrue("基础收购中文估价按来源石头单价一文", EconomyMenus.snapshot(player).bankTest1().contains("单价1文，总价值为37文")));
                 screenshots.take("commerce_basic_sale.png");
                 commerceButton(0);
             }
@@ -278,11 +280,11 @@ final class CommerceCheck extends SystemCheck {
                     player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("shopblock_01")).defaultBlockState(), 3);
                     EconomyBlockEntity shop = (EconomyBlockEntity) player.level().getBlockEntity(bank);
                     ShopTrading.placed(player, shop);
-                    shop.state().putInt("cunchulingshi", 25);
+                    shop.state().shop().storedStones = 25;
                     int beforeClaim = totalBalance(player);
                     ShopTrading.interact(player, shop);
                     expect("Q71 首次领取商铺灵石总价值入账", beforeClaim + 25, totalBalance(player));
-                    expect("Q71 领取后清零历史暂存", 0, shop.state().getInt("cunchulingshi"));
+                    expect("Q71 领取后清零历史暂存", 0, shop.state().shop().storedStones);
                     player.closeContainer();
                     ShopTrading.interact(player, shop);
                     expect("Q71 再次打开商铺不重复入账", beforeClaim + 25, totalBalance(player));
@@ -338,7 +340,7 @@ final class CommerceCheck extends SystemCheck {
     private boolean waitDialogue(int local, boolean choices, String text) {
         if (!waitScreen(local, minecraft.screen instanceof DialogueScreen && minecraft.player.containerMenu instanceof DialogueMenu menu
                 && menu.choices == choices, "对话：" + text)) return false;
-        String actual = DialogueActions.snapshot(minecraft.player).getString("TXTxianshi");
+        String actual = DialogueActions.snapshot(minecraft.player).displayText();
         if (actual.contains(text)) return true;
         if (local > 200) {
             fail("对话文本不符，期望含“" + text + "”，实际“" + actual + "”");

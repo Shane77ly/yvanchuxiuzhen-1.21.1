@@ -2,10 +2,12 @@
 topic: xiulian
 role: entry
 status: partial
-updated: 2026-11-18
+updated: 2026-11-28
 ---
 
 # 修炼
+
+已完成丹田体质去套壳改造：`CultivationData` 改持强类型 `ConstitutionState`，通过 `Cultivation.editTizhi` 与公开存取方法操作体质数值、标记与文本（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c丹田体质强类型化)）。
 
 标识 `xiulian`，类别：系统。职责：境界、修为、灵力、寿元、出身、灵根体质、丹田、金丹元婴、本命槽位、雷劫、轮回（[系统设计](../../development/system-design.md)）。
 

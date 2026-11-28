@@ -2,16 +2,10 @@ package net.yvanchuxiuzhen.system.quest;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,6 +38,10 @@ import net.yvanchuxiuzhen.system.npc.api.NpcDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.npc.api.NpcFollowers;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState.QuestJournalEntry;
+import net.yvanchuxiuzhen.system.quest.api.QuestStoryFlags;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplates;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
@@ -91,252 +89,262 @@ public final class DialogueRuntime {
     }
 
     public static void login(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) player.setData(QuestData.SESSION, new CompoundTag());
+        if (event.getEntity() instanceof ServerPlayer player) player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
     }
 
     public static void tick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
-        CompoundTag state = DialogueActions.snapshot(player);
-        if (!state.getBoolean("renwubegin") && !state.getBoolean("taskbegin")) {
-            if (state.getBoolean("tasksustained") && !state.getBoolean("xvanxiang")) {
-                int tick = state.getInt("tasktick") + 1;
-                state.putInt("tasktick", tick);
-                player.setData(QuestData.SESSION, state);
+        QuestDialogueSession state = DialogueActions.snapshot(player);
+        if (!state.dialogueBegin() && !state.taskBegin()) {
+            if (state.taskSustained() && !state.choicePending()) {
+                int tick = state.taskTick() + 1;
+                player.setData(QuestData.SESSION, state.toBuilder().taskTick(tick).build());
                 if (tick >= 60) {
                     QuestChatRuntime.run(player);
-                    CompoundTag updated = DialogueActions.snapshot(player);
-                    updated.putInt("tasktick", 0);
-                    player.setData(QuestData.SESSION, updated);
+                    QuestDialogueSession updated = DialogueActions.snapshot(player);
+                    player.setData(QuestData.SESSION, updated.toBuilder().taskTick(0).build());
                 }
             }
             return;
         }
-        state.putBoolean("renwubegin", false);
-        state.putBoolean("taskbegin", false);
-        Optional<QuestTemplateDefinition> template = DialogueActions.readTemplate(state);
+        QuestDialogueSession.Builder builder = state.toBuilder().dialogueBegin(false).taskBegin(false);
+        Optional<QuestTemplateDefinition> template = state.template();
         if (template.isEmpty()) {
-            player.setData(QuestData.SESSION, state);
+            player.setData(QuestData.SESSION, builder.build());
             if (player.containerMenu != player.inventoryMenu) {
                 player.closeContainer();
             }
             return;
         }
         String id = template.get().questId();
-        CompoundTag journal = DialogueActions.journal(player);
-        if (journal.getString(id + "UUID").equals(id)) {
+        QuestJournalState journal = DialogueActions.journal(player);
+        if (journal.contains(id)) {
             if (DialogueActions.finished(player, id)) {
-                player.displayClientMessage(Component.literal("您已完成" + journal.getString(id + "name") + "任务，无法重复执行任务。"), false);
+                player.displayClientMessage(Component.literal("您已完成" + journal.title(id) + "任务，无法重复执行任务。"), false);
             } else {
-                state.putInt("renwuweizhi", journal.getInt(id + "jindu"));
+                builder.cursor(journal.progress(id));
             }
         } else {
-            state.putInt("renwuweizhi", 1);
+            builder.cursor(1);
         }
-        player.setData(QuestData.SESSION, state);
+        player.setData(QuestData.SESSION, builder.build());
         run(player, BlockPos.containing(player.getX(), player.getY(), player.getZ()));
     }
 
     public static void next(ServerPlayer player, BlockPos pos) {
-        CompoundTag state = DialogueActions.snapshot(player);
-        state.putInt("renwuweizhi", state.getInt("renwuweizhi") + 1);
-        player.setData(QuestData.SESSION, state);
+        QuestDialogueSession state = DialogueActions.snapshot(player);
+        player.setData(QuestData.SESSION, state.toBuilder().cursor(state.cursor() + 1).build());
         run(player, pos);
     }
 
     public static boolean choose(ServerPlayer player, int choice, BlockPos pos) {
-        CompoundTag state = DialogueActions.snapshot(player);
-        int target = state.getInt("daan" + choice);
+        QuestDialogueSession state = DialogueActions.snapshot(player);
+        int target = state.choiceTarget(choice);
         if (target <= 0) return false;
-        state.putInt("renwuweizhi", target);
-        player.setData(QuestData.SESSION, state);
+        player.setData(QuestData.SESSION, state.toBuilder().cursor(target).build());
         run(player, pos);
         return true;
     }
 
     public static void run(ServerPlayer player, BlockPos pos) {
-        CompoundTag state = DialogueActions.snapshot(player);
-        for (int i = 1; i <= 4; i++) {
-            state.putString("daantxt" + i, "");
-            state.putInt("daan" + i, 0);
-        }
+        QuestDialogueSession.Builder builder = DialogueActions.snapshot(player).toBuilder().clearChoices();
+        QuestTemplateDefinition currentTemplate = builder.build().template().orElse(null);
+        int cursor = builder.build().cursor();
         while (true) {
-            QuestTemplateDefinition template = DialogueActions.readTemplate(state).orElse(null);
-            if (template == null) return;
-            int cursor = state.getInt("renwuweizhi");
-            DialogueNodeDefinition node = template.node(cursor).orElse(null);
+            if (currentTemplate == null) return;
+            DialogueNodeDefinition node = currentTemplate.node(cursor).orElse(null);
             if (node == null) {
-                player.setData(QuestData.SESSION, state);
+                player.setData(QuestData.SESSION, builder.build());
                 return;
             }
             switch (node) {
                 case DialogueNodeDefinition.TextNode text -> {
                     String prefix = text.playerSpeak() ? player.getDisplayName().getString() + "：" : "";
-                    state.putString("TXTxianshi", prefix + text.text());
-                    player.setData(QuestData.SESSION, state);
+                    builder.displayText(prefix + text.text());
+                    player.setData(QuestData.SESSION, builder.build());
                     BlockPos anchor = BlockPos.containing(player.getX(), player.getY() + 1, player.getZ());
                     player.openMenu(new SeamlessMenuProvider((id, inventory, ignored) -> new DialogueMenu(id, inventory, anchor, false),
                             Component.literal("对话")), anchor);
                     return;
                 }
                 case DialogueNodeDefinition.ChoiceNode choice -> {
-                    state.putString("TXTxianshi", choice.prompt());
+                    builder.displayText(choice.prompt());
                     int count = Math.min(4, choice.options().size());
                     for (int index = 0; index < count; index++) {
                         DialogueNodeDefinition.ChoiceOption option = choice.options().get(index);
-                        state.putString("daantxt" + (index + 1), option.label());
-                        state.putInt("daan" + (index + 1), option.target());
+                        builder.choice(index + 1, option.label(), option.target());
                     }
-                    player.setData(QuestData.SESSION, state);
+                    player.setData(QuestData.SESSION, builder.build());
                     player.openMenu(new SeamlessMenuProvider((id, inventory, ignored) -> new DialogueMenu(id, inventory, pos, true),
                             Component.literal("对话选项")), pos);
                     return;
                 }
-                case DialogueNodeDefinition.CheckItemNode check -> state.putInt("renwuweizhi",
-                        count(player, item(check.item())) >= check.count() ? check.passTarget() : check.failTarget());
-                case DialogueNodeDefinition.CheckAdvancedItemNode check -> state.putInt("renwuweizhi",
-                        countAdvancedItems(player, check) >= check.count() ? check.passTarget() : check.failTarget());
+                case DialogueNodeDefinition.CheckItemNode check -> {
+                    cursor = count(player, item(check.item())) >= check.count() ? check.passTarget() : check.failTarget();
+                    builder.cursor(cursor);
+                }
+                case DialogueNodeDefinition.CheckAdvancedItemNode check -> {
+                    cursor = countAdvancedItems(player, check) >= check.count() ? check.passTarget() : check.failTarget();
+                    builder.cursor(cursor);
+                }
                 case DialogueNodeDefinition.EntityControlNode entityControl -> {
                     controlEntities(player, entityControl);
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.CheckPosNode checkPos -> {
                     Vec3 center = new Vec3(checkPos.x(), checkPos.y(), checkPos.z());
                     boolean present = player.serverLevel().getEntitiesOfClass(Player.class,
                             new AABB(center, center).inflate(checkPos.size() / 2), candidate -> candidate == player).contains(player);
-                    state.putInt("renwuweizhi", present ? checkPos.insideTarget() : checkPos.outsideTarget());
+                    cursor = present ? checkPos.insideTarget() : checkPos.outsideTarget();
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.CheckDimensionNode checkDim -> {
-                    state.putInt("renwuweizhi", matchesDimension(player, checkDim.dimension())
-                            ? checkDim.matchTarget() : checkDim.mismatchTarget());
+                    cursor = matchesDimension(player, checkDim.dimension()) ? checkDim.matchTarget() : checkDim.mismatchTarget();
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.ItemActionNode itemAction -> {
                     if (itemAction.give()) giveItem(player, itemAction);
                     else takeItem(player, itemAction);
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.ModifyFlagNode modify -> {
-                    changeFlag(player, state, modify);
-                    state.putInt("renwuweizhi", cursor + 1);
+                    changeFlag(player, modify);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
-                case DialogueNodeDefinition.CheckFlagNode check -> state.putInt("renwuweizhi", compareFlag(player, check));
+                case DialogueNodeDefinition.CheckFlagNode check -> {
+                    cursor = compareFlag(player, check);
+                    builder.cursor(cursor);
+                }
                 case DialogueNodeDefinition.CheckQuestNode checkQuest -> {
-                    String status = DialogueActions.journal(player).getString(checkQuest.questId() + "zhuangtai");
-                    state.putInt("renwuweizhi", status.equals("完成") ? checkQuest.completedTarget()
-                            : status.equals("失败") ? checkQuest.failedTarget() : checkQuest.otherwiseTarget());
+                    String status = DialogueActions.journal(player).status(checkQuest.questId());
+                    cursor = status.equals("完成") ? checkQuest.completedTarget()
+                            : status.equals("失败") ? checkQuest.failedTarget() : checkQuest.otherwiseTarget();
+                    builder.cursor(cursor);
                 }
-                case DialogueNodeDefinition.JumpNode jump -> state.putInt("renwuweizhi", jump.target());
+                case DialogueNodeDefinition.JumpNode jump -> {
+                    cursor = jump.target();
+                    builder.cursor(cursor);
+                }
                 case DialogueNodeDefinition.SetQuestStatusNode status -> {
-                    state.putString("renwuzhuangtai", status.status());
-                    state.putInt("renwuweizhi", cursor + 1);
+                    builder.questStatus(status.status());
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.SaveQuestNode save -> {
-                    saveTask(player, state, template, save.resumeCursor());
-                    state.putInt("renwuweizhi", cursor + 1);
+                    saveTask(player, builder.build(), currentTemplate, save.resumeCursor());
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.ModifyQuestHeaderNode modify -> {
-                    QuestTemplateDefinition updated = modify.field().equals("名称")
-                            ? template.withHeader(modify.value(), template.description())
+                    currentTemplate = modify.field().equals("名称")
+                            ? currentTemplate.withHeader(modify.value(), currentTemplate.description())
                             : modify.field().equals("说明")
-                                    ? template.withHeader(template.title(), modify.value())
-                                    : template;
-                    DialogueActions.writeTemplate(state, updated);
-                    state.putInt("renwuweizhi", cursor + 1);
+                                    ? currentTemplate.withHeader(currentTemplate.title(), modify.value())
+                                    : currentTemplate;
+                    builder.template(Optional.of(currentTemplate));
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.RemoveBlocksNode remove -> {
                     for (BlockPos targetPos : remove.positions()) {
                         player.serverLevel().setBlock(targetPos, Blocks.AIR.defaultBlockState(), 3);
                     }
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.UnsealRiftNode ignored -> {
                     StructureSearch.search(player.serverLevel(), new Vec3(pos.getX(), pos.getY(), pos.getZ()), player.getStringUUID());
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.TeleportNode teleport -> {
                     player.connection.teleport(teleport.x(), teleport.y(), teleport.z(), player.getYRot(), player.getXRot());
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.EffectNode effect -> {
                     QuestScriptActions.effect(player, effect);
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.CommandNode cmd -> {
                     QuestScriptActions.command(player, cmd.command());
-                    state.putInt("renwuweizhi", cursor + 1);
+                    cursor = cursor + 1;
+                    builder.cursor(cursor);
                 }
                 case DialogueNodeDefinition.TransferQuestNode transfer -> {
                     DialogueActions.request(player, transfer.targetDialogueId());
                     return;
                 }
                 case DialogueNodeDefinition.OpenMenuNode menu -> {
-                    clearScript(state);
-                    player.setData(QuestData.SESSION, state);
+                    clearScript(builder);
+                    player.setData(QuestData.SESSION, builder.build());
                     EconomyMenus.open(player, BlockPos.containing(player.getX(), player.getY() + 1, player.getZ()), menu.menu());
                     return;
                 }
                 case DialogueNodeDefinition.EndNode ignored -> {
-                    clearScript(state);
-                    player.setData(QuestData.SESSION, state);
+                    clearScript(builder);
+                    player.setData(QuestData.SESSION, builder.build());
                     player.closeContainer();
                     return;
                 }
                 case DialogueNodeDefinition.InsertChatOptionNode ignored -> {
-                    player.setData(QuestData.SESSION, state);
+                    player.setData(QuestData.SESSION, builder.build());
                     return;
                 }
             }
-            player.setData(QuestData.SESSION, state.copy());
+            player.setData(QuestData.SESSION, builder.build());
         }
     }
 
-    static void saveTask(ServerPlayer player, CompoundTag state, QuestTemplateDefinition template, int resumeCursor) {
-        CompoundTag journal = DialogueActions.journal(player);
+    static void saveTask(ServerPlayer player, QuestDialogueSession state, QuestTemplateDefinition template, int resumeCursor) {
+        QuestJournalState journal = DialogueActions.journal(player);
         String id = template.questId();
-        if (!journal.getString(id + "UUID").equals(id)) {
-            ListTag ids = journal.getList("quest_ids", Tag.TAG_STRING);
-            ids.add(StringTag.valueOf(id));
-            journal.put("quest_ids", ids);
-        }
-        journal.putString(id + "name", template.title());
-        journal.putString(id + "UUID", id);
-        journal.putString(id + "shuoming", template.description());
-        journal.putInt(id + "jindu", resumeCursor);
-        String status = state.getString("renwuzhuangtai");
-        journal.putString(id + "zhuangtai", status.isEmpty() ? "未完成" : status);
-        journal.putString(id + "xvqiu", template.requirement());
-        journal.putString(id + "jiangli", template.rewardSummary());
-        journal.putString(id + "template_id", template.id());
-        journal.put(id + "template", QuestTemplateDefinition.CODEC.encodeStart(NbtOps.INSTANCE, template).getOrThrow());
-        journal.putBoolean(id + "gaojirenwu", !state.getBoolean("tasksustained"));
-        player.setData(QuestData.JOURNAL, journal);
+        String status = state.questStatus();
+        QuestJournalEntry entry = new QuestJournalEntry(
+                template.title(),
+                id,
+                template.description(),
+                resumeCursor,
+                status.isEmpty() ? "未完成" : status,
+                template.requirement(),
+                template.rewardSummary(),
+                template.id(),
+                Optional.of(template),
+                !state.taskSustained());
+        player.setData(QuestData.JOURNAL, journal.withEntry(id, entry));
     }
 
     static int compareFlag(ServerPlayer player, DialogueNodeDefinition.CheckFlagNode node) {
-        CompoundTag flags = player.getData(QuestData.FLAGS);
+        QuestStoryFlags flags = player.getData(QuestData.FLAGS);
         if (node.fieldType().equals("char") || node.fieldType().equals("str")) {
-            boolean match = flags.getString(node.key()).equals(node.literal() ? node.targetOrLiteral() : flags.getString(node.targetOrLiteral()));
+            boolean match = flags.text(node.key()).equals(node.literal() ? node.targetOrLiteral() : flags.text(node.targetOrLiteral()));
             return match ? node.firstTarget() : node.secondTarget();
         }
         if (node.fieldType().equals("logic")) {
-            boolean match = flags.getBoolean(node.key()) == (node.literal() ? node.targetOrLiteral().equals("真") : flags.getBoolean(node.targetOrLiteral()));
+            boolean match = flags.bool(node.key()) == (node.literal() ? node.targetOrLiteral().equals("真") : flags.bool(node.targetOrLiteral()));
             return match ? node.firstTarget() : node.secondTarget();
         }
-        double left = node.fieldType().equals("int") ? flags.getInt(node.key()) : flags.getDouble(node.key());
+        double left = node.fieldType().equals("int") ? flags.intValue(node.key()) : flags.doubleValue(node.key());
         double right = node.literal() ? number(node.targetOrLiteral())
-                : node.fieldType().equals("int") ? flags.getInt(node.targetOrLiteral()) : flags.getDouble(node.targetOrLiteral());
+                : node.fieldType().equals("int") ? flags.intValue(node.targetOrLiteral()) : flags.doubleValue(node.targetOrLiteral());
         if (left > right) return node.firstTarget();
         if (left < right) return node.secondTarget();
         return node.equalTarget();
     }
 
-    static void changeFlag(ServerPlayer player, CompoundTag state, DialogueNodeDefinition.ModifyFlagNode node) {
-        CompoundTag flags = player.getData(QuestData.FLAGS).copy();
+    static void changeFlag(ServerPlayer player, DialogueNodeDefinition.ModifyFlagNode node) {
+        QuestStoryFlags flags = player.getData(QuestData.FLAGS);
         if (node.fieldType().equals("char") || node.fieldType().equals("str")) {
-            flags.putString(node.key(), (node.op().equals("加") ? state.getString(node.key()) : "") + node.value());
+            String value = (node.op().equals("加") ? flags.text(node.key()) : "") + node.value();
+            flags = flags.withText(node.key(), value);
         } else if (node.fieldType().equals("logic")) {
-            flags.putBoolean(node.key(), node.value().equals("真"));
+            flags = flags.withBool(node.key(), node.value().equals("真"));
         } else {
-            double old = node.fieldType().equals("int") ? flags.getInt(node.key()) : flags.getDouble(node.key());
+            double old = node.fieldType().equals("int") ? flags.intValue(node.key()) : flags.doubleValue(node.key());
             double operand = number(node.value());
             double result = switch (node.op()) {
                 case "加" -> old + operand;
@@ -345,8 +353,9 @@ public final class DialogueRuntime {
                 case "除" -> old / operand;
                 default -> operand;
             };
-            if (node.fieldType().equals("int")) flags.putInt(node.key(), (int) result);
-            else flags.putDouble(node.key(), result);
+            flags = node.fieldType().equals("int")
+                    ? flags.withInt(node.key(), (int) result)
+                    : flags.withDouble(node.key(), result);
         }
         player.setData(QuestData.FLAGS, flags);
     }
@@ -368,12 +377,10 @@ public final class DialogueRuntime {
             player.getInventory().clearOrCountMatchingItems(stack -> stack.is(kind), amount, player.inventoryMenu.getCraftSlots());
             return;
         }
-        // 来源带NBT扣除在足量栈分支先把剩余数清零，再按零删除；此分支保持该实际次序。
         PlayerInvWrapper inventory = new PlayerInvWrapper(player.getInventory());
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack stack = inventory.getStackInSlot(slot);
-            if (!stack.is(kind)) continue;
-            if (!matchesFilters(stack, node.filters())) continue;
+            if (!stack.is(kind) || !matchesFilters(stack, node.filters())) continue;
             if (amount < 1) break;
             if (stack.getCount() >= amount) amount = 0;
             else {
@@ -406,7 +413,6 @@ public final class DialogueRuntime {
         return count;
     }
 
-    /** 读取材料组件等级（Q276）、饰品命令属性组件（Q253）与出生补给计数。 */
     private static boolean matchesFilters(ItemStack stack, List<DialogueNodeDefinition.FieldFilter> filters) {
         EquipmentProperties properties = Equipment.properties(stack);
         MaterialInstance material = Materials.instance(stack);
@@ -499,8 +505,7 @@ public final class DialogueRuntime {
         }
     }
 
-    private static void clearScript(CompoundTag state) {
-        DialogueActions.clearTemplate(state);
-        state.putInt("renwuweizhi", 0);
+    private static void clearScript(QuestDialogueSession.Builder builder) {
+        builder.template(Optional.empty()).cursor(0);
     }
 }

@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,6 +15,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
@@ -74,8 +74,8 @@ final class BirthItemDialogueCheck extends SystemCheck {
             onServer(p -> {
                 expectTrue("新档没有符头3", !Fulu.knowledge(p).heads().contains(3));
                 if (!advance(p, 12)) return;
-                expect("传承结束后目录状态", "完成", DialogueActions.journal(p).getString(RELIC + "zhuangtai"));
-                expect("传承储存步骤", 16, DialogueActions.journal(p).getInt(RELIC + "jindu"));
+                expect("传承结束后目录状态", "完成", DialogueActions.journal(p).status(RELIC));
+                expect("传承储存步骤", 16, DialogueActions.journal(p).progress(RELIC));
                 expectTrue("裸命令不凭空解锁符头3", !Fulu.knowledge(p).heads().contains(3));
                 expect("传承会话结束", "", script(p));
                 p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -133,9 +133,9 @@ final class BirthItemDialogueCheck extends SystemCheck {
     private boolean awaitFirst(String id, int local) {
         boolean[] ready = {false};
         onServer(p -> {
-            CompoundTag s = DialogueActions.snapshot(p);
+            QuestDialogueSession s = DialogueActions.snapshot(p);
             ready[0] = p.containerMenu instanceof DialogueMenu && script(p).equals(id)
-                    && !s.getBoolean("renwubegin") && s.getInt("renwuweizhi") == 1 && !s.getString("TXTxianshi").isEmpty();
+                    && !s.dialogueBegin() && s.cursor() == 1 && !s.displayText().isEmpty();
         });
         if (!ready[0] && local > 200) {
             fail(id + " 未经服务端 tick 打开第一页");
@@ -146,7 +146,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
 
     private boolean advance(ServerPlayer p, int pages) {
         for (int i = 1; i <= pages; i++) {
-            if (DialogueActions.snapshot(p).getInt("renwuweizhi") != i || !(p.containerMenu instanceof DialogueMenu menu) || !menu.clickMenuButton(p, 0)) {
+            if (DialogueActions.snapshot(p).cursor() != i || !(p.containerMenu instanceof DialogueMenu menu) || !menu.clickMenuButton(p, 0)) {
                 fail("无法从对话第 " + i + " 页继续");
                 return false;
             }
@@ -155,8 +155,8 @@ final class BirthItemDialogueCheck extends SystemCheck {
     }
 
     private static boolean pending(ServerPlayer p, String id) {
-        CompoundTag s = DialogueActions.snapshot(p);
-        return s.getBoolean("renwubegin") && s.getInt("renwuweizhi") == 0 && script(p).equals(id);
+        QuestDialogueSession s = DialogueActions.snapshot(p);
+        return s.dialogueBegin() && s.cursor() == 0 && script(p).equals(id);
     }
 
     private static void use(ServerPlayer p, boolean sneaking) {

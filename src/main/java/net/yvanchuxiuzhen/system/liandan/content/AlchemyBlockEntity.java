@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbs.HerbCatalogSnapshot;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -36,7 +38,7 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private CompoundTag herbs = new CompoundTag();
+    private HerbCatalogSnapshot herbs = HerbCatalogSnapshot.EMPTY;
     private String alchemyName = "";
     private double alchemyLevel;
     private double alchemyFire;
@@ -65,8 +67,8 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
         return ((AlchemyBlock) getBlockState().getBlock()).tier();
     }
 
-    public CompoundTag herbs() { return herbs; }
-    public void setHerbs(CompoundTag value) { herbs = value == null ? new CompoundTag() : value.copy(); }
+    public HerbCatalogSnapshot herbs() { return herbs; }
+    public void setHerbs(HerbCatalogSnapshot value) { herbs = value == null ? HerbCatalogSnapshot.EMPTY : value; }
     public String alchemyName() { return alchemyName; }
     public void setAlchemyName(String value) { alchemyName = value == null ? "" : value; }
     public double alchemyLevel() { return alchemyLevel; }
@@ -121,7 +123,10 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(12, ItemStack.EMPTY);
         if (!tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, items, registries);
-        herbs = tag.getCompound("zong").copy();
+        var ops = registries.createSerializationContext(NbtOps.INSTANCE);
+        herbs = tag.contains("zong")
+                ? HerbCatalogSnapshot.CODEC.parse(ops, tag.get("zong")).result().orElse(HerbCatalogSnapshot.EMPTY)
+                : HerbCatalogSnapshot.EMPTY;
         alchemyName = tag.getString("alchemyName");
         alchemyLevel = tag.getDouble("alchemyLevel");
         alchemyFire = tag.getDouble("alchemyFire");
@@ -146,7 +151,10 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
-        if (!herbs.isEmpty()) tag.put("zong", herbs);
+        if (!herbs.isEmpty()) {
+            HerbCatalogSnapshot.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), herbs)
+                    .result().ifPresent(nbt -> tag.put("zong", nbt));
+        }
         if (!alchemyName.isEmpty()) tag.putString("alchemyName", alchemyName);
         if (alchemyLevel != 0) tag.putDouble("alchemyLevel", alchemyLevel);
         if (alchemyFire != 0) tag.putDouble("alchemyFire", alchemyFire);

@@ -216,8 +216,8 @@ final class FuluSpecialCheck extends SystemCheck {
         player.setYBodyRot(0);
         PlayerAttributes.setContribution(player, "smoke:fulu41", new Contribution(Layer.BASE, Map.of(Stat.SOUL_MAX, 1000.0)));
         Cultivation.editTizhi(player, data -> {
-            data.putDouble("FuluConsumeJingli", 0);
-            data.putDouble("FuluConsumeJingliPercentage", 0);
+            data.setNumber("FuluConsumeJingli", 0);
+            data.setNumber("FuluConsumeJingliPercentage", 0);
         });
         NeoForge.EVENT_BUS.addListener(joined);
         NeoForge.EVENT_BUS.addListener(flight);
@@ -381,8 +381,8 @@ final class FuluSpecialCheck extends SystemCheck {
         PlayerAttributes.clearContribution(player, "smoke:fulu41");
         Cultivation.set(player, CultivationValue.SOUL, soul);
         Cultivation.editTizhi(player, data -> {
-            data.putDouble("FuluConsumeJingli", fixed);
-            data.putDouble("FuluConsumeJingliPercentage", percentage);
+            data.setNumber("FuluConsumeJingli", fixed);
+            data.setNumber("FuluConsumeJingliPercentage", percentage);
         });
         player.getData(ProfessionAttachments.PROGRESS).set(Profession.RUNE, rune);
         player.syncData(ProfessionAttachments.PROGRESS);

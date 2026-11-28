@@ -1,11 +1,11 @@
 package net.yvanchuxiuzhen.system.lianqi;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
@@ -20,12 +20,12 @@ final class TripodMaterials {
 
     static void calculate(TripodBlockEntity furnace, boolean upgrade) {
         ItemStack previous = upgrade ? furnace.getItem(0).copy() : ItemStack.EMPTY;
-        CompoundTag recipe = upgrade ? Equipment.refiningMaterials(previous) : new CompoundTag();
+        EquipmentRefinement recipe = upgrade ? Equipment.refiningMaterials(previous) : LianqiBlueprint.EMPTY.toRefinement();
         LianqiBlueprint blueprint = upgrade ? LianqiBlueprint.EMPTY : Lianqi.blueprint(furnace.getItem(10)).orElse(LianqiBlueprint.EMPTY);
         if (!upgrade) {
-            recipe = blueprint.toRecipeTag();
+            recipe = blueprint.toRefinement();
         }
-        CompoundTag raw = upgrade ? recipe.copy() : new CompoundTag();
+        EquipmentRefinement.Mutable raw = upgrade ? recipe.toMutable() : EquipmentRefinement.mutable();
         if (upgrade) furnace.setItem(0, ItemStack.EMPTY);
         else {
             raw.putString("tuzhiname", blueprint.name());
@@ -52,20 +52,20 @@ final class TripodMaterials {
         raw.putInt("fumozongshu", accumulator.enchantments);
         furnace.setLianqiTickMax((int) (furnace.lianqiTickMax() * (1 - furnace.tripodFire() * .05)));
         weight *= 1 - furnace.tripodPurification() * .01;
-        if (upgrade) weight = Math.max(raw.getInt("weightnum"), raw.getInt("weightnum") + Math.max(1, weight));
+        if (upgrade) weight = Math.max(raw.integer("weightnum"), raw.integer("weightnum") + Math.max(1, weight));
         raw.putInt("weightnum", (int) weight);
-        if (raw.getInt("weightnum") >= 160) {
+        if (raw.integer("weightnum") >= 160) {
             ItemStack waste = new ItemStack(Items.IRON_BLOCK);
             waste.set(DataComponents.CUSTOM_NAME, Component.literal("废弃金属"));
-            furnace.setPlannedItem((CompoundTag) waste.save(furnace.getLevel().registryAccess()));
-            if (raw.getInt("weightnum") >= 250) {
+            furnace.setPlannedItem(waste);
+            if (raw.integer("weightnum") >= 250) {
                 furnace.setExplodeTick(2);
-                furnace.setExplodeLevel((int) Math.round(raw.getDouble("weightnum") / 20));
+                furnace.setExplodeLevel((int) Math.round(raw.number("weightnum") / 20));
             }
         } else {
-            ItemStack result = Equipment.createRefinedProduct(furnace.getLevel().registryAccess(), recipe, raw, previous);
+            ItemStack result = Equipment.createRefinedProduct(furnace.getLevel().registryAccess(), recipe, raw.toImmutable(), previous);
             furnace.setItem(11, result);
-            furnace.setPlannedItem((CompoundTag) result.save(furnace.getLevel().registryAccess()));
+            furnace.setPlannedItem(result);
             int level = Equipment.product(result).orElseThrow().level();
             furnace.setPendingExperience(level);
             furnace.setItem(11, ItemStack.EMPTY);
@@ -77,13 +77,13 @@ final class TripodMaterials {
 
     /** 来源工作变量在未知属性间保留，材料顺序和品阶分支均直接影响累计结果。 */
     private static final class Accumulator {
-        private final CompoundTag raw;
+        private final EquipmentRefinement.Mutable raw;
         private int enchantments;
         private double attribute;
 
-        private Accumulator(CompoundTag raw) {
+        private Accumulator(EquipmentRefinement.Mutable raw) {
             this.raw = raw;
-            enchantments = raw.getInt("fumozongshu");
+            enchantments = raw.integer("fumozongshu");
         }
 
         private void add(MaterialDefinition definition, MaterialInstance instance, int count) {
@@ -108,7 +108,7 @@ final class TripodMaterials {
                     };
                     attribute *= multiplier;
                     attribute *= definition.fixedWeight().orElse(0) * .2;
-                    raw.putDouble(name, raw.getDouble(name) + attribute * count);
+                    raw.putDouble(name, raw.number(name) + attribute * count);
                 } else if (entry.namespace().equals("teshu")) {
                     raw.putBoolean(name, true);
                 } else if (!entry.namespace().isEmpty()) {
@@ -116,14 +116,14 @@ final class TripodMaterials {
                     amount *= definition.fixedWeight().orElse(0) * .2;
                     for (int group = 0; group <= enchantments; group++) {
                         String key = "fumo" + group;
-                        if (raw.getString(key).isEmpty()) {
+                        if (raw.text(key).isEmpty()) {
                             raw.putString(key, name);
                             raw.putString(key + "kongjian", entry.namespace());
                             raw.putDouble(key + "num", amount * count * (name.equals("qiling") ? 2 : 1));
                             enchantments++;
                             break;
-                        } else if (raw.getString(key).equals(name)) {
-                            raw.putDouble(key + "num", raw.getDouble(key + "num") + amount * count * (name.equals("qiling") ? 2 : 1));
+                        } else if (raw.text(key).equals(name)) {
+                            raw.putDouble(key + "num", raw.number(key + "num") + amount * count * (name.equals("qiling") ? 2 : 1));
                             break;
                         }
                     }

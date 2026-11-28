@@ -46,7 +46,7 @@ public final class TripodBlockEntity extends RandomizableContainerBlockEntity im
     private int explodeLevel;
     private int pendingExperience;
     private boolean failed;
-    private CompoundTag plannedItem = new CompoundTag();
+    private ItemStack plannedItem = ItemStack.EMPTY;
 
     public TripodBlockEntity(BlockPos pos, BlockState state) {
         super(LianqiBlockEntities.type(((TripodBlock) state.getBlock()).tier()), pos, state);
@@ -99,8 +99,8 @@ public final class TripodBlockEntity extends RandomizableContainerBlockEntity im
     public void setPendingExperience(int value) { pendingExperience = value; }
     public boolean failed() { return failed; }
     public void setFailed(boolean value) { failed = value; }
-    public CompoundTag plannedItem() { return plannedItem; }
-    public void setPlannedItem(CompoundTag value) { plannedItem = value == null ? new CompoundTag() : value.copy(); }
+    public ItemStack plannedItem() { return plannedItem; }
+    public void setPlannedItem(ItemStack value) { plannedItem = value == null ? ItemStack.EMPTY : value.copy(); }
 
     public void changed() {
         setChanged();
@@ -136,7 +136,7 @@ public final class TripodBlockEntity extends RandomizableContainerBlockEntity im
         explodeLevel = tag.getInt("zhadinglevel");
         pendingExperience = tag.getInt("jingyanhuoqv");
         failed = tag.getBoolean("lianqishibai");
-        plannedItem = tag.getCompound("item").copy();
+        plannedItem = tag.contains("item") ? ItemStack.parseOptional(registries, tag.getCompound("item")) : ItemStack.EMPTY;
     }
 
     @Override
@@ -163,7 +163,7 @@ public final class TripodBlockEntity extends RandomizableContainerBlockEntity im
         if (explodeLevel != 0) tag.putInt("zhadinglevel", explodeLevel);
         if (pendingExperience != 0) tag.putInt("jingyanhuoqv", pendingExperience);
         if (failed) tag.putBoolean("lianqishibai", true);
-        if (!plannedItem.isEmpty()) tag.put("item", plannedItem);
+        if (!plannedItem.isEmpty()) tag.put("item", plannedItem.save(registries));
     }
 
     @Override

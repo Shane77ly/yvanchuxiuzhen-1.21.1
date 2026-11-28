@@ -2,10 +2,12 @@
 topic: economy
 role: entry
 status: partial
-updated: 2026-11-26
+updated: 2026-11-28
 ---
 
 # 经济
+
+已完成商贸会话与方块状态去套壳：`CommerceData.SESSION` 改为强类型 `CommerceSession`，`EconomyBlockEntity` 改持 `EconomyBlockState`（含商店与拍卖子状态，`Codec` 字段上限内拆分子记录），见[去套壳记录](logs/2026-11.md#阶段-5c经济会话与方块状态去套壳)。
 
 阶段 4 功能分支已修正 Q05 商店一级灵石找零；修前复现与本批验证边界见[经济月志](logs/2026-11.md#阶段-4-首批商店找零)。
 

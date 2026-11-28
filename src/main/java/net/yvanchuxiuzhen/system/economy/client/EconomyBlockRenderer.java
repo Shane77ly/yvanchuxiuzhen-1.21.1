@@ -17,7 +17,7 @@ final class EconomyBlockRenderer implements BlockEntityRenderer<EconomyBlockEnti
     @Override public void render(EconomyBlockEntity block, float partialTick, PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
         pose.pushPose();
         pose.translate(0.5, block.auction() ? 1 : 1.5, 0.5);
-        String direction = block.state().getString("fangxiang");
+        String direction = block.state().shop().direction;
         float rotation = block.auction() ? direction.equals("北") ? 0 : direction.equals("南") ? 180 : direction.equals("西") ? 90 : -90 : direction.equals("南北") ? 0 : 90;
         pose.mulPose(Axis.YP.rotationDegrees(rotation));
         if (!block.auction()) pose.scale(0.6F, 0.6F, 0.6F);

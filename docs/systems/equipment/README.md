@@ -2,10 +2,12 @@
 topic: equipment
 role: entry
 status: partial
-updated: 2026-11-15
+updated: 2026-11-28
 ---
 
 # 装备
+
+已完成炼器词条组件 `EquipmentRefinement` 去 `CompoundTag` 中转改造：新增 `EquipmentRefinement.Mutable`、`number(key)` 与 `hasText(key)`，`Equipment` 与 `EquipmentRefining` 全程直接运算强类型炼器组件（[去套壳记录](logs/2026-11.md#2026-11-28-阶段-5c炼器组件去-compoundtag-中转)）。
 
 标识 `equipment`，类别：系统。职责：武器、防具、工具、饰品、飞行法器、法宝与本命培养、词条（[系统设计](../../development/system-design.md)）。
 

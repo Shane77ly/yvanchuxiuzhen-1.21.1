@@ -47,12 +47,12 @@ final class BenmingCultivationCheck extends SystemCheck {
                 sword.setDamageValue(10);
                 sword.set(EquipmentData.BENMING.get(), new BenmingData(0, 1995, 2000));
                 sword.set(EquipmentData.STATS.get(), EquipmentStats.EMPTY.addSpellAttack(2).addSoulAttack(4));
-                CompoundTag raw = new CompoundTag();
+                EquipmentRefinement.Mutable raw = EquipmentRefinement.mutable();
                 raw.putInt("mana_Att", 2);
                 raw.putInt("soul_Att", 4);
                 raw.putInt("mananum", 200);
                 raw.putInt("soulnum", 400);
-                sword.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(raw));
+                sword.set(EquipmentData.REFINEMENT.get(), raw.toImmutable());
                 Cultivation.setBenming(player, sword);
                 NeoForge.EVENT_BUS.post(new CultivationSecondEvent(player));
                 expect("境界20不推进本命经验", new BenmingData(0, 1995, 2000), progress(player));

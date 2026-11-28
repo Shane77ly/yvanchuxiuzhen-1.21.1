@@ -4,9 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import java.util.List;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 
 /** 炼器图纸载体上的结构化配方数据组件（{@code yvanchuxiuzhen:lianqi_blueprint}）。 */
 public record LianqiBlueprint(String name, String nameComponentJson, String description, String itemId,
@@ -44,27 +44,27 @@ public record LianqiBlueprint(String name, String nameComponentJson, String desc
         return !type.isEmpty() || !name.isEmpty();
     }
 
-    /** 供仍在过渡中的装备炼制接口消费的瞬时配方参数标签（不挂载至物品 CUSTOM_DATA）。 */
-    public CompoundTag toRecipeTag() {
-        CompoundTag tag = new CompoundTag();
-        tag.putString("tuzhiname", name);
-        if (!nameComponentJson.isEmpty()) tag.putString("tuzhiname_component", nameComponentJson);
-        tag.putString("fabaoid", itemId);
-        tag.putString("fabaoshuoming", itemDescription);
-        if (!itemDescriptionComponentJson.isEmpty()) tag.putString("fabaoshuoming_component", itemDescriptionComponentJson);
-        tag.putString("fabaotype", type);
-        tag.putString("item_level", levelText);
-        tag.putInt("item_level_num", level);
-        if (!sourceCarrierId.isEmpty()) tag.putString("belongToItemID", sourceCarrierId);
+    /** 转为供装备炼制消费的强类型参数快照。 */
+    public EquipmentRefinement toRefinement() {
+        EquipmentRefinement.Mutable target = EquipmentRefinement.mutable();
+        target.putString("tuzhiname", name);
+        if (!nameComponentJson.isEmpty()) target.putString("tuzhiname_component", nameComponentJson);
+        target.putString("fabaoid", itemId);
+        target.putString("fabaoshuoming", itemDescription);
+        if (!itemDescriptionComponentJson.isEmpty()) target.putString("fabaoshuoming_component", itemDescriptionComponentJson);
+        target.putString("fabaotype", type);
+        target.putString("item_level", levelText);
+        target.putInt("item_level_num", level);
+        if (!sourceCarrierId.isEmpty()) target.putString("belongToItemID", sourceCarrierId);
         for (int index = 0; index < ingredients.size(); index++) {
             Ingredient slot = ingredients.get(index);
             String key = "cailiao0" + index;
-            if (!slot.id().isEmpty()) tag.putString(key, slot.id());
-            if (!slot.name().isEmpty()) tag.putString(key + "name", slot.name());
-            if (!slot.nameComponentJson().isEmpty()) tag.putString(key + "name_component", slot.nameComponentJson());
-            if (slot.count() > 0) tag.putInt(key + "num", slot.count());
+            if (!slot.id().isEmpty()) target.putString(key, slot.id());
+            if (!slot.name().isEmpty()) target.putString(key + "name", slot.name());
+            if (!slot.nameComponentJson().isEmpty()) target.putString(key + "name_component", slot.nameComponentJson());
+            if (slot.count() > 0) target.putInt(key + "num", slot.count());
         }
-        return tag;
+        return target.toImmutable();
     }
 
     public record Ingredient(String id, String name, String nameComponentJson, int count) {
