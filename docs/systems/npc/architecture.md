@@ -39,7 +39,7 @@ B `PlayerRightClickEntityProcedure:40–43`限制事件手等于玩家当前使�
 
 ### Q88 强筋资质文本
 
-确认的来源文本差异，当前保留。普通商人初始化含`mana_Att_LEVEL="强筋"`，A `NpcshuxingjisuanProcedure:140–150`只识别“强劲”，因此进入最低档公式。目标保留原文本和结果；不按字面推测纠正资质。静态已确认，来源与目标实机均未执行。
+已在阶段 4 续批修正并验证。普通商人初始化含`mana_Att_LEVEL="强筋"`，A `NpcshuxingjisuanProcedure:140–150`原只识别“强劲”。目标 `NpcStats.rating` 现同时将 `"强劲"` 与 `"强筋"` 映射为强档系数，并已在 `NpcManagementCheck` 烟测验证（`12.5` 级气血计算为 `227.0`）。
 
 ## 拍卖修士定义
 

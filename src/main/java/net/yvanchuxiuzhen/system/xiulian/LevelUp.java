@@ -131,12 +131,12 @@ public final class LevelUp {
         Cultivation.setTizhiString(player, "uplevelxianshi2", WHOLE.format(level - 1) + "→" + WHOLE.format(level));
         Cultivation.setTizhiString(player, "uplevelxianshi3", "属性点获得：" + WHOLE.format(Cultivation.get(player, CultivationValue.SKILL_POINTS) - skillBefore));
         Cultivation.setTizhiString(player, "uplevelxianshi4", "寿元增加：" + WHOLE.format(Cultivation.get(player, CultivationValue.LIFETIME) - lifetimeBefore));
-        // 来源第 9 行法术防御增加时写的是“旧值 − 新值”，第 10 行神识的两项沿用了“物理攻击”“物理防御”的标签（Q22）。
+        // 第 9 行法术防御与第 10 行神识攻防已按阶段 4（Q22）修正方向与标签。
         String[][] labels = {{"血量上限", "血量恢复"}, {"灵力上限", "灵力恢复"}, {"精力上限", "精力恢复"},
-                {"物理攻击", "物理防御"}, {"法术攻击", "法术防御"}, {"物理攻击", "物理防御"}};
+                {"物理攻击", "物理防御"}, {"法术攻击", "法术防御"}, {"神识攻击", "神识防御"}};
         for (int pair = 0; pair < 6; pair++) {
             String text = change(labels[pair][0], before[pair * 2], PlayerAttributes.baseValue(player, CORRECTIONS.get(pair * 2).stat()), false);
-            String second = change(labels[pair][1], before[pair * 2 + 1], PlayerAttributes.baseValue(player, CORRECTIONS.get(pair * 2 + 1).stat()), pair == 4);
+            String second = change(labels[pair][1], before[pair * 2 + 1], PlayerAttributes.baseValue(player, CORRECTIONS.get(pair * 2 + 1).stat()), false);
             Cultivation.setTizhiString(player, "uplevelxianshi" + (pair + 5), second.isEmpty() ? text : text + " " + second);
         }
         if (score(player, "zdzttick") == 0) {

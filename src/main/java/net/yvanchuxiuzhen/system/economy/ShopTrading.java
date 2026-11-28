@@ -122,25 +122,29 @@ public final class ShopTrading {
         for (int tier = 9; tier >= 1; tier--) sum += account.balance(tier) * BankAccount.weight(tier);
         if (price >= 1 && price > sum) { message(player, "§4灵石不足！"); return; }
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
-        boolean rejected = false;
+        int[] available = new int[inventory == null ? 0 : inventory.getSlots()];
+        for (int index = 0; index < available.length; index++) {
+            available[index] = inventory.getStackInSlot(index).getCount();
+        }
         for (int slot = 1; slot <= 3; slot++) {
             ItemStack requirement = block.getItem(slot);
             if (requirement.isEmpty()) continue;
-            if (!player.getInventory().contains(requirement)) continue;
-            int count = 0;
+            int missing = requirement.getCount();
             if (inventory != null) {
-                for (int index = 0; index < inventory.getSlots(); index++) {
+                for (int index = 0; index < inventory.getSlots() && missing > 0; index++) {
+                    if (available[index] <= 0) continue;
                     ItemStack candidate = inventory.getStackInSlot(index);
-                    if (candidate.getItem() == requirement.getItem() && (currency(requirement).isEmpty() || currency(requirement).equals(currency(candidate)))) count += candidate.getCount();
+                    if (!matches(candidate, requirement)) continue;
+                    int take = Math.min(available[index], missing);
+                    available[index] -= take;
+                    missing -= take;
                 }
             }
-            if (count < requirement.getCount()) {
+            if (missing > 0) {
                 message(player, "§4" + requirement.getDisplayName().getString() + "数量不够！");
-                rejected = true;
-                break;
+                return;
             }
         }
-        if (rejected) return;
         if (price >= 1) {
             double change = (double) sum - price;
             for (int tier = 1; tier <= 9; tier++) BankAccounts.setBalance(player, tier, 0);
@@ -152,14 +156,12 @@ public final class ShopTrading {
             ItemStack requirement = block.getItem(slot);
             if (requirement.isEmpty()) continue;
             int need = requirement.getCount();
-            if (inventory != null) for (int index = 0; index < inventory.getSlots(); index++) {
+            if (inventory != null) for (int index = 0; index < inventory.getSlots() && need > 0; index++) {
                 ItemStack candidate = inventory.getStackInSlot(index);
-                if (candidate.getItem() != requirement.getItem() || !currency(requirement).equals(currency(candidate))) continue;
-                if (candidate.getCount() >= need) { candidate.shrink(need); need = 0; }
-                else {
-                    candidate.shrink(candidate.getCount());
-                    need -= candidate.getCount();
-                }
+                if (!matches(candidate, requirement)) continue;
+                int take = Math.min(candidate.getCount(), need);
+                candidate.shrink(take);
+                need -= take;
             }
             if (!state.tiandao) {
                 ItemStack revenue = requirement.copy();
@@ -185,6 +187,11 @@ public final class ShopTrading {
         if (limit > 0) state.playerPurchases.merge(playerKey, 1, Integer::sum);
         block.changed();
         player.containerMenu.broadcastChanges();
+    }
+
+    private static boolean matches(ItemStack candidate, ItemStack requirement) {
+        return candidate.getItem() == requirement.getItem()
+                && (currency(requirement).isEmpty() || currency(requirement).equals(currency(candidate)));
     }
 
     private static String currency(ItemStack stack) { return stack.getOrDefault(CommerceData.CURRENCY.get(), ""); }

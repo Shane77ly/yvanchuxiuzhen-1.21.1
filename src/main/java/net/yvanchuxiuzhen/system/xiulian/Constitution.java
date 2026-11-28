@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 体质（来源 {@code constitution} 字段的取值）与出身界面关闭时写入的修正（来源 {@code PlayerJoin02} 后半段）。
- * 随机体质取 1–10（{@link #rolled}），来源列出的第 11、12 种取不到（Q21）；不是前 11 种的体质（含空体质）按第 12 种生效。
+ * 随机体质覆盖 1–12 全部体质（{@link #rolled}，Q21）；不是前 11 种的体质（含空体质）按第 12 种生效。
  */
 public enum Constitution {
     TAICHU("太初混沌体", List.of(new Bonus("LevelupCorrectXiuweixishou", 0.02))),

@@ -184,7 +184,18 @@ final class RelationCheck extends SystemCheck {
                 if (!inWorld(local)) {
                     return false;
                 }
-                onServer(player -> checkKept("重进后", player));
+                onServer(player -> {
+                    checkKept("重进后", player);
+                    PlayerRelation relation = player.getData(RelationAttachments.PLAYER);
+                    relation.setRequest(name, team);
+                    TeamRequest.press(player, 0);
+                    expectTrue("Q19 同意已存在好友不去重增格且清空请求", relation.friendCount() == 11 && relation.requestName().isEmpty());
+                    FriendList.open(player);
+                    FriendList.press(player, 0);
+                    FriendList.press(player, 15);
+                    expectTrue("Q19 删除在线本人行双向标记删除且保持好友总数", relation.friendCount() == 11 && relation.friend(1).black());
+                    player.closeContainer();
+                });
                 finish();
             }
             default -> finish();

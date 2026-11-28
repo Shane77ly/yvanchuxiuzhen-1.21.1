@@ -42,16 +42,13 @@ public final class FortuneDraws {
 
     private static void draw(Level level, BlockPos pos, Player player) {
         if (level instanceof ServerLevel server) server.sendParticles(ParticleTypes.WAX_ON, pos.getX() + .5, pos.getY() + 1.2, pos.getZ() + .5, 5, 0, 0, 0, 1);
-        String time = Long.toString(level.getDayTime());
-        double dayTimeTail = Double.parseDouble(time.length() >= 2 ? time.substring(time.length() - 2) : time);
-        int fortune = (int) Math.ceil((Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                + Calendar.getInstance().get(Calendar.MINUTE) + Calendar.getInstance().get(Calendar.SECOND) + dayTimeTail) / 7);
+        int fortune = level.random.nextInt(36) + 1;
         int grade = grade(fortune);
         if (!player.level().isClientSide) {
-            player.displayClientMessage(grade == 0 ? Component.empty() : Component.translatable("message.yvanchuxiuzhen.decor.fortune.grade." + grade), false);
-            player.displayClientMessage(fortune < 1 || fortune > 36 ? Component.literal("§f") : Component.translatable("message.yvanchuxiuzhen.decor.fortune.poem." + fortune), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.decor.fortune.grade." + grade), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.decor.fortune.poem." + fortune), false);
         }
-        if (level.isClientSide) NeoForge.EVENT_BUS.post(new ClientResult(grade == 0 ? 7 : grade));
+        if (level.isClientSide) NeoForge.EVENT_BUS.post(new ClientResult(grade));
     }
 
     private static int grade(int fortune) {

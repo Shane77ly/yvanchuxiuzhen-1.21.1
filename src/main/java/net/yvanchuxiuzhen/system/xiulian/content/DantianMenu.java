@@ -29,6 +29,16 @@ public final class DantianMenu extends AbstractContainerMenu {
             public boolean mayPlace(ItemStack stack) {
                 return DantianActions.canHold(stack);
             }
+
+            @Override
+            public int getMaxStackSize() {
+                return 1;
+            }
+
+            @Override
+            public int getMaxStackSize(ItemStack stack) {
+                return 1;
+            }
         });
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {

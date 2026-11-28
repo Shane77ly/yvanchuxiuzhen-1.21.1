@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.economy.Auctions;
+import net.yvanchuxiuzhen.system.economy.CommerceTrading;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
 import net.yvanchuxiuzhen.system.economy.ShopTrading;
 import net.yvanchuxiuzhen.system.economy.api.BankAccount;
@@ -36,6 +38,8 @@ import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
 import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
@@ -288,6 +292,76 @@ final class CommerceCheck extends SystemCheck {
                     player.closeContainer();
                     ShopTrading.interact(player, shop);
                     expect("Q71 再次打开商铺不重复入账", beforeClaim + 25, totalBalance(player));
+
+                    player.setGameMode(GameType.SURVIVAL);
+                    player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("shopblock_01")).defaultBlockState(), 3);
+                    EconomyBlockEntity survivalShop = (EconomyBlockEntity) player.level().getBlockEntity(bank);
+                    ShopTrading.placed(player, survivalShop);
+                    survivalShop.state().shop().tiandao = false;
+                    survivalShop.setItem(0, new ItemStack(Items.DIAMOND, 4));
+                    survivalShop.setItem(1, new ItemStack(Items.APPLE, 3));
+                    survivalShop.setItem(2, new ItemStack(Items.GOLD_INGOT, 2));
+                    survivalShop.state().shop().remainingStock = 4;
+                    survivalShop.state().shop().perPlayerLimit = 1;
+                    survivalShop.state().shop().stonesNeeded = 0;
+                    player.getInventory().clearContent();
+                    ShopTrading.button(player, bank, false, 0);
+                    expect("Q93 缺材料不可白嫖", 0, player.getInventory().countItem(Items.DIAMOND));
+                    player.getInventory().setItem(0, new ItemStack(Items.APPLE, 2));
+                    player.getInventory().setItem(1, new ItemStack(Items.GOLD_INGOT, 2));
+                    ShopTrading.button(player, bank, false, 0);
+                    expectTrue("Q93 数量不足不发商品且不吞材料", player.getInventory().countItem(Items.DIAMOND) == 0
+                            && player.getInventory().countItem(Items.APPLE) == 2
+                            && player.getInventory().countItem(Items.GOLD_INGOT) == 2);
+                    player.getInventory().setItem(0, new ItemStack(Items.APPLE, 3));
+                    ShopTrading.button(player, bank, false, 0);
+                    expectTrue("Q93 足额以物易物扣料发货", player.getInventory().countItem(Items.DIAMOND) == 1
+                            && player.getInventory().countItem(Items.APPLE) == 0
+                            && player.getInventory().countItem(Items.GOLD_INGOT) == 0);
+                    player.getInventory().setItem(2, new ItemStack(Items.APPLE, 3));
+                    player.getInventory().setItem(3, new ItemStack(Items.GOLD_INGOT, 2));
+                    ShopTrading.button(player, bank, false, 0);
+                    expectTrue("Q72 生存商铺限购拦截二次购买", player.getInventory().countItem(Items.DIAMOND) == 1
+                            && player.getInventory().countItem(Items.APPLE) == 3);
+
+                    boolean bandLow = false;
+                    boolean bandMid = false;
+                    boolean bandHigh = false;
+                    for (int round = 0; round < 6; round++) {
+                        for (ShopCatalogDefinition.Product product : EconomyCatalogs.materialShop(1, ShopCatalogDefinition.ShopInfo.EMPTY).products()) {
+                            int lv = ((ShopCatalogDefinition.MaterialPayload) product.payload()).level();
+                            bandLow |= lv >= 1 && lv <= 5;
+                            bandMid |= lv >= 6 && lv <= 10;
+                            bandHigh |= lv >= 11 && lv <= 15;
+                        }
+                    }
+                    expectTrue("Q94 一档材料商店三段等级均可达", bandLow && bandMid && bandHigh);
+
+                    player.setGameMode(GameType.CREATIVE);
+                    player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("paimaiblock")).defaultBlockState(), 3);
+                    EconomyBlockEntity auction = (EconomyBlockEntity) player.level().getBlockEntity(bank);
+                    auction.state().auction().auctionMode = "仅玩家";
+                    Auctions.button(player, bank, 0);
+                    expectTrue("Q96 托管按钮切换 managed 且不覆盖 auctionMode",
+                            auction.state().auction().managed && auction.state().auction().auctionMode.equals("仅玩家"));
+                    Auctions.button(player, bank, 0);
+                    expectTrue("Q96 托管按钮可切回自营",
+                            !auction.state().auction().managed && auction.state().auction().auctionMode.equals("仅玩家"));
+
+                    EconomyMenus.open(player, bank, CommerceMenu.Kind.STONE_SALE);
+                    ItemStack lightBlueprint = item("book_003");
+                    Lianqi.setBlueprint(lightBlueprint, new LianqiBlueprint("轻图纸", "", "轻", "yvanchuxiuzhen:weaponsword_01",
+                            "", "", "剑", "凡品", 6, "", List.of(new LianqiBlueprint.Ingredient("cailiao_001", "材", "", 1))));
+                    player.containerMenu.getSlot(1).set(lightBlueprint);
+                    CommerceTrading.refreshSale(player, true);
+                    String lightText = EconomyMenus.snapshot(player).bankTest2();
+                    ItemStack heavyBlueprint = item("book_003");
+                    Lianqi.setBlueprint(heavyBlueprint, new LianqiBlueprint("重图纸", "", "重", "yvanchuxiuzhen:weaponsword_01",
+                            "", "", "剑", "凡品", 6, "", List.of(new LianqiBlueprint.Ingredient("cailiao_001", "材", "", 20))));
+                    player.containerMenu.getSlot(1).set(heavyBlueprint);
+                    CommerceTrading.refreshSale(player, true);
+                    String heavyMsg = EconomyMenus.snapshot(player).bankTest1();
+                    expectTrue("Q73 重图纸触发重量折价", !lightText.isEmpty() && heavyMsg.equals("此物无法在此卖出。"));
                     cleanup(player);
                 });
                 finish();

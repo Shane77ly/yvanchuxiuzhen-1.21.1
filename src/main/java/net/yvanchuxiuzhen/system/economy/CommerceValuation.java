@@ -21,6 +21,7 @@ import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
+import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -55,8 +56,7 @@ final class CommerceValuation {
             } else if (blueprint.isPresent() && blueprint.get().level() >= 1) {
                 int blueprintLevel = blueprint.get().level();
                 unit = 9 * Math.pow(4, Math.min(8, (blueprintLevel - 1) / 5)) * prices.multiplier("tuzhijiage");
-                // 来源重量过程把材料列表索引1的“attribute”交给数字解释器，所有匹配条目均加0。
-                total = count * unit;
+                total = blueprintWeightDiscount(blueprint.get()) * count * unit;
             }
         } else if (anyTag(stack, "wuqi", "fabao", "toukui", "xiongjia", "kuzi", "zhanxve")) {
             String owner = Equipment.ownerId(stack);
@@ -149,6 +149,26 @@ final class CommerceValuation {
 
     private static Map<String, Double> talismans() {
         return doubleMap("talismans");
+    }
+
+    private static double blueprintWeightDiscount(LianqiBlueprint blueprint) {
+        double weight = 0;
+        for (LianqiBlueprint.Ingredient ingredient : blueprint.ingredients()) {
+            if (ingredient.id().isEmpty() || ingredient.count() <= 0) continue;
+            ResourceLocation key = ResourceLocation.tryParse(ingredient.id().contains(":") ? ingredient.id() : ModId.VALUE + ":" + ingredient.id());
+            if (key == null) continue;
+            MaterialDefinition definition = Materials.definition(new ItemStack(BuiltInRegistries.ITEM.get(key)));
+            if (definition != null) {
+                weight += definition.fixedWeight().orElse(0) * ingredient.count();
+            }
+        }
+        if (weight >= 150) return 0;
+        if (weight >= 140) return 0.2;
+        if (weight >= 130) return 0.6;
+        if (weight >= 120) return 0.8;
+        if (weight >= 110) return 0.95;
+        if (weight >= 105) return 0.98;
+        return 1;
     }
 
     private static Map<String, Double> doubleMap(String key) {

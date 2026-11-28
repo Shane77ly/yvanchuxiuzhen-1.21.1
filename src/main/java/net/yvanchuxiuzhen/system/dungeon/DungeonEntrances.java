@@ -57,40 +57,43 @@ public final class DungeonEntrances {
 
     public static void enter(ServerPlayer leader, DungeonBlockEntity block) {
         ServerLevel origin = leader.serverLevel();
-        boolean refused = false;
-        int people = 0;
-        if (!block.onCooldown()) {
-            if (!Relations.temporaryTeam(leader).isEmpty()) {
-                for (ServerPlayer member : nearby(leader, block.getBlockPos(), 16)) {
-                    people++;
-                    double level = Cultivation.get(member, CultivationValue.LEVEL_NUMBER);
-                    if (level < block.minLevel() || level > block.maxLevel()) {
-                        leader.displayClientMessage(Component.literal("§4您的队伍中有人的等级不在承受等级区间，无法进入！"), false);
-                        refused = true;
-                        break;
-                    }
-                }
-            }
-            if (people > block.maxPeople()) {
-                leader.displayClientMessage(Component.literal("§4您的队伍人数超过承受人数上限，无法进入！"), false);
-                refused = true;
-            }
-            ItemStack ticket = block.getItem(0);
-            if (!ticket.isEmpty() && !pay(leader, ticket)) {
-                leader.displayClientMessage(Component.literal("§4您没有足够的" + ticket.getDisplayName().getString() + "，无法进入！"), false);
-                refused = true;
-            }
-        } else {
+        if (block.onCooldown()) {
             leader.displayClientMessage(Component.literal("§4副本冷却中，请静待" + (block.cooldownMax() - block.cooldownTicks()) + "秒"), false);
-            refused = true;
+            return;
         }
-        if (refused) return;
-        block.setOnCooldown(true);
-        block.changed();
         if (!DungeonPlayers.supported(origin.dimension())) {
             leader.displayClientMessage(Component.literal("§4当前维度并不支持此功能"), false);
             return;
         }
+        int people = 0;
+        if (!Relations.temporaryTeam(leader).isEmpty()) {
+            for (ServerPlayer member : nearby(leader, block.getBlockPos(), 16)) {
+                people++;
+                double level = Cultivation.get(member, CultivationValue.LEVEL_NUMBER);
+                if (level < block.minLevel() || level > block.maxLevel()) {
+                    leader.displayClientMessage(Component.literal("§4您的队伍中有人的等级不在承受等级区间，无法进入！"), false);
+                    return;
+                }
+            }
+        } else {
+            people = 1;
+            double level = Cultivation.get(leader, CultivationValue.LEVEL_NUMBER);
+            if (level < block.minLevel() || level > block.maxLevel()) {
+                leader.displayClientMessage(Component.literal("§4您的队伍中有人的等级不在承受等级区间，无法进入！"), false);
+                return;
+            }
+        }
+        if (people > block.maxPeople()) {
+            leader.displayClientMessage(Component.literal("§4您的队伍人数超过承受人数上限，无法进入！"), false);
+            return;
+        }
+        ItemStack ticket = block.getItem(0);
+        if (!ticket.isEmpty() && !pay(leader, ticket)) {
+            leader.displayClientMessage(Component.literal("§4您没有足够的" + ticket.getDisplayName().getString() + "，无法进入！"), false);
+            return;
+        }
+        block.setOnCooldown(true);
+        block.changed();
         DungeonPlayerData state = leader.getData(DungeonData.PLAYER)
                 .withReturnPos(block.getBlockPos())
                 .withControllerPos(BlockPos.containing(block.entranceControllerX(), block.entranceControllerY(), block.entranceControllerZ()))

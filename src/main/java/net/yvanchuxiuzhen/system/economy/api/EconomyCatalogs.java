@@ -50,8 +50,8 @@ public final class EconomyCatalogs {
         List<ShopCatalogDefinition.Product> products = new ArrayList<>(60);
         for (int index = 0; index < 60; index++) {
             int roll = random.nextInt(101);
-            // 来源前两档先判断>=20；后续>=50分支因此不可达。
-            int base = grade == 3 ? roll >= 70 ? 36 : 31 : (grade - 1) * 15 + (roll >= 20 ? 11 : 1);
+            // 前两档按 Q94 先判定 >=50 再判定 >=20，使三段等级均可达。
+            int base = grade == 3 ? (roll >= 70 ? 36 : 31) : (grade - 1) * 15 + (roll >= 50 ? 6 : roll >= 20 ? 11 : 1);
             int level = base + random.nextInt(5);
             int qualityRoll = random.nextInt(100) + 1;
             int quality = qualityRoll > 98 ? 4 : qualityRoll > 88 ? 3 : qualityRoll > 70 ? 2 : qualityRoll > 20 ? 1 : 0;

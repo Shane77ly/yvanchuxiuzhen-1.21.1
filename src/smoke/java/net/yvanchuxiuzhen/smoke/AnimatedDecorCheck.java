@@ -285,7 +285,11 @@ final class AnimatedDecorCheck extends SystemCheck {
             expectTrue("第" + (index + 1) + "次消息至少经过四十服务端刻", messageTicks.size() > index * 2
                     && messageTicks.get(index * 2) - requestTicks[index] >= 39);
         }
-        for (Component message : messages) expectTrue("消息使用合并汉化且不显示原始键", !message.getString().contains("message.yvanchuxiuzhen."));
+        for (Component message : messages) {
+            expectTrue("消息使用合并汉化且不显示原始键", !message.getString().contains("message.yvanchuxiuzhen."));
+            expectTrue("Q214 签筒不发空消息或裸颜色", !message.getString().isBlank() && !message.getString().equals("§f"));
+        }
+        for (int grade : clientGrades) expectTrue("Q214 签等在 1..7 范围内", grade >= 1 && grade <= 7);
     }
 
     private void verifyNoItemReward(ServerPlayer player) {
