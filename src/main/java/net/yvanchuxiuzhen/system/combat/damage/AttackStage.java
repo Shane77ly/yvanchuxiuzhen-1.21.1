@@ -139,10 +139,10 @@ final class AttackStage {
         }
     }
 
-    /** 来源的叠加时长：已有同效果的剩余刻数 × 20 + 600（Q32）。 */
+    /** 叠加时长：已有同效果的剩余刻数 + 600（Q32 已移除误乘 20）。 */
     private static int extended(LivingEntity victim, Holder<MobEffect> effect) {
         MobEffectInstance existing = victim.getEffect(effect);
-        return (existing == null ? 0 : existing.getDuration()) * 20 + 600;
+        return (existing == null ? 0 : existing.getDuration()) + 600;
     }
 
     /** 以 center 为中心、边长 64 的方体内主人是 center 的已驯服动物，通知宠物协助锁定 target。 */

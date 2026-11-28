@@ -2,10 +2,12 @@
 topic: combat
 role: entry
 status: current
-updated: 2026-11-27
+updated: 2026-11-28
 ---
 
 # 战斗
+
+阶段 4 续批（子批 4）已完成并验证 Q32/Q33/Q34（毒药与锯齿时长取消误乘 20、`lingtikiller`/`liuqing` 读自身等级、`chaos` 使用世界 Z 坐标、火/冰/雷甲反伤豁免自身、毒药 09/13/20/21 修复、`effect_010`/`017` 描述对齐以及 `linglidamage`/`jinglidamage` 死亡消息键修正），见[本月记录](logs/2026-11.md#2026-11-28-阶段-4q32q33q34-附魔毒药与死亡消息修复)。
 
 阶段 4 已按裁定修复 Q18/Q29/Q30（受击同属性功法减伤与负伤保护、`Shanghai.defence` 玩家体质防御及法防/神识防御倍率、`ArmorStatEvent` 法防改读 `mana_Def`、物理 `breakArmor=1`/攻击者 `AttackAttCorrectPercentage`/暴击倍率、`Shanghai.deal` 闪避 `1–100`、`AttackStage` 移除重复吸血、`Shanghai.friendly` 空团队不免伤）；见[本月记录](logs/2026-11.md#2026-11-27-阶段-4q18q29q30-战斗与防御修复)。
 

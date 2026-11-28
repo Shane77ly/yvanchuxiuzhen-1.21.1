@@ -117,8 +117,7 @@ final class PoisonEffects {
         tables.effectBehavior("duyao_13", new Periodic("duyao13tick", amp -> 40) {
             @Override
             double damage(LivingEntity entity, int amplifier) {
-                // 来源取的是 duyao_01 的等级，不是自己的等级（Q32）。
-                return 4 * (1 + StatusEffects.amplifier(entity, "duyao_01"));
+                return 4 * (1 + amplifier);
             }
         });
         tables.effectBehavior("duyao_14", new Periodic("duyao14tick", amp -> 1200) {
@@ -370,12 +369,12 @@ final class PoisonEffects {
         }
     }
 
-    /** 番木鳖：每刻把当前生命压到 最大生命 − 10 × (1 + 等级)（体质放大目标值，至少 1）。 */
+    /** 番木鳖：每刻把当前生命压到 最大生命 − 经体质放大的 10 × (1 + 等级)（至少 1，Q33 已改为放大扣血量）。 */
     private static final class MaxHealthDrain implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
             if (EffectSupport.eligible(entity)) {
-                double target = Math.max(scale(entity, entity.getMaxHealth() - 10 * (1 + amplifier)), 1);
+                double target = Math.max(entity.getMaxHealth() - scale(entity, 10 * (1 + amplifier)), 1);
                 if (entity.getHealth() > target) {
                     entity.setHealth((float) target);
                 }
@@ -413,8 +412,8 @@ final class PoisonEffects {
     }
 
     /**
-     * 尸毒：每次感染累积 1 层（开始时增加），每 80 刻受 等级 + 1 + 层数 点伤害；身上有瞬间治疗或生命恢复时层数清零。
-     * 体质放大在来源中先于伤害赋值，被覆盖而不生效（Q32），这里保持。
+     * 尸毒：每次感染累积 1 层（开始时增加），每 80 刻受 经体质放大的 (等级 + 1 + 层数) 点伤害；
+     * 身上有瞬间治疗或生命恢复时层数清零（Q33 已恢复体质毒伤放大）。
      */
     private static final class Corpse implements EffectBehavior {
         @Override
@@ -442,14 +441,14 @@ final class PoisonEffects {
             if (!resisted(entity)) {
                 double level = entity instanceof Player player ? Cultivation.tizhiDouble(player, "duyao20level")
                         : entity.getData(CombatData.ENTITY_STATE).corpsePoisonLevel();
-                hurt(entity, amplifier + 1 + level);
+                hurt(entity, scale(entity, amplifier + 1 + level));
             }
             return true;
         }
     }
 
     /**
-     * 曼陀罗：与尸毒共用周期计数 {@code duyao20tick}（来源如此，Q33），每 40 刻受 (番木鳖等级 + 1) × 12 点阴属性固定伤害
+     * 曼陀罗：使用独立计数 {@code duyao21tick}（Q33），每 40 刻受 (自身等级 + 1) × 12 点阴属性固定伤害
      * （伤害量按 {@code DecimalFormat("0")} 取整），并把自己身上的毒药与部分原版负面效果按剩余时长和等级传给
      * 周围边长 12 的方体内没有伤害吸收的生物。
      */
@@ -458,7 +457,7 @@ final class PoisonEffects {
                 MobEffects.BLINDNESS, MobEffects.HUNGER, MobEffects.WEAKNESS, MobEffects.POISON, MobEffects.WITHER);
 
         Mandrake() {
-            super("duyao20tick", amp -> 40);
+            super("duyao21tick", amp -> 40);
         }
 
         @Override
@@ -466,7 +465,7 @@ final class PoisonEffects {
             if (!(entity.level() instanceof ServerLevel level)) {
                 return;
             }
-            double damage = scale(entity, (StatusEffects.amplifier(entity, "duyao_07") + 1) * 12);
+            double damage = scale(entity, (amplifier + 1) * 12);
             level.sendParticles(ParticleTypes.REVERSE_PORTAL, entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(), 40, 0, 0, 0, 1);
             level.playSound(null, entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
                     BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou033skill01")), SoundSource.NEUTRAL, 1, 1);
@@ -482,7 +481,7 @@ final class PoisonEffects {
         @Override
         public void clientTick(LivingEntity entity, int amplifier) {
             if (!entity.isAlive() || (entity instanceof Player player && (player.isCreative() || player.isSpectator()))
-                    || !EffectSupport.every(entity, "duyao20tick_client", 40)) {
+                    || !EffectSupport.every(entity, "duyao21tick_client", 40)) {
                 return;
             }
             entity.level().playLocalSound(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),

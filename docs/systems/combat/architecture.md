@@ -97,7 +97,7 @@ updated: 2026-11-27
    - `phoenix`：概率 等级 × 1%，受击者生命减 等级²；
    - `longdignified` → `effect_007`（100 tick，等级 = 附魔等级）；`tigerdignified` → 虚弱（100 tick）；概率均为 等级 × 1%；
    - `sawtooth`（受击者非亡灵，概率 等级 × 10%）→ `effect_004`；`fluorescence`（概率 等级 × 10%）→ 发光；
-   - 毒药附魔（概率 等级 × 1%）：`beepoison` → `duyao_10`、`firepoison` → `duyao_16`、`redrefining` → `duyao_13`、`spore` → `duyao_17`、`sinomeninevine` → `duyao_11`、`coldtoxin` → `duyao_12`、`cautery` → `duyao_14`、`snakevenom` → `duyao_15`；效果时长 = 受击者已有同效果剩余 tick × 20 + 600，等级 = 附魔等级 − 1，并在受击者位置生成 `zhongdulizi` 粒子（Q32）；
+   - 毒药附魔（概率 等级 × 1%）：`beepoison` → `duyao_10`、`firepoison` → `duyao_16`、`redrefining` → `duyao_13`、`spore` → `duyao_17`、`sinomeninevine` → `duyao_11`、`coldtoxin` → `duyao_12`、`cautery` → `duyao_14`、`snakevenom` → `duyao_15`；效果时长已按阶段 4 Q32 修正为 受击者已有同效果剩余 tick + 600，等级 = 附魔等级 − 1，并在受击者位置生成 `zhongdulizi` 粒子；
    - `vampire`：攻击者回复 `amount × 等级 × 5%`（与 `LivingHurtEvent` 的吸血各自回复一次）；
    - 调用 `EntityHurt2`、`EntityHurt3`；
    - 攻击者是玩家且装备功法名为 `流星春水`（20% 在受击者上方 16 格生成陨石 `skill_rock_03`，倍率 1.2）、`星君诀`（同上，倍率 2.4）、`金廷落`（受击者生命减 功法层数 × 0.5）、`血魔祭魂秘法`（同样扣血并给攻击者 2 个 `xvejing`）；
@@ -133,7 +133,7 @@ updated: 2026-11-27
 ### 附魔与效果的实现范围
 
 - 原初修真的 84 个附魔类与原初系统的 `chain` 都是只有稀有度、类别、槽位和 `isTradeable`/`isTreasureOnly` 覆盖的空壳类，没有 `getMaxLevel` 等覆盖（1.18.2 默认最高 1 级）；效果全部由上述订阅过程读取手持物或四件护甲的等级。原初修真 84 个中武器类（`EnchantmentCategory.WEAPON`）51 个、护甲类 28 个、可损坏类 3 个、挖掘类 2 个；83 个普通稀有度、1 个 `sawtooth` 少见；`isTradeable` 返回否 45 个、`isTreasureOnly` 返回是 2 个（`kailing`、`sawtooth`）。
-- `EntityHurt2` 包含：防具附魔 `firearmor`、`icearmor`、`discharge`、`pool`（概率为四件护甲等级之和 %，命中后对以受击者为中心、边长 5 的方体内非友好目标发 `/shanghai`，固定伤害，基础量为等级之和 × 2）；武器附魔 `qishi`（召唤 `skillyin_01`）、`lingwen`、`liuyan`、`pojia`、`yvnxvan`、`chenmo`、`lingtikiller`、`jvtong`、`zhongshang`、`confine` 等；`EntityHurt3` 包含 `iceexplosion`、`liuqing`、`threaten`、`nofly`、`starsky` 等。其中 `lingtikiller` 取了 `zhongshang` 的等级、`lingwen` 的消耗取了 `qishi` 的等级、`liuqing` 的时长使用未赋值的 `fumolevel`（Q32）。
+- `EntityHurt2` 包含：防具附魔 `firearmor`、`icearmor`、`discharge`、`pool`（概率为四件护甲等级之和 %，命中后对以受击者为中心、边长 5 的方体内非友好目标且豁免自身发 `/shanghai`，固定伤害，基础量为等级之和 × 2）；武器附魔 `qishi`（召唤 `skillyin_01`）、`lingwen`、`liuyan`、`pojia`、`yvnxvan`、`chenmo`、`lingtikiller`、`jvtong`、`zhongshang`、`confine` 等；`EntityHurt3` 包含 `iceexplosion`、`liuqing`、`threaten`、`nofly`、`starsky` 等。已按阶段 4 Q32/Q45 修正 `lingtikiller`、`lingwen`、`liuqing` 改为各自读取自身附魔等级（`lingwen` 改扣攻击者灵力并用 `copyFrom` 复制好友团队）。
 - 这些过程调用的实体与粒子（`skill_rock_03`、`skillyin_01`、`lingwentexiao_2`、`zhongdulizi`、`miss` 等）属于 skill、particle，登记后随所属系统接入。
 
 ## 目标方案：附魔数据定义与等级查询（2026-11-04 已实现，会话决定）
@@ -199,19 +199,19 @@ updated: 2026-11-27
 | `duyao_06` 含笑半步颠 | 每 5 刻检查取整坐标：站定记录，下次坐标变化即受 100 点凋零伤害并爆炸（音效 `entity.generic.explode`、爆炸粒子）；游泳、跳跃、骑乘、岩浆中清除记录 |
 | `duyao_07` 一日丧命散 | 每 20 刻累积 1 层，满 1200 层毙命；玩家灵力压到 1，其他生物每次被沉默 40 刻；结束时玩家体质或非玩家持久化数据的 `duyao07level` 清零 |
 | `duyao_08` 砒霜 | 每 20 刻 2 × (等级 + 1) |
-| `duyao_09` 番木鳖 | 每刻把当前生命压到 最大生命 − 10 × (1 + 等级)（体质放大目标值，至少 1） |
+| `duyao_09` 番木鳖 | 每刻把当前生命压到 最大生命 − 经体质放大的 10 × (1 + 等级)（至少 1，已按 Q33 修正为放大扣血量） |
 | `duyao_10` 蜂毒 | 瞬时，4 × (1 + 等级) 并附加缓慢（60 刻，20 级）与发抖（20 刻，1 级），移除 |
 | `duyao_11` 青藤毒 | 每 20 刻 (1 + 等级) 点并扣灵力 10 × (1 + 等级)（玩家，不低于 0） |
 | `duyao_12` 寒毒 | 每刻冷冻值 +1，每 80 刻发抖 20 刻 |
-| `duyao_13` 赤炼毒 | 每 40 刻 4 × (1 + `duyao_01` 的等级)（Q33） |
+| `duyao_13` 赤炼毒 | 每 40 刻 4 × (1 + 等级)（已按 Q33 修正为读自身等级） |
 | `duyao_14` 烙毒 | 每 1200 刻 20 × (等级 + 1) |
 | `duyao_15` 蛇纹毒 | 每 100 刻 最大生命 × 1% × (1 + 等级) |
 | `duyao_17` 孢子 | 每 100 刻随机获得缓慢、中毒、霉运、发光、虚弱、失明、隐身之一，100 刻，等级同孢子 |
 | `duyao_19` 毒厄丹 | 开始时附加眩晕、剧痛、无力、发抖各 1200 刻 3 级；结束时由 combat 将来源指定七类生物原地转换为僵尸，详见下文 |
-| `duyao_20` 尸毒 | 每次感染累积 1 层；每 80 刻受 (等级 + 1 + 层数) 点，身上有瞬间治疗或生命恢复时层数清零；体质放大被覆盖不生效（Q33） |
+| `duyao_20` 尸毒 | 每次感染累积 1 层；每 80 刻受经体质放大的 (等级 + 1 + 层数) 点（已按 Q33 恢复体质毒伤放大），身上有瞬间治疗或生命恢复时层数清零 |
 | `duyao_16`、`duyao_18` | 标记，等级由伤害结算读取 |
 
-`duyao_21`（曼陀罗）经 `/shanghai` 结算，随伤害结算迁移。
+`duyao_21`（曼陀罗）使用独立计时 `duyao21tick` 并读取自身等级，每 40 刻按阴属性结算并向周围无伤害吸收实体扩散负面效果（已按 Q33 修正）。
 
 ### 毒药结束回调补齐（2026-11-09）
 
@@ -235,7 +235,7 @@ updated: 2026-11-27
 | --- | --- |
 | `EntityHurt`（`LivingAttackEvent`）、`EntityBeforeHurt`（`LivingHurtEvent`） | 盾前的命中与盾后的受伤分别接入，后者覆盖玩家与普通生物各自的实现，见[受伤阶段时序](#盾挡后的受伤阶段与复活符2026-11-23)。 |
 | `/shanghai` 的 `ShanghaiGo` 及两个计算过程 | `Shanghai.deal`（`damage/Shanghai`），命令 `ShanghaiCommand` 只解析参数；类别 `DamageCategory`（14 种，含“无”）承载各类别的灵根、体质键、武器附魔、护甲附魔、相克族 |
-| `DamageSource("linglidamage")` 等四种来源 | 数据包伤害类型 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player`（消息 ID 与来源一致，`exhaustion` 为 0），加入标签 `minecraft:bypasses_armor`；`CombatDamageTypes.source` 构造（死亡消息键与译文对不上，Q34） |
+| `DamageSource("linglidamage")` 等四种来源 | 数据包伤害类型 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player`（消息 ID 与来源一致，`exhaustion` 为 0），加入标签 `minecraft:bypasses_armor`；`CombatDamageTypes.source` 构造（已按 Q34 修正并补齐 `death.attack.*` 中英文死亡消息键） |
 | 记分板 `suijishu` | 来源每次先写随机数再读回，只是借用；改为局部随机数 |
 | 玩家变量、体质物品 | attribute 的最终值与基础值、xiulian 的体质键（`Cultivation.tizhiDouble/setTizhiDouble`）、灵力精力与境界（`Cultivation.get/set`） |
 | 敌友判定 | relation 的 `Relations.team/isFriendly`；`/shanghai` 与受伤处理按攻击方、受击方是否玩家分四种组合，规则同上文“伤害主链”（来源把受击玩家的数据来源与攻击者的混用，生物攻击玩家不会判为友方） |

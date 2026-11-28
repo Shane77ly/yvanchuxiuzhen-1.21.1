@@ -24,6 +24,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -44,6 +45,7 @@ import net.yvanchuxiuzhen.system.combat.CombatSetup;
 import net.yvanchuxiuzhen.system.combat.content.DummyMenu;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyEntity;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyItem;
+import net.yvanchuxiuzhen.system.combat.damage.CombatDamageTypes;
 import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
@@ -53,17 +55,26 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 战斗系统的实机检查：以铁傀儡（无 AI，100 点生命，法术防御 3、神识防御 2）为靶，核对灵力与神识伤害的结算数值、
- * 命令 {@code /shanghai}、闪避、手下留情，以及 Q18/Q29/Q30 修复与加点、恢复、毒药效果在服务端的结果。
+ * 命令 {@code /shanghai}、闪避、手下留情，以及 Q18/Q29/Q30/Q32/Q33/Q34 修复与加点、恢复、毒药效果在服务端的结果。
  * 期望值按 docs/systems/combat/architecture.md 的公式手算。
  */
 final class CombatCheck extends SystemCheck {
     private IronGolem poisoned;
+    private IronGolem redPoison;
+    private IronGolem mandrakeHigh;
     private long effectsStart;
     private IronGolem mandrake;
     private IronGolem bystander;
     private IronGolem effectLifecycle;
     private double resistanceBefore;
     private long lifecycleStart;
+    private double savedPoisonPct;
+    private double savedLosePct;
+    private double savedCorpseLevel;
+    private boolean savedNaturalRegen;
+    private Difficulty savedPoisonDifficulty;
+    private GameType savedPoisonMode;
+    private float corpseHealthBefore;
 
     private final Screenshots screenshots;
     private WoodenDummyEntity dummy;
@@ -107,19 +118,41 @@ final class CombatCheck extends SystemCheck {
                     near("断肠 100 刻后 生命", 100 - 8, poisoned.getHealth());
                     near("曼陀罗 两个周期的阴伤害 2 × 12²/(12+3)", 100 - 2 * 144.0 / 15, mandrake.getHealth());
                     expectTrue("曼陀罗把烙毒传给身边的生物", bystander.hasEffect(StatusEffects.holder("duyao_14")));
+                    near("Q33 赤炼毒读自身 2 级 两个周期后扣血", 100 - 2 * 8, redPoison.getHealth());
+                    near("Q33 曼陀罗独立计数读自身 2 级且尸毒按 80 刻结算", 100 - 2 * (24.0 * 24.0 / 27.0) - 2.0, mandrakeHigh.getHealth());
+                    near("Q33 尸毒保留玩家体质毒伤放大倍率", 4.0, corpseHealthBefore - player.getHealth());
+                    StatusEffects.remove(player, "duyao_20");
+                    Cultivation.setTizhiDouble(player, "duyao20level", savedCorpseLevel);
                     poisoned.discard();
                     mandrake.discard();
                     bystander.discard();
+                    redPoison.discard();
+                    mandrakeHigh.discard();
+                    player.setGameMode(savedPoisonMode);
+                    player.setHealth(player.getMaxHealth());
                     verifyStage4CombatFixes(player, player.serverLevel());
                     clean(player);
                     dummy(player);
+                    player.setGameMode(GameType.SURVIVAL);
+                    player.setHealth(player.getMaxHealth());
+                    player.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_09"), 20, 0));
                 });
             }
             case 3 -> {
                 if (local < 5) {
                     return false;
                 }
-                onServer(player -> expect("木人桩受击后下一刻回满生命", 1024, dummy.getHealth()));
+                onServer(player -> {
+                    expect("木人桩受击后下一刻回满生命", 1024, dummy.getHealth());
+                    near("Q33 番木鳖体质放大扣血量而非目标阈值", Math.max(player.getMaxHealth() - 20.0, 1.0), player.getHealth());
+                    StatusEffects.remove(player, "duyao_09");
+                    Cultivation.setTizhiDouble(player, "PoisonEffectPercentage", savedPoisonPct);
+                    Cultivation.setTizhiDouble(player, "PoisonLoseEfficacyPercentage", savedLosePct);
+                    player.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(savedNaturalRegen, player.server);
+                    player.serverLevel().getServer().setDifficulty(savedPoisonDifficulty, true);
+                    player.setGameMode(savedPoisonMode);
+                    player.setHealth(player.getMaxHealth());
+                });
             }
             case 4 -> {
                 if (local < 40) {
@@ -374,7 +407,7 @@ final class CombatCheck extends SystemCheck {
         level.setBlock(rock.below(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
     }
 
-    /** 命中附魔：护甲附魔对受击者身边的非友好生物发固定火伤害；主手附魔的控制效果与灵体杀手（取重伤的等级）。 */
+    /** 命中附魔：护甲附魔对受击者身边的非友好生物发固定火/冰/雷伤害并始终豁免自身；主手附魔各读自身等级与受击者世界坐标（Q32）。 */
     private void enchantments(ServerPlayer player, ServerLevel level) {
         IronGolem wearer = golem(player, 100);
         Relations.setTeam(wearer, "smoketeam");
@@ -390,11 +423,25 @@ final class CombatCheck extends SystemCheck {
         wearer.discard();
         neighbour.discard();
 
-        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted(level, Map.of("threaten", 100, "lingtikiller", 1, "zhongshang", 1)));
+        IronGolem untamedWearer = golem(player, 100);
+        untamedWearer.setItemSlot(EquipmentSlot.HEAD, enchanted(level, Map.of("firearmor", 100, "icearmor", 100, "discharge", 100)));
+        hit(player, untamedWearer, new Shanghai.Request(DamageCategory.NONE, player.getUUID(), true, 6, 1));
+        expectTrue("Q32 未入队穿戴者触发火冰雷甲反伤时始终豁免自身", untamedWearer.getHealth() > 90);
+        untamedWearer.discard();
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted(level, Map.of("threaten", 100, "lingtikiller", 2, "liuqing", 2, "sawtooth", 100, "chaos", 1)));
         IronGolem target = golem(player, 100);
+        target.moveTo(player.getX() + 3, player.getY(), player.getZ() + 20, 0, 0);
+        prepareSpace(level, target.getBoundingBox());
+        target.addEffect(new MobEffectInstance(StatusEffects.holder("effect_004"), 100, 0));
         hit(player, target, new Shanghai.Request(DamageCategory.NONE, player.getUUID(), true, 6, 1));
         expectTrue("威慑 100 级 目标失明", target.hasEffect(MobEffects.BLINDNESS));
-        expectTrue("灵体杀手取重伤的等级 1 × 2 点，加上伤害 4，至少损失 6 点生命 实际 " + target.getHealth(), target.getHealth() <= 94 + 1e-3);
+        expectTrue("Q32 灵体杀手读自身 2 级造成 4 点额外扣血（不含重伤） 实际 " + target.getHealth(), target.getHealth() <= 92 + 1e-3);
+        MobEffectInstance mercy = target.getEffect(StatusEffects.holder("effect_036"));
+        expectTrue("Q32 留情读自身 2 级持续 80 刻（无需冰爆附魔）", mercy != null && mercy.getDuration() >= 78 && mercy.getDuration() <= 80);
+        MobEffectInstance sawtoothEffect = target.getEffect(StatusEffects.holder("effect_004"));
+        expectTrue("Q32 锯齿叠加不二次乘 20（100+600=700 刻内）", sawtoothEffect != null && sawtoothEffect.getDuration() >= 698 && sawtoothEffect.getDuration() <= 700);
+        expectTrue("Q32 混沌在远离原点 Z 处仍命中受击者周围", target.hasEffect(MobEffects.WEAKNESS) && StatusEffects.has(target, "effect_035"));
         target.discard();
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
     }
@@ -517,12 +564,44 @@ final class CombatCheck extends SystemCheck {
         player.addEffect(new MobEffectInstance(StatusEffects.holder("effect_011"), 100, 0));
         player.addEffect(new MobEffectInstance(StatusEffects.holder("effect_008"), 100, 1));
 
+        golem = golem(player, 100);
+        for (boolean soul : new boolean[] {false, true}) {
+            String noAttacker = CombatDamageTypes.source(level, soul, null).getLocalizedDeathMessage(golem).getString();
+            String withAttacker = CombatDamageTypes.source(level, soul, player).getLocalizedDeathMessage(golem).getString();
+            expectTrue("Q34 死亡消息不含原始键名（无攻击者 soul=" + soul + "）：" + noAttacker,
+                    !noAttacker.contains("death.attack") && (noAttacker.contains(soul ? "神识" : "灵力") || noAttacker.contains("spiritual")));
+            expectTrue("Q34 死亡消息含击杀者且无原始键名（有攻击者 soul=" + soul + "）：" + withAttacker,
+                    !withAttacker.contains("death.attack") && withAttacker.contains(player.getDisplayName().getString()));
+        }
+        golem.discard();
+
         effectsStart = level.getGameTime();
         poisoned = golem(player, 100);
         poisoned.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_01"), 400, 1));
         mandrake = golem(player, 100);
         mandrake.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_21"), 400, 0));
         mandrake.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_14"), 400, 0));
+        redPoison = golem(player, 100);
+        redPoison.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_13"), 400, 1));
+        mandrakeHigh = golem(player, 100, 12);
+        mandrakeHigh.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_21"), 400, 1));
+        mandrakeHigh.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_20"), 400, 0));
         bystander = golem(player, 100, 5);
+
+        savedPoisonPct = Cultivation.tizhiDouble(player, "PoisonEffectPercentage");
+        savedLosePct = Cultivation.tizhiDouble(player, "PoisonLoseEfficacyPercentage");
+        savedCorpseLevel = Cultivation.tizhiDouble(player, "duyao20level");
+        savedNaturalRegen = level.getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION);
+        savedPoisonDifficulty = level.getDifficulty();
+        savedPoisonMode = player.gameMode.getGameModeForPlayer();
+        Cultivation.setTizhiDouble(player, "PoisonEffectPercentage", 1.0);
+        Cultivation.setTizhiDouble(player, "PoisonLoseEfficacyPercentage", 0.0);
+        Cultivation.setTizhiDouble(player, "duyao20level", 0.0);
+        level.getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(false, player.server);
+        level.getServer().setDifficulty(Difficulty.NORMAL, true);
+        player.setGameMode(GameType.SURVIVAL);
+        player.setHealth(player.getMaxHealth());
+        corpseHealthBefore = player.getHealth();
+        player.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_20"), 120, 0));
     }
 }

@@ -13,43 +13,52 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 灵纹附魔的实机检查：主手武器带灵纹附魔命中非友方目标时在攻击者处生成灵纹特效，再命中则增加数量（上限 6）；
  * 灵纹特效每 20 刻朝主人的视线射出灵纹弹并减一枚，每 100 刻自然减一枚，数量归零后消失；
- * 没有灵纹附魔、命中友方、起尸诀附魔（来源的 {@code fumolevel}）要求的灵力受击者没有（非玩家）都不生成。
+ * 按 Q45 校验：读取自身 {@code lingwen} 等级并从攻击者扣减灵力、攻击者灵力不足不生成，且不污染攻击者好友表。
  */
 final class LingwenCheck extends ActionCheck {
     private static final double HEALTH = 100;
     private static final String RUNE = "lingwentexiao_2";
 
     private IronGolem target;
+    private double originalPower;
 
     LingwenCheck(List<String> report, String levelId) {
         super("灵纹", report, levelId);
         script(
                 new Action(12, player -> {
+                    originalPower = Cultivation.get(player, CultivationValue.POWER);
                     Arena.level(player);
                     clearArea(player);
                 }),
                 new Action(2, player -> {
-                    stage(player, 2, 0, false);
+                    stage(player, 2, 0, false, 100);
                     hit(player);
                     expect("命中后生成一个灵纹特效", 1, runes(player).size());
                     expect("灵纹数量", 1, count(player));
+                    expect("按灵纹 2 级从攻击者扣减 10 点灵力", 90.0, Cultivation.get(player, CultivationValue.POWER));
+                    expectTrue("灵纹不污染攻击者好友列表", !player.getData(RelationAttachments.PLAYER).allegiance().hasFriendKey("lingwennum")
+                            && !player.getData(RelationAttachments.PLAYER).allegiance().hasFriendKey("belongToMasterUUID"));
                     expectTrue("灵纹特效属于攻击者", runes(player).get(0).attacker().equals(player.getUUID()));
                 }),
                 new Action(28, player -> {
                     hit(player);
                     expect("再次命中不再生成新的", 1, runes(player).size());
                     expect("再次命中数量加一", 2, count(player));
+                    expect("再次命中再扣减 10 点攻击者灵力", 80.0, Cultivation.get(player, CultivationValue.POWER));
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
                 }),
                 new Action(2, player -> expect("20 刻检查射出灵纹弹后减一枚（主人已不持灵纹武器，弹体不再触发命中）", 1, count(player))),
                 new Action(28, player -> {
-                    stage(player, 2, 0, false);
+                    stage(player, 2, 0, false, 100);
                     hit(player);
                     target.setHealth((float) HEALTH);
                 }),
@@ -59,22 +68,29 @@ final class LingwenCheck extends ActionCheck {
                     expectTrue("射出一枚后按来源命中顺序保留一或两枚灵纹（" + count + ")", count == 1 || count == 2);
                 }),
                 new Action(2, player -> {
-                    stage(player, 0, 0, false);
+                    stage(player, 0, 0, false, 100);
                     hit(player);
                     expect("没有灵纹附魔不生成", 0, runes(player).size());
                 }),
                 new Action(2, player -> {
-                    stage(player, 2, 0, true);
+                    stage(player, 2, 0, true, 100);
                     hit(player);
                     expect("命中友方不生成", 0, runes(player).size());
                 }),
                 new Action(2, player -> {
-                    stage(player, 1, 2, false);
+                    stage(player, 1, 2, false, 6);
                     hit(player);
-                    expect("起尸诀附魔要求受击者有灵力，非玩家不生成", 0, runes(player).size());
+                    expect("灵纹 1 级+起尸诀 2 级时按灵纹 1 级扣攻击者 5 点灵力生成（不读起尸诀也不读非玩家受击者）", 1, runes(player).size());
+                    expect("扣减后剩余 1 点灵力", 1.0, Cultivation.get(player, CultivationValue.POWER));
+                }),
+                new Action(2, player -> {
+                    stage(player, 2, 0, false, 5);
+                    hit(player);
+                    expect("攻击者灵力不足时不生成", 0, runes(player).size());
+                    expect("灵力不足时不扣灵力", 5.0, Cultivation.get(player, CultivationValue.POWER));
                 }),
                 new Action(3, player -> {
-                    stage(player, 2, 0, false);
+                    stage(player, 2, 0, false, 100);
                     hit(player);
                     runes(player).get(0).setSkillTick(99);
                 }),
@@ -102,9 +118,10 @@ final class LingwenCheck extends ActionCheck {
         }
     }
 
-    /** 清场；玩家朝东，主手金剑带灵纹 {@code lingwen} 级与起尸诀 {@code qishi} 级附魔；东侧 2 格放一个目标（{@code friend} 为真时与玩家同队）。 */
-    private void stage(ServerPlayer player, int lingwen, int qishi, boolean friend) {
+    /** 清场；玩家朝东，主手金剑带灵纹 {@code lingwen} 级与起尸诀 {@code qishi} 级附魔，写入攻击者灵力；东侧 2 格放一个目标（{@code friend} 为真时与玩家同队）。 */
+    private void stage(ServerPlayer player, int lingwen, int qishi, boolean friend, double power) {
         clearArea(player);
+        Cultivation.set(player, CultivationValue.POWER, power);
         player.setYRot(-90);
         player.setXRot(0);
         Registry<Enchantment> enchantments = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
@@ -135,5 +152,6 @@ final class LingwenCheck extends ActionCheck {
     protected void cleanup(ServerPlayer player) {
         clearArea(player);
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        Cultivation.set(player, CultivationValue.POWER, originalPower);
     }
 }

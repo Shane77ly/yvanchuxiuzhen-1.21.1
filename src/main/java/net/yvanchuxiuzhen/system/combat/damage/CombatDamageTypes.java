@@ -11,8 +11,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 
 /**
  * 灵力伤害 {@code linglidamage} 与神识伤害 {@code jinglidamage} 的伤害类型（数据包定义，绕过护甲）。
- * 来源有来源者时用消息 ID {@code <名>.player}、没有时用 {@code <名>}，两种各是一个类型；
- * 来源语言文件里的死亡消息键缺一个点（{@code death.attacklinglidamage.player}），与消息 ID 对不上，保持来源（Q34）。
+ * 有来源者时用消息 ID {@code <名>.player}、没有时用 {@code <名>}，两种各是一个类型（死亡消息键已修正为 {@code death.attack.*}）。
  */
 public final class CombatDamageTypes {
     private CombatDamageTypes() {

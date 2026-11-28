@@ -2,10 +2,12 @@
 topic: skill
 role: entry
 status: partial
-updated: 2026-11-26
+updated: 2026-11-28
 ---
 
 # 技能
+
+阶段 4 续批（子批 4）已修复 Q45 灵纹附魔：`LingwenHit` 改按自身 `lingwen` 等级生成与扣减**攻击者**灵力，`Relations.initializeRune` 改用独立 `copyFrom` 不再污染攻击者好友列表；`LingwenCheck`（`-PsmokeOnly=combat,lingwen`）18 项全部通过（[本月记录](logs/2026-11.md#2026-11-28-阶段-4q45-灵纹附魔修复)）。
 
 08 号暗箭落地不再执行无效召唤，保留不出云与正常掉落；目标客户端结果见[技能月志](logs/2026-11.md#2026-11-26-暗箭落地)。
 
