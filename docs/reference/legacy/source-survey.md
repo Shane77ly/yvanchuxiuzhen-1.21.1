@@ -99,7 +99,7 @@ updated: 2026-11-26
 | Q01 | 同名功法字段已按类型分开；实际栏位和学习小游戏分别建模 | [功法](../../systems/gongfa/architecture.md) |
 | Q02 | 制造职业快照与当前玩家/装置绑定，决定多人协作规则 | [炼器](../../systems/lianqi/architecture.md) |
 | Q03 | 炼丹等级检查在图中为游离块，Java 与已连接图一致；恢复门槛属于行为调整 | [炼丹](../../systems/liandan/architecture.md) |
-| Q04 | 阵法五行费用倍率缺失、分派名称错配、火2类别错配及部分伤害链未闭合 | [阵法](../../systems/zhenfa/architecture.md) |
+| Q04 | 阵法配方倍率与类别已在子批 1 修复；执行器名称分派及伤害断链保留待裁定 | `formations.json` 已修复火2归为`"火"`且五行倍率补齐`[0.5,1.0,1.5,2.0]`（`FormationCheck`已验）；Zhenjineng03–07仍判断阴1–4及Q31待裁定 | [阵法](../../systems/zhenfa/architecture.md) |
 | Q05 | 商店灵石购买：已修正一级找零错用二级金额 | [经济正文](../../systems/economy/architecture.md)、[复现与验证范围](../../systems/economy/logs/2026-11.md#阶段-4-首批商店找零) |
 | Q06 | 世界定义在初始化门外重写，静态定义/实例/管理覆盖需分开 | [世界](../../systems/world/architecture.md) |
 | Q07 | 真实容器绑定、材料仓玩家归属、关闭与死亡后的资产去向 | [容器](../../systems/storage/architecture.md) |
@@ -191,7 +191,7 @@ updated: 2026-11-26
 | Q78 | 来源能力对象疑点；保持来源，待集中裁定 | B:`PlayerRightClickEntity:113`读取大管家NPC的玩家`birth`能力，A的能力只附加Player，自然入口走普通04脚本；不改读交互玩家的出身 | [NPC](../../systems/npc/architecture.md#q78-大管家出生判定读取错误实例) |
 | Q79 | 来源空入口；保留身份，待集中复核 | 城镇Ui02无按钮、Ui03/04/05仅注册，Ui01占领与Ui05官职按钮为空；不补造管理玩法。未连接分支继续作为开放内容保留 | [城镇](../../systems/town/architecture.md#q79-城镇空监听与页面调用断链) |
 | Q80 | 来源刷新入口；保持自然链，待集中复核 | 悬赏页面只有六个领取整行按钮，没有六个刷新按钮；`Xvanshangshuaxin`无调用者，单行刷新由目标死亡触发。不能凭过程名增设刷新入口 | [任务](../../systems/quest/architecture.md#q80-悬赏刷新无玩家入口) |
-| Q81 | 来源配置畸形；保持异常串，待核实运行影响 | 镇妖塔固定点共44个，其中`(1278,83,-587)`的`fubenshujv`只有奖励列表、无波次头；源解析读取`fields[1]`会越界。保留原配置，不补造波次头，未运行此分支 | [副本](../../systems/dungeon/architecture.md) |
+| Q81 | 已在子批 1 修复并验证 | 镇妖塔`(1278,83,-587)`补充串遗漏波次头，已合并`zhenyaota.nbt`原有“山中无老虎”3波头与更新后5条奖励写入`dungeons.json`（`tower_1278_83_-587`），`DungeonCheck`已验 | [副本](../../systems/dungeon/architecture.md) |
 | Q82 | 来源映射与动画疑点；保持来源，待集中复核 | 私人画卷地灵界与无归界的回程映射互换，首次动画实际选择1；按实际分支迁移，不依据名称交换，未作两版本实机对照 | [副本](../../systems/dungeon/architecture.md) |
 | Q83 | 来源载体误读；保持来源，待集中裁定 | B:`Duihuashijian:185–190`字符串“加”从会话读取旧串，却写剧情持久域；连续累加不接续剧情域旧值 | [任务Q83](../../systems/quest/architecture.md#q83-字符串累加读取会话载体) |
 | Q84 | 已在阶段 4 修复并验证 | B:`Duihuashijiantwo:452–470` 拼错右括号；`DialogueRuntime.matchesDimension`（与 `QuestChatRuntime` 共用）改用 `ResourceLocation` 直接比对，`QuestJournalCheck` 分支检查通过 | [任务Q84](../../systems/quest/architecture.md#q84-当前维度字符串拼接) |
@@ -219,7 +219,7 @@ updated: 2026-11-26
 | Q106 | 来源占位清理与攻击位断链；保持来源，待集中复核 | B的清理遇X偏移0停止、扫描不清累计计数；未勾攻击不清旧真，解析复制攻击位而释放不消费 | [副本Q106](../../systems/dungeon/architecture.md#q106-占位符扫描与攻击位) |
 | Q107 | 来源区域统计与标题疑点；保持来源，待集中裁定 | B:`FubenblockGengXinYouXiKeProcedure`统计区域所有玩家/副本怪物，不核实例控制点；名字直接拼JSON标题，未补过滤或转义 | [副本Q107](../../systems/dungeon/architecture.md#q107-区域统计与标题) |
 | Q108 | 来源同维度延后回调疑点；保持来源，待集中裁定 | 两刻延后失败回程若已在目标维度直接退出、未注销监听；目标任务继续尝试，服务器结束清空运行期任务，未验该分支 | [副本Q108](../../systems/dungeon/architecture.md#q108-同维度失败回调不注销) |
-| Q109 | 来源奖励字段错位；保持原串，待集中裁定 | 两份镇妖塔火焰护盾含`30//jinengneeditem…`，三元组错位，后续数值/冷却未写；火鸟术空吟唱按来源转0，不补字段 | [副本Q109](../../systems/dungeon/architecture.md#q109-火焰护盾奖励错位) |
+| Q109 | 已在子批 1 修复并验证 | 两份镇妖塔“火焰护盾”已修复为`降低30%/jinengneeditem/`，“火鸟术”空`jinengjieyin`修复为`0`，写入`dungeons.json`并通过解析检查 | [副本Q109](../../systems/dungeon/architecture.md#q109-火焰护盾奖励错位已在子批-1-修复并验证) |
 | Q110 | 来源实体掉落表上下文疑点；保持来源，待集中复核 | `organism_11`三处`apply_bonus(fortune, ore_drops)`要求`minecraft:tool`，目标加载时告警；来源函数相同，实际掉落影响及两版本对照未验 | [生物Q110](../../systems/creature/architecture.md#q110-organism_11掉落上下文) |
 | Q111 | 二次入场检查时序疑点；后续全链通过，前轮原因未定 | 补维度首轮第二次入场复合条件超时、缺分阶段状态；夹具菜单稳定等待后，日志确认扣票/候场/控制器准备及全部后续通过。未改副本生产流程，不定性来源或目标Bug，不以复验通过抹去前轮未知原因 | [副本Q111](../../systems/dungeon/architecture.md#q111-二次入场的检查时序疑点) |
 | Q112 | 已确认目标显示差异；待统一对齐 | 占位符标签由来源原ID/黑色/(6,16)变为“占位符ID：”加ID/灰色/(6,11)；控制器标签颜色也不同。当前未修正，不宣称完整视觉保真 | [副本Q112](../../systems/dungeon/architecture.md#q112-控制器与占位符标签的目标显示差异) |

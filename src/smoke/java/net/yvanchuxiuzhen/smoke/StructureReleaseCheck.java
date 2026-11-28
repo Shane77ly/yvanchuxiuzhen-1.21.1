@@ -15,8 +15,10 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.dungeon.DungeonDefinitions;
 import net.yvanchuxiuzhen.system.dungeon.DungeonPlayers;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition;
 import net.yvanchuxiuzhen.system.world.StructureExploration;
 
 /** 真实管理命令检查：目标匹配、未知结构清理、固定模板放置与镇妖塔四十刻补充；不重跑副本战斗。 */
@@ -126,7 +128,7 @@ final class StructureReleaseCheck extends SystemCheck {
                     for (BlockPos pos : TOWER) if (player.serverLevel().getBlockEntity(pos) instanceof DungeonBlockEntity) present++;
                     expect("真实模板放置四十四个副本入口", 44, present);
                     DungeonBlockEntity first = (DungeonBlockEntity) player.serverLevel().getBlockEntity(TOWER.getFirst());
-                    beforeTower = first.state().getString("fubenshujv");
+                    beforeTower = first.definitionId();
                     commandTick = player.server.getTickCount();
                 });
                 return true;
@@ -139,19 +141,22 @@ final class StructureReleaseCheck extends SystemCheck {
                     int floors = 0;
                     for (BlockPos pos : TOWER) {
                         if (player.serverLevel().getBlockEntity(pos) instanceof DungeonBlockEntity block) {
-                            String definition = block.state().getString("fubenshujv");
-                            if (!definition.isEmpty()) configured++;
-                            if (definition.contains("%")) fullHeaders++;
+                            String definitionId = block.definitionId();
+                            if (!definitionId.isEmpty()) configured++;
+                            DungeonDefinition def = DungeonDefinitions.byId(definitionId);
+                            if (!def.name().isEmpty() && !def.waves().isEmpty()) fullHeaders++;
                         }
                         if (BuiltInRegistries.BLOCK.getKey(player.serverLevel().getBlockState(pos.below()).getBlock()).getPath().equals("ginkgofloor")) floors++;
                     }
-                    expect("四十刻后四十四点均补充来源定义", 44, configured);
-                    expect("来源四十三份波次头保持", 43, fullHeaders);
+                    expect("四十刻后四十四点均补充强类型定义", 44, configured);
+                    expect("Q81修复后四十四点波次头均完整", 44, fullHeaders);
                     expect("四十四点楼板均为坐标Y减一", 44, floors);
-                    String after = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(TOWER.getFirst())).state().getString("fubenshujv");
-                    expectTrue("四十刻后处理已覆盖模板中的原定义", !after.equals(beforeTower));
-                    String broken = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(MALFORMED)).state().getString("fubenshujv");
-                    expectTrue("Q81畸形定义保持且未自行补造波次头", !broken.isEmpty() && !broken.contains("%"));
+                    String after = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(TOWER.getFirst())).definitionId();
+                    expectTrue("四十刻后保持有效塔层定义ID", !after.isEmpty() && after.equals(beforeTower));
+                    String q81Id = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(MALFORMED)).definitionId();
+                    DungeonDefinition q81Def = DungeonDefinitions.byId(q81Id);
+                    expectTrue("Q81(1278,83,-587)补齐山中无老虎三波定义且含五件奖励", q81Def.name().equals("山中无老虎")
+                            && q81Def.waves().size() == 3 && q81Def.rewards().size() == 5);
                     player.closeContainer();
                 });
                 finish();

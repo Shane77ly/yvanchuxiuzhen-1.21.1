@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.GameType;
@@ -33,6 +34,8 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonPlayerData;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonTransientData;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonWorldData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
@@ -53,40 +56,48 @@ public final class DungeonPlayers {
 
     public static void tick(CultivationSecondEvent event) {
         ServerPlayer player = event.player();
-        CompoundTag state = player.getData(DungeonData.PLAYER);
-        CompoundTag transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
-        if (transientState.getBoolean("openfubengui") && !player.level().getBlockState(player.blockPosition()).is(block("tiandaofuben"))) transientState.putBoolean("openfubengui", false);
-        if (state.getBoolean("fubenstate")) {
-            state.putDouble("daojishi", state.getDouble("daojishi") - 1);
+        DungeonPlayerData state = player.getData(DungeonData.PLAYER);
+        DungeonTransientData transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
+        if (transientState.portalOpened() && !player.level().getBlockState(player.blockPosition()).is(block("tiandaofuben"))) {
+            transientState = transientState.withPortalOpened(false);
+            player.setData(DungeonData.PLAYER_TRANSIENT, transientState);
+        }
+        if (state.waiting()) {
+            state = state.withCountdown(state.countdown() - 1);
             List<ServerPlayer> members = waitingPlayers(player);
-            for (ServerPlayer member : members) member.displayClientMessage(Component.literal(new DecimalFormat("0").format(state.getDouble("daojishi")) + "秒后进入战斗"), true);
-            if (state.getDouble("daojishi") <= 0) {
-                BlockPos pos = position(state, "fubenzuobiao");
+            for (ServerPlayer member : members) member.displayClientMessage(Component.literal(new DecimalFormat("0").format(state.countdown()) + "秒后进入战斗"), true);
+            if (state.countdown() <= 0) {
+                BlockPos pos = state.controllerPos();
                 ServerLevel level = player.serverLevel();
                 replaceController(level, pos);
-                for (ServerPlayer member : members) member.teleportTo(state.getDouble("fubenplayerX"), state.getDouble("fubenplayerY"), state.getDouble("fubenplayerZ"));
+                for (ServerPlayer member : members) member.teleportTo(state.entryX(), state.entryY(), state.entryZ());
                 if (level.getBlockEntity(pos) instanceof DungeonBlockEntity controller) {
-                    CompoundTag data = controller.state();
-                    for (String key : new String[]{"fubenname", "fubenshujv", "chuansongid"}) data.putString(key, state.getString(key));
-                    for (String axis : new String[]{"X", "Y", "Z"}) data.putDouble("chuansong" + axis, state.getDouble("chuansong" + axis));
-                    data.putBoolean("fubenopen", true);
+                    controller.setDungeonName(state.dungeonName());
+                    controller.setDefinitionId(state.definitionId());
+                    controller.setReturnDimension(state.returnDimension());
+                    controller.setReturnPos(state.returnPos().getX(), state.returnPos().getY(), state.returnPos().getZ());
+                    controller.setOpenRequested(true);
                     controller.changed();
                 }
-                state.putBoolean("fubenstate", false);
+                state = state.withWaiting(false);
             }
-        } else if (transientState.getBoolean("fubenfanhui")) {
-            state.putBoolean("fubenfanhui", true);
-            transientState.putBoolean("fubenfanhui", false);
-        } else if (!player.level().dimension().equals(PAINTING) && state.getBoolean("fubenfanhui")) {
-            if (player.level().getBlockEntity(position(state, "chuansong")) instanceof DungeonBlockEntity entrance) {
-                CompoundTag data = entrance.state();
-                data.putBoolean("fubenbegin", false);
-                for (String prefix : new String[]{"fubenzuobiao", "fubenplayer"}) {
-                    if (data.getDouble(prefix + "X") == 0) for (String axis : new String[]{"X", "Y", "Z"}) data.putDouble(prefix + axis, state.getDouble(prefix + axis));
+            player.setData(DungeonData.PLAYER, state);
+        } else if (transientState.pendingReturn()) {
+            player.setData(DungeonData.PLAYER, state.withReturning(true));
+            player.setData(DungeonData.PLAYER_TRANSIENT, transientState.withPendingReturn(false));
+        } else if (!player.level().dimension().equals(PAINTING) && state.returning()) {
+            if (player.level().getBlockEntity(state.returnPos()) instanceof DungeonBlockEntity entrance) {
+                entrance.setOnCooldown(false);
+                if (entrance.entranceControllerX() == 0) {
+                    BlockPos ctrl = state.controllerPos();
+                    entrance.setEntranceControllerPos(ctrl.getX(), ctrl.getY(), ctrl.getZ());
+                }
+                if (entrance.entrancePlayerX() == 0) {
+                    entrance.setEntrancePlayerPos(state.entryX(), state.entryY(), state.entryZ());
                 }
                 entrance.changed();
             }
-            state.putBoolean("fubenfanhui", false);
+            player.setData(DungeonData.PLAYER, state.withReturning(false));
         }
     }
 
@@ -102,8 +113,8 @@ public final class DungeonPlayers {
 
     /** 恢复附件中来源四种游戏模式；识别成功即清空标记，未知文本保留。 */
     public static void restoreGameMode(ServerPlayer player) {
-        CompoundTag state = player.getData(DungeonData.PLAYER);
-        GameType mode = switch (state.getString("gamemoshi")) {
+        DungeonPlayerData state = player.getData(DungeonData.PLAYER);
+        GameType mode = switch (state.previousGameMode()) {
             case "冒险" -> GameType.ADVENTURE;
             case "生存" -> GameType.SURVIVAL;
             case "创造" -> GameType.CREATIVE;
@@ -112,7 +123,7 @@ public final class DungeonPlayers {
         };
         if (mode != null) {
             player.setGameMode(mode);
-            state.putString("gamemoshi", "");
+            player.setData(DungeonData.PLAYER, state.withPreviousGameMode(""));
         }
     }
 
@@ -128,18 +139,19 @@ public final class DungeonPlayers {
             }
             global.markLobbyGenerated();
         }
-        CompoundTag state = player.getData(DungeonData.PLAYER);
-        if (state.getBoolean("fubenstate") || !Relations.entityTemporaryTeam(player).isEmpty()) {
-            if (state.getBoolean("needfubenshengcheng")) {
+        DungeonPlayerData state = player.getData(DungeonData.PLAYER);
+        if (state.waiting() || !Relations.entityTemporaryTeam(player).isEmpty()) {
+            if (state.needGenerate()) {
                 double x = global.instanceX();
-                if (state.getString("fubenid").equals("fuben002")) {
+                if (state.templateId().equals("fuben002")) {
                     WorldStructures.place(level, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fuben002"), BlockPos.containing(x, 98, -100));
-                    coordinates(state, "fubenzuobiao", x, 98, -100);
-                    coordinates(state, "fubenplayer", x + 16, 100, -96);
-                    player.getData(DungeonData.PLAYER_TRANSIENT).putString("gamemoshi", state.getString("gamemoshi"));
+                    state = state.withControllerPos(BlockPos.containing(x, 98, -100))
+                            .withEntryPos(x + 16, 100, -96);
+                    player.setData(DungeonData.PLAYER_TRANSIENT, player.getData(DungeonData.PLAYER_TRANSIENT)
+                            .withPreviousGameMode(state.previousGameMode()));
                 }
                 global.advanceInstance();
-                state.putBoolean("needfubenshengcheng", false);
+                player.setData(DungeonData.PLAYER, state.withNeedGenerate(false));
             }
         } else PaintingRuntime.entered(player);
     }
@@ -168,17 +180,10 @@ public final class DungeonPlayers {
         return property != null && property.getPossibleValues().contains(value) ? state.setValue(property, value) : state;
     }
 
-    public static void coordinates(CompoundTag data, String prefix, double x, double y, double z) {
-        data.putDouble(prefix + "X", x); data.putDouble(prefix + "Y", y); data.putDouble(prefix + "Z", z);
-    }
-
-    static BlockPos position(CompoundTag data, String prefix) { return BlockPos.containing(data.getDouble(prefix + "X"), data.getDouble(prefix + "Y"), data.getDouble(prefix + "Z")); }
-
     /** 返回true对应来源在同维度命中时直接退出调用过程。 */
     static boolean returnFromController(ServerPlayer player, DungeonBlockEntity controller) {
-        CompoundTag data = controller.state();
-        ResourceKey<Level> target = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(data.getString("chuansongid")));
-        return travel(player, target, data.getInt("chuansongX"), data.getInt("chuansongY"), data.getInt("chuansongZ"));
+        ResourceKey<Level> target = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(controller.returnDimension()));
+        return travel(player, target, Mth.floor(controller.returnX()), Mth.floor(controller.returnY()), Mth.floor(controller.returnZ()));
     }
 
     public static boolean travel(ServerPlayer player, ResourceKey<Level> target, double x, double y, double z) {

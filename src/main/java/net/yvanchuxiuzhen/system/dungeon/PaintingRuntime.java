@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.dungeon;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -26,12 +25,11 @@ public final class PaintingRuntime {
     }
 
     public static void tick(DungeonBlockEntity block) {
-        CompoundTag data = block.state();
-        if (data.getBoolean("chuanyve")) {
-            data.putDouble("blocktick", data.getDouble("blocktick") + 1);
-            if (data.getDouble("blocktick") >= 8) {
-                data.putBoolean("chuanyve", false);
-                data.putDouble("blocktick", 0);
+        if (block.portalActive()) {
+            block.setPortalTicks(block.portalTicks() + 1);
+            if (block.portalTicks() >= 8) {
+                block.setPortalActive(false);
+                block.setPortalTicks(0);
             }
             block.changed();
         }
@@ -54,9 +52,9 @@ public final class PaintingRuntime {
             player.displayClientMessage(Component.literal("§4在这个维度无法使用。"), false);
             return;
         }
-        if (!block.state().getBoolean("chuanyve")) {
+        if (!block.portalActive()) {
             block.animate(1);
-            block.state().putBoolean("chuanyve", true);
+            block.setPortalActive(true);
             block.changed();
             return;
         }
@@ -139,8 +137,8 @@ public final class PaintingRuntime {
             case "修罗界" -> "yvanchuxiuzhen:dimensionxiuluo";
             case "人间界" -> "yvanchuxiuzhen:dimensionrenjian";
             case "妖魂界" -> "yvanchuxiuzhen:dimensionyaohun";
-            case "无归界" -> "yvanchuxiuzhen:dimensiondiling";
-            case "地灵界" -> "yvanchuxiuzhen:dimensionwugui";
+            case "地灵界" -> "yvanchuxiuzhen:dimensiondiling";
+            case "无归界" -> "yvanchuxiuzhen:dimensionwugui";
             default -> "";
         };
     }
