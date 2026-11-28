@@ -129,16 +129,16 @@ updated: 2026-11-26
 | Q32 | 已在阶段 4 修正并验证（2026-11-28）：毒药与 `sawtooth` 叠加改为 `已有剩余刻 + 600`（移除误乘 20）；`lingtikiller`/`liuqing` 改读自身附魔等级；`chaos` 改用受击者世界坐标 Z；`firearmor`/`icearmor`/`discharge` 范围反伤始终豁免穿戴者自身；`CombatCheck` 实机通过 | [战斗](../../systems/combat/architecture.md) |
 | Q33 | 已在阶段 4 修正并验证（2026-11-28）：`duyao_13` 改读自身等级；`duyao_20`（尸毒）保留玩家体质毒伤放大倍率；`duyao_21`（曼陀罗）使用独立计时 `duyao21tick` 并读自身等级；`duyao_09`（番木鳖）将体质放大乘在扣血量上；`effect_010`/`effect_017` 中英文说明对齐“每秒恢复（效果等级 + 1）× 10”；`CombatCheck` 实机通过 | [战斗](../../systems/combat/architecture.md) |
 | Q34 | 已在阶段 4 修正并验证（2026-11-28）：补齐并修正 `death.attack.linglidamage`（含 `.player`/`.player.item`）与 `death.attack.jinglidamage`（含 `.player`/`.player.item`）中英文语言键；`CombatCheck` 实机确认死亡消息无裸键且包含攻击者显示名 | [战斗](../../systems/combat/architecture.md) |
-| Q35 | 淬毒炼药锅 `CauldronduyaoZaiFangKuaiShangYouJian` 的条件前后不一致：蜂毒（`beepoison`）要求武器还没有该附魔，其余七种毒药要求武器已经有该附魔（再附为 1 级）；右键空气的 `Cailiao141…146` 则要求副手武器没有该附魔。评估为轻微，保持来源行为，随 lianqi 迁移时裁定 | [炼器](../../systems/lianqi/architecture.md) |
-| Q36 | 技能冷却计算的疑似错误：`Colddownjisuan` 中增量变量 `linshicolddown` 在六个分组之间不重置，某组两个条件都不满足时沿用上一组的增量；阴阳组的“冷却不超过上限”比较读取的是土组冷却 `colddownSoil`（其余组读各自的）。评估为轻微，保持来源行为，随 skill 迁移 | [技能](../../systems/skill/architecture.md) |
-| Q37 | `/jineng` 命令没有权限要求（`/shenfa`、`/smanship`、`/flyskill`、`/technique` 都要求权限 1），任何玩家都能给自己生成任意参数的技能书。评估为中等偏轻（只有作者的测试命令在用），保持来源行为，待负责人裁定是否补权限 | [技能](../../systems/skill/architecture.md) |
-| Q38 | `Jiancewuqi` 的“武器太重”检查读取的是所选技能书的 `lianqizong.weightnum`，不是手持武器的，技能书没有该键，条件永远不成立，提示“武器太重了！无法正常释放技能”不会出现。评估为轻微，保持来源行为（不实现这条永不成立的检查），随 equipment 与 lianqi 的武器数据迁移时裁定 | [技能](../../systems/skill/architecture.md) |
-| Q39 | 技能选择的提示文字对调：施法中禁施（`skilleffect_09`）且未沉默时显示“沉默中”，沉默（`effect_002`）时显示“冷却中”；按键 Z（第 1 键）的选择不检查禁施与沉默，X、C、V 检查。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q35 | 已在阶段 4 修正并验证（2026-11-28）：`PoisonCrafting.useCauldron` 统一全部 8 种毒药（不再反转其余 7 种条件）为仅在主手武器尚未拥有该毒药附魔时淬毒 1 级并消耗毒锅；`EquipmentProductCheck`（`equipmentproduct`）实机通过 | [炼器](../../systems/lianqi/architecture.md) |
+| Q36 | 已在阶段 4 修正并验证（2026-11-28）：`SkillCasting.accumulateCooldowns` 将 `delta = 0` 重置移入六属性分组循环内避免跨组串台，并将阴阳组上限检查改为读取自身 `YINYANG` 冷却（不再错读 `SOIL`）；`SkillCheck`（`skillcore`）实机通过 | [技能](../../systems/skill/architecture.md) |
+| Q37 | 已在阶段 4 修正并验证（2026-11-28）：`SkillCommands` 将 `/jineng` 权限设为 `1`（与 `/shenfa`、`/smanship`、`/flyskill`、`/technique` 一致）；`SkillCheck`（`skillcore`）实机确认无权限（0 级）被拒且权限 4 正常掉落技能书 | [技能](../../systems/skill/architecture.md) |
+| Q38 | 已在阶段 4 修正并验证（2026-11-28）：`SkillCasting` 将 `weaponTooHeavy` 改读手持武器 `held` 的 `lianqizong.weightnum`（原读所选技能书）；`SkillCheck`（`skillcore`）实机确认手持重量 > 120 的剑拒绝施放并保留灵力 | [技能](../../systems/skill/architecture.md) |
+| Q39 | 已在阶段 4 修正并验证（2026-11-28）：`SkillSelection.handleKey` 为第 1 键（Z 键）补齐禁施/沉默校验，并纠正 `skilleffect_09`（禁施）与 `effect_002`（沉默）写反的提示键；`SkillCheck`（`skillcore`）实机通过 | [技能](../../systems/skill/architecture.md) |
 | Q40 | 拈花飞叶（`SkillTree01`）命中时读取弹体的 `AttackDamage` 与 `Damage_multiplier`；来源只在弹体到期时从所选技能的 `ManaAttackDamage`、`jinengshanghai` 写入这两个键，常规技能书通常不产生前一个键，因此通常为 0，但不能删掉来源写入与命中请求。`Ice02`（破碎冰矛）、`Light02`（定魄神光）复用 `Ice01`、`Light01` 的刻过程；飞羽冰花沿侧向圆弧飞行、计时每刻加两次，正前方的目标打不到。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
-| Q41 | 控火术（`SkillFire04`）用施放者自己 `getPersistentData` 里的 `AttackUUID` 拼 `/shanghai` 命令，玩家没有这个键，命令行里这一项为空串，空白合并后参数整体前移，实际按“无攻击者、基础量 = 伤害倍率、倍率 0”结算，伤害极小。评估为轻微，保持来源行为（直接传入前移后的攻击量和倍率，不把玩家补为攻击者） | [技能](../../systems/skill/architecture.md) |
-| Q42 | 巨石锤（`SkillRock05`）类型一与类型二落地攻击里 20% 的眩晕（`effect_001`）加给了实体自己（`entity`）而不是受击者（`entityiterator`）；化石手（`SkillRock04`）按实体自己的朝向取 3.5 格或 1 格处作为攻击中心，而生成时朝向是随机的，攻击方向随机。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q41 | 已在阶段 4 修正并验证（2026-11-28）：`FireEntities.controlFire`（控火术）补回 `caster` 作为攻击来源，并以 `book.manaAttack()` 与 `book.damageMultiplier()` 正常结算火系伤害（另 `天外陨石` 保留 0 伤害语义）；`SkillEntityCheck`（`skillentity`）实机确认控火术伤人点燃并熄火 | [技能](../../systems/skill/architecture.md) |
+| Q42 | 已在阶段 4 修正并验证（2026-11-28）：`RockEntities.BoulderHammer.hammer` 将 20% 概率的 600 刻眩晕（`effect_001`）改为施加给受击生物 `living`，不再加给锤子实体自身；化石手随机朝向维持来源语义；`SkillEntityCheck`（`skillentity`）实机通过 | [技能](../../systems/skill/architecture.md) |
 | Q43 | 雷系两处疑似疏漏（2026-11-05 更正：此前认为地滚雷比较的队伍名对玩家恒为空串、施放者本人走近也会触发，这是错的——登录过程 `PlayerJoinGame` 与每秒一次的 `Playerhuifu` 都把玩家变量 `team` 写入玩家的 `getPersistentData`，所以玩家的值就是其团队名，施放者本人与同队实体不会触发）：地滚雷（`SkillThunder08`）生成时没有转向，前进方向是随机朝向；`Skillwind02` 的聚风术（非聚风化气）不分敌友拉扯 4 格内全部实体。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
-| Q44 | 木系四处疑似疏漏：木篱术（`SkillTree05shifang`）放出九道木篱时只 `addFreshEntity`、没有走 `finalizeSpawn`，木篱的状态停在空串，实体刻过程不会让它展开、收起或消失，施放出的木篱永久留在世界里直到被打死（只有 `/summon` 之类走初始生成的才会进入阶段）；回身鞭（`SkillTree06`）只把带霸体（`skilleffect_08`）的目标抛起，与其他技能“无霸体才位移”相反；乱枝（`SkillTree04shifang`）潜行只给友方枝条写一个无处读取的 `baolie` 标记，没有效果；灰木树梯在实体刻里计数加了两次，存在时间是 26 刻而不是 52 刻。评估为轻微（木篱每次放 9 个永久实体，可被击杀或命令清除），保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q44 | 已在阶段 4 修正并验证（2026-11-28）：`TreeEntities` 将木篱术（`skill_tree_05`）生成参数 `finalize` 改为 `true` 使其正常展开、收起并在 194 刻后消散；回身鞭（`skill_tree_06`）改为 `SkillEntities.movable(other)` 仅抛起无霸体目标；灰木树梯移除模式分支内重复 `setSkillTick` 递增恢复 52 刻寿命；`SkillEntityCheck`（`skillentity`）实机确认木篱按期消失与回身鞭/树梯通过 | [技能](../../systems/skill/architecture.md) |
 | Q45 | 已在阶段 4 修正并验证（2026-11-28）：`LingwenHit` 改按主手 `lingwen` 等级计算生成数量与灵力消耗并扣减**攻击者**灵力，`Relations.initializeRune` 改用独立 `copyFrom` 并由 `lingwennum=1` 起步，不再污染攻击者 `PlayerRelation` 好友列表；`LingwenCheck` 实机通过 | [技能](../../systems/skill/architecture.md) |
 | Q46 | 火鸟术（`SkillFire06`）两处来源行为：2026-11-07完整读取`EntityAnimationFactory.onEntityTick`后撤销此前“飞行动画只播一次”的核对结论；工厂逐刻消费同步名字并复位undefined，后续同名请求能够再次到达。其余两项保持：有目标时的前冲速度竖直分量取 −0.2·sin(俯仰)，没有乘 cos(俯仰)，水平分量也没有乘 cos(俯仰)，俯视目标时前冲方向偏离视线；`OwnerHurtByTargetGoal`（目标类）加在行为选择器而不是目标选择器。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 | Q47 | 起尸诀（`Skillyin01`）四处疑似疏漏：起尸诀附魔 `qishi` 的命中段（`EntityHurt2`）里的 `for (…4…)` 只是在找位置，找完后只放出<b>一只</b>尸体，而技能“起尸诀”放出四只；死亡拥抱的判定区在前冲结束处的前方 3 格（水平）、半边长 0.5，前冲 14 刻共约 5.6 格，目标只有在约 8.6 格外才落在判定内，目标更近时尸体先被目标挡住、判定区落在目标身后而打不到；近身且没有沉默时“普攻”被登记了两次（权重 20 加 20），抽到的概率是其余技能的两倍多；杀死实体让书升级时，修为加的是被杀实体的 `LEVELnumber`（而不是尸体的，多数原版生物没有这个键，所以只有带该键的妖兽等才让书增长），升级只改书的 `LEVELnumber` 与品阶文字 `belongTopinjietext`，品阶数值 `belongTopinjie` 不变，书上显示的品阶可能与品阶数值不一致。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
@@ -156,7 +156,7 @@ updated: 2026-11-26
 
 | Q56 | 雷劫的负功德不增加雷数、正功德抵消的循环上界随扣减变化；玩家死亡分支误写云的玩家能力，跳过只标成功而未清云序列，离维度移除云未补玩家状态。依据 `ThunderBegin`、劫云刻过程与实际绑定的死亡过程，评估轻微，保留来源行为，细节见修炼正文 | [修炼](../../systems/xiulian/architecture.md) |
 
-| Q57 | 18 把弓都是 `SwordItem`，选中时共用 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；其蓄力读取 `synchronizedata.rightclicking`，右键过程为空。两个来源 `src` 与 `elements` 全检未找到有效写入者，B 的 `Zxc` 只有未绑定的编辑器实验块且含 `rifhtclicking` 拼写。按来源迁移条件流程，保留自然右键断链，不新增鼠标同步或改成原版弓；人工注入标记的验证不能宣称自然入口可用。影响仅弓入口，其他移植继续；修复取舍待裁定 | [装备](../../systems/equipment/architecture.md) |
+| Q57 | 已在阶段 4 修正并验证（2026-11-28）：`EquipmentSetup` 与 `content/equipment/items.json` 将 18 把速弓/长弓绑定至新建 `BowWeaponItem`（保留剑属性），主手选中箭矢后右键按下开始蓄力、松手 `releaseBow` 发射、中断 `cancelBow` 清零；`EquipmentWeaponCheck`（`equipmentweapon`）实机通过 | [装备](../../systems/equipment/architecture.md) |
 
 | Q58 | 妖化提示与实际流程有差异：`Jinengyaohua` 只查五个体质标记，没有额外境界门槛；`Yaohua` 用包含护甲和副手的完整41格物品能力统计空位，旧甲移入背包、放不下沿原生给予逻辑掉落；`Yaohuajieshu` 不自动穿回旧甲，延迟回调直接清空当时的槽内物品。影响仅变身入口，评估轻微，保留来源流程、顺序及后果，不增设恢复或库存规则 | [装备](../../systems/equipment/architecture.md) |
 
@@ -171,7 +171,7 @@ updated: 2026-11-26
 | Q65 | 已在阶段 4 修正并验证（2026-11-27）：`FuluUse.activate` 为 21 号符改读玩家体质 `fulunumber + 1`，`fulucooking` 验证原有 3 项生效累加至 4 | [符箓](../../systems/fulu/architecture.md) |
 | Q66 | 已在阶段 4 修正并验证（2026-11-27）：`FuluInstant.fireball` 先写 `CASTER.level46` 再发射，`TalismanProjectile.fireballTick`/`explode` 首刻读并清零 `CASTER.level46`（回退 13 号体质键），`fulucooking` 验证二阶 46 号符命中造成 30 伤 | [符箓](../../systems/fulu/architecture.md) |
 | Q67 | 已在阶段 4 核对并复验（2026-11-27）：目标已通过 `FuluData.CASTER.splitFirst32()` 仅首刻交接并清零，不再每刻复读或抢夺分裂权；`fulucooking` 验证炸出 8 枚子弹并清零标记 | [符箓](../../systems/fulu/architecture.md) |
-| Q68 | 04 装配页只在菜单 `removed()` 时写回八槽；1.18.2 Forge40.1.0 与 NeoForge21.1.265 的断线移除顺序均先保存玩家、再移除实体并关闭菜单，退出时刚修改的装配可能未入档。2026-11-17目标客户端真实同档断线重进确认未关闭菜单的编辑丢失，K重开双端八空槽及中文画面通过；保持来源还是改为保存前写回仍待负责人裁定 | [技能](../../systems/skill/architecture.md#q68-装配页断线保存时序) |
+| Q68 | 已在阶段 4 修正并验证（2026-11-28）：`SkillLoadoutMenu` 在初始化完成后的槽位 `setChanged` 回调及 `SkillSetup` 的 `PlayerLoggedOutEvent` 钩子中即时写回八槽装配数据；`SkillUiCheck`（`skillui`）实机验证打开期间修改八槽并在断线重登后保留完整组件且双端一致 | [技能](../../systems/skill/architecture.md#q68-装配页断线保存时序) |
 
 ### 2026-11-14 续批差异与不确定项
 

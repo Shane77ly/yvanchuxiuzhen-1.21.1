@@ -38,7 +38,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
 
-/** 弓与拂尘的五项主路径检查；弓条件分支显式注入来源无人写入的标记，不把它算作自然右键可用。 */
+/** 弓与拂尘的主路径检查；验证 18 把弓自然右键蓄力、满蓄标记与松手/切换状态发射（Q57）。 */
 final class EquipmentWeaponCheck extends ActionCheck {
     private final List<ItemStack> inventory = new ArrayList<>();
     private CultivationData cultivation;
@@ -119,12 +119,19 @@ final class EquipmentWeaponCheck extends ActionCheck {
                     Skills.selectArrow(p, 2);
                     p.setData(EquipmentData.RIGHT_CLICKING, false);
                     Cultivation.setTizhiDouble(p, "lagongtick", 0);
+                    Cultivation.setTizhiBoolean(p, "manxvli", false);
+                    p.setShiftKeyDown(true);
+                    ItemStack speed = p.getMainHandItem();
+                    speed.enchant(p.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.QUICK_CHARGE), 2);
                     p.getMainHandItem().getItem().use(p.level(), p, InteractionHand.MAIN_HAND);
-                }),
-                new Action(2, p -> {
-                    expectTrue("来源右键空过程不会产生 rightclicking、蓄力或弹体", !Boolean.TRUE.equals(p.getData(EquipmentData.RIGHT_CLICKING))
-                            && Cultivation.tizhiDouble(p, "lagongtick") == 0 && arrows(p).isEmpty());
-                    injectedBow(p);
+                    boolean started = p.isUsingItem() && Boolean.TRUE.equals(p.getData(EquipmentData.RIGHT_CLICKING));
+                    tickEquipment(p);
+                    boolean speedCharge = Cultivation.tizhiDouble(p, "lagongtick") == 6;
+                    p.stopUsingItem();
+                    boolean stopped = !p.isUsingItem() && !Boolean.TRUE.equals(p.getData(EquipmentData.RIGHT_CLICKING))
+                            && Cultivation.tizhiDouble(p, "lagongtick") == 0 && arrows(p).isEmpty();
+                    expectTrue("18把弓自然右键开始蓄力、速弓按期望递增且取消蓄力清空计数（Q57）", started && speedCharge && stopped);
+                    naturalLongbow(p);
                 }),
                 new Action(2, p -> {
                     clear(p);
@@ -137,7 +144,7 @@ final class EquipmentWeaponCheck extends ActionCheck {
                     Cultivation.setTizhiDouble(p, "lagongtick", 60);
                     tickEquipment(p);
                     AbstractArrow arrow = arrows(p).getFirst();
-                    expectTrue("人工蓄力：库存灵气箭允许余额不足时发射，扣至负五并只清箭选择物品",
+                    expectTrue("库存灵气箭允许余额不足时发射，扣至负五并只清箭选择物品",
                             BuiltInRegistries.ENTITY_TYPE.getKey(arrow.getType()).getPath().equals("projectile_skill_arrow_02")
                                     && arrow.isSilent() && Math.abs(arrow.getBaseDamage() - .1) < .00001
                                     && Cultivation.get(p, CultivationValue.POWER) == -5 && Skills.arrow(p).isEmpty()
@@ -147,34 +154,33 @@ final class EquipmentWeaponCheck extends ActionCheck {
         );
     }
 
-    private void injectedBow(ServerPlayer player) {
-        player.setData(EquipmentData.RIGHT_CLICKING, true);
-        player.setShiftKeyDown(true);
-        ItemStack speed = player.getMainHandItem();
-        speed.enchant(player.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.QUICK_CHARGE), 2);
-        tickEquipment(player);
-        boolean speedCharge = Cultivation.tizhiDouble(player, "lagongtick") == 6;
+    private void naturalLongbow(ServerPlayer player) {
         ItemStack longbow = item("weaponlongbow_01");
         longbow.enchant(player.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.QUICK_CHARGE), 2);
         longbow.enchant(player.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key("qingyv")), 2);
         player.getInventory().setItem(0, longbow);
         Cultivation.setTizhiDouble(player, "lagongtick", 0);
+        Cultivation.setTizhiBoolean(player, "manxvli", false);
+        longbow.getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
         tickEquipment(player);
         boolean longCharge = Cultivation.tizhiDouble(player, "lagongtick") == 3;
-        Cultivation.setTizhiDouble(player, "lagongtick", 100);
+        while (Cultivation.tizhiDouble(player, "lagongtick") < 100) {
+            tickEquipment(player);
+        }
         tickEquipment(player);
-        player.setData(EquipmentData.RIGHT_CLICKING, false);
+        boolean fullCharge = Cultivation.tizhiBoolean(player, "manxvli");
         ModifierKeys.update(player, true, true);
-        tickEquipment(player);
+        player.releaseUsingItem();
         Arrow arrow = (Arrow) arrows(player).getFirst();
         CompoundTag saved = arrow.saveWithoutId(new CompoundTag());
         Arrow restored = EntityType.ARROW.create(player.serverLevel());
         restored.load(saved);
-        expectTrue("人工标记：两弓蓄力、普通箭伤害与七格速度、库存耐久、固定击退和五级穿透存档", speedCharge && longCharge
-                && Math.abs(arrow.getBaseDamage() - 4.5) < .00001 && Math.abs(arrow.getDeltaMovement().length() - 7) < .00001
-                && player.getInventory().getItem(1).getCount() == 2 && longbow.getDamageValue() == 1
-                && restored.getType() == EntityType.ARROW && restored.getPierceLevel() == 5
-                && Enchants.level(player, restored.getWeaponItem(), Enchantments.PUNCH) == 1);
+        expectTrue("自然右键松手射箭（Q57）：两弓蓄力、满蓄标记、普通箭伤害与七格速度、库存耐久、固定击退与五级穿透存档",
+                longCharge && fullCharge && !Boolean.TRUE.equals(player.getData(EquipmentData.RIGHT_CLICKING))
+                        && Math.abs(arrow.getBaseDamage() - 4.5) < .00001 && Math.abs(arrow.getDeltaMovement().length() - 7) < .00001
+                        && player.getInventory().getItem(1).getCount() == 2 && longbow.getDamageValue() == 1
+                        && restored.getType() == EntityType.ARROW && restored.getPierceLevel() == 5
+                        && Enchants.level(player, restored.getWeaponItem(), Enchantments.PUNCH) == 1);
         clear(player);
     }
 

@@ -181,7 +181,7 @@ final class TreeEntities {
             }
             SkillEntity hedge = SkillEntities.summon(level, caster, "skill_tree_05", "水", book.manaAttack(), book.damageMultiplier(), book.name());
             hedge.moveTo(x, y, z, level.getRandom().nextFloat() * 360F, 0);
-            SkillEntities.spawn(level, hedge, false);
+            SkillEntities.spawn(level, hedge, true);
             angle += 15;
         }
     }
@@ -361,7 +361,6 @@ final class TreeEntities {
                     }
                 }
                 case "灰木树梯" -> {
-                    self.setSkillTick(self.skillTick() + 1);
                     if (self.skillTick() >= 52) {
                         ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 0, 0, 0, 1);
                         self.discard();
@@ -419,7 +418,7 @@ final class TreeEntities {
 
     /**
      * 藤鞭。毒蔓鞭：第 3 刻对朝前 1.5 格处（水平 4 格、垂直 1 格范围）的非友方实体出手，30% 中毒 600 刻（等级为攻击量），第 16 刻消失；
-     * 回身鞭：第 4 刻对朝前 3 格处 2 格内的非友方实体出手，只把带霸体的目标沿相反视线方向抛起（来源如此，Q44），第 16 刻消失；
+     * 回身鞭：第 4 刻对朝前 3 格处 2 格内的非友方实体出手，仅抛起无霸体的目标（Q44），第 16 刻消失；
      * 地蔓鞭：展开 17 刻后持续 160 刻，按“一、二、三、四、五”的节拍（各 4、8、9、9、9 刻）向前、后、右、左各出手一次（2.5 格外 2.5 格范围，一轮后回到“一”），
      * 收起 12 刻后消失。
      */
@@ -451,7 +450,7 @@ final class TreeEntities {
                         for (Entity other : ProjectileSupport.around(level, ahead(self, 3), 2)) {
                             if (!ProjectileSupport.friendly(self, other)) {
                                 sting(self, other);
-                                if (other instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08")) {
+                                if (SkillEntities.movable(other)) {
                                     other.setDeltaMovement(new Vec3(-self.getLookAngle().x, 0.5, -self.getLookAngle().z));
                                 }
                             }

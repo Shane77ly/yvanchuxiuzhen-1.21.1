@@ -82,16 +82,17 @@ final class SkillEntityCheck extends SystemCheck {
     private static final int WAIT = 70;
 
     /** 造成伤害的检查：灵力伤害有 1% 的闪避随机数为 0，没有伤害时同一技能重试一次。 */
-    private static final Set<Kind> DAMAGING = EnumSet.of(Kind.BALL, Kind.METEOR, Kind.COLUMN, Kind.ROLL, Kind.HAND_ONE, Kind.HAND_TWO, Kind.HAMMER_ONE,
+    private static final Set<Kind> DAMAGING = EnumSet.of(Kind.BALL, Kind.CONTROL, Kind.COLUMN, Kind.ROLL, Kind.HAND_ONE, Kind.HAND_TWO, Kind.HAMMER_ONE,
             Kind.HAMMER_TWO, Kind.GOLD_NORMAL, Kind.GOLD_BIND, Kind.GOLD_SKY, Kind.ICE_FIELD, Kind.ICE_SPIKE, Kind.LIGHT_BURST, Kind.THUNDER_PALM,
             Kind.THUNDER_FIELD, Kind.WATER_WHIP, Kind.WATER_JET, Kind.WATER_DRAGON, Kind.ORB_FLOAT, Kind.ORB_BURST, Kind.ORB_DROP, Kind.ORB_SNEAK, Kind.SPIRIT, Kind.TREE_SWORD, Kind.TREE_SWORD_SNEAK, Kind.TREE_SWORD_CTRL,
             Kind.TREE_SWORD_ALT, Kind.TREE_SEED, Kind.TREE_LASH, Kind.TREE_BACK, Kind.TREE_GROUND);
 
-    /** 水灵阵 40 刻后才开始放水灵弹，玲珑阵 60 刻后才第一次回血，等待时间相应加长。 */
+    /** 水灵阵 40 刻后才开始放水灵弹，玲珑阵 60 刻后才第一次回血，木篱需 194 刻完成展开与收起。 */
     private static int waitTicks(Kind kind) {
         return switch (kind) {
             case SPIRIT -> 110;
             case HEAL -> 90;
+            case TREE_HEDGE -> 200;
             default -> WAIT;
         };
     }
@@ -307,14 +308,17 @@ final class SkillEntityCheck extends SystemCheck {
                         return;
                     }
                     switch (spell.kind()) {
-                        case BALL, METEOR -> {
+                        case BALL -> {
                             expectTrue(spell.name() + " 爆炸伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 点燃目标", golem.getRemainingFireTicks() > 0 || golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 爆炸后消失", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
                         }
+                        case METEOR -> expectTrue(spell.name() + " 爆炸后消失",
+                                player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
                         case IGNITE -> expectTrue(spell.name() + " 点燃面前的目标 " + golem.getRemainingFireTicks(), golem.getRemainingFireTicks() > 0);
                         case CONTROL -> {
                             expectTrue(spell.name() + " 熄灭火焰", player.serverLevel().getBlockState(firePos).isAir());
+                            expectTrue(spell.name() + " 伤人（Q41） " + golem.getHealth(), golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 点燃目标", golem.getRemainingFireTicks() > 0);
                         }
                         case SHIELD -> expectTrue(spell.name() + " 获得抗火", player.hasEffect(MobEffects.FIRE_RESISTANCE));
@@ -365,7 +369,7 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 爆裂伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 到时消失", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
                         }
-                        case TREE_HEDGE -> expect(spell.name() + " 木篱留在原处（Q44）", 9, player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).size());
+                        case TREE_HEDGE -> expectTrue(spell.name() + " 木篱按期展开收起后到时消失（Q44）", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
                         case ORB_FLOAT -> {
                             expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 收为乘客", golem.getVehicle() instanceof SkillEntity);

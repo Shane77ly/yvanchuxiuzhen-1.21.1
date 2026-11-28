@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
@@ -14,6 +15,7 @@ import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.equipment.content.BowWeaponItem;
 import net.yvanchuxiuzhen.system.equipment.content.CustomArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
@@ -123,6 +125,13 @@ public final class EquipmentSetup {
                 LegacyTier tier = LegacyTier.of(tool.tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Gongjv008Item(tier,
                         properties.attributes(ShovelItem.createAttributes(tier, tool.damage().orElseThrow(), tool.attackSpeed().orElseThrow())), tooltip));
+            }
+            if (row.factory().startsWith("equipment:weaponspeedbow_") || row.factory().startsWith("equipment:weaponlongbow_")) {
+                ItemRow.Tool tool = row.tool().orElseThrow();
+                LegacyTier tier = LegacyTier.of(tool.tier());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new BowWeaponItem(tier,
+                        properties.attributes(SwordItem.createAttributes(tier, tool.damage().orElseThrow(), tool.attackSpeed().orElseThrow())),
+                        tooltip));
             }
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
